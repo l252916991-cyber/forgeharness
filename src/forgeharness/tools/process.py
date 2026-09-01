@@ -1,0 +1,56 @@
+"""Cancellation-safe subprocess execution with a sanitized environment."""
+
+from __future__ import annotations
+
+import asyncio
+import os
+from pathlib import Path
+
+from forgeharness.domain.models import FrozenModel
+
+
+class CommandResult(FrozenModel):
+    """Bounded subprocess evidence returned by a fixed-purpose tool."""
+
+    exit_code: int
+    output: str
+    truncated: bool
+
+
+def sanitized_environment() -> dict[str, str]:
+    """Keep execution essentials while excluding credentials by default."""
+    allowed = ("PATH", "VIRTUAL_ENV", "PYTHONPATH", "LANG", "LC_ALL", "TMPDIR")
+    return {name: os.environ[name] for name in allowed if name in os.environ}
+
+
+async def run_command(
+    command: tuple[str, ...], *, workspace: Path, max_output_bytes: int = 50_000
+) -> CommandResult:
+    """Run a preconstructed argv vector and terminate the child when cancelled."""
+    if not command:
+        raise ValueError("command must not be empty")
+    if max_output_bytes < 1:
+        raise ValueError("max_output_bytes must be positive")
+    process = await asyncio.create_subprocess_exec(
+        *command,
+        cwd=workspace,
+        env=sanitized_environment(),
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.STDOUT,
+        start_new_session=True,
+    )
+    try:
+        stdout, _ = await process.communicate()
+    except asyncio.CancelledError:
+        process.kill()
+        await process.wait()
+        raise
+    truncated = len(stdout) > max_output_bytes
+    bounded = stdout[:max_output_bytes]
+    if process.returncode is None:
+        raise RuntimeError("subprocess completed without an exit code")
+    return CommandResult(
+        exit_code=process.returncode,
+        output=bounded.decode("utf-8", errors="replace"),
+        truncated=truncated,
+    )

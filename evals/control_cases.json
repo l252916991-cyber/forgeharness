@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {"id": "tool-success", "kind": "tool_success", "expected": "succeeded"},
+    {"id": "unknown-tool", "kind": "unknown_tool_recovery", "expected": "succeeded"},
+    {"id": "tool-budget", "kind": "tool_budget_exhaustion", "expected": "exhausted"},
+    {"id": "model-failure", "kind": "model_failure", "expected": "failed"},
+    {"id": "approval-gate", "kind": "approval_suspension", "expected": "awaiting_approval"},
+    {"id": "trace-tamper", "kind": "trace_tamper_detection", "expected": "detected"},
+    {"id": "memory-review", "kind": "memory_review_gate", "expected": "gated"}
+  ]
+}
