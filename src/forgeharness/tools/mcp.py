@@ -34,6 +34,8 @@ class MCPClientConfig(BaseModel):
     client_version: str = "0.1.0"
     bearer_token: str | None = None
     timeout_seconds: float = Field(default=30.0, gt=0)
+    max_pages: int = Field(default=100, ge=1, le=1_000)
+    max_tools: int = Field(default=1_000, ge=1, le=10_000)
 
 
 class MCPToolDescription(FrozenModel):
@@ -75,23 +77,29 @@ class StatelessHTTPMCPClient:
         """Follow opaque cursors until all available tools are collected."""
         tools: list[MCPToolDescription] = []
         cursor: str | None = None
-        while True:
+        seen_cursors: set[str] = set()
+        for _ in range(self._config.max_pages):
             params = self._params()
             if cursor is not None:
                 params["cursor"] = cursor
             result = await self._request("tools/list", params=params)
             try:
-                tools.extend(
-                    MCPToolDescription.model_validate(item) for item in result.get("tools", [])
-                )
+                page = [MCPToolDescription.model_validate(item) for item in result.get("tools", [])]
             except ValidationError as exc:
                 raise MCPProtocolError(f"invalid tools/list result: {exc}") from exc
+            if len(tools) + len(page) > self._config.max_tools:
+                raise MCPProtocolError("tools/list exceeded configured tool limit")
+            tools.extend(page)
             next_cursor = result.get("nextCursor")
             if not next_cursor:
                 return tuple(tools)
             if not isinstance(next_cursor, str):
                 raise MCPProtocolError("tools/list nextCursor must be a string")
+            if next_cursor in seen_cursors:
+                raise MCPProtocolError("tools/list repeated a pagination cursor")
+            seen_cursors.add(next_cursor)
             cursor = next_cursor
+        raise MCPProtocolError("tools/list exceeded configured page limit")
 
     async def call_tool(self, name: str, arguments: dict[str, Any]) -> MCPToolResult:
         """Invoke a remote tool with per-request client metadata."""

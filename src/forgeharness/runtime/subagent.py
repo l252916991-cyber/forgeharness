@@ -11,7 +11,14 @@ from forgeharness.models.base import Model
 from forgeharness.observability.trace import InMemoryTrace
 from forgeharness.runtime.budget import RunBudget
 from forgeharness.runtime.loop import AgentRuntime
-from forgeharness.tools.base import RiskLevel, Tool, ToolContext, ToolOutput, ToolSpec
+from forgeharness.tools.base import (
+    ExecutionAllowance,
+    RiskLevel,
+    Tool,
+    ToolContext,
+    ToolOutput,
+    ToolSpec,
+)
 from forgeharness.tools.dispatcher import ToolDispatcher
 from forgeharness.tools.policy import ToolPolicy
 from forgeharness.tools.registry import ToolRegistry
@@ -73,6 +80,12 @@ class SubAgentTool:
     async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
         """Run the child with a reduced registry and return its trace and charged usage."""
         values = DelegateInput.model_validate(arguments)
+        allowance = context.allowance
+        if allowance is not None and allowance.remaining_steps == 0:
+            return ToolOutput(
+                ok=False,
+                content="sub-agent not started: parent has no remaining model steps",
+            )
         registry = ToolRegistry()
         for tool in self._tools:
             registry.register(tool)
@@ -84,12 +97,7 @@ class SubAgentTool:
             dispatcher=ToolDispatcher(registry, timeout_seconds=self._timeout_seconds),
             policy=self._policy,
             trace=trace,
-            budget=RunBudget(
-                max_steps=self._subagent_spec.max_steps,
-                max_tool_calls=self._subagent_spec.max_tool_calls,
-                max_input_tokens=self._subagent_spec.max_input_tokens,
-                max_output_tokens=self._subagent_spec.max_output_tokens,
-            ),
+            budget=self._child_budget(allowance),
         )
         result = await runtime.run(
             task_id=child_id,
@@ -109,6 +117,25 @@ class SubAgentTool:
                 "trace": [event.model_dump(mode="json") for event in trace.events],
             },
             usage=result.usage,
+        )
+
+    def _child_budget(self, allowance: ExecutionAllowance | None) -> RunBudget:
+        if allowance is None:
+            return RunBudget(
+                max_steps=self._subagent_spec.max_steps,
+                max_tool_calls=self._subagent_spec.max_tool_calls,
+                max_input_tokens=self._subagent_spec.max_input_tokens,
+                max_output_tokens=self._subagent_spec.max_output_tokens,
+            )
+        return RunBudget(
+            max_steps=min(self._subagent_spec.max_steps, allowance.remaining_steps),
+            max_tool_calls=min(self._subagent_spec.max_tool_calls, allowance.remaining_tool_calls),
+            max_input_tokens=min(
+                self._subagent_spec.max_input_tokens, allowance.remaining_input_tokens
+            ),
+            max_output_tokens=min(
+                self._subagent_spec.max_output_tokens, allowance.remaining_output_tokens
+            ),
         )
 
 

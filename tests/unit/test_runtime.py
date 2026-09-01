@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 from pydantic import BaseModel
 
+from forgeharness.context.compression import ObservationCompressor
 from forgeharness.domain.models import (
     FinalAction,
     Message,
@@ -64,6 +65,7 @@ def build_runtime(
     extra_tools: tuple[RiskTool, ...] = (),
     approval_ledger: InMemoryApprovalLedger | None = None,
     checkpoint_store: SQLiteCheckpointStore | None = None,
+    observation_compressor: ObservationCompressor | None = None,
 ) -> AgentRuntime:
     registry = ToolRegistry()
     registry.register(EchoTool())
@@ -78,6 +80,7 @@ def build_runtime(
         budget=budget,
         approval_ledger=approval_ledger,
         checkpoint_store=checkpoint_store,
+        observation_compressor=observation_compressor,
     )
 
 
@@ -351,3 +354,29 @@ async def test_runtime_checks_tool_budget_before_dispatch(tmp_path: Path) -> Non
     assert result.status == RunStatus.EXHAUSTED
     assert result.error == "tool-call budget exhausted"
     assert result.usage.tool_calls == 0
+
+
+async def test_runtime_compresses_model_visible_observations(tmp_path: Path) -> None:
+    model = ScriptedModel(
+        [
+            ModelResult(
+                action=ToolAction(
+                    call=ToolCall(id="call-1", name="echo", arguments={"text": "x" * 500})
+                )
+            ),
+            ModelResult(action=FinalAction(content="done")),
+        ]
+    )
+    runtime = build_runtime(
+        model,
+        InMemoryTrace("task-1"),
+        observation_compressor=ObservationCompressor(max_chars=200),
+    )
+
+    result = await runtime.run(task_id="task-1", task="compress", workspace=tmp_path)
+
+    assert result.status == RunStatus.SUCCEEDED
+    observation = model.requests[1].messages[-1].content
+    assert observation is not None
+    assert observation.startswith("[compressed observation:")
+    assert len(observation) <= 200

@@ -24,11 +24,20 @@ class DispatchResult(FrozenModel):
 class ToolDispatcher:
     """Resolve, validate, and execute tools without leaking exceptions to the loop."""
 
-    def __init__(self, registry: ToolRegistry, *, timeout_seconds: float = 30.0) -> None:
+    def __init__(
+        self,
+        registry: ToolRegistry,
+        *,
+        timeout_seconds: float = 30.0,
+        max_output_chars: int = 50_000,
+    ) -> None:
         if timeout_seconds <= 0:
             raise ValueError("timeout_seconds must be positive")
+        if max_output_chars < 100:
+            raise ValueError("max_output_chars must be at least 100")
         self._registry = registry
         self._timeout_seconds = timeout_seconds
+        self._max_output_chars = max_output_chars
 
     async def dispatch(self, call: ToolCall, context: ToolContext) -> DispatchResult:
         """Execute one call and convert failures into structured observations."""
@@ -53,7 +62,21 @@ class ToolDispatcher:
                 ok=False,
                 content=f"tool execution failed: {type(exc).__name__}: {exc}",
             )
-        return DispatchResult(output=output, elapsed_ms=self._elapsed_ms(started))
+        return DispatchResult(
+            output=self._bound_output(output), elapsed_ms=self._elapsed_ms(started)
+        )
+
+    def _bound_output(self, output: ToolOutput) -> ToolOutput:
+        if len(output.content) <= self._max_output_chars:
+            return output
+        suffix = "\n[tool output truncated]"
+        content = output.content[: self._max_output_chars - len(suffix)] + suffix
+        return output.model_copy(
+            update={
+                "content": content,
+                "metadata": {**output.metadata, "output_truncated": True},
+            }
+        )
 
     @staticmethod
     def _elapsed_ms(started: float) -> int:

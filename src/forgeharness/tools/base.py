@@ -37,6 +37,15 @@ class ToolSpec(FrozenModel):
     schema_source: SchemaSource = SchemaSource.PYDANTIC
 
 
+class ExecutionAllowance(FrozenModel):
+    """Parent-owned resources a nested tool may consume during this dispatch."""
+
+    remaining_steps: int = Field(ge=0)
+    remaining_tool_calls: int = Field(ge=0)
+    remaining_input_tokens: int = Field(ge=0)
+    remaining_output_tokens: int = Field(ge=0)
+
+
 class ToolContext(BaseModel):
     """Runtime-owned values passed to a tool after policy approval."""
 
@@ -44,6 +53,7 @@ class ToolContext(BaseModel):
 
     task_id: str
     workspace: Path
+    allowance: ExecutionAllowance | None = None
 
 
 class ToolOutput(FrozenModel):

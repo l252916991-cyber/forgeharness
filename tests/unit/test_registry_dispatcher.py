@@ -67,6 +67,22 @@ class InvalidSchemaTool(FailingTool):
         )
 
 
+class LongOutputTool(FailingTool):
+    """Return content larger than the dispatcher output contract."""
+
+    @property
+    def spec(self) -> ToolSpec:
+        return ToolSpec(
+            name="long_output",
+            description="Return excessive output.",
+            input_schema=EmptyInput.model_json_schema(),
+        )
+
+    async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
+        del arguments, context
+        return ToolOutput(ok=True, content="x" * 500, metadata={"source": "test"})
+
+
 def test_registry_rejects_duplicate_tool() -> None:
     registry = ToolRegistry()
     registry.register(EchoTool())
@@ -87,6 +103,8 @@ def test_registry_rejects_schema_mismatch() -> None:
 def test_dispatcher_rejects_non_positive_timeout() -> None:
     with pytest.raises(ValueError, match="must be positive"):
         ToolDispatcher(ToolRegistry(), timeout_seconds=0)
+    with pytest.raises(ValueError, match="at least 100"):
+        ToolDispatcher(ToolRegistry(), max_output_chars=99)
 
 
 async def test_dispatcher_returns_validation_error_as_observation(tmp_path: Path) -> None:
@@ -136,3 +154,17 @@ async def test_dispatcher_enforces_timeout(tmp_path: Path) -> None:
 
     assert result.output.ok is False
     assert result.output.content == "tool execution timed out"
+
+
+async def test_dispatcher_bounds_all_tool_output(tmp_path: Path) -> None:
+    registry = ToolRegistry()
+    registry.register(LongOutputTool())
+
+    result = await ToolDispatcher(registry, max_output_chars=100).dispatch(
+        ToolCall(id="call-1", name="long_output"),
+        ToolContext(task_id="task-1", workspace=tmp_path),
+    )
+
+    assert len(result.output.content) == 100
+    assert result.output.content.endswith("[tool output truncated]")
+    assert result.output.metadata == {"source": "test", "output_truncated": True}

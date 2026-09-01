@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import os
+import signal
 from pathlib import Path
 
 from forgeharness.domain.models import FrozenModel
@@ -42,7 +43,10 @@ async def run_command(
     try:
         stdout, _ = await process.communicate()
     except asyncio.CancelledError:
-        process.kill()
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
         await process.wait()
         raise
     truncated = len(stdout) > max_output_bytes

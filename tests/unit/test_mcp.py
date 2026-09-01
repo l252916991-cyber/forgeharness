@@ -143,3 +143,16 @@ async def test_client_rejects_json_rpc_error_and_wrong_media_type() -> None:
     )
     with pytest.raises(MCPProtocolError, match="unsupported MCP response media type"):
         await sse_client.list_tools()
+
+
+async def test_client_rejects_repeated_pagination_cursor() -> None:
+    client = client_with_responses(
+        [
+            {"jsonrpc": "2.0", "id": 1, "result": {"tools": [], "nextCursor": "same"}},
+            {"jsonrpc": "2.0", "id": 2, "result": {"tools": [], "nextCursor": "same"}},
+        ],
+        [],
+    )
+
+    with pytest.raises(MCPProtocolError, match="repeated a pagination cursor"):
+        await client.list_tools()

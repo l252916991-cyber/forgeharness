@@ -15,6 +15,7 @@ from forgeharness.domain.models import (
 )
 from forgeharness.models.scripted import ScriptedModel
 from forgeharness.observability.trace import InMemoryTrace
+from forgeharness.runtime.budget import RunBudget
 from forgeharness.runtime.loop import AgentRuntime
 from forgeharness.runtime.subagent import SubAgentSpec, SubAgentTool
 from forgeharness.tools.base import RiskLevel, ToolContext, ToolOutput, ToolSpec
@@ -125,3 +126,54 @@ def test_subagent_rejects_tools_outside_declared_risk_scope() -> None:
             tools=(WriteTool(),),
             policy=RiskBasedPolicy(),
         )
+
+
+async def test_subagent_is_clamped_to_parent_remaining_steps(tmp_path: Path) -> None:
+    child_model = ScriptedModel(
+        [
+            ModelResult(
+                action=ToolAction(
+                    call=ToolCall(id="child-tool", name="echo", arguments={"text": "one"})
+                )
+            ),
+            ModelResult(action=FinalAction(content="would exceed parent")),
+        ]
+    )
+    delegate = SubAgentTool(
+        spec=SubAgentSpec(
+            name="reviewer",
+            description="Review within the parent budget.",
+            instructions="Review.",
+            max_steps=10,
+        ),
+        model=child_model,
+        tools=(EchoTool(),),
+        policy=RiskBasedPolicy(),
+    )
+    parent_model = ScriptedModel(
+        [
+            ModelResult(
+                action=ToolAction(
+                    call=ToolCall(
+                        id="delegate", name="delegate_reviewer", arguments={"task": "review"}
+                    )
+                )
+            )
+        ]
+    )
+    registry = ToolRegistry()
+    registry.register(delegate)
+    runtime = AgentRuntime(
+        model=parent_model,
+        registry=registry,
+        dispatcher=ToolDispatcher(registry),
+        policy=RiskBasedPolicy(),
+        trace=InMemoryTrace("parent"),
+        budget=RunBudget(max_steps=2),
+    )
+
+    result = await runtime.run(task_id="parent", task="delegate", workspace=tmp_path)
+
+    assert result.status == RunStatus.EXHAUSTED
+    assert result.usage.steps == 2
+    assert len(child_model.requests) == 1

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from forgeharness.context.compression import ObservationCompressor
 from forgeharness.domain.models import (
     FinalAction,
     Message,
@@ -19,7 +20,7 @@ from forgeharness.observability.trace import TraceRecorder
 from forgeharness.runtime.budget import RunBudget
 from forgeharness.state.approval import ApprovalGrant, ApprovalLedger
 from forgeharness.state.checkpoint import CheckpointConflict, CheckpointStore
-from forgeharness.tools.base import ToolContext
+from forgeharness.tools.base import ExecutionAllowance, ToolContext
 from forgeharness.tools.dispatcher import ToolDispatcher
 from forgeharness.tools.policy import PolicyDecisionType, ToolPolicy
 from forgeharness.tools.registry import ToolRegistry
@@ -39,6 +40,7 @@ class AgentRuntime:
         budget: RunBudget | None = None,
         approval_ledger: ApprovalLedger | None = None,
         checkpoint_store: CheckpointStore | None = None,
+        observation_compressor: ObservationCompressor | None = None,
     ) -> None:
         self._model = model
         self._registry = registry
@@ -48,6 +50,7 @@ class AgentRuntime:
         self._budget = budget or RunBudget()
         self._approval_ledger = approval_ledger
         self._checkpoint_store = checkpoint_store
+        self._observation_compressor = observation_compressor or ObservationCompressor()
 
     async def run(
         self,
@@ -102,13 +105,14 @@ class AgentRuntime:
         self._trace.append("approval.consumed", {"tool": call.name, "granted_by": grant.granted_by})
         messages = list(previous.messages)
         dispatch = await self._dispatcher.dispatch(
-            call, ToolContext(task_id=previous.task_id, workspace=workspace)
+            call, self._tool_context(previous.task_id, workspace, previous.usage)
         )
         usage = self._account_tool_usage(previous.usage, dispatch.output.usage)
+        observation = self._observation(dispatch.output.content)
         messages.append(
             Message(
                 role=MessageRole.TOOL,
-                content=dispatch.output.content,
+                content=observation,
                 tool_call_id=call.id,
                 tool_name=call.name,
             )
@@ -119,7 +123,7 @@ class AgentRuntime:
                 "tool": call.name,
                 "ok": dispatch.output.ok,
                 "elapsed_ms": dispatch.elapsed_ms,
-                "observation": dispatch.output.content,
+                "observation": observation,
                 "metadata": dispatch.output.metadata,
             },
         )
@@ -276,17 +280,18 @@ class AgentRuntime:
                 continue
 
             dispatch = await self._dispatcher.dispatch(
-                action.call, ToolContext(task_id=task_id, workspace=workspace)
+                action.call, self._tool_context(task_id, workspace, usage)
             )
             usage = self._account_tool_usage(usage, dispatch.output.usage)
-            messages.append(self._tool_message(action, dispatch.output.content))
+            observation = self._observation(dispatch.output.content)
+            messages.append(self._tool_message(action, observation))
             self._trace.append(
                 "tool.completed",
                 {
                     "tool": action.call.name,
                     "ok": dispatch.output.ok,
                     "elapsed_ms": dispatch.elapsed_ms,
-                    "observation": dispatch.output.content,
+                    "observation": observation,
                     "metadata": dispatch.output.metadata,
                 },
             )
@@ -306,6 +311,23 @@ class AgentRuntime:
             usage.input_tokens >= self._budget.max_input_tokens
             or usage.output_tokens >= self._budget.max_output_tokens
         )
+
+    def _tool_context(self, task_id: str, workspace: Path, usage: Usage) -> ToolContext:
+        return ToolContext(
+            task_id=task_id,
+            workspace=workspace,
+            allowance=ExecutionAllowance(
+                remaining_steps=max(0, self._budget.max_steps - usage.steps),
+                remaining_tool_calls=max(0, self._budget.max_tool_calls - usage.tool_calls - 1),
+                remaining_input_tokens=max(0, self._budget.max_input_tokens - usage.input_tokens),
+                remaining_output_tokens=max(
+                    0, self._budget.max_output_tokens - usage.output_tokens
+                ),
+            ),
+        )
+
+    def _observation(self, content: str) -> str:
+        return self._observation_compressor.compress(content)
 
     @staticmethod
     def _tool_message(action: ToolAction, content: str) -> Message:

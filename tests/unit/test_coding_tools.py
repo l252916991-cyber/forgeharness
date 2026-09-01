@@ -1,5 +1,6 @@
 """Integration-style tests for confined Coding Agent tools."""
 
+import asyncio
 import hashlib
 import shutil
 import sys
@@ -133,6 +134,49 @@ async def test_fixed_test_command_and_git_diff(tmp_path: Path) -> None:
 
     assert diff.ok is True
     assert "+    assert True" in diff.content
+
+
+async def test_run_command_cancellation_kills_descendant_processes(tmp_path: Path) -> None:
+    marker = tmp_path / "orphan.txt"
+    child = (
+        "import pathlib,sys,time; time.sleep(0.2); pathlib.Path(sys.argv[1]).write_text('orphan')"
+    )
+    parent = (
+        "import subprocess,sys,time; "
+        "subprocess.Popen([sys.executable, '-c', sys.argv[1], sys.argv[2]]); "
+        "time.sleep(10)"
+    )
+    task = asyncio.create_task(
+        run_command(
+            (sys.executable, "-c", parent, child, str(marker)),
+            workspace=tmp_path,
+        )
+    )
+    await asyncio.sleep(0.05)
+    task.cancel()
+
+    with pytest.raises(asyncio.CancelledError):
+        await task
+    await asyncio.sleep(0.25)
+    assert not marker.exists()
+
+
+async def test_run_command_does_not_forward_credentials(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("FORGE_API_KEY", "must-not-leak")
+
+    result = await run_command(
+        (
+            sys.executable,
+            "-c",
+            "import os; print(os.environ.get('FORGE_API_KEY', 'missing'))",
+        ),
+        workspace=tmp_path,
+    )
+
+    assert result.exit_code == 0
+    assert result.output == "missing\n"
 
 
 def test_coding_policy_allows_fixed_tests_but_denies_other_process() -> None:
