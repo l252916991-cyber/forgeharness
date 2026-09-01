@@ -2,6 +2,8 @@
 
 This file is the source of truth for the implemented/planned boundary of the current audit candidate.
 
+The final gate passed for candidate revision `e3a8a38f5fdb4becdf7ff61fb349ce721be3e169`. See [`review/AUDIT.md`](review/AUDIT.md) and the revision-bound control report.
+
 ## Implemented and tested
 
 | Area | Evidence |

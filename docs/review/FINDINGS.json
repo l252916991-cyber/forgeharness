@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "candidate_revision": "e3a8a38f5fdb4becdf7ff61fb349ce721be3e169",
+  "audit_status": "passed",
+  "findings": [
+    {
+      "id": "FH-001",
+      "severity": "high",
+      "status": "closed",
+      "title": "Sub-agent budget was enforced only after execution",
+      "evidence": "tests/unit/test_subagent.py::test_subagent_is_clamped_to_parent_remaining_steps",
+      "resolution": "Added a parent-owned ExecutionAllowance to ToolContext and clamp every child RunBudget before dispatch."
+    },
+    {
+      "id": "FH-002",
+      "severity": "high",
+      "status": "closed",
+      "title": "Remote tools could return unbounded output or repeat MCP cursors",
+      "evidence": "tests/unit/test_registry_dispatcher.py::test_dispatcher_bounds_all_tool_output; tests/unit/test_mcp.py::test_client_rejects_repeated_pagination_cursor",
+      "resolution": "Bound all dispatcher output and added MCP page, tool-count, and repeated-cursor guards."
+    },
+    {
+      "id": "FH-003",
+      "severity": "high",
+      "status": "closed",
+      "title": "Cancelled test commands could leave descendant processes running",
+      "evidence": "tests/unit/test_coding_tools.py::test_run_command_cancellation_kills_descendant_processes",
+      "resolution": "Terminate the subprocess session's process group on cancellation and wait for its exit."
+    },
+    {
+      "id": "FH-004",
+      "severity": "medium",
+      "status": "closed",
+      "title": "Locked pytest version had a published vulnerability",
+      "evidence": "pip-audit reported PYSEC-2026-1845 for pytest 8.4.2",
+      "resolution": "Raised the test dependency floor to pytest 9.0.3, resolved 9.1.1, reran all tests, and obtained a clean pip-audit result."
+    },
+    {
+      "id": "FH-005",
+      "severity": "medium",
+      "status": "accepted",
+      "title": "Filesystem confinement is not an OS sandbox",
+      "evidence": "docs/STATUS.md implemented limits; tests/unit/test_paths_repository.py",
+      "resolution": "Keep path and symlink checks plus exact write approval; require a disposable user-selected worktree and explicitly defer OS isolation."
+    },
+    {
+      "id": "FH-006",
+      "severity": "medium",
+      "status": "accepted",
+      "title": "Trace redaction cannot classify arbitrary sensitive source text",
+      "evidence": "docs/STATUS.md trace limit; tests/unit/test_memory_trace.py",
+      "resolution": "Redact credential-shaped keys and values, document the boundary, and keep trace storage local by default."
+    },
+    {
+      "id": "FH-007",
+      "severity": "medium",
+      "status": "accepted",
+      "title": "Approval grants are not durable across CLI processes",
+      "evidence": "docs/STATUS.md approval limit; src/forgeharness/state/approval.py",
+      "resolution": "Persist run checkpoints but constrain approvals to the interactive process; defer a durable approval service rather than imply crash-safe approval resume."
+    },
+    {
+      "id": "FH-008",
+      "severity": "low",
+      "status": "accepted",
+      "title": "No real-model or SWE-bench quality result is included",
+      "evidence": "docs/EVALUATION.md current evidence",
+      "resolution": "Keep credentialed benchmarks optional and prohibit quantitative quality claims until a revision-bound report exists."
+    }
+  ]
+}

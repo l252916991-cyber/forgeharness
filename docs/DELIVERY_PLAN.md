@@ -1,6 +1,6 @@
 # Delivery plan
 
-Status at the current audit candidate: M0–M5 core deliverables are implemented with the limits in [`STATUS.md`](STATUS.md); M6 has a CLI, local API, and keyless control report; M7 final review is still pending.
+Status at the current audit candidate: M0–M6 are implemented with the limits in [`STATUS.md`](STATUS.md). M7 passed for revision `e3a8a38f5fdb4becdf7ff61fb349ce721be3e169`; findings and residual risks are recorded under [`docs/review`](review/AUDIT.md).
 
 ## Delivery strategy
 

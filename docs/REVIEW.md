@@ -52,3 +52,4 @@ The final review is a release gate, not a documentation exercise.
 
 The audit candidate must produce a machine-readable findings file, a human review report, command logs, test/evaluation reports, the reviewed Git revision, and a residual-risk statement.
 
+The current audit evidence is [`review/AUDIT.md`](review/AUDIT.md), [`review/FINDINGS.json`](review/FINDINGS.json), and [`../reports/control-eval.json`](../reports/control-eval.json).
