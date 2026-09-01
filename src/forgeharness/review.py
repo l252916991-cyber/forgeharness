@@ -19,7 +19,6 @@ REQUIRED_DOCUMENTS = (
     "docs/DELIVERY_PLAN.md",
     "docs/EVALUATION.md",
     "docs/STATUS.md",
-    "docs/RESUME_CN.md",
     "docs/REFERENCES.md",
     "docs/REVIEW.md",
 )

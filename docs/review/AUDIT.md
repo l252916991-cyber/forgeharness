@@ -41,7 +41,7 @@ The keyless control manifest is immutable by hash and separates Harness-control 
 
 ### Documentation and resume claims
 
-README, architecture, status, evaluation, and Chinese resume guidance agree on implemented behavior. Quantitative control claims point to the revision-bound report. Unsupported claims are listed explicitly in `docs/STATUS.md` and `docs/RESUME_CN.md`.
+README, architecture, status, and evaluation documentation agree on implemented behavior. Quantitative control claims point to the revision-bound report. Chinese resume guidance was reviewed with the candidate and is maintained separately from the project repository.
 
 ## Findings summary
 

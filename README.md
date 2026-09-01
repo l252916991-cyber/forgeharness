@@ -84,7 +84,6 @@ The API intentionally exposes only a keyless demo and read-only run/trace inspec
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — module, state, and trust boundaries.
 - [`docs/EVALUATION.md`](docs/EVALUATION.md) — metrics, datasets, and reporting rules.
 - [`docs/STATUS.md`](docs/STATUS.md) — implemented/planned boundary and known limitations.
-- [`docs/RESUME_CN.md`](docs/RESUME_CN.md) — Chinese resume bullets and interview talking points.
 - [`docs/REVIEW.md`](docs/REVIEW.md) — mandatory final audit protocol.
 - [`docs/REFERENCES.md`](docs/REFERENCES.md) — specifications, baselines, and attribution.
 
