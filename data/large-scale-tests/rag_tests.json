@@ -1,0 +1,20 @@
+[
+  {
+    "id": "rag_001",
+    "query": "What is Python?",
+    "expected_answer": "Python is a high-level programming language",
+    "category": "factual"
+  },
+  {
+    "id": "rag_002",
+    "query": "How do you define a function in Python?",
+    "expected_answer": "Use the def keyword followed by function name and parameters",
+    "category": "factual"
+  },
+  {
+    "id": "rag_003",
+    "query": "What is the difference between list and tuple in Python?",
+    "expected_answer": "Lists are mutable while tuples are immutable",
+    "category": "comparison"
+  }
+]

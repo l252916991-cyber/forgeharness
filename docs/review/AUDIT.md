@@ -1,53 +1,85 @@
-# Final audit report
+# Enhanced-candidate audit — 2026-09-04
 
-## Decision
+## Decision: hold, not complete
 
-Passed for candidate revision `e3a8a38f5fdb4becdf7ff61fb349ce721be3e169` on 2026-09-02. No blocker or high-severity finding remains open. Medium residual risks are explicit product limits rather than hidden claims.
+The offline engineering candidate passes, but the full user-approved enhancement
+plan does not yet pass final review. Open high findings FH-015, FH-016, and FH-017
+must be resolved; interview preparation also has unfinished scope (FH-018).
+`forge review` is expected to fail with these findings. This is an intentional
+release hold, not a passing review obtained by accepting required work as a limit.
 
-## Verification evidence
+The original 91-test audit is historical and does not authorize this release.
 
-| Check | Result |
+- Base Git revision: `9617025a134c36f3606931dcf356516b9323546a`.
+- Exact 130-file uncommitted candidate SHA-256: `9572f5ed6deac053fb50291b294d516b3e5523e86ab2a139a4adbe7d73f8ad12`.
+- Manifest: `reports/candidate-manifest.json`. No user changes were reset and no commit was created.
+- Reports/review decisions are excluded from the source hash to avoid circularity.
+
+## Verified evidence
+
+| Check | Result and scope |
 | --- | --- |
-| `make check` | Passed: 91 tests, strict mypy, ruff format/lint, 90.55% branch-aware coverage |
-| `forge eval-control` | Passed: 7/7 cases; report revision and manifest hash match the candidate |
-| `forge demo --text reviewed` | Passed: one tool call, final success, six trace events |
-| `uv lock --check` | Passed against the configured official PyPI index |
-| `pip-audit --path .venv/lib/python3.12/site-packages` | No known vulnerabilities after upgrading pytest; the local unpublished `forgeharness` package is the only skipped distribution |
-| Direct dependency license metadata | MIT or BSD-3-Clause for all declared runtime and primary development dependencies |
+| Fresh Python 3.12 locked source-copy verification | Passed install, Ruff format/lint, strict mypy, pytest and pure-branch gate; `reports/clean-verification.json` |
+| Automated tests | 195 passed; no failures, errors or skips in the fresh environment |
+| Pure branch coverage | 697/814 = **85.63%**; distinct from combined **92.36%** |
+| Harness control suite | 7/7 deterministic controls |
+| RAG control suite | 60 cases, Recall@5=1, MRR@10=1, source-membership citation precision=1, unsupported-answer rate=0; not semantic business quality |
+| Retrieval microbenchmark | 5,000 chunks, 100 requests, 10 concurrency, FTS5 + deterministic in-memory vectors; latest p95 **358.327ms** |
+| Real OMLX controlled qualification | Earlier full run: 20/20 echo tool, 20/20 intent, 20/20 generated label images, 10/10 embedding, 30/30 reranker; not realistic screenshot/domain qualification |
+| Live local platform drill | 30/30 ingest jobs, one additional outage-time job recovered, 20/20 requests after API termination; readiness p95 **13.055ms**, upload acceptance p95 **5.579ms** |
+| Reviewer | Both deterministic arms 60/60, zero quality improvement; default-off |
+| Edge browser smoke | Public README upload/polling/attachment/citations rendered without console errors; subsequent source-binding/trace changes have API regression coverage, not a second claimed browser run |
+| Locust saved CSV snapshot | 1,821 requests / zero failures, 10 users, configured 30 seconds, single keyless API/growing small corpus; not Qdrant or OMLX throughput |
+| Runtime dependency audit | No known vulnerabilities at audit time for locked runtime/dev/platform/benchmark; optional all-extras NLTK advisory retained separately |
 
-## Review by dimension
+All result files are under `reports/`. The latest live reports predate this exact
+source freeze. The fresh offline report is source-hash-bound; an older live
+report's Git revision cannot prove which uncommitted source it executed.
 
-### Architecture
+## Correctness fixes and reasoning
 
-The runtime owns loop transitions, budgets, policy decisions, approvals, checkpoints, and trace events. CLI, FastAPI, model, SQLite, subprocess, and MCP concerns stay behind composition or adapter boundaries. The direct-runtime ADR matches the code.
+1. Knowledge-answer memory retrieval bypassed the approval filter. Both paths now
+   use SemanticMemoryService; failed vector deletion cannot re-expose revoked memory.
+2. Attachment hashes were concatenated into query text rather than resolved.
+   Selected sources now must exist and be indexed before message persistence;
+   first-five-chunk excerpt scope is disclosed.
+3. RAG IDs now correspond to persisted responses and real request, retrieval,
+   model, and completion/failure events. Reopening storage and trace tampering
+   are tested.
+4. Processor errors now reach ARQ retry scheduling. Storage failures become failed
+   jobs, and interrupted processor work can be replayed. This does not demonstrate
+   crash-atomic external transactions.
+5. Actual CodingAgent tests demonstrate two successive writes require two
+   approvals, clients are closed, and restart does not restore old capability.
+6. The combined coverage score had concealed insufficient pure branch coverage.
+   Independent calculation and negative review tests now prevent that substitution.
 
-### Correctness and resilience
+## Architecture and safety
 
-Success, failure, exhaustion, policy denial, unknown tools, timeout, approval suspension/resume, stale checkpoints, output compression, and model/protocol errors have deterministic tests. Review fixes now lease remaining parent budget to nested agents and kill the full subprocess group on cancellation.
+The runtime owns tool permissions, budgets, exact approvals and checkpoints.
+RAG responses are separate from coding checkpoints. Memory SQL status remains
+authoritative after a remote cleanup failure; knowledge and memory vector
+families are separate. Session histories are separate, not tenant-secured.
 
-### Trust and execution boundaries
+See [SECURITY.md](SECURITY.md) for rule IDs, line evidence, fixes and residuals.
+Local Host/Origin checks, hashed CSP and textContent are defense in depth.
+No OS sandbox, public authentication, full privacy classifier, signed trace root,
+or production HA is claimed. Public reports use synthetic/public fixtures.
 
-Model decisions and tool arguments are schema-validated. Repository content is supplied as context/tool data, not as Harness instructions. Filesystem tools reject absolute paths and symlink escapes; writes require a matching prior SHA for existing files and exact external approval. Commands are fixed argv vectors with a credential-filtered environment. MCP shares native registry/policy/dispatcher controls and now has pagination/resource guards.
+## Required continuation
 
-This is defense in depth, not an OS sandbox. Concurrent hostile filesystem mutation, arbitrary sensitive source text in traces, and durable cross-process approvals remain outside the release guarantee.
+1. FH-015: integrate bounded conversation/history/knowledge/memory context and
+   summaries, finish ordinary chat/memory-command run lifecycle, and persist
+   response citations/task state.
+2. FH-016: improve real-model fixtures/evaluator validity. Source membership is
+   not entailment; generated labels are not realistic diagrams; median latency
+   is not first-token latency or tokens per second.
+3. FH-017: complete remaining platform/framework experiments and bind every final
+   live report to frozen source. PostgreSQL currently stores sessions/messages;
+   other metadata remains shared SQLite, not multi-host storage.
+4. FH-018: expand the personal 200-question outline and complete executable
+   beginner lessons and actual mock interviews. The new first lab teaches
+   attachment identity, trace verification and HTTP-vs-task correctness.
 
-### State and observability
-
-SQLite checkpoints use revision compare-and-swap. Approval grants are task/action-bound, expiring, and one-shot. Long-term memories require review before retrieval. JSONL traces recursively redact known credential shapes, fsync each append, and verify sequence and SHA-256 chain integrity.
-
-### Tests and evaluation
-
-The keyless control manifest is immutable by hash and separates Harness-control correctness from real-model quality. The integration suite repairs a real temporary Git repository through read, approval, write, test, diff, and final evidence. No real-model, cost, SWE-bench, or multi-agent-improvement result is claimed.
-
-### Documentation and resume claims
-
-README, architecture, status, and evaluation documentation agree on implemented behavior. Quantitative control claims point to the revision-bound report. Chinese resume guidance was reviewed with the candidate and is maintained separately from the project repository.
-
-## Findings summary
-
-- Three high findings were fixed with regression tests: parent budget leasing, generic/MCP resource bounds, and descendant process termination.
-- One medium dependency finding was fixed by upgrading pytest and regenerating `uv.lock`.
-- Three medium limitations are accepted and documented: no OS sandbox, bounded credential-pattern redaction rather than content classification, and process-local approval grants.
-- One low scope item is accepted: credentialed benchmark evidence is deferred.
-
-The machine-readable record is [`FINDINGS.json`](FINDINGS.json).
+Only after the required items are resolved should the final audit become
+`passed`. Machine-readable decisions: [FINDINGS.json](FINDINGS.json).

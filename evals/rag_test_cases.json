@@ -1,0 +1,219 @@
+{
+  "meta": {
+    "total": 13,
+    "categories": {
+      "factual": 3,
+      "semantic": 4,
+      "multi_hop": 3,
+      "edge_case": 3
+    },
+    "difficulties": {
+      "easy": 5,
+      "medium": 5,
+      "hard": 3
+    }
+  },
+  "test_cases": [
+    {
+      "id": "rag_easy_01",
+      "query": "What is ForgeHarness?",
+      "expected_keywords": [
+        "agent",
+        "harness",
+        "evaluation",
+        "coding"
+      ],
+      "expected_sources": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ],
+      "category": "factual",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_easy_02",
+      "query": "What programming language is ForgeHarness written in?",
+      "expected_keywords": [
+        "python",
+        "3.12"
+      ],
+      "expected_sources": [
+        "README.md",
+        "pyproject.toml"
+      ],
+      "category": "factual",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_easy_03",
+      "query": "What databases does ForgeHarness support?",
+      "expected_keywords": [
+        "sqlite",
+        "postgresql",
+        "qdrant",
+        "redis"
+      ],
+      "expected_sources": [
+        "ARCHITECTURE.md",
+        "README.md"
+      ],
+      "category": "factual",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_medium_01",
+      "query": "How does the approval mechanism work?",
+      "expected_keywords": [
+        "approval",
+        "grant",
+        "ledger",
+        "checkpoint",
+        "suspend"
+      ],
+      "expected_sources": [
+        "ARCHITECTURE.md",
+        "REVIEW.md"
+      ],
+      "category": "semantic",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_medium_02",
+      "query": "What is the difference between ReAct and Plan-Execute?",
+      "expected_keywords": [
+        "react",
+        "plan",
+        "execute",
+        "loop",
+        "strategy"
+      ],
+      "expected_sources": [
+        "ARCHITECTURE.md"
+      ],
+      "category": "semantic",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_medium_03",
+      "query": "How does ForgeHarness handle memory management?",
+      "expected_keywords": [
+        "memory",
+        "context",
+        "budget",
+        "window",
+        "compression"
+      ],
+      "expected_sources": [
+        "ARCHITECTURE.md"
+      ],
+      "category": "semantic",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_medium_04",
+      "query": "What evaluation metrics does ForgeHarness use?",
+      "expected_keywords": [
+        "evaluation",
+        "metrics",
+        "rag",
+        "control",
+        "benchmark"
+      ],
+      "expected_sources": [
+        "EVALUATION.md",
+        "STATUS.md"
+      ],
+      "category": "semantic",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_hard_01",
+      "query": "How does ForgeHarness ensure Agent tasks don't exceed budget and what happens when they do?",
+      "expected_keywords": [
+        "budget",
+        "step",
+        "tool",
+        "token",
+        "exhausted",
+        "limit"
+      ],
+      "expected_sources": [
+        "ARCHITECTURE.md",
+        "domain types"
+      ],
+      "category": "multi_hop",
+      "difficulty": "hard"
+    },
+    {
+      "id": "rag_hard_02",
+      "query": "Compare the native implementation and LangChain version of ForgeHarness",
+      "expected_keywords": [
+        "native",
+        "langchain",
+        "lcel",
+        "langgraph",
+        "comparison",
+        "trade-off"
+      ],
+      "expected_sources": [
+        "LANGCHAIN_COMPARISON.md",
+        "FRAMEWORK_IMPLEMENTATION_SUMMARY.md"
+      ],
+      "category": "multi_hop",
+      "difficulty": "hard"
+    },
+    {
+      "id": "rag_hard_03",
+      "query": "What are the security boundaries in ForgeHarness and how are they enforced?",
+      "expected_keywords": [
+        "security",
+        "trust",
+        "boundary",
+        "validation",
+        "sandbox",
+        "path"
+      ],
+      "expected_sources": [
+        "ARCHITECTURE.md",
+        "REVIEW.md"
+      ],
+      "category": "multi_hop",
+      "difficulty": "hard"
+    },
+    {
+      "id": "rag_edge_01",
+      "query": "What is the meaning of life?",
+      "expected_keywords": [
+        "cannot",
+        "answer",
+        "documentation",
+        "information"
+      ],
+      "expected_sources": [],
+      "category": "edge_case",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_edge_02",
+      "query": "How to hack ForgeHarness?",
+      "expected_keywords": [
+        "security",
+        "boundaries",
+        "validation"
+      ],
+      "expected_sources": [
+        "ARCHITECTURE.md"
+      ],
+      "category": "edge_case",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_edge_03",
+      "query": "",
+      "expected_keywords": [],
+      "expected_sources": [],
+      "category": "edge_case",
+      "difficulty": "easy"
+    }
+  ]
+}

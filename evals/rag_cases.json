@@ -1,0 +1,67 @@
+{
+  "version": "rag-v1-60-cases",
+  "documents": [
+    {
+      "source": "approval.md",
+      "content": "approval_token_alpha: High-risk file writes require approval for exact tool arguments. Approval is scoped to one action and cannot authorize a different path.",
+      "queries": ["approval_token_alpha", "exact tool arguments approval_token_alpha", "high-risk writes approval_token_alpha", "one action approval_token_alpha", "different path approval_token_alpha"]
+    },
+    {
+      "source": "checkpoint.md",
+      "content": "checkpoint_token_beta: A checkpoint persists run state, usage budgets, pending approval, and the next deterministic step. Resume prevents duplicate tool execution.",
+      "queries": ["checkpoint_token_beta", "run state checkpoint_token_beta", "usage budgets checkpoint_token_beta", "pending approval checkpoint_token_beta", "duplicate execution checkpoint_token_beta"]
+    },
+    {
+      "source": "context.md",
+      "content": "context_token_gamma: ContextCompiler allocates separate token budgets to instructions, recent messages, repository evidence, tools, memory, and observations.",
+      "queries": ["context_token_gamma", "token budgets context_token_gamma", "recent messages context_token_gamma", "repository evidence context_token_gamma", "observations context_token_gamma"]
+    },
+    {
+      "source": "retrieval.md",
+      "content": "retrieval_token_delta: Hybrid retrieval combines SQLite FTS5 lexical hits and Qdrant vector hits with reciprocal rank fusion before BGE reranking.",
+      "queries": ["retrieval_token_delta", "FTS5 retrieval_token_delta", "Qdrant retrieval_token_delta", "reciprocal rank fusion retrieval_token_delta", "BGE reranking retrieval_token_delta"]
+    },
+    {
+      "source": "memory.md",
+      "content": "memory_token_epsilon: Long-term memory starts as a candidate. Only human-approved memory is embedded into a collection separate from the knowledge base.",
+      "queries": ["memory_token_epsilon", "candidate memory_token_epsilon", "human-approved memory_token_epsilon", "embedded memory_token_epsilon", "separate collection memory_token_epsilon"]
+    },
+    {
+      "source": "trace.md",
+      "content": "trace_token_zeta: Every model decision and tool effect is appended to a hash-chained JSONL trace. Verification detects mutation or event deletion.",
+      "queries": ["trace_token_zeta", "model decision trace_token_zeta", "tool effect trace_token_zeta", "hash-chained JSONL trace_token_zeta", "detects mutation trace_token_zeta"]
+    },
+    {
+      "source": "intent.md",
+      "content": "intent_token_eta: The router selects knowledge_query, coding_task, memory_command, or general_chat. Invalid structured model output falls back to deterministic rules.",
+      "queries": ["intent_token_eta", "knowledge_query intent_token_eta", "coding_task intent_token_eta", "invalid structured output intent_token_eta", "deterministic fallback intent_token_eta"]
+    },
+    {
+      "source": "multimodal.md",
+      "content": "vision_token_theta: PNG and JPEG uploads are bounded to ten MiB. The local vision model extracts observable text and structure into a citable derived chunk.",
+      "queries": ["vision_token_theta", "PNG vision_token_theta", "ten MiB vision_token_theta", "observable text vision_token_theta", "derived chunk vision_token_theta"]
+    },
+    {
+      "source": "reviewer.md",
+      "content": "reviewer_token_iota: Reviewer Agent is read-only and validates citation source, chunk id, quote, page, and line location. It has no shell or write tools.",
+      "queries": ["reviewer_token_iota", "read-only reviewer_token_iota", "citation source reviewer_token_iota", "line location reviewer_token_iota", "no shell reviewer_token_iota"]
+    },
+    {
+      "source": "platform.md",
+      "content": "platform_token_kappa: FastAPI instances run on the macOS host. Nginx balances them while PostgreSQL, Redis, and Qdrant run in Docker Compose.",
+      "queries": ["platform_token_kappa", "FastAPI platform_token_kappa", "Nginx platform_token_kappa", "PostgreSQL Redis platform_token_kappa", "Docker Compose platform_token_kappa"]
+    }
+  ],
+  "unanswerable_queries": [
+    "unseen_token_lambda quantum weather",
+    "unseen_token_mu payroll regulation",
+    "unseen_token_nu satellite orbit",
+    "unseen_token_xi medical diagnosis",
+    "unseen_token_omicron stock forecast",
+    "unseen_token_pi music harmony",
+    "unseen_token_rho chemical synthesis",
+    "unseen_token_sigma travel visa",
+    "unseen_token_tau game leaderboard",
+    "unseen_token_upsilon restaurant menu"
+  ]
+}

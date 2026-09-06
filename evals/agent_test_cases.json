@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "total": 6,
+    "categories": {
+      "simple_fix": 2,
+      "feature_add": 2,
+      "refactor": 1,
+      "test_write": 1
+    },
+    "difficulties": {
+      "easy": 2,
+      "medium": 2,
+      "hard": 2
+    }
+  },
+  "test_cases": [
+    {
+      "id": "agent_easy_01",
+      "task_description": "Fix the typo in the function name 'calcualte' to 'calculate'",
+      "initial_files": {
+        "math_utils.py": "\ndef calcualte_sum(a, b):\n    return a + b\n\ndef test_sum():\n    assert calcualte_sum(2, 3) == 5\n"
+      },
+      "expected_changes": [
+        "math_utils.py"
+      ],
+      "test_command": "python -m pytest -xvs",
+      "success_criteria": "All tests pass and typo is fixed",
+      "category": "simple_fix",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agent_easy_02",
+      "task_description": "Add a subtract function and a test for it",
+      "initial_files": {
+        "calculator.py": "\ndef add(a, b):\n    return a + b\n\ndef test_add():\n    assert add(2, 3) == 5\n"
+      },
+      "expected_changes": [
+        "calculator.py"
+      ],
+      "test_command": "python -m pytest -xvs",
+      "success_criteria": "subtract function works and tests pass",
+      "category": "feature_add",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agent_medium_01",
+      "task_description": "Fix the off-by-one error in the range function",
+      "initial_files": {
+        "sequence.py": "\ndef get_range(start, end):\n    '''Return list of integers from start to end (exclusive)'''\n    return list(range(start, end + 1))  # Bug: should be exclusive\n\ndef test_range():\n    assert get_range(1, 5) == [1, 2, 3, 4]  # Fails: returns [1,2,3,4,5]\n"
+      },
+      "expected_changes": [
+        "sequence.py"
+      ],
+      "test_command": "python -m pytest -xvs",
+      "success_criteria": "Test passes with correct exclusive range",
+      "category": "simple_fix",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agent_medium_02",
+      "task_description": "Implement a function to find the longest common prefix of a list of strings",
+      "initial_files": {
+        "string_utils.py": "\ndef longest_common_prefix(strings):\n    '''Find the longest common prefix of all strings.\n    \n    Example:\n        >>> longest_common_prefix(['flower', 'flow', 'flight'])\n        'fl'\n    '''\n    # TODO: Implement this function\n    pass\n\ndef test_longest_common_prefix():\n    assert longest_common_prefix(['flower', 'flow', 'flight']) == 'fl'\n    assert longest_common_prefix(['dog', 'racecar', 'car']) == ''\n    assert longest_common_prefix(['']) == ''\n"
+      },
+      "expected_changes": [
+        "string_utils.py"
+      ],
+      "test_command": "python -m pytest -xvs",
+      "success_criteria": "Function implemented and all tests pass",
+      "category": "feature_add",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agent_hard_01",
+      "task_description": "Refactor the deeply nested conditional into separate validation functions",
+      "initial_files": {
+        "validator.py": "\ndef validate_user(user):\n    if user is not None:\n        if 'name' in user:\n            if len(user['name']) > 0:\n                if 'email' in user:\n                    if '@' in user['email']:\n                        if 'age' in user:\n                            if user['age'] >= 18:\n                                return True\n    return False\n\ndef test_validator():\n    assert validate_user({'name': 'Alice', 'email': 'alice@example.com', 'age': 25}) == True\n    assert validate_user({'name': '', 'email': 'alice@example.com', 'age': 25}) == False\n    assert validate_user({'name': 'Bob', 'email': 'invalid', 'age': 25}) == False\n    assert validate_user({'name': 'Charlie', 'email': 'charlie@example.com', 'age': 17}) == False\n"
+      },
+      "expected_changes": [
+        "validator.py"
+      ],
+      "test_command": "python -m pytest -xvs",
+      "success_criteria": "Code refactored into separate functions, all tests pass",
+      "category": "refactor",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agent_hard_02",
+      "task_description": "Write comprehensive tests for the binary search function including edge cases",
+      "initial_files": {
+        "search.py": "\ndef binary_search(arr, target):\n    '''Binary search in sorted array.\n    \n    Returns: index of target, or -1 if not found\n    '''\n    left, right = 0, len(arr) - 1\n    \n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    \n    return -1\n\n# TODO: Write comprehensive tests covering:\n# - Normal cases (found, not found)\n# - Edge cases (empty array, single element, target at boundaries)\n# - Large arrays\n"
+      },
+      "expected_changes": [
+        "search.py"
+      ],
+      "test_command": "python -m pytest -xvs",
+      "success_criteria": "Comprehensive test suite written and passes",
+      "category": "test_write",
+      "difficulty": "hard"
+    }
+  ]
+}

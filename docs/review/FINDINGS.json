@@ -1,7 +1,7 @@
 {
-  "schema_version": 1,
-  "candidate_revision": "e3a8a38f5fdb4becdf7ff61fb349ce721be3e169",
-  "audit_status": "passed",
+  "schema_version": 2,
+  "candidate_revision": "9617025a134c36f3606931dcf356516b9323546a",
+  "audit_status": "failed",
   "findings": [
     {
       "id": "FH-001",
@@ -63,9 +63,98 @@
       "id": "FH-008",
       "severity": "low",
       "status": "accepted",
-      "title": "No real-model or SWE-bench quality result is included",
+      "title": "No SWE-bench or production quality result is included",
       "evidence": "docs/EVALUATION.md current evidence",
-      "resolution": "Keep credentialed benchmarks optional and prohibit quantitative quality claims until a revision-bound report exists."
+      "resolution": "Local OMLX protocol qualification is now available, but is not SWE-bench or production quality. Such claims remain prohibited."
+    },
+    {
+      "id": "FH-009",
+      "severity": "high",
+      "status": "closed",
+      "title": "Local browser mutation and rendering boundaries were incomplete",
+      "evidence": "test_local_api_host_origin_and_browser_boundary; docs/review/SECURITY.md",
+      "resolution": "Enforce local Host and same-origin mutation guards, hashed script CSP, explicit DOM lookup, textContent rendering, and safe upload/job polling. No public-network authentication claim."
+    },
+    {
+      "id": "FH-010",
+      "severity": "high",
+      "status": "closed",
+      "title": "Knowledge answers bypassed authoritative memory-revocation filtering",
+      "evidence": "test_memory_revocation_suppresses_stale_vectors_when_cleanup_fails",
+      "resolution": "Supply SemanticMemoryService through Retriever to KnowledgeService; failed vector deletion cannot re-expose revoked memory through search or answers."
+    },
+    {
+      "id": "FH-011",
+      "severity": "high",
+      "status": "closed",
+      "title": "Attachment hashes did not bind answers to selected documents",
+      "evidence": "tests/unit/test_knowledge_runs_attachments.py",
+      "resolution": "Resolve existing indexed documents by identity before message persistence, preserve image/file ContentPart, and use bounded source-only excerpts. Reject unknown/unindexed IDs."
+    },
+    {
+      "id": "FH-012",
+      "severity": "high",
+      "status": "closed",
+      "title": "Knowledge responses returned IDs without persisted run and trace evidence",
+      "evidence": "knowledge/runs.py; tests/unit/test_knowledge_runs_attachments.py",
+      "resolution": "Persist RAG responses and actual request/retrieval/model/completion-or-failure events. Run lookup survives reopening storage and tampering fails trace verification. Ordinary chat is outstanding under FH-015."
+    },
+    {
+      "id": "FH-013",
+      "severity": "high",
+      "status": "closed",
+      "title": "Persisted ingestion failures were reported to ARQ as successful work",
+      "evidence": "tests/unit/test_knowledge_reviewer_queue.py; src/forgeharness/worker.py",
+      "resolution": "Persist storage/ingestion errors, raise bounded ARQ Retry, and disable result-key retention that prevented manual retries. Processor cancellation/replay is tested; live SIGKILL/outbox recovery remains unverified."
+    },
+    {
+      "id": "FH-014",
+      "severity": "high",
+      "status": "closed",
+      "title": "Combined coverage could substitute incorrectly for required pure branch coverage",
+      "evidence": "benchmarks/check_branch_coverage.py; reports/clean-verification.json; tests/unit/test_cli_review.py",
+      "resolution": "Add an independent 85% pure-branch gate to make check and forge review. Fresh environment: 195 tests, 697/814 branches=85.63%, combined=92.36%. Negative tests reject a high combined score with insufficient pure branches."
+    },
+    {
+      "id": "FH-015",
+      "severity": "high",
+      "status": "open",
+      "title": "Full-platform conversation/context/run lifecycle remains incomplete",
+      "evidence": "knowledge/conversation.py::_general_chat/_propose_memory; knowledge/service.py; docs/STATUS.md",
+      "resolution": "Integrate budgeted history/knowledge/memory context and durable summaries. Give chat/memory commands real run/trace records, persist session citation/task state, and add end-to-end tests before closing."
+    },
+    {
+      "id": "FH-016",
+      "severity": "high",
+      "status": "open",
+      "title": "Controlled model/RAG fixtures do not satisfy all real-world qualification requirements",
+      "evidence": "evaluation/omlx.py::_qualify_tools/_qualify_vision; evaluation/rag.py::_citation_precision; evals/rag_cases.json",
+      "resolution": "Add annotated realistic screenshots/diagrams, diverse tools, strict raw-JSON measurement, cold/warm TTFT/throughput/memory, and representative real-model RAG claim-support evaluation. Preserve current reports under narrower labels."
+    },
+    {
+      "id": "FH-017",
+      "severity": "high",
+      "status": "open",
+      "title": "Full enhanced release lacks all required frozen integration/comparison evidence",
+      "evidence": "reports/clean-verification.json; reports/platform-verification.json; docs/STATUS.md; examples/",
+      "resolution": "Offline clean-source checks passed. Complete independent same-data framework comparisons and in-flight worker failure/recovery, clarify or finish the PostgreSQL metadata migration, then rerun/bind all final live gates after final implementation freeze. No production HA claim."
+    },
+    {
+      "id": "FH-018",
+      "severity": "medium",
+      "status": "open",
+      "title": "Personal interview materials are outlines, not completed learner preparation",
+      "evidence": "Personal knowledge base: 200 numbered questions and first attachment/trace lab",
+      "resolution": "Expand each answer to the requested timed explanation with evidence and traps, finish executable beginner lessons, and record three actual mock interviews. Generated materials do not prove personal fluency or independent authorship."
+    },
+    {
+      "id": "FH-019",
+      "severity": "medium",
+      "status": "accepted",
+      "title": "Optional framework extra carries an NLTK advisory absent from normal runtime",
+      "evidence": "reports/dependency-audit-all-extras.json; reports/dependency-audit-runtime.json",
+      "resolution": "Exclude frameworks from normal setup and CI, avoid affected model-artifact APIs, retain advisory evidence, and re-audit before publishing comparison work."
     }
-  ]
+  ],
+  "candidate_snapshot_sha256": "9572f5ed6deac053fb50291b294d516b3e5523e86ab2a139a4adbe7d73f8ad12"
 }
