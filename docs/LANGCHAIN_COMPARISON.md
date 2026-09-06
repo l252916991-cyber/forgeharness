@@ -162,10 +162,10 @@ is revision-bound and regenerated on every run):
 
 | Metric | Native | LangChain | Note |
 |--------|--------|-----------|------|
-| Retrieval mean latency | 1.29 ms | 5.54 ms | +331% relative, ~4 ms absolute — negligible in practice |
-| Retrieval p50 / p95 | 0.94 / 2.84 ms | 3.54 / 11.08 ms | Same hits (5.0) on both arms |
+| Retrieval mean latency | 1.40 ms | 3.64 ms | +160% relative, ~2 ms absolute — negligible in practice |
+| Retrieval p50 / p95 | 0.85 / 3.68 ms | 3.75 / 4.40 ms | Same hits (5.0) on both arms |
 | Retrieval quality | Identical | Identical | Same backend (FTS5 + vector + RRF + rerank) |
-| End-to-end answer latency | n/a | ~69 s mean | Dominated by local 9B chat-model generation, not the framework |
+| End-to-end answer latency | n/a | see report | Dominated by local 9B chat-model generation, not the framework |
 
 **Insight:** the LCEL wrapper costs a few milliseconds per retrieval (tiny in absolute
 terms); end-to-end latency is dominated by model generation, so framework choice does
