@@ -9,7 +9,7 @@ from forgeharness.api import create_app
 
 async def test_api_runs_and_inspects_keyless_demo(tmp_path: Path) -> None:
     transport = httpx.ASGITransport(app=create_app(tmp_path / "data"))
-    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+    async with httpx.AsyncClient(transport=transport, base_url="http://localhost") as client:
         health = await client.get("/health")
         assert health.status_code == 200
         assert health.json()["service"] == "forgeharness"
@@ -32,7 +32,7 @@ async def test_api_runs_and_inspects_keyless_demo(tmp_path: Path) -> None:
 
 async def test_api_rejects_unknown_and_invalid_ids(tmp_path: Path) -> None:
     transport = httpx.ASGITransport(app=create_app(tmp_path / "data"))
-    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+    async with httpx.AsyncClient(transport=transport, base_url="http://localhost") as client:
         assert (await client.get("/runs/missing")).status_code == 404
         assert (await client.get("/traces/missing/verify")).status_code == 404
         assert (await client.get("/runs/bad!id")).status_code == 422
