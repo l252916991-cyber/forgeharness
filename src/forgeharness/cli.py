@@ -23,6 +23,14 @@ from forgeharness.domain.models import (
     ToolCall,
 )
 from forgeharness.evaluation.control import run_control_evaluation
+from forgeharness.evaluation.omlx import run_omlx_qualification
+from forgeharness.evaluation.performance import run_retrieval_benchmark
+from forgeharness.evaluation.rag import run_rag_evaluation
+from forgeharness.evaluation.reviewer import run_reviewer_experiment
+from forgeharness.langchain_impl.cli_commands import (
+    register as register_framework_commands,
+)
+from forgeharness.models.omlx import OMLXConfig
 from forgeharness.models.openai_compatible import (
     OpenAICompatibleConfig,
     OpenAICompatibleModel,
@@ -30,6 +38,7 @@ from forgeharness.models.openai_compatible import (
 from forgeharness.models.scripted import ScriptedModel
 from forgeharness.observability.hash_chain import HashChainedJSONLTrace, verify_trace
 from forgeharness.observability.trace import InMemoryTrace
+from forgeharness.review import main as audit_repository
 from forgeharness.runtime.loop import AgentRuntime
 from forgeharness.state.approval import InMemoryApprovalLedger
 from forgeharness.state.checkpoint import SQLiteCheckpointStore
@@ -40,10 +49,21 @@ from forgeharness.tools.registry import ToolRegistry
 
 app = typer.Typer(no_args_is_help=True)
 
+# Framework-comparison commands use lazy imports so the core CLI works without
+# the optional `frameworks` extra; each command degrades to exit code 3 with a
+# clear message when langchain/langgraph are absent.
+register_framework_commands(app)
+
 
 @app.callback()
 def main() -> None:
     """Run, evaluate, and inspect ForgeHarness workflows."""
+
+
+@app.command("review")
+def review_repository() -> None:
+    """Validate all final-candidate evidence and unresolved findings."""
+    audit_repository()
 
 
 @app.command()
@@ -74,6 +94,103 @@ def evaluate_control(
     typer.echo(f"report={output.resolve()}")
     if report.passed != report.total:
         raise typer.Exit(code=1)
+
+
+@app.command("qualify-omlx")
+def qualify_omlx(
+    output: Path = Path("reports/omlx-qualification.json"),
+    base_url: str = "http://127.0.0.1:8000/v1",
+    chat_model: str = "Qwen3.5-9B-4bit",
+    embedding_model: str = "Qwen3-Embedding-4B-4bit-DWQ",
+    reranker_model: str = "bge-reranker-v2-m3-mlx",
+    api_key: str | None = typer.Option(None, envvar="FORGE_OMLX_API_KEY"),
+    quick: bool = typer.Option(False, help="Run two cases per capability as a smoke test."),
+) -> None:
+    """Qualify local OMLX models and write per-case evidence."""
+    report = asyncio.run(
+        run_omlx_qualification(
+            config=OMLXConfig(
+                base_url=base_url,
+                api_key=api_key,
+                chat_model=chat_model,
+                embedding_model=embedding_model,
+                reranker_model=reranker_model,
+            ),
+            output_path=output,
+            project_root=Path.cwd(),
+            quick=quick,
+        )
+    )
+    for name, section in report.sections.items():
+        typer.echo(
+            f"{name}={section.passed}/{section.total} median_ms={section.median_latency_ms:.1f}"
+        )
+    if report.fatal_error is not None:
+        typer.echo(f"fatal_error={report.fatal_error}", err=True)
+    typer.echo(f"qualified={str(report.qualified).lower()}")
+    typer.echo(f"report={output.resolve()}")
+    if not report.qualified:
+        raise typer.Exit(code=2)
+
+
+@app.command("eval-rag")
+def evaluate_rag(
+    manifest: Path = Path("evals/rag_cases.json"),
+    output: Path = Path("reports/rag-eval.json"),
+) -> None:
+    """Run the fixed 60-case keyless RAG quality gate."""
+    report = asyncio.run(
+        run_rag_evaluation(
+            manifest_path=manifest,
+            output_path=output,
+            project_root=Path.cwd(),
+        )
+    )
+    typer.echo(f"cases={report.total}")
+    typer.echo(f"recall_at_5={report.recall_at_5:.3f}")
+    typer.echo(f"mrr_at_10={report.mrr_at_10:.3f}")
+    typer.echo(f"citation_precision={report.citation_precision:.3f}")
+    typer.echo(f"unsupported_answer_rate={report.unsupported_answer_rate:.3f}")
+    typer.echo(f"qualified={str(report.qualified).lower()}")
+    typer.echo(f"report={output.resolve()}")
+    if not report.qualified:
+        raise typer.Exit(code=2)
+
+
+@app.command("bench-retrieval")
+def benchmark_retrieval(
+    output: Path = Path("reports/retrieval-benchmark.json"),
+) -> None:
+    """Measure a warmed 5,000-chunk, 10-concurrency retrieval workload."""
+    report = asyncio.run(run_retrieval_benchmark(output_path=output, project_root=Path.cwd()))
+    typer.echo(f"chunks={report.chunks} requests={report.requests}")
+    typer.echo(f"retrieval_p50_ms={report.retrieval_p50_ms:.3f}")
+    typer.echo(f"retrieval_p95_ms={report.retrieval_p95_ms:.3f}")
+    typer.echo(f"qualified={str(report.qualified).lower()}")
+    typer.echo(f"report={output.resolve()}")
+    if not report.qualified:
+        raise typer.Exit(code=2)
+
+
+@app.command("eval-reviewer")
+def evaluate_reviewer(
+    manifest: Path = Path("evals/rag_cases.json"),
+    output: Path = Path("reports/reviewer-experiment.json"),
+) -> None:
+    """Measure whether the optional Reviewer earns its latency and complexity."""
+    report = asyncio.run(
+        run_reviewer_experiment(
+            manifest_path=manifest,
+            output_path=output,
+            project_root=Path.cwd(),
+        )
+    )
+    typer.echo(f"baseline_effective={report.baseline.effective_answer_rate:.3f}")
+    typer.echo(f"reviewer_effective={report.reviewer.effective_answer_rate:.3f}")
+    typer.echo(f"quality_improvement_points={report.quality_improvement_points:.3f}")
+    typer.echo(f"latency_ratio={report.latency_ratio:.3f}")
+    typer.echo(f"reviewer_default={str(report.reviewer_enabled_by_default).lower()}")
+    typer.echo(f"report={output.resolve()}")
 
 
 @app.command()
@@ -129,7 +246,7 @@ def inspect_run(
 def serve(
     data_dir: Path = Path(".forgeharness"),
     host: str = "127.0.0.1",
-    port: int = typer.Option(8000, min=1, max=65_535),
+    port: int = typer.Option(8001, min=1, max=65_535),
 ) -> None:
     """Serve the local run and trace-inspection API."""
     uvicorn.run(create_app(data_dir), host=host, port=port)

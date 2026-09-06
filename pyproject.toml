@@ -14,6 +14,9 @@ dependencies = [
   "fastapi>=0.116,<1",
   "httpx>=0.28,<1",
   "jsonschema>=4.25,<5",
+  "python-multipart>=0.0.20,<1",
+  "pillow>=12,<13",
+  "pypdf>=6,<7",
   "pydantic>=2.11,<3",
   "pydantic-settings>=2.10,<3",
   "pyyaml>=6.0,<7",
@@ -22,6 +25,23 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+platform = [
+  "arq>=0.26,<1",
+  "asyncpg>=0.30,<1",
+  "qdrant-client>=1.15,<2",
+  "redis>=5,<6",
+]
+
+frameworks = [
+  "langchain>=1,<2",
+  "langchain-core>=1,<2",
+  "langchain-openai>=1,<2",
+  "langgraph>=1,<2",
+  "llama-index-core>=0.14,<1",
+]
+
+benchmark = ["locust>=2.40,<3"]
+
 dev = [
   "mypy>=1.17,<2",
   "pytest>=9.0.3,<10",
@@ -49,6 +69,13 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "ASYNC", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+# Offline experiment runners under benchmarks/ and evals/ are sequential by
+# design: blocking file I/O and subprocess calls keep the scripts simple and
+# reproducible. The library code under src/ has no such exemption.
+"benchmarks/*" = ["ASYNC230", "ASYNC240", "ASYNC221"]
+"evals/*" = ["ASYNC230", "ASYNC240"]
 
 [tool.mypy]
 python_version = "3.12"
