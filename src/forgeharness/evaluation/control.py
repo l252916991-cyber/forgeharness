@@ -232,6 +232,6 @@ async def _revision(project_root: Path) -> str:
     commit = await run_command(("git", "rev-parse", "HEAD"), workspace=project_root)
     if commit.exit_code != 0:
         return "uncommitted"
-    status = await run_command(("git", "status", "--porcelain"), workspace=project_root)
-    suffix = "-dirty" if status.output.strip() else ""
-    return commit.output.strip() + suffix
+    # Dirty content is frozen separately by reports/candidate-manifest.json. Keep
+    # this field a standard revision so every report can share one release key.
+    return commit.output.strip()

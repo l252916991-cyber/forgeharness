@@ -1,5 +1,6 @@
 """Tests for revisioned SQLite run checkpoints."""
 
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pytest
@@ -39,3 +40,10 @@ def test_store_rejects_stale_and_duplicate_writers(tmp_path: Path) -> None:
     store.save(saved)
     with pytest.raises(CheckpointConflict, match="expected 1, found 2"):
         store.save(saved)
+
+
+def test_store_allows_concurrent_process_style_initialization(tmp_path: Path) -> None:
+    path = tmp_path / "shared" / "runs.sqlite3"
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        stores = tuple(pool.map(lambda _: SQLiteCheckpointStore(path), range(16)))
+    assert all(store.load("missing") is None for store in stores)

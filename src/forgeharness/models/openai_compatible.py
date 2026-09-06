@@ -35,6 +35,8 @@ class OpenAICompatibleConfig(BaseModel):
     model: str = Field(min_length=1)
     timeout_seconds: float = Field(default=120.0, gt=0)
     temperature: float = Field(default=0.0, ge=0, le=2)
+    max_tokens: int | None = Field(default=None, ge=1, le=32_768)
+    enable_thinking: bool | None = None
 
 
 class _FunctionCall(BaseModel):
@@ -131,6 +133,10 @@ class OpenAICompatibleModel:
             "temperature": self._config.temperature,
             "messages": [self._serialize_message(message) for message in request.messages],
         }
+        if self._config.max_tokens is not None:
+            body["max_tokens"] = self._config.max_tokens
+        if self._config.enable_thinking is not None:
+            body["chat_template_kwargs"] = {"enable_thinking": self._config.enable_thinking}
         if request.tools:
             body["tools"] = [
                 {

@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Protocol
 
 from forgeharness.domain.models import RunResult
+from forgeharness.state.sqlite import connect_wal
 
 
 class CheckpointConflict(RuntimeError):
@@ -90,7 +91,4 @@ class SQLiteCheckpointStore:
         return None if row is None else RunResult.model_validate_json(row[0])
 
     def _connect(self) -> sqlite3.Connection:
-        connection = sqlite3.connect(self._path, timeout=5)
-        connection.execute("PRAGMA journal_mode = WAL")
-        connection.execute("PRAGMA foreign_keys = ON")
-        return connection
+        return connect_wal(self._path, foreign_keys=True)

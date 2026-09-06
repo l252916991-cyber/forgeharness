@@ -29,6 +29,25 @@ def build_model(payload: dict[str, object], captured: list[httpx.Request]) -> Op
     )
 
 
+def build_bounded_model(
+    payload: dict[str, object], captured: list[httpx.Request]
+) -> OpenAICompatibleModel:
+    async def handler(request: httpx.Request) -> httpx.Response:
+        captured.append(request)
+        return httpx.Response(200, json=payload)
+
+    return OpenAICompatibleModel(
+        OpenAICompatibleConfig(
+            base_url="http://127.0.0.1:8000/v1",
+            api_key="local",
+            model="local-model",
+            max_tokens=128,
+            enable_thinking=False,
+        ),
+        client=httpx.AsyncClient(transport=httpx.MockTransport(handler)),
+    )
+
+
 def request(messages: tuple[Message, ...] | None = None) -> ModelRequest:
     return ModelRequest(
         task_id="task-1",
@@ -74,6 +93,15 @@ async def test_adapter_parses_tool_call_and_usage() -> None:
     assert sent["parallel_tool_calls"] is False
     assert sent["tools"][0]["function"]["name"] == "echo"
     assert captured[0].headers["Authorization"] == "Bearer secret"
+
+
+async def test_adapter_sends_explicit_local_generation_bounds() -> None:
+    captured: list[httpx.Request] = []
+    model = build_bounded_model({"choices": [{"message": {"content": "complete"}}]}, captured)
+    await model.decide(request())
+    sent = json.loads(captured[0].content)
+    assert sent["max_tokens"] == 128
+    assert sent["chat_template_kwargs"] == {"enable_thinking": False}
 
 
 async def test_adapter_serializes_assistant_and_tool_messages() -> None:

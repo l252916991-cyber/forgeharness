@@ -14,4 +14,5 @@ __pycache__/
 *.py[cod]
 .forgeharness/
 evals/reports/
-
+.playwright-cli/
+output/

@@ -11,6 +11,7 @@ from uuid import uuid4
 from pydantic import Field
 
 from forgeharness.domain.models import FrozenModel
+from forgeharness.state.sqlite import connect_wal
 
 
 class MemoryStatus(StrEnum):
@@ -19,6 +20,7 @@ class MemoryStatus(StrEnum):
     CANDIDATE = "candidate"
     APPROVED = "approved"
     REJECTED = "rejected"
+    DELETED = "deleted"
 
 
 class MemoryRecord(FrozenModel):
@@ -54,6 +56,15 @@ class SQLiteMemoryStore:
                     tags TEXT NOT NULL,
                     status TEXT NOT NULL,
                     created_at TEXT NOT NULL
+                )
+                """
+            )
+            connection.execute(
+                """
+                CREATE TABLE IF NOT EXISTS memory_indexes (
+                    memory_id TEXT PRIMARY KEY,
+                    indexed_at TEXT NOT NULL,
+                    FOREIGN KEY(memory_id) REFERENCES memories(id) ON DELETE CASCADE
                 )
                 """
             )
@@ -124,6 +135,26 @@ class SQLiteMemoryStore:
             ).fetchall()
         return tuple(self._from_row(row) for row in rows)
 
+    def revoke(self, record_id: str, *, deleted: bool = False) -> MemoryRecord:
+        """Durably revoke retrieval before attempting external index cleanup.
+
+        Soft deletion preserves the local audit record; it is not a secure erasure API.
+        Repeating the transition is safe when vector cleanup needs a retry.
+        """
+        with self._connect() as connection:
+            state = MemoryStatus.DELETED if deleted else MemoryStatus.REJECTED
+            cursor = connection.execute(
+                "UPDATE memories SET status = ? WHERE id = ? AND status != ?",
+                (state.value, record_id, MemoryStatus.DELETED.value),
+            )
+            connection.execute("DELETE FROM memory_indexes WHERE memory_id = ?", (record_id,))
+            if cursor.rowcount == 0 and self.get(record_id) is None:
+                raise MemoryStoreError(f"unknown memory record: {record_id}")
+        record = self.get(record_id)
+        if record is None:
+            raise MemoryStoreError(f"unknown memory record: {record_id}")
+        return record
+
     def get(self, record_id: str) -> MemoryRecord | None:
         """Load a record regardless of review state for audit and approval UI."""
         with self._connect() as connection:
@@ -135,6 +166,30 @@ class SQLiteMemoryStore:
                 (record_id,),
             ).fetchone()
         return None if row is None else self._from_row(row)
+
+    def is_indexed(self, record_id: str) -> bool:
+        """Return whether an approved record completed semantic indexing."""
+        with self._connect() as connection:
+            row = connection.execute(
+                "SELECT 1 FROM memory_indexes WHERE memory_id = ?", (record_id,)
+            ).fetchone()
+        return row is not None
+
+    def mark_indexed(self, record_id: str) -> None:
+        """Persist the completion marker after both indexes accepted the record."""
+        record = self.get(record_id)
+        if record is None:
+            raise MemoryStoreError(f"unknown memory record: {record_id}")
+        if record.status != MemoryStatus.APPROVED:
+            raise MemoryStoreError("only approved memories can be marked indexed")
+        with self._connect() as connection:
+            connection.execute(
+                """
+                INSERT OR IGNORE INTO memory_indexes(memory_id, indexed_at)
+                VALUES (?, ?)
+                """,
+                (record_id, datetime.now(UTC).isoformat()),
+            )
 
     @staticmethod
     def _from_row(row: tuple[str, str, str, str, str, str, str]) -> MemoryRecord:
@@ -149,6 +204,4 @@ class SQLiteMemoryStore:
         )
 
     def _connect(self) -> sqlite3.Connection:
-        connection = sqlite3.connect(self._path, timeout=5)
-        connection.execute("PRAGMA journal_mode = WAL")
-        return connection
+        return connect_wal(self._path, foreign_keys=True)
