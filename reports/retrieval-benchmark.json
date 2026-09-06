@@ -1,0 +1,12 @@
+{
+  "created_at": "2026-09-04T02:05:53.556686Z",
+  "revision": "9617025a134c36f3606931dcf356516b9323546a",
+  "chunks": 5000,
+  "requests": 100,
+  "concurrency": 10,
+  "warmup_requests": 10,
+  "retrieval_p50_ms": 190.57918747421354,
+  "retrieval_p95_ms": 358.32687513902783,
+  "target_p95_ms": 500.0,
+  "qualified": true
+}

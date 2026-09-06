@@ -1,0 +1,309 @@
+{
+  "model": "Qwythos-9B-v2-4bit-mlx",
+  "total_tests": 50,
+  "passed": 50,
+  "failed": 0,
+  "pass_rate": 1.0,
+  "results": [
+    {
+      "task_id": "HumanEval/0",
+      "source": "humaneval",
+      "passed": true,
+      "generated_code": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given thr"
+    },
+    {
+      "task_id": "HumanEval/1",
+      "source": "humaneval",
+      "passed": true,
+      "generated_code": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    se"
+    },
+    {
+      "task_id": "HumanEval/2",
+      "source": "humaneval",
+      "passed": true,
+      "generated_code": "def truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n   "
+    },
+    {
+      "task_id": "HumanEval/3",
+      "source": "humaneval",
+      "passed": true,
+      "generated_code": "from typing import List\n\ndef below_zero(operations: List[int]) -> bool:\n    balance = 0\n    for op in operations:\n        balance += op\n        if balance < 0:\n            return True\n    return False"
+    },
+    {
+      "task_id": "HumanEval/4",
+      "source": "humaneval",
+      "passed": true,
+      "generated_code": "from typing import List\n\n\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\" For a given list of input numbers, calculate Mean Absolute Deviation\n    around the mean of this dataset.\n"
+    },
+    {
+      "task_id": 1,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def min_cost_path(cost, m, n):\n    \"\"\"\n    Find the minimum cost path to reach (m, n) from (0, 0) in a cost matrix.\n    Movement is allowed only right or down.\n    \"\"\"\n    rows = len(cost)\n    cols = "
+    },
+    {
+      "task_id": 2,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def find_similar_elements(tuple_list_1, tuple_list_2):\n    result = []\n    for item1 in tuple_list_1:\n        for item2 in tuple_list_2:\n            if item1 == item2:\n                result.append(it"
+    },
+    {
+      "task_id": 3,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def is_non_prime(n):\n    if n <= 1:\n        return True\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return True\n    return False"
+    },
+    {
+      "task_id": 4,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "import heapq\n\ndef find_largest_integers(numbers, k):\n    \"\"\"\n    Find the k largest integers from a given list using the heap queue algorithm.\n    \n    Args:\n        numbers: List of integers\n        "
+    },
+    {
+      "task_id": 5,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def longest_increasing_subsequence_length(arr):\n    if not arr:\n        return 0\n    \n    n = len(arr)\n    dp = [1] * n\n    \n    for i in range(1, n):\n        for j in range(i):\n            if arr[j] "
+    },
+    {
+      "task_id": 6,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def add_two_numbers(a, b):\n    return a + b"
+    },
+    {
+      "task_id": 7,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def find_max(a, b):\n    return a if a > b else b"
+    },
+    {
+      "task_id": 8,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def is_even(n):\n    return n % 2 == 0"
+    },
+    {
+      "task_id": 9,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def reverse_string(s):\n    return s[::-1]"
+    },
+    {
+      "task_id": 10,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def count_vowels(s):\n    vowels = \"aeiouAEIOU\"\n    count = 0\n    for char in s:\n        if char in vowels:\n            count += 1\n    return count"
+    },
+    {
+      "task_id": 11,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def remove_first_and_last_occurrence(s, char):\n    if char not in s:\n        return s\n    \n    first_index = s.index(char)\n    last_index = len(s) - 1 - s[::-1].index(char)\n    \n    return s[:first_in"
+    },
+    {
+      "task_id": 12,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def sort_matrix_by_row_sum(matrix):\n    \"\"\"\n    Sorts a given matrix in ascending order according to the sum of its rows.\n    \n    Args:\n        matrix (list of lists): The input matrix.\n        \n    "
+    },
+    {
+      "task_id": 13,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def count_most_common_words(word_counts, top_n=5):\n    \"\"\"\n    Counts the most common words from a dictionary of word frequencies.\n    \n    Parameters:\n    word_counts (dict): Dictionary where keys ar"
+    },
+    {
+      "task_id": 14,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def volume_of_triangular_prism(base, height, length):\n    \"\"\"\n    Calculate the volume of a triangular prism.\n    \n    Parameters:\n    base (float): The length of the base of the triangular face.\n    "
+    },
+    {
+      "task_id": 15,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def split_at_lowercase(s):\n    result = []\n    current = []\n    for char in s:\n        if char.islower():\n            if current:\n                result.append(''.join(current))\n                curren"
+    },
+    {
+      "task_id": 16,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "import re\n\ndef find_underscore_sequences(text):\n    pattern = r'[a-z]+_[a-z]+'\n    matches = re.findall(pattern, text)\n    return matches"
+    },
+    {
+      "task_id": 17,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def find_square_perimeter(side_length):\n    return 4 * side_length"
+    },
+    {
+      "task_id": 18,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def remove_chars(s1, s2):\n    result = []\n    for char in s1:\n        if char not in s2:\n            result.append(char)\n    return ''.join(result)"
+    },
+    {
+      "task_id": 19,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def contains_duplicate(nums):\n    seen = set()\n    for num in nums:\n        if num in seen:\n            return True\n        seen.add(num)\n    return False"
+    },
+    {
+      "task_id": 20,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def is_woodball(n):\n    \"\"\"\n    Check if a number is a woodball.\n    A woodball is a number that is the product of two consecutive integers.\n    \"\"\"\n    if n <= 0:\n        return False\n    k = int((n "
+    },
+    {
+      "task_id": 21,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def find_multiples(n, m):\n    return [n * i for i in range(1, m + 1)]"
+    },
+    {
+      "task_id": 22,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def find_first_duplicate(arr):\n    seen = set()\n    for num in arr:\n        if num in seen:\n            return num\n        seen.add(num)\n    return None"
+    },
+    {
+      "task_id": 23,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def max_sum_of_sublists(list_of_lists):\n    max_sum = float('-inf')\n    for sublist in list_of_lists:\n        current_sum = sum(sublist)\n        if current_sum > max_sum:\n            max_sum = current"
+    },
+    {
+      "task_id": 24,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def binary_to_decimal(binary_str):\n    return int(binary_str, 2)"
+    },
+    {
+      "task_id": 25,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def product_of_non_repeated(arr):\n    from collections import Counter\n    counts = Counter(arr)\n    product = 1\n    for num in arr:\n        if counts[num] == 1:\n            product *= num\n    return p"
+    },
+    {
+      "task_id": 26,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def has_all_k_elements(tuple_list, k):\n    \"\"\"\n    Check if the given tuple list has all k elements.\n    \n    Args:\n        tuple_list: A list of tuples\n        k: The number of elements to check for "
+    },
+    {
+      "task_id": 27,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def remove_digits(string_list):\n    result = []\n    for s in string_list:\n        cleaned = ''.join(char for char in s if not char.isdigit())\n        result.append(cleaned)\n    return result"
+    },
+    {
+      "task_id": 28,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def binomial_coefficient(n, k):\n    if k < 0 or k > n:\n        return 0\n    if k == 0 or k == n:\n        return 1\n    if k > n // 2:\n        k = n - k\n    result = 1\n    for i in range(k):\n        res"
+    },
+    {
+      "task_id": 29,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def find_odd_occurrence(arr):\n    counts = {}\n    for num in arr:\n        counts[num] = counts.get(num, 0) + 1\n    for num, count in counts.items():\n        if count % 2 == 1:\n            return num\n "
+    },
+    {
+      "task_id": 30,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def count_substrings_same_start_end(s):\n    count = 0\n    n = len(s)\n    for i in range(n):\n        for j in range(i, n):\n            if s[i] == s[j]:\n                count += 1\n    return count"
+    },
+    {
+      "task_id": 31,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "import heapq\n\ndef top_k_frequent(sorted_list, k):\n    \"\"\"\n    Find the top k integers that occur most frequently from a sorted list of distinct integers.\n    Since the list is sorted and distinct, eac"
+    },
+    {
+      "task_id": 32,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def largest_prime_factor(n):\n    largest = -1\n    d = 2\n    while d * d <= n:\n        while n % d == 0:\n            largest = d\n            n //= d\n        d += 1\n    if n > 1:\n        largest = n\n   "
+    },
+    {
+      "task_id": 33,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def decimal_to_binary(n):\n    if n == 0:\n        return \"0\"\n    binary = \"\"\n    while n > 0:\n        binary = str(n % 2) + binary\n        n = n // 2\n    return binary"
+    },
+    {
+      "task_id": 34,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def find_missing_number(sorted_array):\n    if not sorted_array:\n        return None\n    \n    n = len(sorted_array)\n    expected_sum = n * (n + 1) // 2\n    actual_sum = sum(sorted_array)\n    \n    retur"
+    },
+    {
+      "task_id": 35,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def nth_rectangular_number(n):\n    return n * (n + 1)"
+    },
+    {
+      "task_id": 36,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def get_nth_digit(numerator, denominator, n):\n    \"\"\"\n    Find the nth digit in the decimal expansion of the proper fraction numerator/denominator.\n    Assumes the fraction is proper (numerator < deno"
+    },
+    {
+      "task_id": 37,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def sort_mixed_list(mixed_list):\n    integers = [item for item in mixed_list if isinstance(item, int)]\n    strings = [item for item in mixed_list if isinstance(item, str)]\n    integers.sort()\n    stri"
+    },
+    {
+      "task_id": 38,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def find_division_of_first_even_and_odd(numbers):\n    even = None\n    odd = None\n    for num in numbers:\n        if even is None and num % 2 == 0:\n            even = num\n        if odd is None and num"
+    },
+    {
+      "task_id": 39,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def can_rearrange(string):\n    if not string:\n        return True\n    char_count = {}\n    for char in string:\n        char_count[char] = char_count.get(char, 0) + 1\n    max_count = max(char_count.valu"
+    },
+    {
+      "task_id": 40,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "from collections import Counter\n\ndef find_frequency(list_of_lists):\n    flattened = [item for sublist in list_of_lists for item in sublist]\n    return Counter(flattened)"
+    },
+    {
+      "task_id": 41,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def filter_even_numbers(numbers):\n    return list(filter(lambda x: x % 2 == 0, numbers))"
+    },
+    {
+      "task_id": 42,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def sum_of_repeated_elements(arr):\n    seen = set()\n    repeated_sum = 0\n    for num in arr:\n        if num in seen:\n            repeated_sum += num\n        else:\n            seen.add(num)\n    return "
+    },
+    {
+      "task_id": 43,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "import re\n\ndef find_underscore_sequences(text):\n    pattern = r'[a-z]+_[a-z]+'\n    matches = re.findall(pattern, text)\n    return matches"
+    },
+    {
+      "task_id": 44,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def match_at_beginning(pattern, string):\n    return string.startswith(pattern)"
+    },
+    {
+      "task_id": 45,
+      "source": "mbpp",
+      "passed": true,
+      "generated_code": "def find_gcd(arr):\n    if not arr:\n        return 0\n    result = arr[0]\n    for i in range(1, len(arr)):\n        result = gcd(result, arr[i])\n    return result\n\ndef gcd(a, b):\n    while b:\n        a, "
+    }
+  ]
+}

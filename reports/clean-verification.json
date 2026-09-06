@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-04T02:12:33.099427+00:00",
+  "revision": "9617025a134c36f3606931dcf356516b9323546a",
+  "source_tree_sha256": "9572f5ed6deac053fb50291b294d516b3e5523e86ab2a139a4adbe7d73f8ad12",
+  "profile": "fresh Python 3.12; locked dev/platform/benchmark; no OMLX or Docker tests",
+  "commands": {
+    "export": 0,
+    "venv": 0,
+    "install": 0,
+    "ruff-format": 0,
+    "ruff-lint": 0,
+    "mypy": 0,
+    "pytest": 0,
+    "pure-branches": 0
+  },
+  "coverage": {
+    "covered_lines": 3763,
+    "num_statements": 4015,
+    "percent_covered": 92.35866639055705,
+    "percent_covered_display": "92",
+    "missing_lines": 252,
+    "excluded_lines": 132,
+    "percent_statements_covered": 93.72353673723536,
+    "percent_statements_covered_display": "94",
+    "num_branches": 814,
+    "num_partial_branches": 89,
+    "covered_branches": 697,
+    "missing_branches": 117,
+    "percent_branches_covered": 85.62653562653563,
+    "percent_branches_covered_display": "86"
+  },
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "195",
+    "time": "16.901",
+    "timestamp": "2026-09-04T10:12:15.997387+08:00",
+    "hostname": "xiaoydeMacBook-Pro.local"
+  },
+  "qualified": true
+}

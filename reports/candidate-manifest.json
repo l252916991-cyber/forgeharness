@@ -1,0 +1,658 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-04T02:12:06.918917+00:00",
+  "revision": "9617025a134c36f3606931dcf356516b9323546a",
+  "source_tree_sha256": "9572f5ed6deac053fb50291b294d516b3e5523e86ab2a139a4adbe7d73f8ad12",
+  "files": [
+    {
+      "path": ".env.example",
+      "size": 372,
+      "sha256": "65f7a0d832bce6ee8119c3409f84f777528e96984b6e47e9c9d97543dba1ee51"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "size": 341,
+      "sha256": "70b3589ba78385f453ccbd85d24bb3d3879bddc7781456342605d3c506813c35"
+    },
+    {
+      "path": ".gitignore",
+      "size": 198,
+      "sha256": "4ca8226bb19a5df822504cb7245181b95ba9d19d49c843b2a84da997c36d8f7f"
+    },
+    {
+      "path": ".python-version",
+      "size": 6,
+      "sha256": "9ea280e4c89d3f302c1e8b3e5e7db91c46bec0fe761356ae90f32aaf0dbe0e8b"
+    },
+    {
+      "path": "AGENTS.md",
+      "size": 1614,
+      "sha256": "e12d2419f22df8e36380594bd152762354c0b3a8e863c775168afdc5a31c572a"
+    },
+    {
+      "path": "LICENSE",
+      "size": 1082,
+      "sha256": "4bbbd750291630f3b44afa4d576ebf2149dfba5947231009254d3d77981ce2d5"
+    },
+    {
+      "path": "Makefile",
+      "size": 576,
+      "sha256": "ec0e9c5f990bb5fbcbadcb041ede27162840fc86273e9bf23b923461b83388b0"
+    },
+    {
+      "path": "README.md",
+      "size": 7849,
+      "sha256": "055b611f35dfb4d55c9c0bdf8cc3402bb068127ba89c5fa407f2a8bb238c0bc8"
+    },
+    {
+      "path": "benchmarks/check_branch_coverage.py",
+      "size": 567,
+      "sha256": "c3dd39274324bab165c12d26c8c3fc5e3bcc97c51ff44c29db98b972c10ca573"
+    },
+    {
+      "path": "benchmarks/freeze_candidate.py",
+      "size": 1345,
+      "sha256": "74a0958d5ef7703619dde9fb59f0317be3d45342d942edc6375ac808a6f5fb7a"
+    },
+    {
+      "path": "benchmarks/locustfile.py",
+      "size": 727,
+      "sha256": "8d4fe936fa2838c1c83e27b298554de2e6408824e8a5dfd3f2d605e623b0dc12"
+    },
+    {
+      "path": "benchmarks/platform_verification.py",
+      "size": 11505,
+      "sha256": "fc8e864b7c503d9d8a3fca2087910922a1bb9b70dbdefc81a57dbedec5e44a4c"
+    },
+    {
+      "path": "benchmarks/verify_clean_candidate.py",
+      "size": 5547,
+      "sha256": "72093d9cb46304586689e28a2292103238d49136c8e83778b78fb5122daff787"
+    },
+    {
+      "path": "deploy/docker-compose.yml",
+      "size": 1265,
+      "sha256": "42612a39ac365636327bd25289998126a51fb5278509374e87c78604ceacf4a0"
+    },
+    {
+      "path": "deploy/nginx.conf",
+      "size": 566,
+      "sha256": "fa74a1bbbc6ff470027725880a7fd3289f81a11d02960c83b301482d4647fea1"
+    },
+    {
+      "path": "deploy/run-platform.sh",
+      "size": 457,
+      "sha256": "bf14140fd5a7882067cab7e796b208ebec9aa4e6144b4fb33bb2e0aa2508aefb"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "size": 5382,
+      "sha256": "aa8af924008ac042fef8fa8159ae075bde35efba1c1cce204fcfe0e5443135b5"
+    },
+    {
+      "path": "docs/DELIVERY_PLAN.md",
+      "size": 3987,
+      "sha256": "09bb01cff83471732f7ea0a8e8606fc6276e07837aac98ed2a4a70b966a973c5"
+    },
+    {
+      "path": "docs/EVALUATION.md",
+      "size": 4694,
+      "sha256": "cf6416a4aaad00ca2457e2a300829dd7ceba29b80a7008dc13eacc79b8eacd50"
+    },
+    {
+      "path": "docs/PRODUCT_SPEC.md",
+      "size": 4531,
+      "sha256": "9a7b577b7ba6ed00c54b50937ce4ec14d74a0a02a569d1f83da7d47b637c2866"
+    },
+    {
+      "path": "docs/REFERENCES.md",
+      "size": 1083,
+      "sha256": "6c1ae4df803e58a783a01eeef758ccfdf08a339026f3a312c399ac52756a5036"
+    },
+    {
+      "path": "docs/REVIEW.md",
+      "size": 2913,
+      "sha256": "82dfaf0d8d4f8ac8cef4915c25528a82d898e3cf16948e13988b3ef38cff645e"
+    },
+    {
+      "path": "docs/STATUS.md",
+      "size": 6691,
+      "sha256": "3166b86e74ce726058e9d500fd6c7eb15951275753740d6d94d5ea24ab480ab7"
+    },
+    {
+      "path": "docs/adr/001-direct-runtime.md",
+      "size": 892,
+      "sha256": "4491f540d33cefe476978c3c17d2a406751e3a0382d9417999ca10689b66442d"
+    },
+    {
+      "path": "docs/adr/002-current-stateless-http-mcp.md",
+      "size": 1176,
+      "sha256": "24f68a413add4d566168c7fbfd9d3373e3443510eb3661480983c9b38df3b058"
+    },
+    {
+      "path": "docs/adr/003-hybrid-retrieval-and-model-spaces.md",
+      "size": 796,
+      "sha256": "e5ffbc178f88d500bf036581318ccd78baac7eaca4babfd67084c8a96430af78"
+    },
+    {
+      "path": "docs/adr/004-host-api-and-container-dependencies.md",
+      "size": 557,
+      "sha256": "fda9996a8afc1c4c3a36b29a45aed630696b010ee0d84a4dae6e48204d43c7dd"
+    },
+    {
+      "path": "docs/migrations/001_sessions.sql",
+      "size": 479,
+      "sha256": "5f212c7efa89701ce8bbc0a03468de8482b0339db7c60b1015e5ffea82a9fcc0"
+    },
+    {
+      "path": "evals/control_cases.json",
+      "size": 627,
+      "sha256": "63596c3f1cd96d641c665a8bb1253e9d82b340c09c0f74f7e67726a13c11cb78"
+    },
+    {
+      "path": "evals/rag_cases.json",
+      "size": 4582,
+      "sha256": "37a5155db554f4a9446cbef30ccaa2d15968deb491e353c4425899f87a955fcc"
+    },
+    {
+      "path": "examples/langchain_rag.py",
+      "size": 1098,
+      "sha256": "27ea8c4ba217d5c343fe049da47709eab57194bd4e01adbaf05dd915a5e8f1f4"
+    },
+    {
+      "path": "examples/llamaindex_rag.py",
+      "size": 1004,
+      "sha256": "cf6aedadfe6171e3ba13f244cd6d9b8479240415031f2223c01eb64fd9cdb9dc"
+    },
+    {
+      "path": "pyproject.toml",
+      "size": 1607,
+      "sha256": "b940a0dca0405d37ada157d88836a67a64994bceef04f760a4694be8f309a91e"
+    },
+    {
+      "path": "src/forgeharness/__init__.py",
+      "size": 153,
+      "sha256": "68ba393bde934eaa9a56b4032784543146e5a2319361d9cbba896a2335f2e7e0"
+    },
+    {
+      "path": "src/forgeharness/api.py",
+      "size": 21412,
+      "sha256": "32dbbe9a55126b675e9e66a6953703664e480eb4c2e572a73d66badf0e0f7117"
+    },
+    {
+      "path": "src/forgeharness/cli.py",
+      "size": 11943,
+      "sha256": "d6716c381f9d334a227fdbd24f13110b260ffe263598cbef77b1b8aa84b8be40"
+    },
+    {
+      "path": "src/forgeharness/coding/__init__.py",
+      "size": 205,
+      "sha256": "ef34e4266b71489c5e9507dfd1842ce4d65bbc9c44690ba40bf3df065d16c294"
+    },
+    {
+      "path": "src/forgeharness/coding/agent.py",
+      "size": 4941,
+      "sha256": "b529cea73632cc5b46e0cdb3b06f0e268c1808af6b136ea2621bf0006de55a53"
+    },
+    {
+      "path": "src/forgeharness/coding/api.py",
+      "size": 4993,
+      "sha256": "a263124616caa645e6297366b1161acaef41403d1d05f85b54ac9769afb1557b"
+    },
+    {
+      "path": "src/forgeharness/coding/policy.py",
+      "size": 1352,
+      "sha256": "fa9413fd7767f79fe6dde3860705c2aec8cadcf25cb346fabcfb95ed3bf10945"
+    },
+    {
+      "path": "src/forgeharness/coding/tools.py",
+      "size": 11306,
+      "sha256": "7399f09b95a275198fbede85de6db485f9061f1d26d5bd11047380f574df7803"
+    },
+    {
+      "path": "src/forgeharness/context/__init__.py",
+      "size": 313,
+      "sha256": "bf9fed9ba4fc3eb48272fe961fbe0fcb1d038c0b1de0dee2de9faaea69455385"
+    },
+    {
+      "path": "src/forgeharness/context/compiler.py",
+      "size": 3551,
+      "sha256": "8c88be508a66959d8be21b7083abaedb5bb81306b2c4ac30c5fbbe51cec602d3"
+    },
+    {
+      "path": "src/forgeharness/context/compression.py",
+      "size": 1380,
+      "sha256": "402cd0c135bec1362c51d5945f5a42936c819dd0177b2b83fbe5195978701bc1"
+    },
+    {
+      "path": "src/forgeharness/context/repository.py",
+      "size": 2744,
+      "sha256": "31ce2415ac26e632859beb61cef2609f81af3410bcd37e2f148a2119977b723f"
+    },
+    {
+      "path": "src/forgeharness/domain/__init__.py",
+      "size": 67,
+      "sha256": "549be2680de53e30a2c3bde0a47df123fa6151e5848912e65a588e9ab9a893b3"
+    },
+    {
+      "path": "src/forgeharness/domain/models.py",
+      "size": 4425,
+      "sha256": "3701012001719cecd4e400e424ae5155652224da4e17379c4c355c02dd84ffdc"
+    },
+    {
+      "path": "src/forgeharness/evaluation/__init__.py",
+      "size": 200,
+      "sha256": "ae2a0591e5dc513431e9f7cbd17f913ae5b0e33e071cd3265469a1d4c42e0e30"
+    },
+    {
+      "path": "src/forgeharness/evaluation/control.py",
+      "size": 8305,
+      "sha256": "f16f4a2ae3483040625e73c2bb596de409f88df56c9c72634994eb34b984fbe5"
+    },
+    {
+      "path": "src/forgeharness/evaluation/omlx.py",
+      "size": 16086,
+      "sha256": "e3f173bfb4c08a9124ef6bbffc882e00ecd0b4114946c6d82511af275e32701a"
+    },
+    {
+      "path": "src/forgeharness/evaluation/performance.py",
+      "size": 4198,
+      "sha256": "d02d39b25f2d4e0bf06563571b996b6e78755d52cb5d77796943df1fc84b289c"
+    },
+    {
+      "path": "src/forgeharness/evaluation/rag.py",
+      "size": 6966,
+      "sha256": "e331b905f0d836007a4a63810c624f3fd5485591a5634a8c5fef32c0cbdfa4e5"
+    },
+    {
+      "path": "src/forgeharness/evaluation/reviewer.py",
+      "size": 4316,
+      "sha256": "d722a993b2c052588f91da76b0a6bd60232c6f90a4b132a7b9b6bc8b170130d9"
+    },
+    {
+      "path": "src/forgeharness/knowledge/__init__.py",
+      "size": 117,
+      "sha256": "f9f30614b71afe2bdf98ac24977b2fc9fada964ee428184df262110cdf850860"
+    },
+    {
+      "path": "src/forgeharness/knowledge/application.py",
+      "size": 7968,
+      "sha256": "fd0a625a9e53a072b8868e86886c5f4f9b82ea9488ed13cb44cfdcc000935d21"
+    },
+    {
+      "path": "src/forgeharness/knowledge/conversation.py",
+      "size": 8299,
+      "sha256": "feef855ab406e85d5cbf2134f7715fb1e343c97c80828ded057aea174b3212f3"
+    },
+    {
+      "path": "src/forgeharness/knowledge/indexes.py",
+      "size": 18729,
+      "sha256": "08ec331013a7353f4e2fc9704c24aced5af82bff02d0879a26ad1f1e49fe0a5d"
+    },
+    {
+      "path": "src/forgeharness/knowledge/memory.py",
+      "size": 4193,
+      "sha256": "608a6f05c12b4b3e25d1b17b0356f40dfc8dfed4195abfd56e77a5492ade229b"
+    },
+    {
+      "path": "src/forgeharness/knowledge/models.py",
+      "size": 5702,
+      "sha256": "9c11690d520eb6d1eb6c00f3c8a099105a3dd3f8501462bd5a799140bf602b7d"
+    },
+    {
+      "path": "src/forgeharness/knowledge/parsers.py",
+      "size": 9582,
+      "sha256": "b0ea6342bc543660af60bed8e845415d59aeee954b333895bb9a766728381037"
+    },
+    {
+      "path": "src/forgeharness/knowledge/protocols.py",
+      "size": 4234,
+      "sha256": "042ddccb3682971d2d39d3b090e4a2a46c1cf3e66a65c784ddc4d7d771d75d4f"
+    },
+    {
+      "path": "src/forgeharness/knowledge/queue.py",
+      "size": 3332,
+      "sha256": "c66fec703409b23eb31efb87a1a92b4fe9af08df8957bbd95ce9ee5ea434541d"
+    },
+    {
+      "path": "src/forgeharness/knowledge/reviewer.py",
+      "size": 4376,
+      "sha256": "a19e4fefc62b45b98e36c66bc8e52fdf56a1c1dd50af5b302684a6fced52ecc9"
+    },
+    {
+      "path": "src/forgeharness/knowledge/runs.py",
+      "size": 1583,
+      "sha256": "89539c8f1ec1d507790267a7199ab3b327b095332fd1970a858dd6644b54d63f"
+    },
+    {
+      "path": "src/forgeharness/knowledge/service.py",
+      "size": 8410,
+      "sha256": "80b6a2b494b5d22058a610e117d647de6a8843b9cbd50404e08fec389e4757c9"
+    },
+    {
+      "path": "src/forgeharness/knowledge/storage.py",
+      "size": 17895,
+      "sha256": "ccd0be54317bccf97fefc6646ea91d74b68c42afdc49d83a60caafc2e32c41f3"
+    },
+    {
+      "path": "src/forgeharness/knowledge/testing.py",
+      "size": 2576,
+      "sha256": "9292b90e560da9e80fb5b995eed90d6a0fd14dfbf3d3261519a99217f7d061e8"
+    },
+    {
+      "path": "src/forgeharness/models/__init__.py",
+      "size": 390,
+      "sha256": "76cc7ad3344b6fbab477d0bec4100140c50fbee625fb6c5b51812b4448cadffb"
+    },
+    {
+      "path": "src/forgeharness/models/base.py",
+      "size": 660,
+      "sha256": "ebd9bd936019bca05cf0f9a3d90608159910e8e068c958f519a55292890111f4"
+    },
+    {
+      "path": "src/forgeharness/models/omlx.py",
+      "size": 9776,
+      "sha256": "2e44f1c16757a09111e4e0637bc4dc0bc458affc745def4fe08becb4eb8f2833"
+    },
+    {
+      "path": "src/forgeharness/models/openai_compatible.py",
+      "size": 6848,
+      "sha256": "e2a3c1fc0527f3d64608d8e835730236c24a01ea315b8d12040a06d913fadf9c"
+    },
+    {
+      "path": "src/forgeharness/models/scripted.py",
+      "size": 798,
+      "sha256": "d2573d6a03773a38273f4c0cfb8bdd13d4013e335c83aa53eb41c626f0842a82"
+    },
+    {
+      "path": "src/forgeharness/observability/__init__.py",
+      "size": 294,
+      "sha256": "b3b88c702c44eb2953ab164a3ca97ebf8e553daa29f2994ae60019b30132c899"
+    },
+    {
+      "path": "src/forgeharness/observability/hash_chain.py",
+      "size": 4585,
+      "sha256": "ff8043cdaa79334b5719757e9ed9411d5a6c526fad86e94ea2a1df4711b060ab"
+    },
+    {
+      "path": "src/forgeharness/observability/trace.py",
+      "size": 1209,
+      "sha256": "7edd6e128436889ae45cb57919bd22a71756a1caa61bf78c734dcba40137c0f8"
+    },
+    {
+      "path": "src/forgeharness/py.typed",
+      "size": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "src/forgeharness/review.py",
+      "size": 11757,
+      "sha256": "bb4120d1d9de3bafdafd2941b90b8ec799fb2dfbf79bf45a555bc7e095e44e2b"
+    },
+    {
+      "path": "src/forgeharness/runtime/__init__.py",
+      "size": 319,
+      "sha256": "643a4bbacbf3723ef5f970e9d53f93b40e2e23b359ea9c8b1027531ae737d07e"
+    },
+    {
+      "path": "src/forgeharness/runtime/budget.py",
+      "size": 459,
+      "sha256": "23c8ad25ef6caa892793870b037a7db21e4e56ba0cfc01c305c9fc94dc7cfa97"
+    },
+    {
+      "path": "src/forgeharness/runtime/loop.py",
+      "size": 15805,
+      "sha256": "7481a0ca01346293198010300fc8b497829bc9fb23da7e7e132046a3a23817a8"
+    },
+    {
+      "path": "src/forgeharness/runtime/plan_execute.py",
+      "size": 3529,
+      "sha256": "65d142ffea82f697ebdea216cb203a970199d18ab0c310a7edaed16e1df1e955"
+    },
+    {
+      "path": "src/forgeharness/runtime/subagent.py",
+      "size": 5462,
+      "sha256": "c3ce1bd856837901c8e146eff87f82126ee79ad74395d8455db50a62a4c6876d"
+    },
+    {
+      "path": "src/forgeharness/skills/__init__.py",
+      "size": 207,
+      "sha256": "292f488e4701567c6eb92a19612d7625de3c4dff0b933e49fa18961cae654ed7"
+    },
+    {
+      "path": "src/forgeharness/skills/loader.py",
+      "size": 4638,
+      "sha256": "8bff1cc4fd16bfea8b4754be223757a5cff1aec77deb3f22cf373526ebf21ba7"
+    },
+    {
+      "path": "src/forgeharness/state/__init__.py",
+      "size": 544,
+      "sha256": "635711f2dc4d2fce6e72113ba368326bf9f29a6f0ffce561b41a145015798681"
+    },
+    {
+      "path": "src/forgeharness/state/approval.py",
+      "size": 3463,
+      "sha256": "ababccc35ccb38d82330f83ef36ee5e75ccd26f256e6fdff47af3e8ee245427f"
+    },
+    {
+      "path": "src/forgeharness/state/checkpoint.py",
+      "size": 3585,
+      "sha256": "0eedaedbe06ac52f887560b5d60a961d1b1fd3f071681f19a3f5d9323f47dbe1"
+    },
+    {
+      "path": "src/forgeharness/state/memory.py",
+      "size": 8301,
+      "sha256": "5c0832c2f6dac03eec0993b6d165cb1bb9ed61660e1dd732b56a18fa27fc4f1e"
+    },
+    {
+      "path": "src/forgeharness/state/sqlite.py",
+      "size": 896,
+      "sha256": "ac985b3eb9db154830e299c725578fddd4d960cffc8d2d7d84364fdf8f4f7f6b"
+    },
+    {
+      "path": "src/forgeharness/tools/__init__.py",
+      "size": 394,
+      "sha256": "56dde6d218f78e3014072db34f90da2aa82f12a940e863003f8b99c09ceeee9b"
+    },
+    {
+      "path": "src/forgeharness/tools/base.py",
+      "size": 2318,
+      "sha256": "8791d9e4c3f2d5b1cd6b2e331e36c5cafe3a2606f996e8f54b38e2585af19a69"
+    },
+    {
+      "path": "src/forgeharness/tools/builtin.py",
+      "size": 1182,
+      "sha256": "a340bb30704b86c26d768db5074b750c60dc495466e0cf17a373d18fd3e26adf"
+    },
+    {
+      "path": "src/forgeharness/tools/dispatcher.py",
+      "size": 3414,
+      "sha256": "ed12ca75cc2c1fb70a18ea6252bdeb5276d5727292a462b34932f8f17dfea2f9"
+    },
+    {
+      "path": "src/forgeharness/tools/mcp.py",
+      "size": 8301,
+      "sha256": "c61fc1619547c6f6cf87f478908cd003e7a6c76dd4a015f0fa92ded6c6d33e73"
+    },
+    {
+      "path": "src/forgeharness/tools/paths.py",
+      "size": 840,
+      "sha256": "3ec7ab2ced7547fb534273fd1c63dce37c584e40d3a0b247ef96cbcc0776c596"
+    },
+    {
+      "path": "src/forgeharness/tools/policy.py",
+      "size": 1665,
+      "sha256": "8d217da31d72ba65335e48864c24e94b1f243e385d51948ab96608af8fc336c9"
+    },
+    {
+      "path": "src/forgeharness/tools/process.py",
+      "size": 1901,
+      "sha256": "14e7758d9da1d50536687cf5b3964c3d5cc973b71aae1ed939c5836f4fb3970d"
+    },
+    {
+      "path": "src/forgeharness/tools/registry.py",
+      "size": 1716,
+      "sha256": "de80341d5586f9ac4d1dd6825579a03df74c5dc3f17ece847ad22f62112bdb8c"
+    },
+    {
+      "path": "src/forgeharness/worker.py",
+      "size": 2614,
+      "sha256": "095b8c0a2da356585beecdb05fe32c1587b6bb24344cfdf6cc03a2467dd8bc9e"
+    },
+    {
+      "path": "tests/integration/test_coding_agent.py",
+      "size": 4588,
+      "sha256": "993d65e261fd639e8e581f658aa7620d7c4828c216d2cf1b9d6faa787f3c5c7a"
+    },
+    {
+      "path": "tests/unit/test_api.py",
+      "size": 1782,
+      "sha256": "b314b51a32746e8639f996c1ac503be5114afd43a404302b914acc99bb237ac0"
+    },
+    {
+      "path": "tests/unit/test_approval.py",
+      "size": 2437,
+      "sha256": "1ec0376a6bce73cb5e492243641d5234102a6eaf3f4e81318dda423875e72119"
+    },
+    {
+      "path": "tests/unit/test_checkpoint.py",
+      "size": 1739,
+      "sha256": "aed32c197e55d3c1caba3f0a172ec0cfb93e5dedf37e3db41a5bd9da9c93a23a"
+    },
+    {
+      "path": "tests/unit/test_cli_review.py",
+      "size": 10230,
+      "sha256": "c9b61a986c49605756a5b037f0447664ce378af641eda7dced68dca313d60e2d"
+    },
+    {
+      "path": "tests/unit/test_cli_workflows.py",
+      "size": 5848,
+      "sha256": "ddc81b922ba1468b1bb1b2162e16aa62da6b7270a2fea557d5b9a477ca8d0427"
+    },
+    {
+      "path": "tests/unit/test_coding_api.py",
+      "size": 4999,
+      "sha256": "d3879128ace5c52f7175e60ad34a2ce2ae3d8fcae85f49d5b6fce88a90046926"
+    },
+    {
+      "path": "tests/unit/test_coding_tools.py",
+      "size": 6537,
+      "sha256": "9fd2714f3006ccb739826aab296a5a3c65b00bbf35a821bf7eb20cb8b57e540c"
+    },
+    {
+      "path": "tests/unit/test_context.py",
+      "size": 2325,
+      "sha256": "7c05f6645da32e195a6c24cbeb0e4d2a25fdf61af6b288a92ec71910ab682ac2"
+    },
+    {
+      "path": "tests/unit/test_control_evaluation.py",
+      "size": 1628,
+      "sha256": "0deec33f5e1f8a0fb42086f2559a5f32a0d0a925d603999db6ab9356fe0361a7"
+    },
+    {
+      "path": "tests/unit/test_domain_models.py",
+      "size": 1784,
+      "sha256": "51dc50173a6672fee8549e5fcbd9892b1149375b63d74b0bbf4e0902df4b5c06"
+    },
+    {
+      "path": "tests/unit/test_knowledge_conversation_api.py",
+      "size": 16901,
+      "sha256": "d8fc4c20af0d1fbb930cebc627384bcc037276ebf540f97c830376cbd8190bd0"
+    },
+    {
+      "path": "tests/unit/test_knowledge_indexes_service.py",
+      "size": 11330,
+      "sha256": "6dbdf4a1b7ae731189bb67d416cc0b85eae9cf6930354ae21bb5dfd03ecadc28"
+    },
+    {
+      "path": "tests/unit/test_knowledge_parsers_storage.py",
+      "size": 6783,
+      "sha256": "3682237a965fcaf511f1d4d26433c3e5f961d4fd3ab10d8215942fac3578a14e"
+    },
+    {
+      "path": "tests/unit/test_knowledge_reviewer_queue.py",
+      "size": 7763,
+      "sha256": "da3a9ad33e0e825a8e6ae627b024886fbfa0540abdd9d163c81eb9923acb1f16"
+    },
+    {
+      "path": "tests/unit/test_knowledge_runs_attachments.py",
+      "size": 5234,
+      "sha256": "2cad5e12988721e97e640a587bf85ba3a5917cd6d10482853b6128c5dc6ea945"
+    },
+    {
+      "path": "tests/unit/test_mcp.py",
+      "size": 5724,
+      "sha256": "801b87962f795b77f897374c5c9c4d0333d8bc2fbb3fde3bd19f841bd8cc1533"
+    },
+    {
+      "path": "tests/unit/test_memory_trace.py",
+      "size": 2996,
+      "sha256": "95a79f61dee94e5c716e75e71d09ef1f22f8921428e96cfeb96c1f26e0d1f056"
+    },
+    {
+      "path": "tests/unit/test_omlx_knowledge.py",
+      "size": 6561,
+      "sha256": "90714277c06c3eb999b310426225983be54c6a8634e4cc172571dec2c22ba6b9"
+    },
+    {
+      "path": "tests/unit/test_omlx_qualification.py",
+      "size": 4730,
+      "sha256": "fbea10b3a93ff4a6962c6cfd7974714579f58bf45f61a066418d63b650bf456a"
+    },
+    {
+      "path": "tests/unit/test_openai_compatible.py",
+      "size": 5790,
+      "sha256": "efbb75f0dd8713e37067927e92481558fb992a607fae968e2226f9f47292cdc2"
+    },
+    {
+      "path": "tests/unit/test_paths_repository.py",
+      "size": 1971,
+      "sha256": "8362ec74324ac0c0d7293226a339798d5bc8fc9709910fe782fb5b233648c618"
+    },
+    {
+      "path": "tests/unit/test_plan_execute.py",
+      "size": 3557,
+      "sha256": "9c5d0ffd3864371c43f7ea7ca6358bfdea6c80ec077131a23efe02b89c3e2e12"
+    },
+    {
+      "path": "tests/unit/test_policy.py",
+      "size": 1006,
+      "sha256": "684c76f8af108936697377df33f7f81d343a0d9aae6aad6f4218d6fc0d30abcf"
+    },
+    {
+      "path": "tests/unit/test_rag_evaluation.py",
+      "size": 724,
+      "sha256": "8333f33d3434434547192fedc4be73ebb2d647c0b8d599bec2f0d69d38e12cdf"
+    },
+    {
+      "path": "tests/unit/test_registry_dispatcher.py",
+      "size": 5466,
+      "sha256": "28b2065f0072ec57b8d22138f64d12ac1cf016fbd164fe0f2577de5b1cfb0200"
+    },
+    {
+      "path": "tests/unit/test_reviewer_evaluation.py",
+      "size": 1059,
+      "sha256": "3f47b7451d341b49ed3477970ba363e76baeaabba54abf11d5bb2174b3349934"
+    },
+    {
+      "path": "tests/unit/test_runtime.py",
+      "size": 13405,
+      "sha256": "7b38a4a0f2d8b8a935973cad1999ac83821dee0489587c3501fc8144a59b71cc"
+    },
+    {
+      "path": "tests/unit/test_skills.py",
+      "size": 2842,
+      "sha256": "be2cae27cb7fdfc84e0e0823f5e65bb8ed642e57c5791980155967486e551793"
+    },
+    {
+      "path": "tests/unit/test_subagent.py",
+      "size": 5828,
+      "sha256": "d5c3089a27ef6f53bb71eb6b8652eaa957ac15ac5482622a9fb70fd8e33d0c18"
+    },
+    {
+      "path": "uv.lock",
+      "size": 447306,
+      "sha256": "088582b8002d514a1a083836e9256820a7ee6f33fd3e950febe6a78de5f51284"
+    }
+  ]
+}

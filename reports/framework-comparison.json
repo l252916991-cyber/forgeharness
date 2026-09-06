@@ -1,0 +1,40 @@
+{
+  "revision": "2f8f0eb03a1dbab233a2f42667e14c8819a5f33e",
+  "timestamp": "2026-09-07T00:30:30+0800",
+  "chat_model": "Qwythos-9B-v2-8bit-mlx",
+  "queries": [
+    "How does the approval mechanism work?",
+    "What are the agent budget limits?",
+    "Explain the checkpoint and resume flow",
+    "How does hybrid retrieval combine FTS5 and vector search?",
+    "What security boundaries does the harness enforce?"
+  ],
+  "native": {
+    "count": 5,
+    "mean_ms": 1.402,
+    "p50_ms": 0.853,
+    "p95_ms": 3.681,
+    "mean_hits": 5.0
+  },
+  "langchain": {
+    "skipped": false,
+    "retrieval": {
+      "count": 5,
+      "mean_ms": 3.644,
+      "p50_ms": 3.754,
+      "p95_ms": 4.397,
+      "mean_hits": 5.0
+    },
+    "end_to_end": {
+      "count": 5,
+      "mean_ms": 39486.03,
+      "p50_ms": 26557.126,
+      "p95_ms": 98105.05,
+      "mean_hits": 5.0
+    }
+  },
+  "notes": [
+    "end_to_end includes chat-model generation; compare against native retrieval only."
+  ],
+  "retrieval_overhead_pct": 159.91
+}

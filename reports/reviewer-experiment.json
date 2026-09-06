@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-09-04T02:05:49.338116Z",
+  "revision": "9617025a134c36f3606931dcf356516b9323546a",
+  "manifest_version": "rag-v1-60-cases",
+  "baseline": {
+    "correct": 60,
+    "total": 60,
+    "effective_answer_rate": 1.0,
+    "median_latency_ms": 1.2987710069864988
+  },
+  "reviewer": {
+    "correct": 60,
+    "total": 60,
+    "effective_answer_rate": 1.0,
+    "median_latency_ms": 1.1952499626204371
+  },
+  "quality_improvement_points": 0.0,
+  "latency_ratio": 0.9202930741376353,
+  "enablement_threshold_points": 5.0,
+  "latency_ratio_max": 2.0,
+  "reviewer_enabled_by_default": false
+}

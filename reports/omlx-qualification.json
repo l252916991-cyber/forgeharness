@@ -1,0 +1,1106 @@
+{
+  "created_at": "2026-09-03T01:40:59.608475Z",
+  "revision": "9617025a134c36f3606931dcf356516b9323546a",
+  "quick": false,
+  "models": {
+    "chat": "Qwen3.5-9B-4bit",
+    "embedding": "Qwen3-Embedding-4B-4bit-DWQ",
+    "reranker": "bge-reranker-v2-m3-mlx"
+  },
+  "inventory": {
+    "Qwen3.5-9B-4bit": true,
+    "Qwen3-Embedding-4B-4bit-DWQ": true,
+    "bge-reranker-v2-m3-mlx": true
+  },
+  "sections": {
+    "tool_calling": {
+      "passed": 20,
+      "total": 20,
+      "pass_rate": 1.0,
+      "median_latency_ms": 2490.7775,
+      "cases": [
+        {
+          "id": "qualification-01",
+          "passed": true,
+          "latency_ms": 2559.396,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-01"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-01"
+            }
+          }
+        },
+        {
+          "id": "qualification-02",
+          "passed": true,
+          "latency_ms": 2863.716,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-02"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-02"
+            }
+          }
+        },
+        {
+          "id": "qualification-03",
+          "passed": true,
+          "latency_ms": 2499.693,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-03"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-03"
+            }
+          }
+        },
+        {
+          "id": "qualification-04",
+          "passed": true,
+          "latency_ms": 2440.926,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-04"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-04"
+            }
+          }
+        },
+        {
+          "id": "qualification-05",
+          "passed": true,
+          "latency_ms": 2611.128,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-05"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-05"
+            }
+          }
+        },
+        {
+          "id": "qualification-06",
+          "passed": true,
+          "latency_ms": 2705.03,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-06"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-06"
+            }
+          }
+        },
+        {
+          "id": "qualification-07",
+          "passed": true,
+          "latency_ms": 2657.541,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-07"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-07"
+            }
+          }
+        },
+        {
+          "id": "qualification-08",
+          "passed": true,
+          "latency_ms": 2460.968,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-08"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-08"
+            }
+          }
+        },
+        {
+          "id": "qualification-09",
+          "passed": true,
+          "latency_ms": 2477.425,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-09"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-09"
+            }
+          }
+        },
+        {
+          "id": "qualification-10",
+          "passed": true,
+          "latency_ms": 2428.166,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-10"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-10"
+            }
+          }
+        },
+        {
+          "id": "qualification-11",
+          "passed": true,
+          "latency_ms": 2393.229,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-11"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-11"
+            }
+          }
+        },
+        {
+          "id": "qualification-12",
+          "passed": true,
+          "latency_ms": 2480.186,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-12"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-12"
+            }
+          }
+        },
+        {
+          "id": "qualification-13",
+          "passed": true,
+          "latency_ms": 2786.944,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-13"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-13"
+            }
+          }
+        },
+        {
+          "id": "qualification-14",
+          "passed": true,
+          "latency_ms": 2481.862,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-14"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-14"
+            }
+          }
+        },
+        {
+          "id": "qualification-15",
+          "passed": true,
+          "latency_ms": 2436.397,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-15"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-15"
+            }
+          }
+        },
+        {
+          "id": "qualification-16",
+          "passed": true,
+          "latency_ms": 2410.968,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-16"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-16"
+            }
+          }
+        },
+        {
+          "id": "qualification-17",
+          "passed": true,
+          "latency_ms": 2438.105,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-17"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-17"
+            }
+          }
+        },
+        {
+          "id": "qualification-18",
+          "passed": true,
+          "latency_ms": 2784.677,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-18"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-18"
+            }
+          }
+        },
+        {
+          "id": "qualification-19",
+          "passed": true,
+          "latency_ms": 8794.407,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-19"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-19"
+            }
+          }
+        },
+        {
+          "id": "qualification-20",
+          "passed": true,
+          "latency_ms": 5502.658,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-20"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-20"
+            }
+          }
+        }
+      ]
+    },
+    "intent": {
+      "passed": 20,
+      "total": 20,
+      "pass_rate": 1.0,
+      "median_latency_ms": 913.0535,
+      "cases": [
+        {
+          "id": "intent-01",
+          "passed": true,
+          "latency_ms": 932.666,
+          "error": null,
+          "expected": "knowledge_query",
+          "actual": "knowledge_query"
+        },
+        {
+          "id": "intent-02",
+          "passed": true,
+          "latency_ms": 887.942,
+          "error": null,
+          "expected": "knowledge_query",
+          "actual": "knowledge_query"
+        },
+        {
+          "id": "intent-03",
+          "passed": true,
+          "latency_ms": 897.079,
+          "error": null,
+          "expected": "knowledge_query",
+          "actual": "knowledge_query"
+        },
+        {
+          "id": "intent-04",
+          "passed": true,
+          "latency_ms": 1209.558,
+          "error": null,
+          "expected": "knowledge_query",
+          "actual": "knowledge_query"
+        },
+        {
+          "id": "intent-05",
+          "passed": true,
+          "latency_ms": 1130.294,
+          "error": null,
+          "expected": "knowledge_query",
+          "actual": "knowledge_query"
+        },
+        {
+          "id": "intent-06",
+          "passed": true,
+          "latency_ms": 998.603,
+          "error": null,
+          "expected": "coding_task",
+          "actual": "coding_task"
+        },
+        {
+          "id": "intent-07",
+          "passed": true,
+          "latency_ms": 719.027,
+          "error": null,
+          "expected": "coding_task",
+          "actual": "coding_task"
+        },
+        {
+          "id": "intent-08",
+          "passed": true,
+          "latency_ms": 843.393,
+          "error": null,
+          "expected": "coding_task",
+          "actual": "coding_task"
+        },
+        {
+          "id": "intent-09",
+          "passed": true,
+          "latency_ms": 1020.585,
+          "error": null,
+          "expected": "coding_task",
+          "actual": "coding_task"
+        },
+        {
+          "id": "intent-10",
+          "passed": true,
+          "latency_ms": 1499.276,
+          "error": null,
+          "expected": "coding_task",
+          "actual": "coding_task"
+        },
+        {
+          "id": "intent-11",
+          "passed": true,
+          "latency_ms": 1053.621,
+          "error": null,
+          "expected": "memory_command",
+          "actual": "memory_command"
+        },
+        {
+          "id": "intent-12",
+          "passed": true,
+          "latency_ms": 741.678,
+          "error": null,
+          "expected": "memory_command",
+          "actual": "memory_command"
+        },
+        {
+          "id": "intent-13",
+          "passed": true,
+          "latency_ms": 888.871,
+          "error": null,
+          "expected": "memory_command",
+          "actual": "memory_command"
+        },
+        {
+          "id": "intent-14",
+          "passed": true,
+          "latency_ms": 821.942,
+          "error": null,
+          "expected": "memory_command",
+          "actual": "memory_command"
+        },
+        {
+          "id": "intent-15",
+          "passed": true,
+          "latency_ms": 929.028,
+          "error": null,
+          "expected": "memory_command",
+          "actual": "memory_command"
+        },
+        {
+          "id": "intent-16",
+          "passed": true,
+          "latency_ms": 1342.584,
+          "error": null,
+          "expected": "general_chat",
+          "actual": "general_chat"
+        },
+        {
+          "id": "intent-17",
+          "passed": true,
+          "latency_ms": 781.347,
+          "error": null,
+          "expected": "general_chat",
+          "actual": "general_chat"
+        },
+        {
+          "id": "intent-18",
+          "passed": true,
+          "latency_ms": 734.858,
+          "error": null,
+          "expected": "general_chat",
+          "actual": "general_chat"
+        },
+        {
+          "id": "intent-19",
+          "passed": true,
+          "latency_ms": 818.887,
+          "error": null,
+          "expected": "general_chat",
+          "actual": "general_chat"
+        },
+        {
+          "id": "intent-20",
+          "passed": true,
+          "latency_ms": 1333.782,
+          "error": null,
+          "expected": "general_chat",
+          "actual": "general_chat"
+        }
+      ]
+    },
+    "vision": {
+      "passed": 20,
+      "total": 20,
+      "pass_rate": 1.0,
+      "median_latency_ms": 42969.33500000001,
+      "cases": [
+        {
+          "id": "vision-01",
+          "passed": true,
+          "latency_ms": 34715.461,
+          "error": null,
+          "expected": "ERROR 401",
+          "actual": "- **Text content**:  \n  - “ERROR 401” — displayed in black, sans-serif font, left-aligned on a white background.\n\n- **UI elements**:  \n  - No buttons, forms, icons, or interactive components visible.  \n  - Plain text-only interface.\n\n- **Relationships**:  \n  - “ERROR” and “401” are presented as a single phrase, likely indicating an HTTP 401 Unauthorized error.\n\n- **Errors**:  \n  - The presence of “ERROR 401” indicates a server-side authentication failure (HTTP status code 401).\n\n- **Layout**:  \n  - Text is positioned toward the left side of the frame; right side is blank.  \n  - No borders, shadows, or background patterns.\n\n- **Observable evidence only**:  \n  - No additional context, logos, navigation, or metadata is visible.  \n  - No hidden or inferred content beyond what’s rendered."
+        },
+        {
+          "id": "vision-02",
+          "passed": true,
+          "latency_ms": 44113.272,
+          "error": null,
+          "expected": "ERROR 403",
+          "actual": "- **Text content**:  \n  - “ERROR 403” — displayed in bold, black, sans-serif font, left-aligned near the top-left of the image.\n\n- **Layout & positioning**:  \n  - The text is isolated on a plain white background.  \n  - No other visible elements (icons, buttons, forms, images, or additional text) are present.  \n  - The phrase “ERROR 403” appears to be centered vertically within the visible frame, but horizontally offset to the left.\n\n- **UI elements**:  \n  - None observed. This is a minimal error message display, likely from a web server or application interface.\n\n- **Relationships**:  \n  - “ERROR” and “403” are presented as a single unit, suggesting they form a standard HTTP error code message.  \n  - No contextual links, navigation, or explanatory text accompany the error.\n\n- **Observable evidence only**:  \n  - The image contains exactly one line of text: “ERROR 403”.  \n  - Background is solid white (#FFFFFF).  \n  - Text color is black (#000000).  \n  - Font style appears to be default system sans-serif (e.g., Arial, Helvetica, or similar).  \n  - No shadows, borders, or decorative elements are visible.  \n  - No interactive components (buttons, links, inputs) are rendered.  \n  - No logos, branding, or footer content is present."
+        },
+        {
+          "id": "vision-03",
+          "passed": true,
+          "latency_ms": 33100.046,
+          "error": null,
+          "expected": "ERROR 404",
+          "actual": "- **Text content**:  \n  - “ERROR 404” — displayed in bold, black, sans-serif font, left-aligned near the top-left of the image.\n\n- **Layout & positioning**:  \n  - The text occupies the upper-left quadrant of the image.  \n  - The rest of the image is blank white space.\n\n- **Visual style**:  \n  - High contrast: black text on pure white background.  \n  - No additional graphics, icons, or decorative elements.  \n  - No visible borders, shadows, or gradients.\n\n- **UI elements**:  \n  - None beyond the textual message.\n\n- **Relationships**:  \n  - “ERROR” and “404” are presented as a single phrase, likely indicating a standard HTTP 404 Not Found error page.\n\n- **Inferred context (not directly visible)**:  \n  - This appears to be a minimalistic web server error page, possibly from a static site or basic server configuration.\n\n*(Note: All descriptions are based solely on observable visual content.)*"
+        },
+        {
+          "id": "vision-04",
+          "passed": true,
+          "latency_ms": 43096.529,
+          "error": null,
+          "expected": "ERROR 409",
+          "actual": "- **Text content**:  \n  - “ERROR 409” — displayed in bold, black, sans-serif font, left-aligned on a plain white background.\n\n- **UI elements**:  \n  - No buttons, forms, icons, or interactive components visible.  \n  - No navigation, headers, footers, or sidebars.  \n  - Entire screen appears to be a minimal error page.\n\n- **Errors**:  \n  - HTTP status code 409 (Conflict) is indicated by the text “ERROR 409”.\n\n- **Layout & relationships**:  \n  - Text is positioned in the upper-left quadrant of the viewport.  \n  - No other visual elements or content are present.  \n  - The page lacks additional context (e.g., description, retry button, help link).\n\n- **Observable evidence only**:  \n  - Only the string “ERROR 409” is rendered.  \n  - Background is solid white (#FFFFFF).  \n  - Font color is black (#000000).  \n  - No images, logos, or decorative elements.  \n  - No dynamic or interactive behavior can be inferred from the static image."
+        },
+        {
+          "id": "vision-05",
+          "passed": true,
+          "latency_ms": 22936.8,
+          "error": null,
+          "expected": "ERROR 422",
+          "actual": "- **Text content**:  \n  - “ERROR 422” — displayed in black, sans-serif font, left-aligned, centered vertically on the screen.\n\n- **UI elements**:  \n  - Plain white background.  \n  - No buttons, forms, icons, or navigation elements visible.  \n  - No additional text, logos, or metadata.\n\n- **Relationships**:  \n  - The text “ERROR 422” is the sole visible element; no other components are present or implied.\n\n- **Errors**:  \n  - HTTP 422 Unprocessable Entity error indicated by the text.\n\n- **Searchable description**:  \n  “A white screen displaying the black text ‘ERROR 422’ centered vertically and left-aligned, with no other UI elements or content visible.”"
+        },
+        {
+          "id": "vision-06",
+          "passed": true,
+          "latency_ms": 48502.524,
+          "error": null,
+          "expected": "ERROR 429",
+          "actual": "- **Text content**:  \n  - “ERROR 429” — displayed in black, sans-serif font, left-aligned, near the top-left of the image.\n\n- **Layout & positioning**:  \n  - The text is isolated on a plain white background.  \n  - No other UI elements, icons, buttons, or decorative graphics are visible.  \n  - The text occupies approximately the left 20–25% of the image width and is vertically centered within the top 15–20% of the image height.\n\n- **Visual style**:  \n  - High contrast: black text on white background.  \n  - No shadows, borders, or gradients.  \n  - Font appears to be a standard system sans-serif (e.g., Arial, Helvetica, or similar).\n\n- **Semantic meaning**:  \n  - “ERROR 429” indicates an HTTP status code meaning “Too Many Requests”, typically returned by servers when rate limits are exceeded.\n\n- **No additional elements**:  \n  - No logos, footers, navigation bars, or explanatory text beyond “ERROR 429”.  \n  - No interactive components (e.g., refresh buttons, help links) are visible.\n\n- **Image characteristics**:  \n  - Appears to be a screenshot or rendered error page.  \n  - Resolution and aspect ratio not discernible from image alone, but layout suggests a minimalistic error display."
+        },
+        {
+          "id": "vision-07",
+          "passed": true,
+          "latency_ms": 51462.91,
+          "error": null,
+          "expected": "ERROR 500",
+          "actual": "- **Text content**:  \n  - “ERROR 500” — displayed in black, sans-serif font, left-aligned, near the top-left of the image.\n\n- **Layout & positioning**:  \n  - The text is isolated on a plain white background.  \n  - No other visible elements (icons, buttons, images, or additional text) are present.  \n  - The phrase “ERROR 500” appears to be centered vertically within the visible frame, but horizontally offset to the left.\n\n- **UI elements**:  \n  - None observed. This is a minimal error message display, likely from a web server or application interface.\n\n- **Relationships**:  \n  - “ERROR” and “500” are presented as a single unit, indicating an HTTP 500 Internal Server Error.  \n  - No contextual or navigational elements are visible to suggest further interaction or hierarchy.\n\n- **Observable evidence only**:  \n  - Only the literal string “ERROR 500” is visible.  \n  - Background is uniformly white.  \n  - No logos, footers, headers, or interactive components are detectable."
+        },
+        {
+          "id": "vision-08",
+          "passed": true,
+          "latency_ms": 57368.219,
+          "error": null,
+          "expected": "TIMEOUT 30S",
+          "actual": "- **Text content**:  \n  - “TIMEOUT 30S” — displayed in bold, uppercase, sans-serif font, black color, left-aligned.\n\n- **Layout**:  \n  - Text is positioned in the upper-left quadrant of the image.  \n  - Large white background with no other visible elements.\n\n- **UI elements**:  \n  - None explicitly identifiable (e.g., buttons, icons, progress bars).  \n  - The text appears to be a status or notification message, possibly from a timer or system alert.\n\n- **Relationships**:  \n  - “TIMEOUT” and “30S” are adjacent and form a single phrase indicating a 30-second timeout duration.\n\n- **Errors/Warnings**:  \n  - The presence of “TIMEOUT” suggests a warning or error state — likely indicating that a process or operation has exceeded a 30-second time limit.\n\n- **Observable evidence only**:  \n  - No additional context, logos, or interactive components are visible.  \n  - No hidden or inferred content beyond what is rendered on screen."
+        },
+        {
+          "id": "vision-09",
+          "passed": true,
+          "latency_ms": 42842.141,
+          "error": null,
+          "expected": "TRACE INVALID",
+          "actual": "- **Text Content**:  \n  - “TRACE INVALID” — displayed in uppercase, sans-serif font, black color, left-aligned.\n\n- **Layout & Positioning**:  \n  - Text is positioned in the upper-left quadrant of the image.  \n  - Large white background with no other visible elements.\n\n- **UI Elements**:  \n  - None observed (no buttons, icons, forms, or interactive components).\n\n- **Relationships**:  \n  - No spatial or logical relationships between elements — only a single textual message.\n\n- **Errors/Warnings**:  \n  - The phrase “TRACE INVALID” suggests an error or invalid state, possibly from a system trace or log output.\n\n- **Searchable Description**:  \n  > “TRACE INVALID” text in black, uppercase, sans-serif font, located in the upper-left area of a plain white background. No other UI elements or content present. Indicates an invalid trace condition."
+        },
+        {
+          "id": "vision-10",
+          "passed": true,
+          "latency_ms": 69552.234,
+          "error": null,
+          "expected": "TEST FAILED",
+          "actual": "- **Text Content**:  \n  - The image displays the phrase “TEST FAILED” in bold, uppercase, sans-serif font.  \n  - The text is centered horizontally and positioned in the upper-left quadrant of the image.  \n  - Color: Black text on a white background.  \n  - No other visible elements (icons, buttons, code, diagrams, etc.) are present.  \n\n- **Layout & Positioning**:  \n  - The text occupies approximately the top 20% of the image height and left 30% of the width.  \n  - Ample white space surrounds the text on all sides.  \n\n- **No Additional UI Elements or Relationships**:  \n  - No interactive components, metadata, or structural relationships are visible.  \n  - No error codes, timestamps, or test identifiers accompany the message.  \n\n- **Inferred Context (from visible evidence only)**:  \n  - This appears to be a status indicator from a test execution environment (e.g., CI/CD pipeline, unit test runner).  \n  - The message explicitly indicates a failed test outcome.  \n\n*(All descriptions are based solely on observable visual content.)*"
+        },
+        {
+          "id": "vision-11",
+          "passed": true,
+          "latency_ms": 72361.967,
+          "error": null,
+          "expected": "BUILD PASSED",
+          "actual": "- **Text Content**:  \n  - “BUILD PASSED” — displayed in bold, uppercase, sans-serif font, centered horizontally on the screen.\n\n- **Layout & Positioning**:  \n  - Text is positioned in the upper-left quadrant of the visible area.  \n  - Large amount of white space to the right and below the text.\n\n- **Visual Style**:  \n  - Black text on a plain white background.  \n  - No icons, buttons, or other UI elements visible.  \n  - No borders, shadows, or additional styling applied to the text.\n\n- **Inferred Context (from text only)**:  \n  - Likely part of a build status notification or CI/CD pipeline result indicator.  \n  - Indicates successful completion of a software build process.\n\n- **No Observable Errors or Warnings**:  \n  - The message is purely affirmative; no error messages, warnings, or secondary text are present.\n\n- **No Interactive Elements**:  \n  - No clickable areas, hover states, or form inputs visible.\n\n- **No Metadata or Hidden Content**:  \n  - Only the visible text “BUILD PASSED” is present; no timestamps, user info, or system details shown."
+        },
+        {
+          "id": "vision-12",
+          "passed": true,
+          "latency_ms": 37466.867,
+          "error": null,
+          "expected": "AGENT LOOP",
+          "actual": "- **Text Content**:  \n  - The image displays the phrase “AGENT LOOP” in bold, uppercase, sans-serif font.  \n  - The text is black on a plain white background.  \n  - The words “AGENT” and “LOOP” are separated by a single space.  \n  - The text is horizontally centered within the visible frame.  \n  - No other graphical elements, icons, buttons, or interactive UI components are present.  \n  - No code, errors, or additional metadata are visible.  \n  - The layout suggests a title or heading, possibly for a section, module, or system component named “AGENT LOOP.”"
+        },
+        {
+          "id": "vision-13",
+          "passed": true,
+          "latency_ms": 67250.114,
+          "error": null,
+          "expected": "TOOL POLICY",
+          "actual": "- **Text Content**:\n  - \"TOOL POLICY\" — displayed in bold, uppercase, sans-serif font, centered horizontally on the page.\n  - No other visible text, code, or structured content is present.\n\n- **UI Elements**:\n  - None observed. The image contains only plain text on a white background.\n\n- **Layout & Relationships**:\n  - The phrase “TOOL POLICY” appears as a single line of text.\n  - No additional elements, buttons, forms, or interactive components are visible.\n  - The text is isolated; no surrounding context (e.g., headers, footers, navigation) is shown.\n\n- **Observations**:\n  - Background: Solid white.\n  - Font color: Black.\n  - No images, icons, or graphical elements.\n  - No error messages or warnings visible.\n  - No metadata, timestamps, or user interface indicators (e.g., cursor, selection, loading state).\n\nThis is a minimal, static text-only display with no interactive or layered content."
+        },
+        {
+          "id": "vision-14",
+          "passed": true,
+          "latency_ms": 21285.121,
+          "error": null,
+          "expected": "VECTOR SEARCH",
+          "actual": "- **Text**: \"VECTOR SEARCH\"\n- **Style**: Bold, uppercase, sans-serif font\n- **Color**: Black\n- **Background**: White\n- **Layout**: Centered horizontally, with ample white space around the text\n- **No additional elements**: No buttons, icons, or other UI components are visible."
+        },
+        {
+          "id": "vision-15",
+          "passed": true,
+          "latency_ms": 72431.582,
+          "error": null,
+          "expected": "MEMORY REVIEW",
+          "actual": "- **Text Content**:  \n  - The image displays the phrase **“MEMORY REVIEW”** in bold, uppercase, sans-serif font.  \n  - The text is centered horizontally and positioned in the upper-left quadrant of the image.  \n  - Color: Black text on a white background.  \n  - No other visible elements (e.g., buttons, icons, images, or code).  \n\n- **Layout & Positioning**:  \n  - The text occupies approximately the top 20% of the image height.  \n  - Horizontal alignment: Left-aligned with slight margin from the left edge.  \n  - Vertical alignment: Near the top edge.  \n\n- **No Observable UI Elements**:  \n  - No interactive components (e.g., tabs, forms, sliders).  \n  - No navigation menus, footers, or sidebars.  \n\n- **No Code or Errors**:  \n  - Purely textual content; no embedded code, scripts, or error messages.  \n\n- **Relationships**:  \n  - “MEMORY” and “REVIEW” are presented as a single continuous phrase, separated by a space.  \n  - No hierarchical or contextual relationships indicated (e.g., no subheadings, labels, or metadata).  \n\nThis description is based solely on visible, observable content."
+        },
+        {
+          "id": "vision-16",
+          "passed": true,
+          "latency_ms": 81616.181,
+          "error": null,
+          "expected": "REDIS QUEUE",
+          "actual": "- **Text Content**:  \n  - “REDIS QUEUE” — displayed in bold, uppercase, sans-serif font.\n\n- **Layout & Positioning**:  \n  - Text is horizontally centered on the left side of the image.  \n  - Large white background with no other visible elements.\n\n- **Visual Style**:  \n  - High contrast: black text on white background.  \n  - No icons, buttons, or interactive UI elements present.  \n  - No decorative graphics or additional styling (e.g., shadows, gradients).\n\n- **Inferred Context (from text only)**:  \n  - Likely a title, heading, or label for a section related to Redis queue functionality.  \n  - Possibly part of a larger interface or documentation — but no surrounding context is visible.\n\n- **No Observable Errors or Relationships**:  \n  - No syntax errors, broken links, or structural issues visible.  \n  - No relationships to other components or data shown.\n\n- **Searchable Description**:  \n  > “A minimalist image containing only the centered, uppercase, black text ‘REDIS QUEUE’ on a plain white background. No additional UI elements, icons, or contextual content are visible.”"
+        },
+        {
+          "id": "vision-17",
+          "passed": true,
+          "latency_ms": 31661.037,
+          "error": null,
+          "expected": "POSTGRES READY",
+          "actual": "- **Text Content**:  \n  - The image displays the phrase “POSTGRES READY” in bold, uppercase, sans-serif font.  \n  - The text is centered horizontally on a plain white background.  \n  - No other graphical elements, icons, buttons, or interactive UI components are visible.  \n  - No code, error messages, or additional metadata are present.  \n  - The message indicates that a PostgreSQL service or instance is in a ready state."
+        },
+        {
+          "id": "vision-18",
+          "passed": true,
+          "latency_ms": 19532.967,
+          "error": null,
+          "expected": "QDRANT READY",
+          "actual": "- **Text Content**:\n  - \"QDRANT READY\" in bold, uppercase, sans-serif font.\n- **Layout**:\n  - Text is centered horizontally.\n- **Background**:\n  - Plain white background.\n- **Colors**:\n  - Text is black.\n- **No Additional Elements**:\n  - No images, icons, or other UI elements are present.\n- **Relationships**:\n  - None observed; the text stands alone without context or additional components."
+        },
+        {
+          "id": "vision-19",
+          "passed": true,
+          "latency_ms": 39127.322,
+          "error": null,
+          "expected": "APPROVAL NEEDED",
+          "actual": "- **Text Content**:  \n  - \"APPROVAL NEEDED\" — displayed in bold, uppercase, sans-serif font, centered horizontally on the image.\n\n- **Visual Elements**:  \n  - Plain white background.  \n  - No icons, buttons, or graphical elements.  \n  - Text is the sole visible content.\n\n- **Layout & Positioning**:  \n  - Text occupies the left-center portion of the image; right side is blank.  \n  - No alignment indicators (e.g., left/center/right) beyond visual centering.\n\n- **Inferred UI Context (not explicitly shown)**:  \n  - Likely part of a notification, status message, or workflow indicator in a digital interface (e.g., dashboard, form, or approval system).  \n  - No interactive elements (buttons, checkboxes, etc.) are visible.\n\n- **No Errors or Warnings**:  \n  - No error messages, alerts, or system warnings present.\n\n- **Relationships**:  \n  - None explicitly depicted — text stands alone without associated objects or flow indicators.\n\n- **Searchable Keywords**:  \n  - “APPROVAL”  \n  - “NEEDED”  \n  - “APPROVAL NEEDED” (exact phrase)"
+        },
+        {
+          "id": "vision-20",
+          "passed": true,
+          "latency_ms": 13793.067,
+          "error": null,
+          "expected": "CHECKPOINT SAVED",
+          "actual": "- **Text Content**:  \n  - Centered on a plain white background.  \n  - Reads: “CHECKPOINT SAVED” in all capital letters.  \n  - Font: Sans-serif, bold, black color.  \n  - No additional UI elements, icons, or interactive components are visible.  \n  - No errors or warnings are displayed.  \n  - The message appears to be a status notification, likely from a software application or game, indicating that a checkpoint has been successfully saved."
+        }
+      ]
+    },
+    "embedding": {
+      "passed": 10,
+      "total": 10,
+      "pass_rate": 1.0,
+      "median_latency_ms": 211.03199999999998,
+      "cases": [
+        {
+          "id": "embedding-01",
+          "passed": true,
+          "latency_ms": 226.798,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.8359733599073713,
+            "unrelated": 0.5908159553527128,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-02",
+          "passed": true,
+          "latency_ms": 197.254,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.8491431003623471,
+            "unrelated": 0.4058137968367231,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-03",
+          "passed": true,
+          "latency_ms": 170.784,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.8515799705997571,
+            "unrelated": 0.4913145815335056,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-04",
+          "passed": true,
+          "latency_ms": 210.511,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.7328769036567421,
+            "unrelated": 0.480543813319303,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-05",
+          "passed": true,
+          "latency_ms": 211.553,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.5782957633298492,
+            "unrelated": 0.40841548783156,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-06",
+          "passed": true,
+          "latency_ms": 216.314,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.6113190384557317,
+            "unrelated": 0.48497201001803775,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-07",
+          "passed": true,
+          "latency_ms": 199.041,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.7177119030373958,
+            "unrelated": 0.4538369839230248,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-08",
+          "passed": true,
+          "latency_ms": 192.509,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.6660749067220353,
+            "unrelated": 0.4685923148672683,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-09",
+          "passed": true,
+          "latency_ms": 257.961,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.8174173631648657,
+            "unrelated": 0.3715058310724431,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-10",
+          "passed": true,
+          "latency_ms": 215.487,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.7749436909508713,
+            "unrelated": 0.4737694430362406,
+            "dimension": 2560
+          }
+        }
+      ]
+    },
+    "reranker": {
+      "passed": 30,
+      "total": 30,
+      "pass_rate": 1.0,
+      "median_latency_ms": 153.099,
+      "cases": [
+        {
+          "id": "rerank-01",
+          "passed": true,
+          "latency_ms": 146.364,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-02",
+          "passed": true,
+          "latency_ms": 125.746,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-03",
+          "passed": true,
+          "latency_ms": 159.288,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-04",
+          "passed": true,
+          "latency_ms": 162.485,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-05",
+          "passed": true,
+          "latency_ms": 191.547,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-06",
+          "passed": true,
+          "latency_ms": 164.676,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-07",
+          "passed": true,
+          "latency_ms": 142.092,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-08",
+          "passed": true,
+          "latency_ms": 183.393,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-09",
+          "passed": true,
+          "latency_ms": 158.285,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-10",
+          "passed": true,
+          "latency_ms": 159.465,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-11",
+          "passed": true,
+          "latency_ms": 151.0,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-12",
+          "passed": true,
+          "latency_ms": 94.053,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-13",
+          "passed": true,
+          "latency_ms": 282.581,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-14",
+          "passed": true,
+          "latency_ms": 1115.802,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-15",
+          "passed": true,
+          "latency_ms": 445.264,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-16",
+          "passed": true,
+          "latency_ms": 257.478,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-17",
+          "passed": true,
+          "latency_ms": 197.274,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-18",
+          "passed": true,
+          "latency_ms": 142.92,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-19",
+          "passed": true,
+          "latency_ms": 153.125,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-20",
+          "passed": true,
+          "latency_ms": 138.692,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-21",
+          "passed": true,
+          "latency_ms": 191.926,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-22",
+          "passed": true,
+          "latency_ms": 133.684,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-23",
+          "passed": true,
+          "latency_ms": 138.764,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-24",
+          "passed": true,
+          "latency_ms": 125.487,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-25",
+          "passed": true,
+          "latency_ms": 134.162,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-26",
+          "passed": true,
+          "latency_ms": 153.073,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-27",
+          "passed": true,
+          "latency_ms": 130.994,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-28",
+          "passed": true,
+          "latency_ms": 307.658,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-29",
+          "passed": true,
+          "latency_ms": 140.035,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-30",
+          "passed": true,
+          "latency_ms": 134.664,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        }
+      ]
+    }
+  },
+  "thresholds": {
+    "tool_calling": 0.9,
+    "intent": 0.9,
+    "vision": 0.85,
+    "embedding": 0.9,
+    "reranker": 0.8
+  },
+  "qualified": true,
+  "fatal_error": null
+}

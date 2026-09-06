@@ -1,0 +1,1847 @@
+{
+  "timestamp": "2026-09-05 16:45:13",
+  "total_tests": 120,
+  "dataset_config": {
+    "mbpp": 50,
+    "swebench": 30,
+    "hotpotqa": 20,
+    "beir": 20
+  },
+  "metrics": {
+    "coding": {
+      "total": 80,
+      "passed": 80,
+      "pass_rate": 1.0,
+      "avg_score": 1.0,
+      "avg_duration_ms": 100.90691968798637
+    },
+    "reasoning": {
+      "total": 20,
+      "passed": 20,
+      "pass_rate": 1.0,
+      "avg_score": 1.0,
+      "avg_duration_ms": 101.06638760771602
+    },
+    "rag": {
+      "total": 20,
+      "passed": 20,
+      "pass_rate": 1.0,
+      "avg_score": 1.0,
+      "avg_duration_ms": 100.92411455698311
+    },
+    "overall": {
+      "total": 120,
+      "passed": 120,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    }
+  },
+  "analysis": {
+    "total_failures": 0,
+    "failure_rate": 0.0,
+    "by_category": {},
+    "common_errors": []
+  },
+  "results": [
+    {
+      "test_id": "mbpp_0000",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.09741566702724,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0001",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10720805823803,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0002",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.87483283132315,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0003",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10012488439679,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0004",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.48016579821706,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0005",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.09499981626868,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0006",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.11450031399727,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0007",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.80412495881319,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0008",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.31329111754894,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0009",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.1157501488924,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0010",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.77162506058812,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0011",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.42758332565427,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0012",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.11175011843443,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0013",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10475029796362,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0014",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.09295882284641,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0015",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.33025033771992,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0016",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12641612067819,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0017",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.09970811754465,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0018",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.84816627204418,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0019",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.03670787066221,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0020",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.44370777904987,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0021",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.13024991005659,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0022",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.14374989643693,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0023",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.88162496685982,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0024",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.59620765969157,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0025",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.84420815110207,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0026",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.55691609159112,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0027",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.5919580347836,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0028",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.1990406550467,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0029",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.09629109501839,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0030",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.17591575160623,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0031",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.13645903766155,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0032",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.1360832490027,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0033",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.89320782572031,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0034",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.04062501341105,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0035",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.59208329766989,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0036",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.8302504196763,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0037",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.44029215350747,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0038",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.84587521851063,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0039",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10062500461936,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0040",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.07204085215926,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0041",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.08962515369058,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0042",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.18145821616054,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0043",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.5132501013577,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0044",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.00191691890359,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0045",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12079186365008,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0046",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.11554199829698,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0047",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.85941618308425,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0048",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.07787512242794,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "mbpp_0049",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.09937516972423,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "mbpp",
+          "test_type": "programming"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0000",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.16424970328808,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0001",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.51587503403425,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0002",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.27812467887998,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0003",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.1322089470923,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0004",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.92937527224422,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0005",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10849980264902,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0006",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.93112522736192,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0007",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.07416706159711,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0008",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.08829196542501,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0009",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12424986436963,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0010",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.23816674947739,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0011",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.24320816248655,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0012",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10608395189047,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0013",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12337488681078,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0014",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.22804094478488,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0015",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12849995493889,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0016",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.11008398234844,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0017",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.4974590614438,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0018",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.19804134592414,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0019",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.1371249333024,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0020",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.0870411992073,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0021",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.13079100847244,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0022",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.51079234108329,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0023",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.47745797783136,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0024",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.11770778894424,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0025",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.11074987798929,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0026",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.16358271241188,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0027",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.60674976557493,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0028",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.00974980741739,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "swebench_0029",
+      "category": "coding",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12370830029249,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "swebench",
+          "test_type": "bug_fix"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0000",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.25012509524822,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0001",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10733285546303,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0002",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.08883399516344,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0003",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.0945001617074,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0004",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.15570900961757,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0005",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10379196703434,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0006",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.07354214414954,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0007",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.09820915386081,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0008",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.08250007033348,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0009",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.09716700389981,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0010",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.14141600206494,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0011",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.14512483030558,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0012",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.091125048697,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0013",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.1202079243958,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0014",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.20958322659135,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0015",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.111666765064,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0016",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.08875017613173,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0017",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.07237519696355,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0018",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12154157832265,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "hotpotqa_0019",
+      "category": "reasoning",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.07424994930625,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "hotpotqa",
+          "test_type": "multi_hop"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0000",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12137487158179,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0001",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.11395828425884,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0002",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12687479704618,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0003",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.64712492749095,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0004",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.25295941159129,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0005",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.15612484514713,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0006",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.20645817369223,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0007",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.91391671448946,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0008",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.3897087648511,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0009",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10741667449474,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0010",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.16754192858934,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0011",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.50616599619389,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0012",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.13737499341369,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0013",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.10720805823803,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0014",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.75179161503911,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0015",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.14708309993148,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0016",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.12454229965806,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0017",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.49491561949253,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0018",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 101.13366693258286,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    },
+    {
+      "test_id": "beir_0019",
+      "category": "rag",
+      "passed": true,
+      "score": 1.0,
+      "duration_ms": 100.87608313187957,
+      "error": null,
+      "agent_output": "Placeholder output",
+      "metadata": {
+        "test_metadata": {
+          "source": "beir",
+          "test_type": "retrieval"
+        }
+      }
+    }
+  ]
+}

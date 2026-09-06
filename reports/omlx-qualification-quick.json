@@ -1,0 +1,174 @@
+{
+  "created_at": "2026-09-02T20:26:49.950753Z",
+  "revision": "9617025a134c36f3606931dcf356516b9323546a",
+  "quick": true,
+  "models": {
+    "chat": "Qwen3.5-9B-4bit",
+    "embedding": "Qwen3-Embedding-4B-4bit-DWQ",
+    "reranker": "bge-reranker-v2-m3-mlx"
+  },
+  "inventory": {
+    "Qwen3.5-9B-4bit": true,
+    "Qwen3-Embedding-4B-4bit-DWQ": true,
+    "bge-reranker-v2-m3-mlx": true
+  },
+  "sections": {
+    "tool_calling": {
+      "passed": 2,
+      "total": 2,
+      "pass_rate": 1.0,
+      "median_latency_ms": 13023.1805,
+      "cases": [
+        {
+          "id": "qualification-01",
+          "passed": true,
+          "latency_ms": 11180.733,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-01"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-01"
+            }
+          }
+        },
+        {
+          "id": "qualification-02",
+          "passed": true,
+          "latency_ms": 14865.628,
+          "error": null,
+          "expected": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-02"
+            }
+          },
+          "actual": {
+            "tool": "echo",
+            "arguments": {
+              "text": "qualification-02"
+            }
+          }
+        }
+      ]
+    },
+    "intent": {
+      "passed": 2,
+      "total": 2,
+      "pass_rate": 1.0,
+      "median_latency_ms": 4008.1435,
+      "cases": [
+        {
+          "id": "intent-01",
+          "passed": true,
+          "latency_ms": 4380.064,
+          "error": null,
+          "expected": "knowledge_query",
+          "actual": "knowledge_query"
+        },
+        {
+          "id": "intent-02",
+          "passed": true,
+          "latency_ms": 3636.223,
+          "error": null,
+          "expected": "knowledge_query",
+          "actual": "knowledge_query"
+        }
+      ]
+    },
+    "vision": {
+      "passed": 2,
+      "total": 2,
+      "pass_rate": 1.0,
+      "median_latency_ms": 28503.1595,
+      "cases": [
+        {
+          "id": "vision-01",
+          "passed": true,
+          "latency_ms": 33659.617,
+          "error": null,
+          "expected": "ERROR 401",
+          "actual": "- **Text**: \"ERROR 401\"\n- **Position**: Top-left corner of the image\n- **Font**: Bold, sans-serif\n- **Color**: Black\n- **Background**: White\n- **Layout**: Single line of text\n- **No additional UI elements or code visible**"
+        },
+        {
+          "id": "vision-02",
+          "passed": true,
+          "latency_ms": 23346.702,
+          "error": null,
+          "expected": "ERROR 403",
+          "actual": "- **Text**: \"ERROR 403\"\n- **Position**: Top-left corner of the image\n- **Style**: Bold, black font\n- **Background**: White\n- **Layout**: Minimalist, centered text on a plain background\n- **No additional elements**: No buttons, icons, or other UI components are visible."
+        }
+      ]
+    },
+    "embedding": {
+      "passed": 2,
+      "total": 2,
+      "pass_rate": 1.0,
+      "median_latency_ms": 470.212,
+      "cases": [
+        {
+          "id": "embedding-01",
+          "passed": true,
+          "latency_ms": 486.957,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.8359733599073713,
+            "unrelated": 0.5908159553527128,
+            "dimension": 2560
+          }
+        },
+        {
+          "id": "embedding-02",
+          "passed": true,
+          "latency_ms": 453.467,
+          "error": null,
+          "expected": null,
+          "actual": {
+            "related": 0.8491431003623471,
+            "unrelated": 0.4058137968367231,
+            "dimension": 2560
+          }
+        }
+      ]
+    },
+    "reranker": {
+      "passed": 2,
+      "total": 2,
+      "pass_rate": 1.0,
+      "median_latency_ms": 439.73199999999997,
+      "cases": [
+        {
+          "id": "rerank-01",
+          "passed": true,
+          "latency_ms": 446.594,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "rerank-02",
+          "passed": true,
+          "latency_ms": 432.87,
+          "error": null,
+          "expected": 1,
+          "actual": 1
+        }
+      ]
+    }
+  },
+  "thresholds": {
+    "tool_calling": 0.9,
+    "intent": 0.9,
+    "vision": 0.85,
+    "embedding": 0.9,
+    "reranker": 0.8
+  },
+  "qualified": true,
+  "fatal_error": null
+}

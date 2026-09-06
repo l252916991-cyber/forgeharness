@@ -1,0 +1,854 @@
+{
+  "created_at": "2026-09-04T02:05:48.830918Z",
+  "revision": "9617025a134c36f3606931dcf356516b9323546a",
+  "manifest_version": "rag-v1-60-cases",
+  "total": 60,
+  "recall_at_5": 1.0,
+  "mrr_at_10": 1.0,
+  "fused_mrr_at_10": 0.99,
+  "citation_precision": 1.0,
+  "unsupported_answer_rate": 0.0,
+  "thresholds": {
+    "recall_at_5": 0.85,
+    "citation_precision": 0.9,
+    "unsupported_answer_rate_max": 0.1
+  },
+  "qualified": true,
+  "cases": [
+    {
+      "id": "answerable-001",
+      "query": "approval_token_alpha",
+      "answerable": true,
+      "relevant_source": "approval.md",
+      "final_sources": [
+        "approval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-002",
+      "query": "exact tool arguments approval_token_alpha",
+      "answerable": true,
+      "relevant_source": "approval.md",
+      "final_sources": [
+        "approval.md",
+        "trace.md",
+        "checkpoint.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-003",
+      "query": "high-risk writes approval_token_alpha",
+      "answerable": true,
+      "relevant_source": "approval.md",
+      "final_sources": [
+        "approval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-004",
+      "query": "one action approval_token_alpha",
+      "answerable": true,
+      "relevant_source": "approval.md",
+      "final_sources": [
+        "approval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-005",
+      "query": "different path approval_token_alpha",
+      "answerable": true,
+      "relevant_source": "approval.md",
+      "final_sources": [
+        "approval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-006",
+      "query": "checkpoint_token_beta",
+      "answerable": true,
+      "relevant_source": "checkpoint.md",
+      "final_sources": [
+        "checkpoint.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-007",
+      "query": "run state checkpoint_token_beta",
+      "answerable": true,
+      "relevant_source": "checkpoint.md",
+      "final_sources": [
+        "checkpoint.md",
+        "platform.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-008",
+      "query": "usage budgets checkpoint_token_beta",
+      "answerable": true,
+      "relevant_source": "checkpoint.md",
+      "final_sources": [
+        "checkpoint.md",
+        "context.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-009",
+      "query": "pending approval checkpoint_token_beta",
+      "answerable": true,
+      "relevant_source": "checkpoint.md",
+      "final_sources": [
+        "checkpoint.md",
+        "approval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-010",
+      "query": "duplicate execution checkpoint_token_beta",
+      "answerable": true,
+      "relevant_source": "checkpoint.md",
+      "final_sources": [
+        "checkpoint.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-011",
+      "query": "context_token_gamma",
+      "answerable": true,
+      "relevant_source": "context.md",
+      "final_sources": [
+        "context.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-012",
+      "query": "token budgets context_token_gamma",
+      "answerable": true,
+      "relevant_source": "context.md",
+      "final_sources": [
+        "context.md",
+        "checkpoint.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-013",
+      "query": "recent messages context_token_gamma",
+      "answerable": true,
+      "relevant_source": "context.md",
+      "final_sources": [
+        "context.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-014",
+      "query": "repository evidence context_token_gamma",
+      "answerable": true,
+      "relevant_source": "context.md",
+      "final_sources": [
+        "context.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-015",
+      "query": "observations context_token_gamma",
+      "answerable": true,
+      "relevant_source": "context.md",
+      "final_sources": [
+        "context.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-016",
+      "query": "retrieval_token_delta",
+      "answerable": true,
+      "relevant_source": "retrieval.md",
+      "final_sources": [
+        "retrieval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-017",
+      "query": "FTS5 retrieval_token_delta",
+      "answerable": true,
+      "relevant_source": "retrieval.md",
+      "final_sources": [
+        "retrieval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-018",
+      "query": "Qdrant retrieval_token_delta",
+      "answerable": true,
+      "relevant_source": "retrieval.md",
+      "final_sources": [
+        "retrieval.md",
+        "platform.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-019",
+      "query": "reciprocal rank fusion retrieval_token_delta",
+      "answerable": true,
+      "relevant_source": "retrieval.md",
+      "final_sources": [
+        "retrieval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-020",
+      "query": "BGE reranking retrieval_token_delta",
+      "answerable": true,
+      "relevant_source": "retrieval.md",
+      "final_sources": [
+        "retrieval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-021",
+      "query": "memory_token_epsilon",
+      "answerable": true,
+      "relevant_source": "memory.md",
+      "final_sources": [
+        "memory.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-022",
+      "query": "candidate memory_token_epsilon",
+      "answerable": true,
+      "relevant_source": "memory.md",
+      "final_sources": [
+        "memory.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 0.5,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-023",
+      "query": "human-approved memory_token_epsilon",
+      "answerable": true,
+      "relevant_source": "memory.md",
+      "final_sources": [
+        "memory.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-024",
+      "query": "embedded memory_token_epsilon",
+      "answerable": true,
+      "relevant_source": "memory.md",
+      "final_sources": [
+        "memory.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-025",
+      "query": "separate collection memory_token_epsilon",
+      "answerable": true,
+      "relevant_source": "memory.md",
+      "final_sources": [
+        "memory.md",
+        "context.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-026",
+      "query": "trace_token_zeta",
+      "answerable": true,
+      "relevant_source": "trace.md",
+      "final_sources": [
+        "trace.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-027",
+      "query": "model decision trace_token_zeta",
+      "answerable": true,
+      "relevant_source": "trace.md",
+      "final_sources": [
+        "trace.md",
+        "intent.md",
+        "multimodal.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-028",
+      "query": "tool effect trace_token_zeta",
+      "answerable": true,
+      "relevant_source": "trace.md",
+      "final_sources": [
+        "trace.md",
+        "checkpoint.md",
+        "approval.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-029",
+      "query": "hash-chained JSONL trace_token_zeta",
+      "answerable": true,
+      "relevant_source": "trace.md",
+      "final_sources": [
+        "trace.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-030",
+      "query": "detects mutation trace_token_zeta",
+      "answerable": true,
+      "relevant_source": "trace.md",
+      "final_sources": [
+        "trace.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-031",
+      "query": "intent_token_eta",
+      "answerable": true,
+      "relevant_source": "intent.md",
+      "final_sources": [
+        "intent.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-032",
+      "query": "knowledge_query intent_token_eta",
+      "answerable": true,
+      "relevant_source": "intent.md",
+      "final_sources": [
+        "intent.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-033",
+      "query": "coding_task intent_token_eta",
+      "answerable": true,
+      "relevant_source": "intent.md",
+      "final_sources": [
+        "intent.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-034",
+      "query": "invalid structured output intent_token_eta",
+      "answerable": true,
+      "relevant_source": "intent.md",
+      "final_sources": [
+        "intent.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-035",
+      "query": "deterministic fallback intent_token_eta",
+      "answerable": true,
+      "relevant_source": "intent.md",
+      "final_sources": [
+        "intent.md",
+        "checkpoint.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-036",
+      "query": "vision_token_theta",
+      "answerable": true,
+      "relevant_source": "multimodal.md",
+      "final_sources": [
+        "multimodal.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-037",
+      "query": "PNG vision_token_theta",
+      "answerable": true,
+      "relevant_source": "multimodal.md",
+      "final_sources": [
+        "multimodal.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-038",
+      "query": "ten MiB vision_token_theta",
+      "answerable": true,
+      "relevant_source": "multimodal.md",
+      "final_sources": [
+        "multimodal.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-039",
+      "query": "observable text vision_token_theta",
+      "answerable": true,
+      "relevant_source": "multimodal.md",
+      "final_sources": [
+        "multimodal.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-040",
+      "query": "derived chunk vision_token_theta",
+      "answerable": true,
+      "relevant_source": "multimodal.md",
+      "final_sources": [
+        "multimodal.md",
+        "reviewer.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-041",
+      "query": "reviewer_token_iota",
+      "answerable": true,
+      "relevant_source": "reviewer.md",
+      "final_sources": [
+        "reviewer.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-042",
+      "query": "read-only reviewer_token_iota",
+      "answerable": true,
+      "relevant_source": "reviewer.md",
+      "final_sources": [
+        "reviewer.md",
+        "memory.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-043",
+      "query": "citation source reviewer_token_iota",
+      "answerable": true,
+      "relevant_source": "reviewer.md",
+      "final_sources": [
+        "reviewer.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-044",
+      "query": "line location reviewer_token_iota",
+      "answerable": true,
+      "relevant_source": "reviewer.md",
+      "final_sources": [
+        "reviewer.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-045",
+      "query": "no shell reviewer_token_iota",
+      "answerable": true,
+      "relevant_source": "reviewer.md",
+      "final_sources": [
+        "reviewer.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-046",
+      "query": "platform_token_kappa",
+      "answerable": true,
+      "relevant_source": "platform.md",
+      "final_sources": [
+        "platform.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-047",
+      "query": "FastAPI platform_token_kappa",
+      "answerable": true,
+      "relevant_source": "platform.md",
+      "final_sources": [
+        "platform.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-048",
+      "query": "Nginx platform_token_kappa",
+      "answerable": true,
+      "relevant_source": "platform.md",
+      "final_sources": [
+        "platform.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-049",
+      "query": "PostgreSQL Redis platform_token_kappa",
+      "answerable": true,
+      "relevant_source": "platform.md",
+      "final_sources": [
+        "platform.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "answerable-050",
+      "query": "Docker Compose platform_token_kappa",
+      "answerable": true,
+      "relevant_source": "platform.md",
+      "final_sources": [
+        "platform.md"
+      ],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-051",
+      "query": "unseen_token_lambda quantum weather",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-052",
+      "query": "unseen_token_mu payroll regulation",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-053",
+      "query": "unseen_token_nu satellite orbit",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-054",
+      "query": "unseen_token_xi medical diagnosis",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-055",
+      "query": "unseen_token_omicron stock forecast",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-056",
+      "query": "unseen_token_pi music harmony",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-057",
+      "query": "unseen_token_rho chemical synthesis",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-058",
+      "query": "unseen_token_sigma travel visa",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-059",
+      "query": "unseen_token_tau game leaderboard",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    },
+    {
+      "id": "unanswerable-060",
+      "query": "unseen_token_upsilon restaurant menu",
+      "answerable": false,
+      "relevant_source": null,
+      "final_sources": [],
+      "recall_at_5": 1.0,
+      "reciprocal_rank": 1.0,
+      "fused_reciprocal_rank": 1.0,
+      "citation_precision": 1.0,
+      "unsupported": false
+    }
+  ]
+}
