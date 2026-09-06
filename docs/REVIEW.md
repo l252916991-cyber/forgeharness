@@ -50,6 +50,6 @@ The final review is a release gate, not a documentation exercise.
 
 ## Evidence produced
 
-The audit candidate must produce a machine-readable findings file, a human review report, command logs, test/evaluation reports, the reviewed Git revision, and a residual-risk statement.
+The audit candidate must produce a machine-readable findings file, a human review report, test/evaluation reports, the reviewed Git revision, an exact source snapshot manifest, and a residual-risk statement. `forge review` recomputes every candidate file hash and checks the available report revisions, workload/quality thresholds, pure branch coverage, dependency findings, and unresolved critical issues. It does not cryptographically prove when older reports ran; a final freeze requires a fresh run or explicit tested-source binding, not merely matching `git HEAD` in a dirty working tree.
 
-The current audit evidence is [`review/AUDIT.md`](review/AUDIT.md), [`review/FINDINGS.json`](review/FINDINGS.json), and [`../reports/control-eval.json`](../reports/control-eval.json).
+The current audit decision is [`review/AUDIT.md`](review/AUDIT.md) with machine findings in [`review/FINDINGS.json`](review/FINDINGS.json). The complete evidence set is under [`../reports/`](../reports/), including `candidate-manifest.json`; generated reports and the decision directory are intentionally excluded from the source-tree hash to avoid circular evidence.
