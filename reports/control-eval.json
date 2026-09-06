@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-06T16:39:45.523218Z",
-  "revision": "2f8f0eb03a1dbab233a2f42667e14c8819a5f33e",
+  "generated_at": "2026-09-06T16:43:07.514482Z",
+  "revision": "e792defc7acb5902e8e866eab0884ad71e44a9ca",
   "manifest_sha256": "63596c3f1cd96d641c665a8bb1253e9d82b340c09c0f74f7e67726a13c11cb78",
   "total": 7,
   "passed": 7,
@@ -12,7 +12,7 @@
       "expected": "succeeded",
       "actual": "succeeded",
       "passed": true,
-      "elapsed_ms": 0.945,
+      "elapsed_ms": 1.183,
       "steps": 2,
       "tool_calls": 1,
       "trace_events": 6
@@ -23,7 +23,7 @@
       "expected": "succeeded",
       "actual": "succeeded",
       "passed": true,
-      "elapsed_ms": 0.483,
+      "elapsed_ms": 0.414,
       "steps": 2,
       "tool_calls": 1,
       "trace_events": 5
@@ -34,7 +34,7 @@
       "expected": "exhausted",
       "actual": "exhausted",
       "passed": true,
-      "elapsed_ms": 0.284,
+      "elapsed_ms": 0.27,
       "steps": 1,
       "tool_calls": 0,
       "trace_events": 3
@@ -45,7 +45,7 @@
       "expected": "failed",
       "actual": "failed",
       "passed": true,
-      "elapsed_ms": 0.311,
+      "elapsed_ms": 0.422,
       "steps": 0,
       "tool_calls": 0,
       "trace_events": 3
@@ -56,7 +56,7 @@
       "expected": "awaiting_approval",
       "actual": "awaiting_approval",
       "passed": true,
-      "elapsed_ms": 0.313,
+      "elapsed_ms": 0.353,
       "steps": 1,
       "tool_calls": 0,
       "trace_events": 4
@@ -67,7 +67,7 @@
       "expected": "detected",
       "actual": "detected",
       "passed": true,
-      "elapsed_ms": 0.469,
+      "elapsed_ms": 0.584,
       "steps": 0,
       "tool_calls": 0,
       "trace_events": 0
@@ -78,7 +78,7 @@
       "expected": "gated",
       "actual": "gated",
       "passed": true,
-      "elapsed_ms": 1.742,
+      "elapsed_ms": 1.899,
       "steps": 0,
       "tool_calls": 0,
       "trace_events": 0
