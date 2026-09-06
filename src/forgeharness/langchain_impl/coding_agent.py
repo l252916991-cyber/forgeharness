@@ -55,11 +55,83 @@ class CodingTools:
     """
     Workspace-bound coding tools.
 
-    All file operations are confined to the workspace directory.
+    All file operations are confined to the workspace directory. Tools are
+    built as closures over the instance: a class-level ``@tool`` on a method
+    would wrap the unbound function and lose ``self`` when ToolNode invokes it.
     """
 
-    workspace: Path
-    approval_callback: Any = None
+    def __init__(self, workspace: Path, approval_callback: Any = None) -> None:
+        self.workspace = workspace
+        self.approval_callback = approval_callback
+
+        @tool
+        def list_files(pattern: str = "*") -> str:
+            """List files matching pattern in workspace."""
+            files = sorted(self.workspace.rglob(pattern))
+            return "\n".join(str(f.relative_to(self.workspace)) for f in files[:100])
+
+        @tool
+        def read_file(path: str) -> str:
+            """Read file content from workspace."""
+            target = self._validate_path(path)
+            if not target.exists():
+                return f"Error: File not found: {path}"
+            return target.read_text()
+
+        @tool
+        async def write_file(path: str, content: str) -> str:
+            """
+            Write file content (requires approval when a callback is configured).
+            """
+            target = self._validate_path(path)
+            if self.approval_callback is not None:
+                approved = await self.approval_callback(
+                    action="write_file",
+                    path=str(target),
+                    content=content,
+                )
+                if not approved:
+                    return f"Approval denied for writing {path}"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content)
+            return f"Successfully wrote {path}"
+
+        @tool
+        def run_tests(command: str = "") -> str:
+            """Run test command in workspace."""
+            cmd = command or "pytest -q"
+            try:
+                result = subprocess.run(
+                    cmd,
+                    shell=True,
+                    cwd=self.workspace,
+                    capture_output=True,
+                    text=True,
+                    timeout=60,
+                )
+                output = result.stdout + result.stderr
+                return f"Exit code: {result.returncode}\n{output[:2000]}"
+            except subprocess.TimeoutExpired:
+                return "Error: Test command timed out (60s limit)"
+            except Exception as e:
+                return f"Error running tests: {e}"
+
+        @tool
+        def git_diff() -> str:
+            """Show git diff of changes."""
+            try:
+                result = subprocess.run(
+                    ["git", "diff"],
+                    cwd=self.workspace,
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
+                )
+                return result.stdout[:5000] or "No changes"
+            except Exception as e:
+                return f"Error getting diff: {e}"
+
+        self.tools = [list_files, read_file, write_file, run_tests, git_diff]
 
     def _validate_path(self, relative_path: str) -> Path:
         """Ensure path is within workspace."""
@@ -67,79 +139,6 @@ class CodingTools:
         if not target.is_relative_to(self.workspace):
             raise ValueError(f"Path traversal detected: {relative_path}")
         return target
-
-    @tool
-    def list_files(self, pattern: str = "*") -> str:
-        """List files matching pattern in workspace."""
-        files = sorted(self.workspace.rglob(pattern))
-        return "\n".join(str(f.relative_to(self.workspace)) for f in files[:100])
-
-    @tool
-    def read_file(self, path: str) -> str:
-        """Read file content from workspace."""
-        target = self._validate_path(path)
-        if not target.exists():
-            return f"Error: File not found: {path}"
-        return target.read_text()
-
-    @tool
-    async def write_file(self, path: str, content: str) -> str:
-        """
-        Write file content (requires approval).
-
-        In production, this would suspend and wait for human approval.
-        For demo, we auto-approve if callback is None.
-        """
-        target = self._validate_path(path)
-
-        # Request approval
-        if self.approval_callback:
-            approved = await self.approval_callback(
-                action="write_file",
-                path=str(target),
-                content=content,
-            )
-            if not approved:
-                return f"Approval denied for writing {path}"
-
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(content)
-        return f"Successfully wrote {path}"
-
-    @tool
-    def run_tests(self, command: str = "") -> str:
-        """Run test command in workspace."""
-        cmd = command or "pytest -q"
-        try:
-            result = subprocess.run(
-                cmd,
-                shell=True,
-                cwd=self.workspace,
-                capture_output=True,
-                text=True,
-                timeout=60,
-            )
-            output = result.stdout + result.stderr
-            return f"Exit code: {result.returncode}\n{output[:2000]}"
-        except subprocess.TimeoutExpired:
-            return "Error: Test command timed out (60s limit)"
-        except Exception as e:
-            return f"Error running tests: {e}"
-
-    @tool
-    def git_diff(self) -> str:
-        """Show git diff of changes."""
-        try:
-            result = subprocess.run(
-                ["git", "diff"],
-                cwd=self.workspace,
-                capture_output=True,
-                text=True,
-                timeout=10,
-            )
-            return result.stdout[:5000] or "No changes"
-        except Exception as e:
-            return f"Error getting diff: {e}"
 
 
 class LangGraphCodingAgent:
@@ -161,6 +160,7 @@ class LangGraphCodingAgent:
         test_command: str = "pytest -q",
         max_iterations: int = 10,
         max_tool_calls: int = 50,
+        approval_callback: Any = None,
     ) -> None:
         self.llm = llm
         self.workspace = workspace
@@ -168,15 +168,10 @@ class LangGraphCodingAgent:
         self.max_iterations = max_iterations
         self.max_tool_calls = max_tool_calls
 
-        # Initialize tools
-        self.tools_instance = CodingTools(workspace)
-        self.tools = [
-            self.tools_instance.list_files,
-            self.tools_instance.read_file,
-            self.tools_instance.write_file,
-            self.tools_instance.run_tests,
-            self.tools_instance.git_diff,
-        ]
+        # Initialize tools; writes suspend on the callback when one is wired,
+        # matching the harness-wide exact-action approval philosophy.
+        self.tools_instance = CodingTools(workspace, approval_callback=approval_callback)
+        self.tools = list(self.tools_instance.tools)
 
         # Bind tools to LLM
         self.llm_with_tools = llm.bind_tools(self.tools)
@@ -274,16 +269,17 @@ Work iteratively. After making changes, always run tests."""
         """Check if task is complete by examining test results."""
         messages = state["messages"]
 
-        # Look for recent test results
+        # Look for recent test results: ToolNode reports the tool name on the
+        # ToolMessage `name` field, not in the content.
         recent_messages = messages[-10:]
         test_output = None
         for msg in reversed(recent_messages):
-            if "run_tests" in str(msg.content):
-                test_output = msg.content
+            if getattr(msg, "name", "") == "run_tests":
+                test_output = str(msg.content)
                 break
 
         # Simple heuristic: tests passed if exit code 0
-        tests_passed = test_output and "Exit code: 0" in test_output
+        tests_passed = test_output is not None and "Exit code: 0" in test_output
 
         if tests_passed:
             status = AgentStatus.COMPLETED
@@ -337,7 +333,7 @@ Work iteratively. After making changes, always run tests."""
 
 
 # Demo
-async def demo() -> None:
+async def demo() -> None:  # pragma: no cover - manual smoke script
     """Demonstrate LangGraph coding agent."""
     from langchain_openai import ChatOpenAI
 
@@ -393,7 +389,7 @@ def test_add():
     print(diff.stdout or "No git repo")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     import asyncio
 
     asyncio.run(demo())
