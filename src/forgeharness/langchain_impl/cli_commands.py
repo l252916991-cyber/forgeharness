@@ -18,7 +18,7 @@ def register(app: typer.Typer) -> None:
         query: str,
         data_dir: Path = Path(".forgeharness"),
         base_url: str = "http://127.0.0.1:8000/v1",
-        model: str = "Qwen3.5-9B-4bit",
+        model: str = "Qwythos-9B-v2-8bit-mlx",
     ) -> None:
         """Answer a query through the LangChain LCEL RAG implementation."""
         try:
@@ -48,7 +48,7 @@ def register(app: typer.Typer) -> None:
             ..., help="Workspace directory for the agent."
         ),
         base_url: str = "http://127.0.0.1:8000/v1",
-        model: str = "Qwen3.5-9B-4bit",
+        model: str = "Qwythos-9B-v2-8bit-mlx",
         test_command: str = "python -m pytest -q",
     ) -> None:
         """Run a coding task through the LangGraph state-machine agent."""
@@ -85,6 +85,7 @@ def register(app: typer.Typer) -> None:
         data_dir: Path = Path(".forgeharness"),
         output: Path = Path("reports/framework-comparison.json"),
         queries: int = typer.Option(5, min=1, max=50, help="Number of benchmark queries."),
+        model: str = "Qwythos-9B-v2-8bit-mlx",
     ) -> None:
         """Benchmark native retrieval against the LangChain path and write a JSON report."""
         try:
@@ -94,8 +95,9 @@ def register(app: typer.Typer) -> None:
             raise typer.Exit(code=3) from exc
 
         report = asyncio.run(
-            run_comparison(data_dir=data_dir, output_path=output, query_count=queries)
+            run_comparison(data_dir=data_dir, output_path=output, query_count=queries, model=model)
         )
+        typer.echo(f"model={model}")
         typer.echo(f"native={json.dumps(report.get('native'), ensure_ascii=False)}")
         typer.echo(f"langchain={json.dumps(report.get('langchain'), ensure_ascii=False)}")
         for note in report.get("notes", []):

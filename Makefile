@@ -15,7 +15,7 @@ typecheck:
 	uv run --no-sync mypy
 
 test:
-	uv run --no-sync pytest --cov=forgeharness --cov-report=term-missing --cov-report=json:reports/coverage.json
+	uv run --no-sync pytest --cov=forgeharness --cov-branch --cov-report=term-missing --cov-report=json:reports/coverage.json
 	uv run --no-sync python benchmarks/check_branch_coverage.py
 
 check: lint typecheck test

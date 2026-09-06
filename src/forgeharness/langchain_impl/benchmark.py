@@ -14,6 +14,8 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
+DEFAULT_MODEL = "Qwythos-9B-v2-8bit-mlx"
+
 DEFAULT_QUERIES: tuple[str, ...] = (
     "How does the approval mechanism work?",
     "What are the agent budget limits?",
@@ -64,6 +66,7 @@ async def run_comparison(
     output_path: Path,
     query_count: int = 5,
     queries: Sequence[str] | None = None,
+    model: str = DEFAULT_MODEL,
 ) -> dict[str, Any]:
     """Run both arms on identical queries and persist only measured results."""
 
@@ -73,6 +76,7 @@ async def run_comparison(
     report: dict[str, Any] = {
         "revision": _git_revision(),
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+        "chat_model": model,
         "queries": selected,
         "native": None,
         "langchain": None,
@@ -98,7 +102,7 @@ async def run_comparison(
         report["langchain"] = {"skipped": True, "reason": f"frameworks extra not installed: {exc}"}
         report["notes"].append("LangChain arm skipped; install with `uv sync --extra frameworks`.")
     else:
-        chain = await create_langchain_rag_app(data_dir)
+        chain = await create_langchain_rag_app(data_dir, model_name=model)
         try:
             retriever_latency: list[float] = []
             retriever_hits: list[int] = []

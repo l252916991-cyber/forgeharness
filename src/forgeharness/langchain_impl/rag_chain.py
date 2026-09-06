@@ -174,7 +174,7 @@ class LangChainRAGChain:
 async def create_langchain_rag_app(
     data_dir: Path,
     model_base_url: str = "http://127.0.0.1:8000/v1",
-    model_name: str = "Qwen3.5-9B-4bit",
+    model_name: str = "Qwythos-9B-v2-8bit-mlx",
 ) -> LangChainRAGChain:
     """Compose the LangChain RAG chain over the native knowledge service."""
     from langchain_openai import ChatOpenAI

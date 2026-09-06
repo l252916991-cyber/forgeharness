@@ -2,6 +2,12 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+# Pin the package index in-repo so lockfile resolution is identical across
+# machines and CI; a user-level mirror must not change resolved artifacts.
+[[tool.uv.index]]
+url = "https://pypi.org/simple/"
+default = true
+
 [project]
 name = "forgeharness"
 version = "0.1.0"
