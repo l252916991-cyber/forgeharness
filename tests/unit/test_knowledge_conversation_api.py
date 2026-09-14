@@ -263,10 +263,16 @@ async def test_knowledge_api_validation_and_missing_resources(tmp_path: Path) ->
 
         demo = await client.post("/runs/keyless-demo", json={"text": "approval"})
         task_id = demo.json()["task_id"]
-        approval = await client.post(f"/v1/runs/{task_id}/approve", json={"granted_by": "tester"})
+        approval = await client.post(
+            f"/v1/runs/{task_id}/approve",
+            json={"granted_by": "tester", "checkpoint_revision": 1},
+        )
         assert approval.status_code == 409
         assert (
-            await client.post("/v1/runs/missing/approve", json={"granted_by": "x"})
+            await client.post(
+                "/v1/runs/missing/approve",
+                json={"granted_by": "x", "checkpoint_revision": 1},
+            )
         ).status_code == 404
         assert (await client.get("/v1/traces/missing/verify")).status_code == 404
 

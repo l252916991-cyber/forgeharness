@@ -73,6 +73,7 @@ class KnowledgeSettings(BaseSettings):
     redis_url: str | None = None
     enable_reviewer: bool = False
     coding_workspace_root: Path | None = None
+    service_api_key: str | None = Field(default=None, min_length=16, max_length=512)
 
 
 @dataclass(frozen=True)

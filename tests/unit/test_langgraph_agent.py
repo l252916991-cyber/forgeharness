@@ -7,6 +7,8 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+
+pytest.importorskip("langchain_core")
 from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
 from langchain_core.messages import AIMessage
 
@@ -103,7 +105,13 @@ async def test_agent_fails_after_denied_write_and_failing_tests(tmp_path: Path) 
         AIMessage(content="trying"),
         AIMessage(content="still trying"),
     ]
-    agent = _agent(tmp_path, messages, max_iterations=2, approval_callback=deny)
+    agent = _agent(
+        tmp_path,
+        messages,
+        max_iterations=2,
+        approval_callback=deny,
+        test_command="python -c 'raise SystemExit(1)'",
+    )
 
     result = await agent.run("break things")
 
@@ -124,3 +132,11 @@ async def test_agent_budget_ends_run(tmp_path: Path) -> None:
     # The budget check ends the run before the second tool call is modeled.
     assert result["tool_calls"] <= 1
     assert result["status"].value in {"planning", "executing", "completed"}
+
+
+@pytest.mark.asyncio
+async def test_write_is_denied_without_approval_service(tmp_path: Path) -> None:
+    tools = CodingTools(workspace=tmp_path)
+    result = await tools.tools[2].ainvoke({"path": "blocked.txt", "content": "x"})
+    assert "Approval required" in result
+    assert not (tmp_path / "blocked.txt").exists()

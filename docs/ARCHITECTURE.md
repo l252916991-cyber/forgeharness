@@ -11,7 +11,9 @@ Agent runtime ---> Loop strategy ---> Model adapter       |
     |                  |                                  |
     |                  +-- ReAct / Plan-Execute            |
     |                                                     |
+    +--> Context assembler ---> window budget + compaction |
     +--> Context compiler ---> repository/context sources |
+    +--> Verification gate ---> evidence check before success|
     +--> Tool dispatcher ---> policy ---> native/MCP tools |
     +--> Checkpoint store                                Trace
     +--> Delegation runtime ---> scoped sub-agent           |
@@ -23,9 +25,9 @@ Coding-agent workflow ---> user-selected Git workspace ---> tested diff + report
 
 - `domain`: immutable task, message, event, budget, action, and result types.
 - `models`: model-neutral protocol, provider adapters, and deterministic doubles.
-- `runtime`: loop orchestration, termination, budgeting, approval suspension, and delegation.
+- `runtime`: loop orchestration, termination, budgeting, approval suspension, delegation, and completion verification.
 - `tools`: registry, validation, policy, execution, native tools, and MCP adaptation.
-- `context`: token estimation, selection, compression, repository maps, and provenance.
+- `context`: token estimation, per-request window assembly, selection, compression, repository maps, and provenance.
 - `state`: snapshots, checkpoint resume, approvals, and long-term lesson records.
 - `coding`: the vertical workflow, repository tools, test execution, and diff evidence.
 - `observability`: trace projection, redaction, metrics, and replay.
@@ -41,6 +43,8 @@ running -> succeeded | failed | exhausted | cancelled
 ```
 
 State transitions are checkpointed around model/tool progress. An approved write is executed and the resulting running checkpoint is saved before the model continues. Approval grants are currently process-local, so cross-process approval recovery is deliberately not claimed.
+
+`running -> succeeded` is gated by an injected `Verifier` (ADR 006). The runtime captures each dispatched tool's structured result as evidence and, on a model `FinalAction`, asks the verifier to confirm the claim. A rejection is returned to the model as a message and the loop continues; a verifier that raises fails the run. The gate is opt-in at the runtime and installed by default only in the coding vertical, whose verifier requires a successful write and passing tests.
 
 ## Trust boundaries
 
@@ -81,6 +85,6 @@ Uploads are content-addressed with SHA-256. The API atomically stores bytes befo
 
 Knowledge answers persist a separate `AgentResponse` (not a fabricated CodingAgent checkpoint), and record request, retrieval stages, model input/output, and completion/failure in the existing hash chain. `GET /v1/runs/{id}` resolves both result types. Explicit attachments resolve immutable document IDs and use bounded source-order excerpts from those documents only; they do not append hashes to an unrelated global search query. Both direct memory search and knowledge-answer memory retrieval pass through the durable approved/indexed filter.
 
-These paths still need whole-conversation context compilation/summarization and ordinary-chat run tracing; see the explicit full-plan gaps in `STATUS.md`.
+The knowledge/RAG and chat paths still need whole-conversation context compilation/summarization and ordinary-chat run tracing; the runtime's per-request window assembly (ADR 005) does not cover them. See the explicit full-plan gaps in `STATUS.md`.
 
 The default learning profile is SQLite + FTS5 + in-memory vectors + inline queue. The platform profile selects asyncpg/PostgreSQL, Redis/ARQ and Qdrant. OMLX, two FastAPI processes and the Worker stay on the macOS host; Nginx and data services run in Compose. Liveness checks only the process, while readiness actively probes every configured dependency.

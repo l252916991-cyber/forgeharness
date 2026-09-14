@@ -18,6 +18,7 @@ from forgeharness.domain.models import (
 )
 from forgeharness.knowledge.storage import SQLiteApplicationStore
 from forgeharness.models.scripted import ScriptedModel
+from forgeharness.runtime.verification import NoopVerifier
 
 
 def _handler(path: Path, store: SQLiteApplicationStore) -> APICodingHandler:
@@ -28,6 +29,7 @@ def _handler(path: Path, store: SQLiteApplicationStore) -> APICodingHandler:
         model_name="scripted",
         api_key=None,
         timeout_seconds=1,
+        verifier=NoopVerifier(),
     )
 
 
@@ -72,19 +74,35 @@ async def test_coding_handler_approvals_are_exact_and_not_restored_after_restart
     assert not (repository / "first.txt").exists()
     restarted = _handler(tmp_path, store)
     with pytest.raises(RuntimeError, match="lost after process restart"):
-        await restarted.approve(response.run_id, granted_by="tester")
-    second = await handler.approve(response.run_id, granted_by="tester")
+        await restarted.approve(
+            response.run_id,
+            granted_by="tester",
+            checkpoint_revision=response.checkpoint_revision,
+        )
+    second = await handler.approve(
+        response.run_id,
+        granted_by="tester",
+        checkpoint_revision=response.checkpoint_revision,
+    )
     assert second.status == RunStatus.AWAITING_APPROVAL
     assert (repository / "first.txt").read_text() == "first"
     assert not (repository / "second.txt").exists()
-    finished = await handler.approve(response.run_id, granted_by="tester")
+    finished = await handler.approve(
+        response.run_id,
+        granted_by="tester",
+        checkpoint_revision=second.checkpoint_revision,
+    )
     assert finished.status == RunStatus.SUCCEEDED
     assert (repository / "second.txt").read_text() == "second"
     assert response.run_id not in handler._active
     with pytest.raises(ValueError, match="no pending approval"):
-        await handler.approve(response.run_id, granted_by="tester")
+        await handler.approve(
+            response.run_id,
+            granted_by="tester",
+            checkpoint_revision=finished.checkpoint_revision,
+        )
     with pytest.raises(KeyError, match="not found"):
-        await handler.approve("missing", granted_by="tester")
+        await handler.approve("missing", granted_by="tester", checkpoint_revision=1)
     # A suspended run still owns a client, and shutdown must close it.
     other = await handler.handle(session_id="session", task="suspend")
     active_client = handler._active[other.run_id].client
@@ -110,6 +128,40 @@ async def test_coding_handler_closes_clients_on_completion_and_start_error(
     assert done.answer == "done" and not handler._active
     with pytest.raises(ValueError, match="Git repository"):
         await handler.handle(session_id="invalid", task="finish")
+    await handler.close()
+
+
+async def test_coding_handler_requires_current_checkpoint_revision(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store = SQLiteApplicationStore(tmp_path / "app.sqlite3", tmp_path / "media")
+    repository = tmp_path / "repo"
+    (repository / ".git").mkdir(parents=True)
+    store.bind_workspace("session", repository)
+    monkeypatch.setattr(
+        "forgeharness.coding.api.OpenAICompatibleModel",
+        lambda *a, **k: ScriptedModel(
+            [
+                ModelResult(
+                    action=ToolAction(
+                        call=ToolCall(
+                            id="write",
+                            name="write_file",
+                            arguments={"path": "x.txt", "content": "x"},
+                        )
+                    )
+                )
+            ]
+        ),
+    )
+    handler = _handler(tmp_path, store)
+    response = await handler.handle(session_id="session", task="write")
+    with pytest.raises(ValueError, match="checkpoint changed"):
+        await handler.approve(
+            response.run_id,
+            granted_by="tester",
+            checkpoint_revision=response.checkpoint_revision - 1,
+        )
     await handler.close()
 
 

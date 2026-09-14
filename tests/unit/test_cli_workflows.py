@@ -138,6 +138,9 @@ async def test_cli_repair_requires_confirmation_before_each_write(
                     )
                 )
             ),
+            ModelResult(
+                action=ToolAction(call=ToolCall(id="tests", name="run_tests", arguments={}))
+            ),
             ModelResult(action=FinalAction(content="done")),
         ]
     )

@@ -40,8 +40,15 @@ async def run_command(
         stderr=asyncio.subprocess.STDOUT,
         start_new_session=True,
     )
+    captured = bytearray()
+    truncated = False
     try:
-        stdout, _ = await process.communicate()
+        assert process.stdout is not None
+        while chunk := await process.stdout.read(64 * 1024):
+            remaining = max_output_bytes - len(captured)
+            captured.extend(chunk[:remaining])
+            truncated |= len(chunk) > remaining
+        await process.wait()
     except asyncio.CancelledError:
         try:
             os.killpg(process.pid, signal.SIGKILL)
@@ -49,12 +56,10 @@ async def run_command(
             pass
         await process.wait()
         raise
-    truncated = len(stdout) > max_output_bytes
-    bounded = stdout[:max_output_bytes]
     if process.returncode is None:
         raise RuntimeError("subprocess completed without an exit code")
     return CommandResult(
         exit_code=process.returncode,
-        output=bounded.decode("utf-8", errors="replace"),
+        output=captured.decode("utf-8", errors="replace"),
         truncated=truncated,
     )

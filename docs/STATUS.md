@@ -7,6 +7,7 @@ This file is the source of truth for the enhanced candidate. **The full user-app
 | Area | Evidence |
 | --- | --- |
 | Original Agent Loop, planning, tools, policy, approval, checkpoint, context, Skills, MCP, Sub-agent, memory and hash trace | Existing unit/integration tests under `tests/` |
+| Harness-owned completion verification gate before `succeeded`; the coding vertical requires a successful write and passing tests | `runtime/verification.py`, runtime gate tests in `test_runtime.py`, `test_verification.py`, `test_coding_agent.py` retry scenario, ADR 006 |
 | OMLX chat/vision, embedding and reranker adapters; loopback proxy isolation; structured intent output | `tests/unit/test_omlx_knowledge.py`, `test_omlx_qualification.py`, `reports/omlx-qualification.json` |
 | Markdown/TXT/code/JSON/PDF/image parsing and bounded atomic upload storage | `tests/unit/test_knowledge_parsers_storage.py` |
 | FTS5 + vector, RRF, reranking fallback, stage timings, no-evidence refusal and source-bound citations | `tests/unit/test_knowledge_indexes_service.py`, `test_knowledge_reviewer_queue.py` |
@@ -28,7 +29,8 @@ This file is the source of truth for the enhanced candidate. **The full user-app
 
 ## Remaining full-plan gates
 
-- Conversation summaries and shared ContextCompiler budgeting are not yet integrated into the RAG/chat paths. The coding runtime has its own existing compiler; this must not be described as whole-platform context management.
+- The `AgentRuntime` now assembles every model request under `RunBudget.max_context_tokens` and compactly folds older turns into a deterministic, trace-linked summary (ADR 005). Compaction is structural, not semantic: it does not judge what mattered, and progressive retrieval and tool-subset retrieval are not implemented. The RAG/chat paths do not share this assembler or the `ContextCompiler`; this must not be described as whole-platform context management.
+- The completion verification gate (ADR 006) is installed by default only in the coding vertical, where it requires a successful write and passing tests. Knowledge and general-chat paths are not gated, and no task-specific verifiers (citation, file-existence) exist yet. The gate checks the evidence a task type produces; it is not a general correctness proof.
 - The real OMLX suite uses controlled echo/intent/label-image cases, not twenty annotated realistic code screenshots/architecture diagrams. Raw strict-JSON rate, cold/warm TTFT, token throughput, and process memory are not all measured.
 - RAG/Reviewer quality results use deterministic models and distinctive fixture tokens. Citation precision currently checks source membership, not semantic claim support. Real-model domain-quality and independent framework comparisons remain outstanding.
 - PostgreSQL currently holds sessions/messages only; document/job/idempotency/memory/run metadata remains SQLite on shared local disk. In-flight live worker-kill and outbox recovery are not verified.

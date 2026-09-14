@@ -10,6 +10,12 @@ import typer
 from pydantic import SecretStr
 
 
+async def _deny_writes(*, action: str, path: str, content: str) -> bool:
+    """Keep the comparison CLI read-only until a real approval service is wired."""
+    del action, path, content
+    return False
+
+
 def register(app: typer.Typer) -> None:
     """Register framework-comparison commands on the given Typer app."""
 
@@ -73,6 +79,7 @@ def register(app: typer.Typer) -> None:
                 llm=llm,
                 workspace=resolved_workspace,
                 test_command=test_command,
+                approval_callback=_deny_writes,
             )
             result = await agent.run(task)
             typer.echo(f"status={result['status']}")

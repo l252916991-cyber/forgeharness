@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-06T16:43:07.514482Z",
-  "revision": "e792defc7acb5902e8e866eab0884ad71e44a9ca",
+  "generated_at": "2026-09-10T11:30:47.057744Z",
+  "revision": "1ecf4e31e824438b1058e04c3e4f859d789b940f",
   "manifest_sha256": "63596c3f1cd96d641c665a8bb1253e9d82b340c09c0f74f7e67726a13c11cb78",
   "total": 7,
   "passed": 7,
@@ -12,10 +12,10 @@
       "expected": "succeeded",
       "actual": "succeeded",
       "passed": true,
-      "elapsed_ms": 1.183,
+      "elapsed_ms": 2.09,
       "steps": 2,
       "tool_calls": 1,
-      "trace_events": 6
+      "trace_events": 8
     },
     {
       "id": "unknown-tool",
@@ -23,10 +23,10 @@
       "expected": "succeeded",
       "actual": "succeeded",
       "passed": true,
-      "elapsed_ms": 0.414,
+      "elapsed_ms": 0.748,
       "steps": 2,
       "tool_calls": 1,
-      "trace_events": 5
+      "trace_events": 7
     },
     {
       "id": "tool-budget",
@@ -34,10 +34,10 @@
       "expected": "exhausted",
       "actual": "exhausted",
       "passed": true,
-      "elapsed_ms": 0.27,
+      "elapsed_ms": 0.471,
       "steps": 1,
       "tool_calls": 0,
-      "trace_events": 3
+      "trace_events": 4
     },
     {
       "id": "model-failure",
@@ -45,10 +45,10 @@
       "expected": "failed",
       "actual": "failed",
       "passed": true,
-      "elapsed_ms": 0.422,
+      "elapsed_ms": 0.369,
       "steps": 0,
       "tool_calls": 0,
-      "trace_events": 3
+      "trace_events": 4
     },
     {
       "id": "approval-gate",
@@ -56,10 +56,10 @@
       "expected": "awaiting_approval",
       "actual": "awaiting_approval",
       "passed": true,
-      "elapsed_ms": 0.353,
+      "elapsed_ms": 0.357,
       "steps": 1,
       "tool_calls": 0,
-      "trace_events": 4
+      "trace_events": 5
     },
     {
       "id": "trace-tamper",
@@ -67,7 +67,7 @@
       "expected": "detected",
       "actual": "detected",
       "passed": true,
-      "elapsed_ms": 0.584,
+      "elapsed_ms": 0.782,
       "steps": 0,
       "tool_calls": 0,
       "trace_events": 0
@@ -78,7 +78,7 @@
       "expected": "gated",
       "actual": "gated",
       "passed": true,
-      "elapsed_ms": 1.899,
+      "elapsed_ms": 2.091,
       "steps": 0,
       "tool_calls": 0,
       "trace_events": 0

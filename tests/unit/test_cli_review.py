@@ -18,7 +18,7 @@ def test_demo_command_runs_keyless_vertical_slice() -> None:
     assert result.exit_code == 0
     assert "status=succeeded" in result.stdout
     assert "output=Echo verified: tested" in result.stdout
-    assert "trace_events=6" in result.stdout
+    assert "trace_events=8" in result.stdout
 
 
 def test_control_eval_command_writes_report(tmp_path: Path) -> None:

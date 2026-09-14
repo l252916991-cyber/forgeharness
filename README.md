@@ -12,7 +12,7 @@ The main workflow takes a repository issue, lets a model inspect the codebase, p
 - Hard step, tool-call, and token budgets with explicit success, failure, exhaustion, and approval-suspension states.
 - Pydantic/JSON Schema tool validation, risk policy, timeouts, bounded output, sanitized subprocess environments, and workspace path confinement.
 - Exact, expiring, one-shot approvals plus optimistic SQLite checkpoints.
-- Token-budgeted context selection, observation compression, and an AST-based Python repository map that never imports repository code.
+- Token-budgeted context selection, per-request window assembly with deterministic history compaction, observation compression, and an AST-based Python repository map that never imports repository code.
 - A coding agent with list/search/read/optimistic-write/test/diff tools and an end-to-end fixture-repair test.
 - Versioned local Skills, stateless HTTP MCP tools, and scoped sub-agents whose usage is charged to the parent.
 - Review-gated long-term memory and redacted, fsynced, SHA-256 hash-chained JSONL traces.
@@ -113,6 +113,8 @@ curl -X POST http://127.0.0.1:8001/runs/keyless-demo \
 Open `http://127.0.0.1:8001/` for the lightweight UI or `/docs` for every endpoint. The UI supports file/image uploads, indexing status, media attachment, and citation-bearing answers. Port 8000 belongs to OMLX; the API defaults to 8001. Coding sessions are disabled unless `FORGE_CODING_WORKSPACE_ROOT` is set. A requested workspace must be relative to that root, must resolve inside it, and must contain `.git`; writes still suspend on exact-action approval.
 
 The local profile rejects non-loopback Host names and cross-origin browser mutations. It has no multi-user authentication and must not be exposed publicly. Approved memories can be revoked with `POST /v1/memories/{id}/review` (`approve: false`) or soft-deleted with `DELETE /v1/memories/{id}`; both remove retrieval indexes, while retaining the local audit record. This is not secure erasure.
+
+For an internal single-tenant deployment, set `FORGE_SERVICE_API_KEY` to a random value of at least 16 characters. `/v1/*` and `/runs/*` then require `X-API-Key` or `Authorization: Bearer ...`; health, metrics, and the UI remain available for probes and operator access. This is an API key boundary, not multi-tenant authorization.
 
 ## Platform profile
 

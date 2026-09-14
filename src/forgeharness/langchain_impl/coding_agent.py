@@ -10,7 +10,8 @@ Demonstrates:
 
 from __future__ import annotations
 
-import subprocess
+import asyncio
+import shlex
 from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
@@ -22,6 +23,8 @@ from langchain_core.tools import tool
 from langgraph.graph import END, StateGraph
 from langgraph.prebuilt import ToolNode
 from pydantic import SecretStr
+
+from forgeharness.tools.process import run_command
 
 
 class AgentStatus(StrEnum):
@@ -60,9 +63,15 @@ class CodingTools:
     would wrap the unbound function and lose ``self`` when ToolNode invokes it.
     """
 
-    def __init__(self, workspace: Path, approval_callback: Any = None) -> None:
+    def __init__(
+        self,
+        workspace: Path,
+        approval_callback: Any = None,
+        test_command: str = "pytest -q",
+    ) -> None:
         self.workspace = workspace
         self.approval_callback = approval_callback
+        self.test_command = test_command
 
         @tool
         def list_files(pattern: str = "*") -> str:
@@ -84,50 +93,55 @@ class CodingTools:
             Write file content (requires approval when a callback is configured).
             """
             target = self._validate_path(path)
-            if self.approval_callback is not None:
-                approved = await self.approval_callback(
-                    action="write_file",
-                    path=str(target),
-                    content=content,
-                )
-                if not approved:
-                    return f"Approval denied for writing {path}"
+            if self.approval_callback is None:
+                return "Approval required; no approval service is configured"
+            approved = await self.approval_callback(
+                action="write_file",
+                path=str(target),
+                content=content,
+            )
+            if not approved:
+                return f"Approval denied for writing {path}"
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(content)
             return f"Successfully wrote {path}"
 
         @tool
-        def run_tests(command: str = "") -> str:
+        async def run_tests(command: str = "") -> str:
             """Run test command in workspace."""
-            cmd = command or "pytest -q"
+            del command  # The model cannot select an arbitrary process.
+            cmd = shlex.split(self.test_command)
+            if not cmd:
+                return "Error: configured test command is empty"
             try:
-                result = subprocess.run(
-                    cmd,
-                    shell=True,
-                    cwd=self.workspace,
-                    capture_output=True,
-                    text=True,
+                result = await asyncio.wait_for(
+                    run_command(tuple(cmd), workspace=self.workspace, max_output_bytes=50_000),
                     timeout=60,
                 )
-                output = result.stdout + result.stderr
-                return f"Exit code: {result.returncode}\n{output[:2000]}"
-            except subprocess.TimeoutExpired:
+                output = result.output
+                if result.truncated:
+                    output += "\n[output truncated]"
+                return f"Exit code: {result.exit_code}\n{output[:2000]}"
+            except TimeoutError:
                 return "Error: Test command timed out (60s limit)"
             except Exception as e:
                 return f"Error running tests: {e}"
 
         @tool
-        def git_diff() -> str:
+        async def git_diff() -> str:
             """Show git diff of changes."""
             try:
-                result = subprocess.run(
-                    ["git", "diff"],
-                    cwd=self.workspace,
-                    capture_output=True,
-                    text=True,
+                result = await asyncio.wait_for(
+                    run_command(
+                        ("git", "diff", "--no-ext-diff", "--"),
+                        workspace=self.workspace,
+                        max_output_bytes=50_000,
+                    ),
                     timeout=10,
                 )
-                return result.stdout[:5000] or "No changes"
+                return result.output[:5000] or "No changes"
+            except TimeoutError:
+                return "Error getting diff: command timed out"
             except Exception as e:
                 return f"Error getting diff: {e}"
 
@@ -170,7 +184,9 @@ class LangGraphCodingAgent:
 
         # Initialize tools; writes suspend on the callback when one is wired,
         # matching the harness-wide exact-action approval philosophy.
-        self.tools_instance = CodingTools(workspace, approval_callback=approval_callback)
+        self.tools_instance = CodingTools(
+            workspace, approval_callback=approval_callback, test_command=test_command
+        )
         self.tools = list(self.tools_instance.tools)
 
         # Bind tools to LLM

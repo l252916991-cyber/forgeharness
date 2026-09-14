@@ -136,6 +136,7 @@ class AgentResponse(FrozenModel):
     trace_id: str
     latency_ms: float = Field(ge=0)
     model: str
+    checkpoint_revision: int = Field(default=0, ge=0)
 
 
 class JobStatus(StrEnum):

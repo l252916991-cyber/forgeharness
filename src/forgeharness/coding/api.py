@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from dataclasses import dataclass
 from pathlib import Path
 from uuid import uuid4
@@ -17,6 +18,7 @@ from forgeharness.models.openai_compatible import (
     OpenAICompatibleModel,
 )
 from forgeharness.observability.hash_chain import HashChainedJSONLTrace
+from forgeharness.runtime.verification import CodingVerifier, Verifier
 from forgeharness.state.approval import InMemoryApprovalLedger
 from forgeharness.state.checkpoint import SQLiteCheckpointStore
 
@@ -40,6 +42,7 @@ class APICodingHandler:
         model_name: str,
         api_key: str | None,
         timeout_seconds: float,
+        verifier: Verifier | None = None,
     ) -> None:
         self._data_dir = data_dir
         self._bindings = bindings
@@ -47,8 +50,10 @@ class APICodingHandler:
         self._model_name = model_name
         self._api_key = api_key or "omlx-local"
         self._timeout = timeout_seconds
+        self._verifier = verifier or CodingVerifier()
         self._checkpoints = SQLiteCheckpointStore(data_dir / "runs.sqlite3")
         self._active: dict[str, _ActiveRun] = {}
+        self._approval_locks: dict[str, asyncio.Lock] = {}
 
     async def handle(self, *, session_id: str, task: str) -> AgentResponse:
         workspace = self._bindings.get_workspace(session_id)
@@ -76,10 +81,11 @@ class APICodingHandler:
             approval_ledger=ledger,
             checkpoint_store=self._checkpoints,
             test_command=("python", "-m", "pytest", "-q"),
+            verifier=self._verifier,
         )
         try:
             result = await agent.start(task_id=task_id, issue=task, workspace=workspace)
-        except Exception:
+        except BaseException:
             await client.aclose()
             raise
         if result.status == RunStatus.AWAITING_APPROVAL:
@@ -88,27 +94,33 @@ class APICodingHandler:
             await client.aclose()
         return _agent_response(result, self._model_name)
 
-    async def approve(self, task_id: str, *, granted_by: str) -> RunResult:
-        result = self._checkpoints.load(task_id)
-        if result is None:
-            raise KeyError("run not found")
-        if result.pending_approval is None:
-            raise ValueError("run has no pending approval")
-        active = self._active.get(task_id)
-        if active is None:
-            raise RuntimeError(
-                "approval capability was lost after process restart; restart the coding task"
+    async def approve(
+        self, task_id: str, *, granted_by: str, checkpoint_revision: int
+    ) -> RunResult:
+        lock = self._approval_locks.setdefault(task_id, asyncio.Lock())
+        async with lock:
+            result = self._checkpoints.load(task_id)
+            if result is None:
+                raise KeyError("run not found")
+            if result.checkpoint_revision != checkpoint_revision:
+                raise ValueError("approval checkpoint changed; review the current action again")
+            if result.pending_approval is None:
+                raise ValueError("run has no pending approval")
+            active = self._active.get(task_id)
+            if active is None:
+                raise RuntimeError(
+                    "approval capability was lost after process restart; restart the coding task"
+                )
+            grant = active.agent.approve(result, granted_by=granted_by)
+            resumed = await active.agent.resume(
+                suspended=result,
+                grant=grant,
+                workspace=active.workspace,
             )
-        grant = active.agent.approve(result, granted_by=granted_by)
-        resumed = await active.agent.resume(
-            suspended=result,
-            grant=grant,
-            workspace=active.workspace,
-        )
-        if resumed.status != RunStatus.AWAITING_APPROVAL:
-            await active.client.aclose()
-            self._active.pop(task_id, None)
-        return resumed
+            if resumed.status != RunStatus.AWAITING_APPROVAL:
+                await active.client.aclose()
+                self._active.pop(task_id, None)
+            return resumed
 
     async def close(self) -> None:
         for active in tuple(self._active.values()):
@@ -135,4 +147,5 @@ def _agent_response(result: RunResult, model: str) -> AgentResponse:
         trace_id=result.task_id,
         latency_ms=0,
         model=model,
+        checkpoint_revision=result.checkpoint_revision,
     )

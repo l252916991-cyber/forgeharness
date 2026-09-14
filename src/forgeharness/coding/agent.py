@@ -13,6 +13,7 @@ from forgeharness.models.base import Model
 from forgeharness.observability.trace import TraceRecorder
 from forgeharness.runtime.budget import RunBudget
 from forgeharness.runtime.loop import AgentRuntime
+from forgeharness.runtime.verification import CodingVerifier, Verifier
 from forgeharness.skills.loader import LoadedSkill, SkillRegistry
 from forgeharness.state.approval import ApprovalGrant, ApprovalLedger
 from forgeharness.state.checkpoint import CheckpointStore
@@ -35,6 +36,7 @@ class CodingAgent:
         tool_timeout_seconds: float = 120.0,
         skills: tuple[LoadedSkill, ...] = (),
         selected_skills: tuple[str, ...] = (),
+        verifier: Verifier | None = None,
     ) -> None:
         registry = ToolRegistry()
         for tool in coding_tools(test_command=test_command):
@@ -54,6 +56,7 @@ class CodingAgent:
             budget=budget,
             approval_ledger=approval_ledger,
             checkpoint_store=checkpoint_store,
+            verifier=verifier or CodingVerifier(),
         )
 
     async def start(self, *, task_id: str, issue: str, workspace: Path) -> RunResult:

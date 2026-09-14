@@ -15,3 +15,12 @@ jobs:
           enable-cache: true
       - run: uv sync --extra dev --extra platform --extra benchmark --frozen
       - run: make gate
+  frameworks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: make framework-check

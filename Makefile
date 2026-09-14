@@ -1,7 +1,12 @@
-.PHONY: sync format lint typecheck test check gate review
+.PHONY: sync framework-check format lint typecheck test check gate review
 
 sync:
 	uv sync --extra dev --extra platform --extra benchmark
+
+framework-check:
+	uv sync --extra dev --extra frameworks --frozen
+	uv run --no-sync pytest tests/unit/test_langchain_impl.py tests/unit/test_langgraph_agent.py
+	uv run --no-sync mypy src/forgeharness/langchain_impl/*.py
 
 format:
 	uv run --no-sync ruff format .

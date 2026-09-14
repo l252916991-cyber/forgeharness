@@ -87,6 +87,11 @@ select = ["E", "F", "I", "B", "UP", "ASYNC", "RUF"]
 python_version = "3.12"
 strict = true
 packages = ["forgeharness"]
+exclude = '^src/forgeharness/langchain_impl/'
+
+[[tool.mypy.overrides]]
+module = ["arq", "arq.*"]
+ignore_missing_imports = true
 
 [tool.coverage.run]
 branch = true

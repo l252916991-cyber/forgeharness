@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from forgeharness.context.assembly import ContextAssembler
+from forgeharness.context.compiler import ContextBudgetError
 from forgeharness.context.compression import ObservationCompressor
 from forgeharness.domain.models import (
     FinalAction,
@@ -18,6 +20,12 @@ from forgeharness.domain.models import (
 from forgeharness.models.base import Model, ModelRequest
 from forgeharness.observability.trace import TraceRecorder
 from forgeharness.runtime.budget import RunBudget
+from forgeharness.runtime.verification import (
+    ToolEvidence,
+    VerificationRequest,
+    VerificationResult,
+    Verifier,
+)
 from forgeharness.state.approval import ApprovalGrant, ApprovalLedger
 from forgeharness.state.checkpoint import CheckpointConflict, CheckpointStore
 from forgeharness.tools.base import ExecutionAllowance, ToolContext
@@ -41,6 +49,8 @@ class AgentRuntime:
         approval_ledger: ApprovalLedger | None = None,
         checkpoint_store: CheckpointStore | None = None,
         observation_compressor: ObservationCompressor | None = None,
+        context_assembler: ContextAssembler | None = None,
+        verifier: Verifier | None = None,
     ) -> None:
         self._model = model
         self._registry = registry
@@ -51,6 +61,10 @@ class AgentRuntime:
         self._approval_ledger = approval_ledger
         self._checkpoint_store = checkpoint_store
         self._observation_compressor = observation_compressor or ObservationCompressor()
+        self._context_assembler = context_assembler or ContextAssembler(
+            max_tokens=self._budget.max_context_tokens
+        )
+        self._verifier = verifier
 
     async def run(
         self,
@@ -102,12 +116,20 @@ class AgentRuntime:
         if current_decision.type == PolicyDecisionType.DENY:
             raise ValueError(f"approved tool is now denied: {current_decision.reason}")
         self._approval_ledger.consume(grant, task_id=previous.task_id, call=call)
+        # Claim the checkpoint before any asynchronous side effect. SQLite's
+        # compare-and-swap rejects competing processes as well as duplicate requests.
+        claimed = self._checkpoint(
+            previous.model_copy(update={"status": RunStatus.RUNNING, "pending_approval": None})
+        )
         self._trace.append("approval.consumed", {"tool": call.name, "granted_by": grant.granted_by})
         messages = list(previous.messages)
         dispatch = await self._dispatcher.dispatch(
             call, self._tool_context(previous.task_id, workspace, previous.usage)
         )
         usage = self._account_tool_usage(previous.usage, dispatch.output.usage)
+        evidence = _evidence(
+            call.name, dispatch.output.ok, dispatch.output.content, dispatch.output.metadata
+        )
         observation = self._observation(dispatch.output.content)
         messages.append(
             Message(
@@ -133,7 +155,7 @@ class AgentRuntime:
                 status=RunStatus.RUNNING,
                 messages=tuple(messages),
                 usage=usage,
-                checkpoint_revision=previous.checkpoint_revision,
+                checkpoint_revision=claimed.checkpoint_revision,
             )
         )
         return await self._drive(
@@ -142,6 +164,7 @@ class AgentRuntime:
             usage=usage,
             workspace=workspace,
             checkpoint_revision=running.checkpoint_revision,
+            tool_evidence=(evidence,),
         )
 
     async def _drive(
@@ -152,9 +175,11 @@ class AgentRuntime:
         usage: Usage,
         workspace: Path,
         checkpoint_revision: int,
+        tool_evidence: tuple[ToolEvidence, ...] = (),
     ) -> RunResult:
         """Continue a new or resumed run from validated in-memory state."""
 
+        evidence = list(tool_evidence)
         while usage.steps < self._budget.max_steps:
             if self._tokens_exhausted(usage):
                 return self._finish(
@@ -166,13 +191,40 @@ class AgentRuntime:
                     error="token budget exhausted",
                 )
             try:
-                model_result = await self._model.decide(
-                    ModelRequest(
-                        task_id=task_id,
-                        messages=tuple(messages),
-                        tools=self._registry.specs(),
-                    )
+                assembled = self._context_assembler.assemble(messages)
+            except ContextBudgetError as exc:
+                self._trace.append("context.overflow", {"error": str(exc)})
+                return self._finish(
+                    task_id=task_id,
+                    status=RunStatus.FAILED,
+                    messages=messages,
+                    usage=usage,
+                    checkpoint_revision=checkpoint_revision,
+                    error=f"context budget exceeded: {exc}",
                 )
+            if assembled.compacted:
+                self._trace.append(
+                    "context.compacted",
+                    {
+                        "sent_messages": len(assembled.messages),
+                        "dropped_messages": assembled.dropped_messages,
+                        "estimated_tokens": assembled.estimated_tokens,
+                        "max_tokens": self._budget.max_context_tokens,
+                        "decisions": [
+                            decision.model_dump(mode="json")
+                            for decision in assembled.decisions
+                            if not decision.included
+                        ],
+                    },
+                )
+            try:
+                request = ModelRequest(
+                    task_id=task_id,
+                    messages=assembled.messages,
+                    tools=self._registry.specs(),
+                )
+                self._trace.append("model.request", request.model_dump(mode="json"))
+                model_result = await self._model.decide(request)
             except Exception as exc:
                 self._trace.append(
                     "model.failed", {"error_type": type(exc).__name__, "error": str(exc)}
@@ -196,6 +248,7 @@ class AgentRuntime:
                 "model.action",
                 {
                     "kind": model_result.action.kind,
+                    "action": model_result.action.model_dump(mode="json"),
                     "model_name": model_result.model_name,
                     "input_tokens": model_result.usage.input_tokens,
                     "output_tokens": model_result.usage.output_tokens,
@@ -215,14 +268,57 @@ class AgentRuntime:
             action = model_result.action
             if isinstance(action, FinalAction):
                 messages.append(Message(role=MessageRole.ASSISTANT, content=action.content))
-                return self._finish(
-                    task_id=task_id,
-                    status=RunStatus.SUCCEEDED,
-                    messages=messages,
-                    usage=usage,
-                    checkpoint_revision=checkpoint_revision,
-                    final_output=action.content,
+                if self._verifier is None:
+                    return self._finish(
+                        task_id=task_id,
+                        status=RunStatus.SUCCEEDED,
+                        messages=messages,
+                        usage=usage,
+                        checkpoint_revision=checkpoint_revision,
+                        final_output=action.content,
+                    )
+                try:
+                    verdict = await self._verifier.verify(
+                        VerificationRequest(
+                            task_id=task_id,
+                            final=action,
+                            workspace=workspace,
+                            tool_results=tuple(evidence),
+                        )
+                    )
+                except Exception as exc:
+                    self._trace.append(
+                        "verification.failed",
+                        {"error_type": type(exc).__name__, "error": str(exc)},
+                    )
+                    return self._finish(
+                        task_id=task_id,
+                        status=RunStatus.FAILED,
+                        messages=messages,
+                        usage=usage,
+                        checkpoint_revision=checkpoint_revision,
+                        error=f"verification failed: {type(exc).__name__}: {exc}",
+                    )
+                self._trace.append(
+                    "verification.passed" if verdict.passed else "verification.rejected",
+                    {"reason": verdict.reason, "evidence": list(verdict.evidence)},
                 )
+                if verdict.passed:
+                    return self._finish(
+                        task_id=task_id,
+                        status=RunStatus.SUCCEEDED,
+                        messages=messages,
+                        usage=usage,
+                        checkpoint_revision=checkpoint_revision,
+                        final_output=action.content,
+                    )
+                messages.append(
+                    Message(role=MessageRole.USER, content=_verification_feedback(verdict))
+                )
+                checkpoint_revision = self._save_running(
+                    task_id, messages, usage, checkpoint_revision
+                )
+                continue
 
             if not isinstance(action, ToolAction):
                 raise AssertionError(f"unhandled action type: {type(action).__name__}")
@@ -283,6 +379,14 @@ class AgentRuntime:
                 action.call, self._tool_context(task_id, workspace, usage)
             )
             usage = self._account_tool_usage(usage, dispatch.output.usage)
+            evidence.append(
+                _evidence(
+                    action.call.name,
+                    dispatch.output.ok,
+                    dispatch.output.content,
+                    dispatch.output.metadata,
+                )
+            )
             observation = self._observation(dispatch.output.content)
             messages.append(self._tool_message(action, observation))
             self._trace.append(
@@ -401,3 +505,20 @@ class AgentRuntime:
         current = self._checkpoint_store.load(result.task_id)
         if current is None or current.checkpoint_revision != result.checkpoint_revision:
             raise CheckpointConflict(f"run {result.task_id} is not the current checkpoint")
+
+
+def _evidence(name: str, ok: bool, content: str, metadata: dict[str, object]) -> ToolEvidence:
+    """Capture one executed call as structured evidence for a verifier."""
+    return ToolEvidence(name=name, ok=ok, content=content, metadata=metadata)
+
+
+def _verification_feedback(verdict: VerificationResult) -> str:
+    """Return the model-visible reason a final answer was not accepted."""
+    lines = [
+        "Harness verification rejected the final answer.",
+        f"Reason: {verdict.reason}",
+    ]
+    if verdict.evidence:
+        lines.append("Evidence: " + "; ".join(verdict.evidence))
+    lines.append("Provide the missing evidence or correct the work, then finish again.")
+    return "\n".join(lines)

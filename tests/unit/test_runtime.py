@@ -20,6 +20,12 @@ from forgeharness.models.scripted import ScriptedModel
 from forgeharness.observability.trace import InMemoryTrace
 from forgeharness.runtime.budget import RunBudget
 from forgeharness.runtime.loop import AgentRuntime
+from forgeharness.runtime.verification import (
+    ToolEvidence,
+    VerificationRequest,
+    VerificationResult,
+    Verifier,
+)
 from forgeharness.state.approval import InMemoryApprovalLedger
 from forgeharness.state.checkpoint import CheckpointConflict, SQLiteCheckpointStore
 from forgeharness.tools.base import RiskLevel, ToolContext, ToolOutput, ToolSpec
@@ -66,6 +72,7 @@ def build_runtime(
     approval_ledger: InMemoryApprovalLedger | None = None,
     checkpoint_store: SQLiteCheckpointStore | None = None,
     observation_compressor: ObservationCompressor | None = None,
+    verifier: Verifier | None = None,
 ) -> AgentRuntime:
     registry = ToolRegistry()
     registry.register(EchoTool())
@@ -81,6 +88,7 @@ def build_runtime(
         approval_ledger=approval_ledger,
         checkpoint_store=checkpoint_store,
         observation_compressor=observation_compressor,
+        verifier=verifier,
     )
 
 
@@ -109,9 +117,11 @@ async def test_runtime_executes_tool_and_returns_final_answer(tmp_path: Path) ->
     assert model.requests[1].messages[-1].content == "observed"
     assert [event.type for event in trace.events] == [
         "run.started",
+        "model.request",
         "model.action",
         "policy.decided",
         "tool.completed",
+        "model.request",
         "model.action",
         "run.finished",
     ]
@@ -150,6 +160,7 @@ async def test_runtime_turns_model_failure_into_failed_result(tmp_path: Path) ->
     assert result.error == "model failed: RuntimeError: scripted model has no response remaining"
     assert [event.type for event in trace.events] == [
         "run.started",
+        "model.request",
         "model.failed",
         "run.finished",
     ]
@@ -291,7 +302,7 @@ async def test_runtime_persists_and_resumes_approval_checkpoint(tmp_path: Path) 
 
     assert finished.status == RunStatus.SUCCEEDED
     assert store.load("task-1") == finished
-    assert finished.checkpoint_revision == 4
+    assert finished.checkpoint_revision == 5
 
 
 async def test_runtime_rejects_resume_of_stale_checkpoint(tmp_path: Path) -> None:
@@ -380,3 +391,170 @@ async def test_runtime_compresses_model_visible_observations(tmp_path: Path) -> 
     assert observation is not None
     assert observation.startswith("[compressed observation:")
     assert len(observation) <= 200
+
+
+async def test_runtime_compacts_history_to_the_context_window(tmp_path: Path) -> None:
+    model = ScriptedModel(
+        [
+            *(
+                ModelResult(
+                    action=ToolAction(
+                        call=ToolCall(
+                            id=f"call-{index}", name="echo", arguments={"text": "x" * 200}
+                        )
+                    )
+                )
+                for index in range(3)
+            ),
+            ModelResult(action=FinalAction(content="done")),
+        ]
+    )
+    trace = InMemoryTrace("task-1")
+
+    result = await build_runtime(model, trace, RunBudget(max_context_tokens=200)).run(
+        task_id="task-1", task="use several tools", workspace=tmp_path
+    )
+
+    assert result.status == RunStatus.SUCCEEDED
+    assert "context.compacted" in [event.type for event in trace.events]
+    # The checkpoint keeps the full transcript while the model sees a bounded window.
+    assert len(result.messages) == 8
+    assert len(model.requests[-1].messages) < len(result.messages)
+    sent = model.requests[-1].messages
+    assert sent[0].role == MessageRole.SYSTEM
+    assert sent[0].content is not None
+    assert sent[0].content.startswith("[compacted context:")
+    assert sent[-1] == result.messages[-2]
+
+
+async def test_runtime_fails_when_context_window_cannot_fit_required_messages(
+    tmp_path: Path,
+) -> None:
+    model = ScriptedModel([ModelResult(action=FinalAction(content="unused"))])
+    trace = InMemoryTrace("task-1")
+
+    result = await build_runtime(model, trace, RunBudget(max_context_tokens=1)).run(
+        task_id="task-1", task="t" * 4_000, workspace=tmp_path
+    )
+
+    assert result.status == RunStatus.FAILED
+    assert result.error is not None
+    assert result.error.startswith("context budget exceeded:")
+    assert "context.overflow" in [event.type for event in trace.events]
+
+
+class RecordingVerifier:
+    """Accept or reject on a script while capturing what it was shown."""
+
+    def __init__(self, verdicts: list[VerificationResult]) -> None:
+        self._verdicts = verdicts
+        self.requests: list[VerificationRequest] = []
+
+    async def verify(self, request: VerificationRequest) -> VerificationResult:
+        self.requests.append(request)
+        return self._verdicts.pop(0)
+
+
+class ExplodingVerifier:
+    """Raise to prove a broken verifier fails the run instead of passing it."""
+
+    async def verify(self, request: VerificationRequest) -> VerificationResult:
+        del request
+        raise RuntimeError("verifier is broken")
+
+
+async def test_runtime_accepts_verified_final_answer(tmp_path: Path) -> None:
+    model = ScriptedModel(
+        [
+            ModelResult(
+                action=ToolAction(
+                    call=ToolCall(id="call-1", name="echo", arguments={"text": "observed"})
+                )
+            ),
+            ModelResult(action=FinalAction(content="done")),
+        ]
+    )
+    trace = InMemoryTrace("task-1")
+    verifier = RecordingVerifier([VerificationResult(passed=True, reason="evidence present")])
+
+    result = await build_runtime(model, trace, verifier=verifier).run(
+        task_id="task-1", task="verify me", workspace=tmp_path
+    )
+
+    assert result.status == RunStatus.SUCCEEDED
+    assert result.final_output == "done"
+    # The verifier sees structured evidence, not the chat transcript.
+    assert verifier.requests[0].tool_results == (
+        ToolEvidence(name="echo", ok=True, content="observed"),
+    )
+    assert "verification.passed" in [event.type for event in trace.events]
+
+
+async def test_runtime_returns_rejected_verdict_to_model_and_retries(tmp_path: Path) -> None:
+    model = ScriptedModel(
+        [
+            ModelResult(action=FinalAction(content="premature")),
+            ModelResult(action=FinalAction(content="supported")),
+        ]
+    )
+    trace = InMemoryTrace("task-1")
+    verifier = RecordingVerifier(
+        [
+            VerificationResult(
+                passed=False, reason="no test evidence", evidence=("run_tests: missing",)
+            ),
+            VerificationResult(passed=True, reason="tests pass"),
+        ]
+    )
+
+    result = await build_runtime(model, trace, verifier=verifier).run(
+        task_id="task-1", task="finish with evidence", workspace=tmp_path
+    )
+
+    assert result.status == RunStatus.SUCCEEDED
+    assert result.final_output == "supported"
+    feedback = model.requests[1].messages[-1]
+    assert feedback.role == MessageRole.USER
+    assert feedback.content is not None
+    assert "Harness verification rejected" in feedback.content
+    assert "no test evidence" in feedback.content
+    assert "run_tests: missing" in feedback.content
+    assert [event.type for event in trace.events].count("verification.rejected") == 1
+
+
+async def test_runtime_exhausts_budget_when_rejection_never_resolves(tmp_path: Path) -> None:
+    model = ScriptedModel(
+        [
+            ModelResult(action=FinalAction(content="attempt one")),
+            ModelResult(action=FinalAction(content="attempt two")),
+        ]
+    )
+    trace = InMemoryTrace("task-1")
+    verifier = RecordingVerifier(
+        [
+            VerificationResult(passed=False, reason="still unproven"),
+            VerificationResult(passed=False, reason="still unproven"),
+        ]
+    )
+
+    result = await build_runtime(model, trace, RunBudget(max_steps=2), verifier=verifier).run(
+        task_id="task-1", task="never proven", workspace=tmp_path
+    )
+
+    assert result.status == RunStatus.EXHAUSTED
+    assert result.final_output is None
+    assert [event.type for event in trace.events].count("verification.rejected") == 2
+
+
+async def test_runtime_fails_the_run_when_verifier_raises(tmp_path: Path) -> None:
+    model = ScriptedModel([ModelResult(action=FinalAction(content="unverified"))])
+    trace = InMemoryTrace("task-1")
+
+    result = await build_runtime(model, trace, verifier=ExplodingVerifier()).run(
+        task_id="task-1", task="verify", workspace=tmp_path
+    )
+
+    assert result.status == RunStatus.FAILED
+    assert result.error is not None
+    assert result.error.startswith("verification failed: RuntimeError: verifier is broken")
+    assert "verification.failed" in [event.type for event in trace.events]
