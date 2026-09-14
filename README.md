@@ -41,7 +41,7 @@ Harness controls remain outside model prompts. Model output, repository text, to
 
 ## Quick start
 
-Python 3.12 and [`uv`](https://docs.astral.sh/uv/) are required.
+Python 3.12 and [`uv`](https://docs.astral.sh/uv/) are required. The `search_code` tool shells out to [`ripgrep`](https://github.com/BurntSushi/ripgrep) (`rg`), which must be on `PATH`.
 
 ```bash
 uv sync --extra dev --extra platform --extra benchmark

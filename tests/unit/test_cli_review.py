@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -10,6 +11,13 @@ from typer.testing import CliRunner
 
 from forgeharness.cli import app
 from forgeharness.review import REQUIRED_DOCUMENTS, REQUIRED_EVIDENCE, main, snapshot_tree_hash
+
+_ANSI = re.compile(r"\x1b\[[0-9;]*m")
+
+
+def _plain(text: str) -> str:
+    """Strip terminal styling; CI forces color and splits tokens like ``--model``."""
+    return _ANSI.sub("", text)
 
 
 def test_demo_command_runs_keyless_vertical_slice() -> None:
@@ -45,11 +53,11 @@ def test_repair_command_requires_model_and_key() -> None:
     result = runner.invoke(app, ["repair", ".", "fix it"])
 
     assert result.exit_code != 0
-    assert "--model" in result.stderr
+    assert "--model" in _plain(result.stderr)
 
     missing_key = runner.invoke(app, ["repair", ".", "fix it", "--model", "test"])
     assert missing_key.exit_code != 0
-    assert "--api-key" in missing_key.stderr
+    assert "--api-key" in _plain(missing_key.stderr)
 
 
 def test_review_reports_missing_documents(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

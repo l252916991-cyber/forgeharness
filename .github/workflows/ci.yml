@@ -13,6 +13,7 @@ jobs:
         with:
           python-version: "3.12"
           enable-cache: true
+      - run: sudo apt-get update && sudo apt-get install -y ripgrep
       - run: uv sync --extra dev --extra platform --extra benchmark --frozen
       - run: make gate
   frameworks:
