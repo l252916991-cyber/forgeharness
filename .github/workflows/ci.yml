@@ -14,7 +14,7 @@ jobs:
           python-version: "3.12"
           enable-cache: true
       - run: sudo apt-get update && sudo apt-get install -y ripgrep
-      - run: uv sync --extra dev --extra platform --extra benchmark --frozen
+      - run: uv sync --extra dev --extra platform --extra benchmark --extra frameworks --frozen
       - run: make gate
   frameworks:
     runs-on: ubuntu-latest
