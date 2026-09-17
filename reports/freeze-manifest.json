@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-09-17T13:06:57.530784Z",
+  "git_revision": "1be5f9219185978b9d9b981ede10f2ad57130881",
+  "model_name": "Qwythos-9B-v2-8bit-mlx",
+  "model_parameters": {
+    "base_url": "http://127.0.0.1:8000/v1",
+    "api_key": "omlx-local",
+    "model": "Qwythos-9B-v2-8bit-mlx",
+    "timeout_seconds": 120.0,
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "enable_thinking": false
+  },
+  "benchmark_version": 1,
+  "observation_contract_version": 1,
+  "recovery_semantics_version": 2,
+  "budget_profile_version": 2,
+  "holdout_case_ids_hash": "9090918f40173489ca92daf4b3d7e62a987f5a2d4cdadf6e9d4f6d37db2dd16c",
+  "holdout_cases": 16,
+  "samples_per_case": 5,
+  "natural_budget": {
+    "max_steps": 24,
+    "max_tool_calls": 24,
+    "max_input_tokens": 200000,
+    "max_output_tokens": 40000
+  },
+  "equal_step_cap": 4,
+  "notes": "Frozen before the final holdout evaluation. No prompt, planner, parser, observation-format, retry, or deadline change is permitted while these numbers are the reported ones; a further change requires a new holdout set."
+}

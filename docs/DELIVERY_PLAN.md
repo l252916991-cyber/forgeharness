@@ -2,6 +2,8 @@
 
 Status at the current audit candidate: M0–M6 are implemented with the limits in [`STATUS.md`](STATUS.md). M7 passed for revision `e3a8a38f5fdb4becdf7ff61fb349ce721be3e169`; findings and residual risks are recorded under [`docs/review`](review/AUDIT.md).
 
+Next phase (M8–M10, plus optional M11): [`NEXT_PHASE_PLAN.md`](NEXT_PHASE_PLAN.md) — Agent benchmark, trace/step projection with bad-case replay, and safe-recovery reliability.
+
 ## Delivery strategy
 
 Work proceeds in vertical, testable increments. Each milestone must leave the repository runnable and must not document planned behavior as implemented behavior.

@@ -1,0 +1,310 @@
+{
+  "case_id": "long-serial-reads",
+  "arm": "plan_execute",
+  "revision": "1be5f9219185978b9d9b981ede10f2ad57130881",
+  "profile": "natural",
+  "model": "Qwythos-9B-v2-8bit-mlx",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-long-serial-reads-s0.jsonl",
+  "trace_hash": "9ac7592fe8b42ecba44d5c855eaea76ef1d89704ab80bc6b1d4d8051228caaa1",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "read_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "read_file",
+    "read_file",
+    "read_file",
+    "read_file",
+    "read_file",
+    "read_file",
+    "read_file",
+    "read_file",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:9>max:4",
+    "steps:11>max:6"
+  ],
+  "steps": 11,
+  "logical_tool_calls": 9,
+  "tool_attempts": 9,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:read_file:completed",
+    "3:executor/tool:read_file:failed",
+    "4:executor/model:read_file:completed",
+    "5:executor/tool:read_file:failed",
+    "6:executor/model:read_file:completed",
+    "7:executor/tool:read_file:failed",
+    "8:executor/model:read_file:completed",
+    "9:executor/tool:read_file:failed",
+    "10:executor/model:read_file:completed",
+    "11:executor/tool:read_file:failed",
+    "12:executor/model:read_file:completed",
+    "13:executor/tool:read_file:failed",
+    "14:executor/model:read_file:completed",
+    "15:executor/tool:read_file:failed",
+    "16:executor/model:read_file:completed",
+    "17:executor/tool:read_file:failed",
+    "18:executor/model:read_file:completed",
+    "19:executor/tool:read_file:failed",
+    "20:executor/model:-:completed",
+    "21:executor/finish:-:completed"
+  ],
+  "model_decisions": 9,
+  "model_requests": 11,
+  "usage_steps": 11,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 9 tool calls against a contract of at most 4; its choices diverged from the stated sequence (tool_calls:9>max:4, steps:11>max:6)",
+  "harness_gap": "the same tool error recurred 2 times and is surfaced as a raw exception string rather than an actionable observation the model could recover from",
+  "case_design_note": "the model probed '/workspace/1.txt', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [
+    {
+      "signature": "read_file:{\"path\":\".\"}",
+      "repeat_count": 3,
+      "observation_hashes": [
+        "4efce230e46c38764a83b11fb448562751967e8eca1b4ee5d946c1690ac03c5a",
+        "4efce230e46c38764a83b11fb448562751967e8eca1b4ee5d946c1690ac03c5a",
+        "4efce230e46c38764a83b11fb448562751967e8eca1b4ee5d946c1690ac03c5a"
+      ],
+      "all_observations_identical": true
+    },
+    {
+      "signature": "read_file:{\"path\":\"1.txt\"}",
+      "repeat_count": 2,
+      "observation_hashes": [
+        "f7d6ef49bf6c39fbe1be9b9fbe58e7de2038b29397fd59d97f232d4c469c21ba",
+        "f7d6ef49bf6c39fbe1be9b9fbe58e7de2038b29397fd59d97f232d4c469c21ba"
+      ],
+      "all_observations_identical": true
+    }
+  ],
+  "repeated_call_signature": "read_file:{\"path\":\".\"}",
+  "repeat_count": 3,
+  "observation_hashes": [
+    "4efce230e46c38764a83b11fb448562751967e8eca1b4ee5d946c1690ac03c5a",
+    "4efce230e46c38764a83b11fb448562751967e8eca1b4ee5d946c1690ac03c5a",
+    "4efce230e46c38764a83b11fb448562751967e8eca1b4ee5d946c1690ac03c5a"
+  ],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Read workspace file 1: /workspace/1.txt\", \"Read workspace file 2: /workspace/2.txt\", \"Read workspace file 3: /workspace/3.txt\", \"Read workspace file 4: /workspace/4.txt\"]}"
+        },
+        "usage": {
+          "input_tokens": 81,
+          "output_tokens": 51
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_74020509",
+            "name": "read_file",
+            "arguments": {
+              "path": "/workspace/1.txt"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 512,
+          "output_tokens": 27
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_849578ef",
+            "name": "read_file",
+            "arguments": {
+              "path": "1.txt"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 603,
+          "output_tokens": 37
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_6e5e5659",
+            "name": "read_file",
+            "arguments": {
+              "path": "/"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 687,
+          "output_tokens": 50
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_59776f5b",
+            "name": "read_file",
+            "arguments": {
+              "path": "workspace"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 771,
+          "output_tokens": 47
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_6890463d",
+            "name": "read_file",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 853,
+          "output_tokens": 59
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_b231afc2",
+            "name": "read_file",
+            "arguments": {
+              "path": "1.txt"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 897,
+          "output_tokens": 170
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_1f2d7efd",
+            "name": "read_file",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 981,
+          "output_tokens": 91
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_db9a8c57",
+            "name": "read_file",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1025,
+          "output_tokens": 91
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_40c75d40",
+            "name": "read_file",
+            "arguments": {
+              "path": "workspace/1.txt"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1069,
+          "output_tokens": 184
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I've attempted to read the four workspace files as requested, but I'm encountering path resolution issues. The files don't appear to exist at the expected locations, and the workspace directory structure isn't clear from my attempts. I need to verify the actual file locations before I can proceed with reading them."
+        },
+        "usage": {
+          "input_tokens": 1157,
+          "output_tokens": 60
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "case_id": "retr-find-then-read",
+  "arm": "plan_execute",
+  "revision": "1be5f9219185978b9d9b981ede10f2ad57130881",
+  "profile": "equal",
+  "model": "Qwythos-9B-v2-8bit-mlx",
+  "sample_id": 0,
+  "trace_path": "traces/equal-plan_execute-retr-find-then-read-s0.jsonl",
+  "trace_hash": "77c64ac75d986ba834cce7f71df1d5967f0bfe7d0260f40fd33eca6eb3917914",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "read_file"
+  ],
+  "expected_sequence": [
+    "search_code",
+    "read_file"
+  ],
+  "actual_status": "exhausted",
+  "actual_sequence": [
+    "search_code",
+    "read_file",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "status:exhausted!=expected:succeeded",
+    "tool_calls:3>max:2",
+    "sequence:search_code/read_file/search_code!=expected:search_code/read_file"
+  ],
+  "steps": 4,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:search_code:completed",
+    "3:executor/tool:search_code:completed",
+    "4:executor/model:read_file:completed",
+    "5:executor/tool:read_file:completed",
+    "6:executor/model:search_code:completed",
+    "7:executor/tool:search_code:failed",
+    "8:executor/finish:-:exhausted"
+  ],
+  "model_decisions": 3,
+  "model_requests": 4,
+  "usage_steps": 4,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 3 tool calls against a contract of at most 2; its choices diverged from the stated sequence (status:exhausted!=expected:succeeded, tool_calls:3>max:2, sequence:search_code/read_file/search_code!=expected:search_code/read_file)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'runtime', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Search for the retry policy in the codebase.\", \"Read the file that contains the retry policy definition.\", \"Extract and present the retry policy details to the user.\"]}"
+        },
+        "usage": {
+          "input_tokens": 87,
+          "output_tokens": 35
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_32891a47",
+            "name": "search_code",
+            "arguments": {
+              "query": "retry policy"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 697,
+          "output_tokens": 25
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_829dbfa4",
+            "name": "read_file",
+            "arguments": {
+              "path": "./README.md"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 750,
+          "output_tokens": 58
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_95bb8a8a",
+            "name": "search_code",
+            "arguments": {
+              "query": "retry policy",
+              "path": "./runtime"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 877,
+          "output_tokens": 66
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    }
+  ]
+}

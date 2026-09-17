@@ -17,6 +17,8 @@ from forgeharness.runtime.verification import CodingVerifier, Verifier
 from forgeharness.skills.loader import LoadedSkill, SkillRegistry
 from forgeharness.state.approval import ApprovalGrant, ApprovalLedger
 from forgeharness.state.checkpoint import CheckpointStore
+from forgeharness.state.invocation_journal import InvocationJournal
+from forgeharness.tools.base import Tool
 from forgeharness.tools.dispatcher import ToolDispatcher
 from forgeharness.tools.registry import ToolRegistry
 
@@ -32,14 +34,20 @@ class CodingAgent:
         approval_ledger: ApprovalLedger,
         test_command: tuple[str, ...],
         checkpoint_store: CheckpointStore | None = None,
+        invocation_journal: InvocationJournal | None = None,
         budget: RunBudget | None = None,
         tool_timeout_seconds: float = 120.0,
         skills: tuple[LoadedSkill, ...] = (),
         selected_skills: tuple[str, ...] = (),
         verifier: Verifier | None = None,
+        extra_tools: tuple[Tool, ...] = (),
     ) -> None:
         registry = ToolRegistry()
         for tool in coding_tools(test_command=test_command):
+            registry.register(tool)
+        # Additive only: a composition may extend the coding tool set (an extra
+        # capability, or a deterministic double in a test) without replacing it.
+        for tool in extra_tools:
             registry.register(tool)
         self._skill_instructions = SkillRegistry(skills).compile(
             selected_skills,
@@ -56,6 +64,7 @@ class CodingAgent:
             budget=budget,
             approval_ledger=approval_ledger,
             checkpoint_store=checkpoint_store,
+            invocation_journal=invocation_journal,
             verifier=verifier or CodingVerifier(),
         )
 
@@ -106,6 +115,15 @@ class CodingAgent:
             workspace=workspace,
             instructions=(instruction,),
         )
+
+    async def recover(self, *, previous: RunResult, workspace: Path) -> RunResult:
+        """Resume a run left mid-flight by consulting the invocation journal.
+
+        Delegates entirely to the runtime: this layer must not decide whether a
+        side effect is safe to replay, because that decision has exactly one
+        authority (the journal's recovery matrix).
+        """
+        return await self._runtime.resume_running(previous=previous, workspace=workspace)
 
     def approve(self, suspended: RunResult, *, granted_by: str) -> ApprovalGrant:
         """Issue an expiring grant for the exact suspended code modification."""

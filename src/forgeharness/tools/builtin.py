@@ -4,7 +4,13 @@ from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from forgeharness.tools.base import RiskLevel, ToolContext, ToolOutput, ToolSpec
+from forgeharness.tools.base import (
+    RiskLevel,
+    ToolContext,
+    ToolEffectClass,
+    ToolOutput,
+    ToolSpec,
+)
 
 
 class EchoInput(BaseModel):
@@ -31,6 +37,7 @@ class EchoTool:
             description="Return the supplied text unchanged.",
             input_schema=EchoInput.model_json_schema(),
             risk=RiskLevel.READ,
+            effect_class=ToolEffectClass.READ_ONLY,
         )
 
     async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:

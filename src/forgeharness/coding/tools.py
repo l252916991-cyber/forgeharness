@@ -11,7 +11,14 @@ from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from forgeharness.tools.base import RiskLevel, Tool, ToolContext, ToolOutput, ToolSpec
+from forgeharness.tools.base import (
+    RiskLevel,
+    Tool,
+    ToolContext,
+    ToolEffectClass,
+    ToolOutput,
+    ToolSpec,
+)
 from forgeharness.tools.paths import resolve_workspace_path
 from forgeharness.tools.process import run_command
 
@@ -38,6 +45,7 @@ class ListFilesTool:
         description="List repository files below a relative path.",
         input_schema=ListFilesInput.model_json_schema(),
         risk=RiskLevel.READ,
+        effect_class=ToolEffectClass.READ_ONLY,
     )
 
     async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
@@ -74,6 +82,7 @@ class ReadFileTool:
         description="Read at most 400 lines from a workspace-relative UTF-8 file.",
         input_schema=ReadFileInput.model_json_schema(),
         risk=RiskLevel.READ,
+        effect_class=ToolEffectClass.READ_ONLY,
     )
 
     async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
@@ -121,6 +130,7 @@ class SearchCodeTool:
         description="Search for a literal string and return file, line, column, and matching text.",
         input_schema=SearchCodeInput.model_json_schema(),
         risk=RiskLevel.READ,
+        effect_class=ToolEffectClass.READ_ONLY,
     )
 
     async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
@@ -178,6 +188,9 @@ class WriteFileTool:
         ),
         input_schema=WriteFileInput.model_json_schema(),
         risk=RiskLevel.WRITE,
+        # Deliberately NOT idempotent: its optimistic expected_sha256 check makes a
+        # repeat fail rather than duplicate, which is not idempotency under a key.
+        effect_class=ToolEffectClass.NON_IDEMPOTENT,
     )
 
     async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
@@ -227,6 +240,8 @@ class RunTestsTool:
             description=f"Run the configured test command: {command[0]} …",
             input_schema=RunTestsInput.model_json_schema(),
             risk=RiskLevel.PROCESS,
+            # A command may have effects of its own, so it cannot be replayed.
+            effect_class=ToolEffectClass.NON_IDEMPOTENT,
         )
 
     async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
@@ -258,6 +273,7 @@ class GitDiffTool:
         description="Return the current Git working-tree diff.",
         input_schema=GitDiffInput.model_json_schema(),
         risk=RiskLevel.READ,
+        effect_class=ToolEffectClass.READ_ONLY,
     )
 
     async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:

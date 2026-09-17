@@ -114,6 +114,34 @@ def audited_candidate(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
         )
     )
     for name, body in {
+        "agent-eval-dev-keyless.json": {
+            "revision": revision,
+            "measurement_valid": True,
+            "keyless_gate_passed": True,
+            "profile": "keyless",
+            "split": "dev",
+            "token_source": "synthetic",
+            "cost_metrics_valid": False,
+            "benchmark_cases": 38,
+            "scorer_probes": 7,
+            "grading_agreement": 1.0,
+            "manifest_split_counts": {"dev": 45, "holdout": 16},
+            "thresholds": {"min_holdout_cases": 15},
+            "arms": [
+                {
+                    "strategy": "react",
+                    "contract_checks_passed": True,
+                    "scorer_probes": 7,
+                    "scorer_probes_detected": 7,
+                },
+                {
+                    "strategy": "plan_execute",
+                    "contract_checks_passed": True,
+                    "scorer_probes": 7,
+                    "scorer_probes_detected": 7,
+                },
+            ],
+        },
         "rag-eval.json": {
             "revision": revision,
             "qualified": True,
@@ -206,6 +234,68 @@ def test_review_accepts_required_documents(
             "unresolved blocker/high",
         ),
         ("reports/rag-eval.json", {"revision": "b" * 40}, "not bound"),
+        ("reports/agent-eval-dev-keyless.json", {"revision": "b" * 40}, "not bound"),
+        ("reports/agent-eval-dev-keyless.json", {"measurement_valid": False}, "Agent Benchmark"),
+        (
+            "reports/agent-eval-dev-keyless.json",
+            {"keyless_gate_passed": False},
+            "Agent Benchmark",
+        ),
+        (
+            "reports/agent-eval-dev-keyless.json",
+            {"keyless_gate_passed": None},
+            "Agent Benchmark",
+        ),
+        ("reports/agent-eval-dev-keyless.json", {"grading_agreement": 0.9}, "Agent Benchmark"),
+        ("reports/agent-eval-dev-keyless.json", {"grading_agreement": None}, "Agent Benchmark"),
+        ("reports/agent-eval-dev-keyless.json", {"scorer_probes": 0}, "Agent Benchmark"),
+        (
+            "reports/agent-eval-dev-keyless.json",
+            {"manifest_split_counts": {"dev": 45, "holdout": 1}},
+            "Agent Benchmark",
+        ),
+        (
+            "reports/agent-eval-dev-keyless.json",
+            {"token_source": "model_reported"},
+            "Agent Benchmark",
+        ),
+        ("reports/agent-eval-dev-keyless.json", {"split": "holdout"}, "Agent Benchmark"),
+        ("reports/agent-eval-dev-keyless.json", {"cost_metrics_valid": True}, "Agent Benchmark"),
+        (
+            "reports/agent-eval-dev-keyless.json",
+            {"arms": [{"strategy": "react", "contract_checks_passed": True}]},
+            "both runtimes",
+        ),
+        (
+            "reports/agent-eval-dev-keyless.json",
+            {
+                "arms": [
+                    {"strategy": "react", "contract_checks_passed": False},
+                    {"strategy": "plan_execute", "contract_checks_passed": True},
+                ]
+            },
+            "wiring contract",
+        ),
+        (
+            "reports/agent-eval-dev-keyless.json",
+            {
+                "arms": [
+                    {
+                        "strategy": "react",
+                        "contract_checks_passed": True,
+                        "scorer_probes": 7,
+                        "scorer_probes_detected": 5,
+                    },
+                    {
+                        "strategy": "plan_execute",
+                        "contract_checks_passed": True,
+                        "scorer_probes": 7,
+                        "scorer_probes_detected": 7,
+                    },
+                ]
+            },
+            "scorer probes were not all detected",
+        ),
         ("reports/rag-eval.json", {"qualified": False}, "RAG quality"),
         ("reports/rag-eval.json", {"citation_precision": 0.1}, "RAG quality"),
         ("reports/rag-eval.json", {"recall_at_5": 0.1}, "RAG quality"),

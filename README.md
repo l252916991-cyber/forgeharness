@@ -48,9 +48,13 @@ uv sync --extra dev --extra platform --extra benchmark
 make check
 uv run forge demo --text "hello"
 uv run forge eval-control
+uv run forge eval-agent --split dev
 uv run forge eval-rag
 uv run forge eval-reviewer
 uv run forge bench-retrieval
+uv run forge trace-steps <task-id>
+uv run forge recover <workspace> --model <id> --api-key <key>
+uv run forge freeze-manifest
 ```
 
 ### Framework comparison
@@ -65,6 +69,17 @@ uv run forge framework-compare  # Full benchmark
 ```
 
 The control evaluation is keyless and writes [`reports/control-eval.json`](reports/control-eval.json). The fixed 60-case RAG and Reviewer gates write [`reports/rag-eval.json`](reports/rag-eval.json) and [`reports/reviewer-experiment.json`](reports/reviewer-experiment.json); the 5,000-chunk benchmark writes [`reports/retrieval-benchmark.json`](reports/retrieval-benchmark.json).
+
+The keyless Agent Benchmark (`forge eval-agent --split dev`) writes [`reports/agent-eval-dev-keyless.json`](reports/agent-eval-dev-keyless.json). It grades a frozen case set against **both** runtimes — ReAct and Plan-Execute — and reports benchmark cases and scorer probes separately, so a negative control never looks like a failed task. It validates the grading contract, the metric pipeline, the runtime wiring, and budget interaction. It does **not** compare the two orchestration strategies: the scripted model replaces the decision under test, so strategy claims require live-model runs. Its `cost_metrics_valid` flag is `false` and token figures are synthetic. The `holdout` split is deliberately excluded from `make gate` and is reserved for live-model comparison. See [`docs/NEXT_PHASE_PLAN.md`](docs/NEXT_PHASE_PLAN.md).
+
+Live comparison runs against a real model through the same evaluator:
+
+```bash
+uv run forge eval-agent --split dev --profile equal   --model <model> --samples 3
+uv run forge eval-agent --split dev --profile natural --model <model> --samples 3
+```
+
+`equal` shares one whole-run budget across arms; `natural` gives both arms a generous budget so planner overhead shows in cost rather than truncation. A live profile requires repeated sampling and reports `measurement_valid` independently of model quality. Measured results, including what could **not** be concluded, are in [`docs/M8B_LIVE_COMPARISON.md`](docs/M8B_LIVE_COMPARISON.md). Live runs are memory-heavy on a local server: keep `--limit` available and never leave the per-request output ceiling unset.
 
 ## Use the local OMLX models
 

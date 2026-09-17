@@ -7,12 +7,13 @@ import base64
 import hashlib
 import secrets
 import time
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated, Any
 from uuid import uuid4
 
+import httpx
 from fastapi import (
     FastAPI,
     File,
@@ -29,6 +30,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from forgeharness import __version__
+from forgeharness.coding.agent import CodingAgent
 from forgeharness.domain.models import FinalAction, ModelResult, RunResult, ToolAction, ToolCall
 from forgeharness.knowledge.application import (
     KnowledgeApplication,
@@ -44,6 +46,10 @@ from forgeharness.knowledge.models import (
 )
 from forgeharness.knowledge.parsers import MAX_UPLOAD_BYTES, DocumentParseError
 from forgeharness.models.omlx import OMLXProtocolError
+from forgeharness.models.openai_compatible import (
+    OpenAICompatibleConfig,
+    OpenAICompatibleModel,
+)
 from forgeharness.models.scripted import ScriptedModel
 from forgeharness.observability.hash_chain import (
     HashChainedJSONLTrace,
@@ -52,8 +58,20 @@ from forgeharness.observability.hash_chain import (
 )
 from forgeharness.observability.logging import configure_logging, get_logger
 from forgeharness.runtime.loop import AgentRuntime
+from forgeharness.state.approval import InMemoryApprovalLedger
 from forgeharness.state.checkpoint import SQLiteCheckpointStore
+from forgeharness.state.invocation_journal import SQLiteInvocationJournal
 from forgeharness.state.memory import MemoryRecord, MemoryStoreError
+from forgeharness.state.recovery import (
+    RecoveryCoordinator,
+    RecoveryStatus,
+    RunRecoveryResult,
+)
+from forgeharness.state.task_registry import (
+    DEFAULT_REGISTRY_PATH,
+    SQLiteTaskRegistry,
+    TaskRegistry,
+)
 from forgeharness.tools.builtin import EchoTool
 from forgeharness.tools.dispatcher import ToolDispatcher
 from forgeharness.tools.paths import WorkspacePathError, resolve_workspace_path
@@ -152,13 +170,116 @@ class _Metrics:
         )
 
 
+def _workspace_resolver(workspace: Path) -> Callable[[RunResult], Path]:
+    """Return a resolver that always yields the workspace being scanned."""
+
+    def resolve(snapshot: RunResult) -> Path:
+        del snapshot
+        return workspace
+
+    return resolve
+
+
+async def _recover_leftover_tasks(
+    *,
+    registry: TaskRegistry,
+    workspace_root: Path | None,
+    base_url: str,
+    model_name: str,
+    api_key: str,
+    timeout_seconds: float,
+) -> tuple[RunRecoveryResult, ...]:
+    """Recover tasks left mid-flight by a previous process.
+
+    Runs once at startup. Each task's workspace comes from the registry, but the
+    stored value is only a *locator*: it is re-resolved against the configured
+    workspace root here, so a corrupted or tampered registry cannot direct recovery
+    at an arbitrary directory. A binding that fails validation is reported and
+    skipped without stopping the others.
+    """
+    if workspace_root is None:
+        return ()
+
+    outcomes: list[RunRecoveryResult] = []
+    by_workspace: dict[Path, list[str]] = {}
+    for binding in registry.all_bindings():
+        try:
+            workspace = resolve_workspace_path(workspace_root, binding.workspace, must_exist=True)
+        except (WorkspacePathError, FileNotFoundError) as exc:
+            outcomes.append(
+                RunRecoveryResult(
+                    task_id=binding.task_id,
+                    status=RecoveryStatus.FAILED,
+                    detail=f"workspace binding rejected: {exc}",
+                )
+            )
+            continue
+        by_workspace.setdefault(workspace, []).append(binding.task_id)
+
+    for workspace, task_ids in sorted(by_workspace.items()):
+        runs_db = workspace / ".forgeharness" / "runs.sqlite3"
+        checkpoints = SQLiteCheckpointStore(runs_db)
+        journal = SQLiteInvocationJournal(runs_db)
+
+        async def resume(
+            snapshot: RunResult,
+            target: Path,
+            *,
+            # Bound explicitly: a closure over the loop variables would capture the
+            # last workspace's stores and recover a run against the wrong database.
+            _checkpoints: SQLiteCheckpointStore = checkpoints,
+            _journal: SQLiteInvocationJournal = journal,
+        ) -> RunResult:
+            trace = HashChainedJSONLTrace(
+                target / ".forgeharness" / "traces" / f"{snapshot.task_id}.jsonl",
+                snapshot.task_id,
+            )
+            async with httpx.AsyncClient(timeout=timeout_seconds, trust_env=False) as client:
+                provider = OpenAICompatibleModel(
+                    OpenAICompatibleConfig(
+                        base_url=base_url,
+                        api_key=api_key,
+                        model=model_name,
+                        timeout_seconds=timeout_seconds,
+                        max_tokens=4_096,
+                        enable_thinking=False,
+                    ),
+                    client=client,
+                )
+                agent = CodingAgent(
+                    model=provider,
+                    trace=trace,
+                    approval_ledger=InMemoryApprovalLedger(),
+                    checkpoint_store=_checkpoints,
+                    invocation_journal=_journal,
+                    test_command=("python", "-m", "pytest", "-q"),
+                )
+                return await agent.recover(previous=snapshot, workspace=target)
+
+        coordinator = RecoveryCoordinator(
+            checkpoints=checkpoints,
+            resume=resume,
+            resolve_workspace=_workspace_resolver(workspace),
+        )
+        for task_id in task_ids:
+            outcomes.append(await coordinator.recover_run(task_id))
+    return tuple(outcomes)
+
+
 def create_app(
     data_dir: Path | None = None,
     *,
     settings: KnowledgeSettings | None = None,
     knowledge_app: KnowledgeApplication | None = None,
+    task_registry: TaskRegistry | None = None,
+    recover_on_startup: bool = False,
 ) -> FastAPI:
-    """Create an isolated app whose durable files remain under one directory."""
+    """Create an isolated app whose durable files remain under one directory.
+
+    ``recover_on_startup`` runs one recovery pass during startup, before the app
+    accepts requests. It is opt-in and off by default: a test or a read-only
+    instance should not be resuming runs.
+    """
     configure_logging()
     logger = get_logger("api")
     root = (data_dir or Path(".forgeharness")).resolve()
@@ -169,8 +290,30 @@ def create_app(
     application = knowledge_app or build_knowledge_application(root, settings)
     metrics = _Metrics()
 
+    configured = settings or KnowledgeSettings()
+    registry = task_registry or SQLiteTaskRegistry(DEFAULT_REGISTRY_PATH)
+
     @asynccontextmanager
     async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+        if recover_on_startup:
+            # Scan only during startup, before serving requests. This process cannot
+            # yet own a RUNNING run, so a leftover RUNNING task is unambiguously a
+            # previous process's. Scanning continuously would eventually mistake a
+            # live task for a crash, and avoiding that needs a lease this project
+            # does not claim.
+            results = await _recover_leftover_tasks(
+                registry=registry,
+                workspace_root=configured.coding_workspace_root,
+                base_url=configured.omlx_base_url,
+                model_name=configured.chat_model,
+                api_key=configured.omlx_api_key or "omlx-local",
+                timeout_seconds=configured.model_timeout_seconds,
+            )
+            for item in results:
+                logger.info(
+                    "startup_recovery",
+                    extra={"task_id": item.task_id, "status": item.status.value},
+                )
         yield
         await application.close()
 

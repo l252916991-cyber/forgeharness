@@ -1,0 +1,127 @@
+{
+  "case_id": "long-holdout-four-step",
+  "arm": "plan_execute",
+  "revision": "1be5f9219185978b9d9b981ede10f2ad57130881",
+  "profile": "equal",
+  "model": "Qwythos-9B-v2-8bit-mlx",
+  "sample_id": 0,
+  "trace_path": "traces/equal-plan_execute-long-holdout-four-step-s0.jsonl",
+  "trace_hash": "440dabbc80fc76729fb02788a8e51fbcd5f7bd8b602f52c6ee3839c6632d5258",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "exhausted",
+  "actual_sequence": [
+    "list_files",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "status:exhausted!=expected:succeeded",
+    "missing_tools:write_file"
+  ],
+  "steps": 4,
+  "logical_tool_calls": 2,
+  "tool_attempts": 2,
+  "projected_steps": [
+    "1:planner/error:-:failed",
+    "2:planner/model:-:completed",
+    "3:executor/model:list_files:completed",
+    "4:executor/tool:list_files:completed",
+    "5:executor/model:read_file:completed",
+    "6:executor/tool:read_file:completed",
+    "7:executor/finish:-:exhausted"
+  ],
+  "model_decisions": 2,
+  "model_requests": 4,
+  "usage_steps": 4,
+  "received_tool_calls": null,
+  "failure_class": "harness_protocol",
+  "failure_point": "planner",
+  "error_type": "invalid_plan_json",
+  "diagnosis": "the planning phase produced no reusable plan (planner response is not valid JSON: Expecting ',' delimiter: line 1 column 384 (char 383)), so the run ended before the executor could act",
+  "harness_gap": "a rejected plan ends the run instead of returning the planner to the model with a correction opportunity",
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\":[\"List the workspace contents to identify the location of app.py.\",\"Read the contents of app.py to understand its structure and dependencies.\",\"Execute the necessary commands to generate the desired output based on app.py's logic.\",\"Write the generated output to a new file in the workspace.\",\"Verify the output file was created successfully and contains the expected data.\")]"
+        },
+        "usage": {
+          "input_tokens": 87,
+          "output_tokens": 70
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the workspace\", \"Read app.py\", \"Write an output file\"]}"
+        },
+        "usage": {
+          "input_tokens": 131,
+          "output_tokens": 16
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_1d609ba4",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 836,
+          "output_tokens": 24
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_e8649cfd",
+            "name": "read_file",
+            "arguments": {
+              "path": "app.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 876,
+          "output_tokens": 25
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    }
+  ]
+}

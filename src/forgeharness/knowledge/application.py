@@ -53,6 +53,10 @@ from forgeharness.models.omlx import (
     OMLXReranker,
 )
 from forgeharness.state.memory import SQLiteMemoryStore
+from forgeharness.state.task_registry import (
+    DEFAULT_REGISTRY_PATH,
+    SQLiteTaskRegistry,
+)
 
 
 class KnowledgeSettings(BaseSettings):
@@ -219,6 +223,9 @@ def build_knowledge_application(
             model_name=configured.chat_model,
             api_key=configured.omlx_api_key,
             timeout_seconds=configured.model_timeout_seconds,
+            # Lets a restarted service find a leftover task's workspace.
+            task_registry=SQLiteTaskRegistry(DEFAULT_REGISTRY_PATH),
+            workspace_root=configured.coding_workspace_root,
         )
         if configured.enable_omlx and configured.coding_workspace_root is not None
         else None
