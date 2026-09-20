@@ -25,12 +25,17 @@ test:
 
 check: lint typecheck test
 
-# Release gates beyond lint/type/test: keyless control evaluation, CLI contract
-# smoke, lockfile consistency, and a dependency vulnerability audit. The NLTK
-# advisory (PYSEC-2026-3740) is an accepted residual risk reachable only through
-# the optional LlamaIndex comparison extra; see docs/review/FINDINGS.json FH-008.
+# Release gates beyond lint/type/test: keyless control evaluation, the keyless
+# Agent Benchmark (dev split only), CLI contract smoke, lockfile consistency, and
+# a dependency vulnerability audit. The holdout split is deliberately NOT run
+# here: it is reserved for live-model comparison, because running it on every
+# commit would let its per-case results guide tuning and destroy its purpose.
+# The NLTK advisory (PYSEC-2026-3740) is an accepted residual risk reachable only
+# through the optional LlamaIndex comparison extra; see
+# docs/review/FINDINGS.json FH-008.
 gate: check
 	uv run --no-sync forge eval-control
+	uv run --no-sync forge eval-agent --split dev
 	uv run --no-sync forge --help
 	uv run --no-sync forge framework-compare --help
 	uv lock --check

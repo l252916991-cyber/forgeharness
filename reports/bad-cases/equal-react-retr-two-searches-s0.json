@@ -1,0 +1,60 @@
+{
+  "case_id": "retr-two-searches",
+  "arm": "react",
+  "revision": "1be5f9219185978b9d9b981ede10f2ad57130881",
+  "profile": "equal",
+  "model": "Qwythos-9B-v2-8bit-mlx",
+  "sample_id": 0,
+  "trace_path": "traces/equal-react-retr-two-searches-s0.jsonl",
+  "trace_hash": "93f1782172925e8907480a1a17a847a6249d9ab3eca4337b78e278bf3140f8bc",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code"
+  ],
+  "expected_sequence": [
+    "search_code",
+    "search_code"
+  ],
+  "actual_status": "failed",
+  "actual_sequence": [],
+  "failed_assertions": [
+    "status:failed!=expected:succeeded",
+    "missing_tools:search_code",
+    "sequence:!=expected:search_code/search_code",
+    "arguments:accuracy=0.000"
+  ],
+  "steps": 0,
+  "logical_tool_calls": 0,
+  "tool_attempts": 0,
+  "projected_steps": [
+    "1:executor/error:-:failed",
+    "2:executor/finish:-:failed"
+  ],
+  "model_decisions": 0,
+  "model_requests": 1,
+  "usage_steps": 0,
+  "received_tool_calls": 2,
+  "failure_class": "protocol_violation",
+  "failure_point": "model_adapter",
+  "error_type": "multiple_tool_calls_not_allowed",
+  "diagnosis": "Model returned 2 tool calls despite parallel_tool_calls=False; the adapter escalated this recoverable model-protocol violation into a terminal run failure before Runtime admission or tool dispatch.",
+  "harness_gap": "the harness had no path from a rejected multi-call response back into the loop: it neither admitted nor dispatched any call, and gave the model no chance to correct itself",
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": null,
+      "error": {
+        "error_type": "ModelProtocolError",
+        "message": "parallel tool calls are not enabled for this runtime"
+      }
+    }
+  ]
+}

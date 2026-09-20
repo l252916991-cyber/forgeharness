@@ -7,7 +7,7 @@ import pytest
 from pydantic import BaseModel
 
 from forgeharness.domain.models import ToolCall
-from forgeharness.tools.base import RiskLevel, ToolContext, ToolOutput, ToolSpec
+from forgeharness.tools.base import RiskLevel, ToolContext, ToolErrorCode, ToolOutput, ToolSpec
 from forgeharness.tools.builtin import EchoTool
 from forgeharness.tools.dispatcher import ToolDispatcher
 from forgeharness.tools.registry import ToolRegistry
@@ -117,7 +117,11 @@ async def test_dispatcher_returns_validation_error_as_observation(tmp_path: Path
     )
 
     assert result.output.ok is False
-    assert result.output.content.startswith("invalid tool arguments:")
+    assert result.output.error is not None
+    assert result.output.error.code is ToolErrorCode.INVALID_ARGUMENTS
+    assert result.output.error.recoverable is True
+    # The validator's prose never reaches the model.
+    assert "unexpected" not in result.output.content
 
 
 async def test_dispatcher_reports_unknown_tool(tmp_path: Path) -> None:
@@ -127,7 +131,9 @@ async def test_dispatcher_reports_unknown_tool(tmp_path: Path) -> None:
     )
 
     assert result.output.ok is False
-    assert result.output.content == "unknown tool: missing"
+    assert result.output.error is not None
+    assert result.output.error.code is ToolErrorCode.INVALID_ARGUMENTS
+    assert result.output.content.startswith('{"error":')
 
 
 async def test_dispatcher_converts_plugin_failure_to_observation(tmp_path: Path) -> None:
@@ -140,7 +146,13 @@ async def test_dispatcher_converts_plugin_failure_to_observation(tmp_path: Path)
     )
 
     assert result.output.ok is False
-    assert result.output.content == "tool execution failed: OSError: plugin exploded"
+    assert result.output.error is not None
+    # An unclassified failure is not promised to be recoverable.
+    assert result.output.error.code is ToolErrorCode.TOOL_EXECUTION_ERROR
+    assert result.output.error.recoverable is False
+    # The trace keeps the class; the model does not see the raw exception.
+    assert result.output.metadata["exception_class"] == "OSError"
+    assert "plugin exploded" not in result.output.content
 
 
 async def test_dispatcher_enforces_timeout(tmp_path: Path) -> None:
@@ -153,7 +165,34 @@ async def test_dispatcher_enforces_timeout(tmp_path: Path) -> None:
     )
 
     assert result.output.ok is False
-    assert result.output.content == "tool execution timed out"
+    assert result.output.error is not None
+    assert result.output.error.code is ToolErrorCode.TIMEOUT
+    assert result.output.error.recoverable is True
+
+
+async def test_dispatcher_propagates_task_cancellation(tmp_path: Path) -> None:
+    entered = asyncio.Event()
+
+    class BlockingTool(FailingTool):
+        async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
+            del arguments, context
+            entered.set()
+            await asyncio.Event().wait()
+            raise AssertionError("unreachable")
+
+    registry = ToolRegistry()
+    registry.register(BlockingTool())
+    task = asyncio.create_task(
+        ToolDispatcher(registry).dispatch(
+            ToolCall(id="call-1", name="failing"),
+            ToolContext(task_id="task-1", workspace=tmp_path),
+        )
+    )
+    await asyncio.wait_for(entered.wait(), timeout=1)
+    task.cancel()
+
+    with pytest.raises(asyncio.CancelledError):
+        await asyncio.wait_for(task, timeout=1)
 
 
 async def test_dispatcher_bounds_all_tool_output(tmp_path: Path) -> None:

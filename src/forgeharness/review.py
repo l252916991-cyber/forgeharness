@@ -23,11 +23,14 @@ REQUIRED_DOCUMENTS = (
     "docs/STATUS.md",
     "docs/REFERENCES.md",
     "docs/REVIEW.md",
+    "docs/NEXT_PHASE_PLAN.md",
 )
 
 REQUIRED_EVIDENCE = (
     "evals/control_cases.json",
+    "evals/agent_cases.json",
     "reports/control-eval.json",
+    "reports/agent-eval-dev-keyless.json",
     "reports/rag-eval.json",
     "reports/omlx-qualification.json",
     "reports/retrieval-benchmark.json",
@@ -161,6 +164,7 @@ def _validate_snapshot(root: Path, manifest: CandidateManifest, errors: list[str
 
 def _validate_extended_reports(root: Path, revision: str, errors: list[str]) -> None:
     rag = _load_json(root, "reports/rag-eval.json")
+    agent = _load_json(root, "reports/agent-eval-dev-keyless.json")
     omlx = _load_json(root, "reports/omlx-qualification.json")
     benchmark = _load_json(root, "reports/retrieval-benchmark.json")
     reviewer = _load_json(root, "reports/reviewer-experiment.json")
@@ -169,6 +173,7 @@ def _validate_extended_reports(root: Path, revision: str, errors: list[str]) -> 
     coverage = _load_json(root, "reports/coverage.json").get("totals", {})
     reports = {
         "reports/rag-eval.json": rag,
+        "reports/agent-eval-dev-keyless.json": agent,
         "reports/omlx-qualification.json": omlx,
         "reports/retrieval-benchmark.json": benchmark,
         "reports/reviewer-experiment.json": reviewer,
@@ -176,6 +181,37 @@ def _validate_extended_reports(root: Path, revision: str, errors: list[str]) -> 
     }
     for relative, report in reports.items():
         _report_revision(report, relative, revision, errors)
+    # The keyless Agent Benchmark gates the grading contract and both runtime
+    # wiring paths. It is not a strategy comparison, and its token figures are
+    # synthetic; both facts are asserted so no figure can be misread later.
+    if (
+        agent.get("measurement_valid") is not True
+        or agent.get("keyless_gate_passed") is not True
+        or agent.get("profile") != "keyless"
+        or agent.get("split") != "dev"
+        or agent.get("token_source") != "synthetic"
+        or agent.get("cost_metrics_valid") is not False
+        or int(agent.get("benchmark_cases", 0)) < 1
+        or int(agent.get("scorer_probes", 0)) < 1
+        or agent.get("grading_agreement") != 1.0
+        or int(agent.get("manifest_split_counts", {}).get("holdout", 0))
+        < int(agent.get("thresholds", {}).get("min_holdout_cases", 0))
+    ):
+        errors.append("keyless Agent Benchmark grading gate did not pass")
+    arms = agent.get("arms")
+    if not isinstance(arms, list) or {arm.get("strategy") for arm in arms} != {
+        "react",
+        "plan_execute",
+    }:
+        errors.append("keyless Agent Benchmark did not exercise both runtimes")
+    elif any(arm.get("contract_checks_passed") is not True for arm in arms):
+        errors.append("keyless Agent Benchmark runtime wiring contract failed")
+    elif any(
+        int(arm.get("scorer_probes", 0)) < 1
+        or arm.get("scorer_probes_detected") != arm.get("scorer_probes")
+        for arm in arms
+    ):
+        errors.append("keyless Agent Benchmark scorer probes were not all detected")
     if (
         rag.get("qualified") is not True
         or int(rag.get("total", 0)) < 60

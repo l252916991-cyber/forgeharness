@@ -7,7 +7,7 @@ import httpx
 import pytest
 
 from forgeharness.domain.models import ToolCall
-from forgeharness.tools.base import RiskLevel, ToolContext
+from forgeharness.tools.base import RiskLevel, ToolContext, ToolErrorCode
 from forgeharness.tools.dispatcher import ToolDispatcher
 from forgeharness.tools.mcp import (
     MCPClientConfig,
@@ -117,7 +117,8 @@ async def test_discovered_tool_uses_registry_validation_and_dispatch(tmp_path: P
     )
 
     assert invalid.output.ok is False
-    assert invalid.output.content.startswith("invalid tool arguments:")
+    assert invalid.output.error is not None
+    assert invalid.output.error.code is ToolErrorCode.INVALID_ARGUMENTS
     assert valid.output.content == "value"
     call = json.loads(captured[-1].content)
     assert call["method"] == "tools/call"

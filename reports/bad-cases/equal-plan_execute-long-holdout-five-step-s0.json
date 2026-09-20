@@ -1,0 +1,127 @@
+{
+  "case_id": "long-holdout-five-step",
+  "arm": "plan_execute",
+  "revision": "1be5f9219185978b9d9b981ede10f2ad57130881",
+  "profile": "equal",
+  "model": "Qwythos-9B-v2-8bit-mlx",
+  "sample_id": 0,
+  "trace_path": "traces/equal-plan_execute-long-holdout-five-step-s0.jsonl",
+  "trace_hash": "48d96ef39d28412c1283d6ac2449cd93b8e9cd4ece6a437b27fdb422a5a17120",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "exhausted",
+  "actual_sequence": [
+    "search_code",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "status:exhausted!=expected:succeeded",
+    "missing_tools:read_file,write_file"
+  ],
+  "steps": 4,
+  "logical_tool_calls": 2,
+  "tool_attempts": 2,
+  "projected_steps": [
+    "1:planner/error:-:failed",
+    "2:planner/model:-:completed",
+    "3:executor/model:search_code:completed",
+    "4:executor/tool:search_code:completed",
+    "5:executor/model:search_code:completed",
+    "6:executor/tool:search_code:completed",
+    "7:executor/finish:-:exhausted"
+  ],
+  "model_decisions": 2,
+  "model_requests": 4,
+  "usage_steps": 4,
+  "received_tool_calls": null,
+  "failure_class": "harness_protocol",
+  "failure_point": "planner",
+  "error_type": "invalid_plan_json",
+  "diagnosis": "the planning phase produced no reusable plan (planner response is not valid JSON: Expecting ',' delimiter: line 1 column 417 (char 416)), so the run ended before the executor could act",
+  "harness_gap": "a rejected plan ends the run instead of returning the planner to the model with a correction opportunity",
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\":[\"Search for the latest verified data on the topic.\",\"Read and extract the relevant information from the search results.\",\"Record the extracted information in a structured format.\",\"Perform a second search to cross-verify the recorded data.\",\"Compare the second search results with the recorded information.\",\"Confirm that the recorded result matches the verified data.\",\"Output the final confirmed result.\")]"
+        },
+        "usage": {
+          "input_tokens": 89,
+          "output_tokens": 72
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Search for the latest information on the harness protocol error and its resolution.\", \"Read the search results to understand the cause of the error.\", \"Record the key details and potential fixes from the information gathered.\", \"Perform a second search to verify the recorded details and ensure accuracy.\", \"Confirm the final verification results and compile a summary of the steps taken and the outcome.\"]}"
+        },
+        "usage": {
+          "input_tokens": 133,
+          "output_tokens": 72
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_de162821",
+            "name": "search_code",
+            "arguments": {
+              "query": "harness protocol error"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 953,
+          "output_tokens": 60
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_ed501785",
+            "name": "search_code",
+            "arguments": {
+              "query": "harness error"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 996,
+          "output_tokens": 59
+        },
+        "model_name": "Qwythos-9B-v2-8bit-mlx"
+      },
+      "error": null
+    }
+  ]
+}

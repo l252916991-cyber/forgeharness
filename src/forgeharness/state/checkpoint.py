@@ -6,8 +6,12 @@ import sqlite3
 from pathlib import Path
 from typing import Protocol
 
-from forgeharness.domain.models import RunResult
+from forgeharness.domain.models import RunResult, RunStatus
 from forgeharness.state.sqlite import connect_wal
+
+# Statuses that mean a run stopped mid-flight and may need recovery. AWAITING_APPROVAL
+# is deliberately excluded: that run is waiting for a human, not for recovery.
+RECOVERABLE_STATUSES = frozenset({RunStatus.RUNNING})
 
 
 class CheckpointConflict(RuntimeError):
@@ -23,6 +27,10 @@ class CheckpointStore(Protocol):
 
     def load(self, task_id: str) -> RunResult | None:
         """Load the latest snapshot for a task."""
+        ...
+
+    def pending_runs(self) -> tuple[RunResult, ...]:
+        """Return snapshots whose run stopped mid-flight, ordered by task id."""
         ...
 
 
@@ -89,6 +97,23 @@ class SQLiteCheckpointStore:
                 "SELECT payload FROM run_checkpoints WHERE task_id = ?", (task_id,)
             ).fetchone()
         return None if row is None else RunResult.model_validate_json(row[0])
+
+    def pending_runs(self) -> tuple[RunResult, ...]:
+        """Return mid-flight snapshots for a recovery scan.
+
+        The snapshot's status lives inside the JSON payload, so this reads every
+        row: the checkpoint table is small by construction (one row per task, and a
+        local instance holds tens of runs), and adding a status column would mean a
+        migration for a scan that is not on any hot path. If a deployment ever
+        holds enough runs for this to matter, project the status into an indexed
+        column rather than filtering in Python.
+        """
+        with self._connect() as connection:
+            rows = connection.execute(
+                "SELECT payload FROM run_checkpoints ORDER BY task_id"
+            ).fetchall()
+        snapshots = (RunResult.model_validate_json(row[0]) for row in rows)
+        return tuple(snapshot for snapshot in snapshots if snapshot.status in RECOVERABLE_STATUSES)
 
     def _connect(self) -> sqlite3.Connection:
         return connect_wal(self._path, foreign_keys=True)

@@ -212,7 +212,9 @@ async def test_runtime_reports_unknown_tool_to_model(tmp_path: Path) -> None:
     )
 
     assert result.status == RunStatus.SUCCEEDED
-    assert model.requests[1].messages[-1].content == "unknown tool: missing"
+    observation = model.requests[1].messages[-1].content or ""
+    assert '"code":"invalid_arguments"' in observation
+    assert '"tool":"missing"' in observation
     assert "tool.unknown" in [event.type for event in trace.events]
 
 

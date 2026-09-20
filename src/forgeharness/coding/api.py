@@ -18,9 +18,20 @@ from forgeharness.models.openai_compatible import (
     OpenAICompatibleModel,
 )
 from forgeharness.observability.hash_chain import HashChainedJSONLTrace
+from forgeharness.runtime.budget import RunBudget
 from forgeharness.runtime.verification import CodingVerifier, Verifier
 from forgeharness.state.approval import InMemoryApprovalLedger
 from forgeharness.state.checkpoint import SQLiteCheckpointStore
+from forgeharness.state.invocation_journal import SQLiteInvocationJournal
+from forgeharness.state.task_registry import TaskRegistry
+
+# A soft deadline for service-backed runs, independent of step count. It stops the
+# run from starting further steps once the ceiling passes; it does **not** preempt a
+# tool already executing, so a run may exceed this by up to one tool timeout. A local
+# run is already bounded by `max_steps` times the per-call timeouts, so this only
+# trips on pathological cases; its purpose is a duration bound that does not move
+# when step or timeout defaults change.
+CODING_RUN_DEADLINE_SECONDS = 1_800.0
 
 
 @dataclass
@@ -43,6 +54,8 @@ class APICodingHandler:
         api_key: str | None,
         timeout_seconds: float,
         verifier: Verifier | None = None,
+        task_registry: TaskRegistry | None = None,
+        workspace_root: Path | None = None,
     ) -> None:
         self._data_dir = data_dir
         self._bindings = bindings
@@ -51,7 +64,13 @@ class APICodingHandler:
         self._api_key = api_key or "omlx-local"
         self._timeout = timeout_seconds
         self._verifier = verifier or CodingVerifier()
-        self._checkpoints = SQLiteCheckpointStore(data_dir / "runs.sqlite3")
+        self._task_registry = task_registry
+        self._workspace_root = workspace_root
+        runs_db = data_dir / "runs.sqlite3"
+        self._checkpoints = SQLiteCheckpointStore(runs_db)
+        # Shares the database with the checkpoints: the journal is the side-effect
+        # authority and the checkpoint is the control-flow authority.
+        self._journal = SQLiteInvocationJournal(runs_db)
         self._active: dict[str, _ActiveRun] = {}
         self._approval_locks: dict[str, asyncio.Lock] = {}
 
@@ -62,6 +81,16 @@ class APICodingHandler:
 
             return await UnavailableCodingHandler().handle(session_id=session_id, task=task)
         task_id = f"coding-{uuid4().hex}"
+        # Record where this task's durable state lives before any work starts, so a
+        # later startup scan can find the workspace after a restart. The stored value
+        # is relative to the configured root and is re-validated on read.
+        if self._task_registry is not None and self._workspace_root is not None:
+            try:
+                relative = str(workspace.relative_to(self._workspace_root))
+            except ValueError:
+                relative = None
+            if relative is not None:
+                self._task_registry.bind(task_id=task_id, workspace=relative)
         client = httpx.AsyncClient(timeout=self._timeout, trust_env=False)
         provider = OpenAICompatibleModel(
             OpenAICompatibleConfig(
@@ -80,8 +109,10 @@ class APICodingHandler:
             trace=HashChainedJSONLTrace(self._data_dir / "traces" / f"{task_id}.jsonl", task_id),
             approval_ledger=ledger,
             checkpoint_store=self._checkpoints,
+            invocation_journal=self._journal,
             test_command=("python", "-m", "pytest", "-q"),
             verifier=self._verifier,
+            budget=RunBudget(max_wall_seconds=CODING_RUN_DEADLINE_SECONDS),
         )
         try:
             result = await agent.start(task_id=task_id, issue=task, workspace=workspace)

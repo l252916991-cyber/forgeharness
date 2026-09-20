@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from typing import Any
+from urllib.parse import urlparse
 
 import httpx
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
@@ -18,11 +19,24 @@ from forgeharness.domain.models import (
     ToolAction,
     ToolCall,
 )
+from forgeharness.models.base import ModelProtocolError as SharedModelProtocolError
 from forgeharness.models.base import ModelRequest
 
+_LOOPBACK_HOSTS = frozenset({"127.0.0.1", "localhost", "::1"})
 
-class ModelProtocolError(RuntimeError):
-    """The remote endpoint returned a response the Harness cannot execute safely."""
+
+def _is_loopback(base_url: str) -> bool:
+    """True when the endpoint is a loopback host, where a proxy is never correct."""
+    host = urlparse(base_url).hostname
+    return host in _LOOPBACK_HOSTS
+
+
+class ModelProtocolError(SharedModelProtocolError):
+    """Adapter-local name for the shared protocol violation contract.
+
+    Kept as a subclass so existing imports keep working, while the runtime can
+    still catch the provider-neutral base class without importing this module.
+    """
 
 
 class OpenAICompatibleConfig(BaseModel):
@@ -89,7 +103,16 @@ class OpenAICompatibleModel:
         self, config: OpenAICompatibleConfig, *, client: httpx.AsyncClient | None = None
     ) -> None:
         self._config = config
-        self._client = client or httpx.AsyncClient(timeout=config.timeout_seconds)
+        if client is not None:
+            self._client = client
+            return
+        # A desktop HTTP proxy must never intercept a loopback endpoint: the
+        # proxy cannot reach 127.0.0.1 and answers 502. Remote endpoints keep
+        # `trust_env` so corporate proxy configuration still applies. This
+        # mirrors OMLXClient and the other local clients in this repository.
+        self._client = httpx.AsyncClient(
+            timeout=config.timeout_seconds, trust_env=not _is_loopback(config.base_url)
+        )
 
     async def decide(self, request: ModelRequest) -> ModelResult:
         """Request and validate exactly one final answer or tool call."""
@@ -110,7 +133,19 @@ class OpenAICompatibleModel:
             )
         remote_message = completion.choices[0].message
         if len(remote_message.tool_calls) > 1:
-            raise ModelProtocolError("parallel tool calls are not enabled for this runtime")
+            # A recoverable model-protocol violation, surfaced as such so the
+            # caller can decide how to handle it rather than losing the reason.
+            raise ModelProtocolError(
+                "parallel tool calls are not enabled for this runtime",
+                code="multiple_tool_calls_not_allowed",
+                received_tool_calls=len(remote_message.tool_calls),
+                # The request consumed these tokens, so a run that retries must
+                # still be charged for the rejected attempt.
+                usage=ModelUsage(
+                    input_tokens=completion.usage.prompt_tokens,
+                    output_tokens=completion.usage.completion_tokens,
+                ),
+            )
         action: AgentAction
         if remote_message.tool_calls:
             action = ToolAction(call=self._parse_tool_call(remote_message.tool_calls[0]))

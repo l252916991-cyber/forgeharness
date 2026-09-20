@@ -10,6 +10,22 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 TaskId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$")]
 
+# The recovery-semantics generation a run is written under, defined once so the
+# runtime, the checkpoint payload, and the evaluation report cannot disagree.
+#
+# 0 = pre-journal: no durable record of tool side effects.
+# 1 = invocation journal with effect-class recovery (ADR 009, M10-A).
+# 2 = (1) plus runtime retry with attempt records and deterministic backoff (M10-B)
+#     and the whole-run soft deadline (M10-C).
+#
+# The point of the number is that two generations must not share it, so a report
+# can never be read as if the runtime behaved the same way. **Known record defect:**
+# the M10-B and M10-C dev regressions were run before this bump and therefore carry
+# `1` even though they exercised retry and deadline semantics. They are historical
+# files and are deliberately not rewritten; only reports from the freeze onward
+# carry `2`.
+CURRENT_RECOVERY_SEMANTICS_VERSION = 2
+
 
 class FrozenModel(BaseModel):
     """Base class for immutable domain values."""
@@ -134,6 +150,11 @@ class RunResult(FrozenModel):
     final_output: str | None = None
     error: str | None = None
     pending_approval: PendingApproval | None = None
+    # Which recovery semantics this run was produced under. 0 means it predates the
+    # invocation journal, so no durable record of its tool side effects exists.
+    # Recovery must fail closed on such a run rather than infer from the trace,
+    # because a missing `tool.completed` event never proves a tool did not run.
+    recovery_semantics_version: int = Field(default=0, ge=0)
 
 
 class TraceEvent(FrozenModel):

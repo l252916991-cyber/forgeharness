@@ -1,0 +1,713 @@
+{
+  "schema_version": 1,
+  "min_holdout": 15,
+  "cases": [
+    {
+      "id": "single-echo-ask",
+      "category": "single_tool",
+      "split": "dev",
+      "task": "Echo the token ping back to the caller.",
+      "tools": ["echo"],
+      "script": [{"tool": "echo", "arguments": {"text": "ping"}}, {"final": "pong"}],
+      "expected": {"status": "succeeded", "tools": ["echo"], "tool_sequence": ["echo"], "args_contains": [{"text": "ping"}], "max_tool_calls": 1}
+    },
+    {
+      "id": "single-list-root",
+      "category": "single_tool",
+      "split": "dev",
+      "task": "List the repository files at the workspace root.",
+      "tools": ["list_files"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "list_files", "arguments": {"path": "."}}, {"final": "listed"}],
+      "expected": {"status": "succeeded", "tools": ["list_files"], "tool_sequence": ["list_files"], "args_contains": [{"path": "."}], "max_tool_calls": 1}
+    },
+    {
+      "id": "single-read-app",
+      "category": "single_tool",
+      "split": "dev",
+      "task": "Read app.py and report the arithmetic operator used.",
+      "tools": ["read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "read_file", "arguments": {"path": "app.py"}}, {"final": "subtraction"}],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "tool_sequence": ["read_file"], "args_contains": [{"path": "app.py"}], "max_tool_calls": 1}
+    },
+    {
+      "id": "single-search-return",
+      "category": "single_tool",
+      "split": "dev",
+      "task": "Find every literal occurrence of return in the workspace.",
+      "tools": ["search_code"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "search_code", "arguments": {"query": "return"}}, {"final": "found"}],
+      "expected": {"status": "succeeded", "tools": ["search_code"], "tool_sequence": ["search_code"], "args_contains": [{"query": "return"}], "max_tool_calls": 1}
+    },
+    {
+      "id": "single-write-new",
+      "category": "single_tool",
+      "split": "dev",
+      "task": "Create notes.txt containing hello.",
+      "tools": ["write_file"],
+      "script": [{"tool": "write_file", "arguments": {"path": "notes.txt", "content": "hello"}}, {"final": "created"}],
+      "expected": {"status": "succeeded", "tools": ["write_file"], "tool_sequence": ["write_file"], "args_contains": [{"path": "notes.txt"}], "max_tool_calls": 1}
+    },
+    {
+      "id": "single-read-window",
+      "category": "single_tool",
+      "split": "dev",
+      "task": "Read only lines 4 and 5 of pkg/main.py.",
+      "tools": ["read_file"],
+      "workspace": {"pkg/main.py": "from pkg.util import helper\n\n\ndef run():\n    return helper()\n"},
+      "script": [{"tool": "read_file", "arguments": {"path": "pkg/main.py", "start_line": 4, "end_line": 5}}, {"final": "read"}],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "tool_sequence": ["read_file"], "args_contains": [{"path": "pkg/main.py", "start_line": 4, "end_line": 5}], "max_tool_calls": 1}
+    },
+    {
+      "id": "single-echo-holdout",
+      "category": "single_tool",
+      "split": "holdout",
+      "task": "Echo the literal token holdout.",
+      "tools": ["echo"],
+      "script": [{"tool": "echo", "arguments": {"text": "holdout"}}, {"final": "echoed"}],
+      "expected": {"status": "succeeded", "tools": ["echo"], "tool_sequence": ["echo"], "args_contains": [{"text": "holdout"}], "max_tool_calls": 1}
+    },
+    {
+      "id": "single-read-holdout",
+      "category": "single_tool",
+      "split": "holdout",
+      "task": "Read README.md and state where the retry policy lives.",
+      "tools": ["read_file"],
+      "workspace": {"README.md": "# Notes\n\nThe retry policy lives in runtime.\n"},
+      "script": [{"tool": "read_file", "arguments": {"path": "README.md"}}, {"final": "runtime"}],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "tool_sequence": ["read_file"], "args_contains": [{"path": "README.md"}], "max_tool_calls": 1}
+    },
+    {
+      "id": "multi-list-then-read",
+      "category": "multi_tool_serial",
+      "split": "dev",
+      "task": "List the pkg directory, then read the utility module it contains.",
+      "tools": ["list_files", "read_file"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n"},
+      "script": [{"tool": "list_files", "arguments": {"path": "pkg"}}, {"tool": "read_file", "arguments": {"path": "pkg/util.py"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["list_files", "read_file"], "tool_sequence": ["list_files", "read_file"], "args_contains": [{"path": "pkg"}, {"path": "pkg/util.py"}], "max_tool_calls": 2}
+    },
+    {
+      "id": "multi-search-then-read",
+      "category": "multi_tool_serial",
+      "split": "dev",
+      "task": "Search for helper, then read the file that defines it.",
+      "tools": ["search_code", "read_file"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n"},
+      "script": [{"tool": "search_code", "arguments": {"query": "helper"}}, {"tool": "read_file", "arguments": {"path": "pkg/util.py"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["search_code", "read_file"], "tool_sequence": ["search_code", "read_file"], "args_contains": [{"query": "helper"}, {"path": "pkg/util.py"}], "max_tool_calls": 2}
+    },
+    {
+      "id": "multi-read-two-files",
+      "category": "multi_tool_serial",
+      "split": "dev",
+      "task": "Read app.py and README.md, then compare them.",
+      "tools": ["read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n", "README.md": "# Notes\n\nThe retry policy lives in runtime.\n"},
+      "script": [{"tool": "read_file", "arguments": {"path": "app.py"}}, {"tool": "read_file", "arguments": {"path": "README.md"}}, {"final": "compared"}],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "tool_sequence": ["read_file", "read_file"], "args_contains": [{"path": "app.py"}, {"path": "README.md"}], "max_tool_calls": 2}
+    },
+    {
+      "id": "multi-list-read-write",
+      "category": "multi_tool_serial",
+      "split": "dev",
+      "task": "Inspect the workspace, read app.py, and write a short report.",
+      "tools": ["list_files", "read_file", "write_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "list_files", "arguments": {"path": "."}}, {"tool": "read_file", "arguments": {"path": "app.py"}}, {"tool": "write_file", "arguments": {"path": "report.txt", "content": "done"}}, {"final": "reported"}],
+      "expected": {"status": "succeeded", "tools": ["list_files", "read_file", "write_file"], "tool_sequence": ["list_files", "read_file", "write_file"], "max_tool_calls": 3}
+    },
+    {
+      "id": "multi-echo-then-read",
+      "category": "multi_tool_serial",
+      "split": "dev",
+      "task": "Echo a start marker, then read app.py.",
+      "tools": ["echo", "read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "echo", "arguments": {"text": "start"}}, {"tool": "read_file", "arguments": {"path": "app.py"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["echo", "read_file"], "tool_sequence": ["echo", "read_file"], "max_tool_calls": 2}
+    },
+    {
+      "id": "multi-search-read-write",
+      "category": "multi_tool_serial",
+      "split": "dev",
+      "task": "Locate the return statement, read that module, then record the finding.",
+      "tools": ["search_code", "read_file", "write_file"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n"},
+      "script": [{"tool": "search_code", "arguments": {"query": "return"}}, {"tool": "read_file", "arguments": {"path": "pkg/util.py"}}, {"tool": "write_file", "arguments": {"path": "out.txt", "content": "x"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["search_code", "read_file", "write_file"], "tool_sequence": ["search_code", "read_file", "write_file"], "max_tool_calls": 3}
+    },
+    {
+      "id": "multi-holdout-list-search",
+      "category": "multi_tool_serial",
+      "split": "holdout",
+      "task": "List the workspace root and then search for helper.",
+      "tools": ["list_files", "search_code"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n"},
+      "script": [{"tool": "list_files", "arguments": {"path": "."}}, {"tool": "search_code", "arguments": {"query": "helper"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["list_files", "search_code"], "tool_sequence": ["list_files", "search_code"], "max_tool_calls": 2}
+    },
+    {
+      "id": "multi-holdout-read-write",
+      "category": "multi_tool_serial",
+      "split": "holdout",
+      "task": "Read README.md and copy its first heading into copy.md.",
+      "tools": ["read_file", "write_file"],
+      "workspace": {"README.md": "# Notes\n\nThe retry policy lives in runtime.\n"},
+      "script": [{"tool": "read_file", "arguments": {"path": "README.md"}}, {"tool": "write_file", "arguments": {"path": "copy.md", "content": "# Notes\n"}}, {"final": "copied"}],
+      "expected": {"status": "succeeded", "tools": ["read_file", "write_file"], "tool_sequence": ["read_file", "write_file"], "max_tool_calls": 2}
+    },
+    {
+      "id": "retr-find-then-read",
+      "category": "retrieval_then_tool",
+      "split": "dev",
+      "task": "Search for the retry policy and then read the file that mentions it.",
+      "tools": ["search_code", "read_file"],
+      "workspace": {"README.md": "# Notes\n\nThe retry policy lives in runtime.\n"},
+      "script": [{"tool": "search_code", "arguments": {"query": "retry policy"}}, {"tool": "read_file", "arguments": {"path": "README.md"}}, {"final": "located"}],
+      "expected": {"status": "succeeded", "tools": ["search_code", "read_file"], "tool_sequence": ["search_code", "read_file"], "max_tool_calls": 2}
+    },
+    {
+      "id": "retr-find-then-write",
+      "category": "retrieval_then_tool",
+      "split": "dev",
+      "task": "Search for runtime and record that it was found.",
+      "tools": ["search_code", "write_file"],
+      "workspace": {"README.md": "# Notes\n\nThe retry policy lives in runtime.\n"},
+      "script": [{"tool": "search_code", "arguments": {"query": "runtime"}}, {"tool": "write_file", "arguments": {"path": "found.txt", "content": "located"}}, {"final": "recorded"}],
+      "expected": {"status": "succeeded", "tools": ["search_code", "write_file"], "tool_sequence": ["search_code", "write_file"], "max_tool_calls": 2}
+    },
+    {
+      "id": "retr-two-searches",
+      "category": "retrieval_then_tool",
+      "split": "dev",
+      "task": "Search twice: first for helper, then for run.",
+      "tools": ["search_code"],
+      "workspace": {"pkg/main.py": "from pkg.util import helper\n\n\ndef run():\n    return helper()\n"},
+      "script": [{"tool": "search_code", "arguments": {"query": "helper"}}, {"tool": "search_code", "arguments": {"query": "run"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["search_code"], "tool_sequence": ["search_code", "search_code"], "args_contains": [{"query": "helper"}, {"query": "run"}], "max_tool_calls": 2}
+    },
+    {
+      "id": "retr-list-then-search",
+      "category": "retrieval_then_tool",
+      "split": "dev",
+      "task": "List pkg, then search restricted to the pkg directory.",
+      "tools": ["list_files", "search_code"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n"},
+      "script": [{"tool": "list_files", "arguments": {"path": "pkg"}}, {"tool": "search_code", "arguments": {"query": "return", "path": "pkg"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["list_files", "search_code"], "tool_sequence": ["list_files", "search_code"], "max_tool_calls": 2}
+    },
+    {
+      "id": "retr-holdout-search-read",
+      "category": "retrieval_then_tool",
+      "split": "holdout",
+      "task": "Search for get_range, then read the matching file.",
+      "tools": ["search_code", "read_file"],
+      "workspace": {"app.py": "def get_range(start, end):\n    return list(range(start, end))\n"},
+      "script": [{"tool": "search_code", "arguments": {"query": "get_range"}}, {"tool": "read_file", "arguments": {"path": "app.py"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["search_code", "read_file"], "tool_sequence": ["search_code", "read_file"], "max_tool_calls": 2}
+    },
+    {
+      "id": "retr-holdout-search-write",
+      "category": "retrieval_then_tool",
+      "split": "holdout",
+      "task": "Search for add, then persist a note about the result.",
+      "tools": ["search_code", "write_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "search_code", "arguments": {"query": "add"}}, {"tool": "write_file", "arguments": {"path": "note.txt", "content": "ok"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["search_code", "write_file"], "tool_sequence": ["search_code", "write_file"], "max_tool_calls": 2}
+    },
+    {
+      "id": "ambig-nested-path",
+      "category": "ambiguous_args",
+      "split": "dev",
+      "task": "Read the nested utility module using its full workspace-relative path.",
+      "tools": ["read_file"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n"},
+      "script": [{"tool": "read_file", "arguments": {"path": "pkg/util.py"}}, {"final": "read"}],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "tool_sequence": ["read_file"], "args_contains": [{"path": "pkg/util.py"}], "max_tool_calls": 1}
+    },
+    {
+      "id": "ambig-explicit-root",
+      "category": "ambiguous_args",
+      "split": "dev",
+      "task": "List the workspace root instead of relying on an implicit default.",
+      "tools": ["list_files"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "list_files", "arguments": {"path": "."}}, {"final": "listed"}],
+      "expected": {"status": "succeeded", "tools": ["list_files"], "tool_sequence": ["list_files"], "args_contains": [{"path": "."}], "max_tool_calls": 1}
+    },
+    {
+      "id": "ambig-overwrite-with-hash",
+      "category": "ambiguous_args",
+      "split": "dev",
+      "task": "Read app.py, then replace it with a corrected addition using the digest read from it.",
+      "tools": ["read_file", "write_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"tool": "write_file", "arguments": {"path": "app.py", "content": "def add(a, b):\n    return a + b\n", "expected_sha256": "e1a894022d1a082987b87adecb623438c9e386d86b2b621cff4a5fe7fdf7edc8"}},
+        {"final": "corrected"}
+      ],
+      "expected": {
+        "status": "succeeded",
+        "tools": ["read_file", "write_file"],
+        "tool_sequence": ["read_file", "write_file"],
+        "args_contains": [{"path": "app.py"}, {"path": "app.py", "expected_sha256": "e1a894022d1a082987b87adecb623438c9e386d86b2b621cff4a5fe7fdf7edc8"}],
+        "max_tool_calls": 2
+      }
+    },
+    {
+      "id": "ambig-line-window",
+      "category": "ambiguous_args",
+      "split": "dev",
+      "task": "Read exactly the first two lines of app.py.",
+      "tools": ["read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "read_file", "arguments": {"path": "app.py", "start_line": 1, "end_line": 2}}, {"final": "read"}],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "tool_sequence": ["read_file"], "args_contains": [{"path": "app.py", "start_line": 1, "end_line": 2}], "max_tool_calls": 1}
+    },
+    {
+      "id": "ambig-holdout-nested",
+      "category": "ambiguous_args",
+      "split": "holdout",
+      "task": "Read the nested main module using its full workspace-relative path.",
+      "tools": ["read_file"],
+      "workspace": {"pkg/main.py": "from pkg.util import helper\n\n\ndef run():\n    return helper()\n"},
+      "script": [{"tool": "read_file", "arguments": {"path": "pkg/main.py"}}, {"final": "read"}],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "tool_sequence": ["read_file"], "args_contains": [{"path": "pkg/main.py"}], "max_tool_calls": 1}
+    },
+    {
+      "id": "ambig-holdout-search-scope",
+      "category": "ambiguous_args",
+      "split": "holdout",
+      "task": "Search for return while scoped to the pkg directory only.",
+      "tools": ["search_code"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n", "app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "search_code", "arguments": {"query": "return", "path": "pkg"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["search_code"], "tool_sequence": ["search_code"], "args_contains": [{"query": "return", "path": "pkg"}], "max_tool_calls": 1}
+    },
+    {
+      "id": "recover-timeout-retry",
+      "category": "tool_failure_recovery",
+      "split": "dev",
+      "task": "Read app.py, recovering if the first read times out.",
+      "tools": ["read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "inject_failure": {"tool": "read_file", "attempt": 1, "mode": "timeout"},
+      "script": [{"tool": "read_file", "arguments": {"path": "app.py"}}, {"tool": "read_file", "arguments": {"path": "app.py"}}, {"final": "read after retry"}],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "tool_sequence": ["read_file", "read_file"], "max_tool_calls": 2}
+    },
+    {
+      "id": "recover-error-retry",
+      "category": "tool_failure_recovery",
+      "split": "dev",
+      "task": "Search for helper, retrying once if the backend reports a transient error.",
+      "tools": ["search_code"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n"},
+      "inject_failure": {"tool": "search_code", "attempt": 1, "mode": "error"},
+      "script": [{"tool": "search_code", "arguments": {"query": "helper"}}, {"tool": "search_code", "arguments": {"query": "helper"}}, {"final": "searched"}],
+      "expected": {"status": "succeeded", "tools": ["search_code"], "tool_sequence": ["search_code", "search_code"], "max_tool_calls": 2}
+    },
+    {
+      "id": "recover-notfound-then-alternate",
+      "category": "tool_failure_recovery",
+      "split": "dev",
+      "task": "Read app.py; if the read is unavailable, list the workspace and read it afterwards.",
+      "tools": ["read_file", "list_files"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "inject_failure": {"tool": "read_file", "attempt": 1, "mode": "not_found"},
+      "script": [{"tool": "read_file", "arguments": {"path": "app.py"}}, {"tool": "list_files", "arguments": {"path": "."}}, {"tool": "read_file", "arguments": {"path": "app.py"}}, {"final": "recovered by another route"}],
+      "expected": {"status": "succeeded", "tools": ["list_files", "read_file"], "max_tool_calls": 3}
+    },
+    {
+      "id": "recover-second-attempt-fails",
+      "category": "tool_failure_recovery",
+      "split": "dev",
+      "task": "Read app.py, tolerating one mid-sequence transient failure.",
+      "tools": ["read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "inject_failure": {"tool": "read_file", "attempt": 2, "mode": "error"},
+      "script": [
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"final": "read"}
+      ],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "tool_sequence": ["read_file", "read_file", "read_file"], "max_tool_calls": 3}
+    },
+    {
+      "id": "recover-timeout-then-search",
+      "category": "tool_failure_recovery",
+      "split": "dev",
+      "task": "Read pkg/util.py and fall back to a search if the first read times out.",
+      "tools": ["read_file", "search_code"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n"},
+      "inject_failure": {"tool": "read_file", "attempt": 1, "mode": "timeout"},
+      "script": [{"tool": "read_file", "arguments": {"path": "pkg/util.py"}}, {"tool": "search_code", "arguments": {"query": "helper"}}, {"final": "fell back to search"}],
+      "expected": {"status": "succeeded", "tools": ["read_file", "search_code"], "max_tool_calls": 2}
+    },
+    {
+      "id": "recover-holdout-error",
+      "category": "tool_failure_recovery",
+      "split": "holdout",
+      "task": "Echo a marker, retrying once after a transient backend error.",
+      "tools": ["echo"],
+      "inject_failure": {"tool": "echo", "attempt": 1, "mode": "error"},
+      "script": [{"tool": "echo", "arguments": {"text": "a"}}, {"tool": "echo", "arguments": {"text": "a"}}, {"final": "echoed"}],
+      "expected": {"status": "succeeded", "tools": ["echo"], "tool_sequence": ["echo", "echo"], "max_tool_calls": 2}
+    },
+    {
+      "id": "recover-holdout-timeout",
+      "category": "tool_failure_recovery",
+      "split": "holdout",
+      "task": "List the workspace root, retrying once if the first listing times out.",
+      "tools": ["list_files"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "inject_failure": {"tool": "list_files", "attempt": 1, "mode": "timeout"},
+      "script": [{"tool": "list_files", "arguments": {"path": "."}}, {"tool": "list_files", "arguments": {"path": "."}}, {"final": "listed"}],
+      "expected": {"status": "succeeded", "tools": ["list_files"], "tool_sequence": ["list_files", "list_files"], "max_tool_calls": 2}
+    },
+    {
+      "id": "long-five-step",
+      "category": "long_horizon",
+      "split": "dev",
+      "task": "Inspect the workspace, search for helper, read its module, then write a plan.",
+      "tools": ["list_files", "search_code", "read_file", "write_file"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n"},
+      "script": [
+        {"tool": "list_files", "arguments": {"path": "."}},
+        {"tool": "search_code", "arguments": {"query": "helper"}},
+        {"tool": "read_file", "arguments": {"path": "pkg/util.py"}},
+        {"tool": "write_file", "arguments": {"path": "plan.txt", "content": "done"}},
+        {"final": "planned"}
+      ],
+      "expected": {"status": "succeeded", "tools": ["list_files", "search_code", "read_file", "write_file"], "tool_sequence": ["list_files", "search_code", "read_file", "write_file"], "max_tool_calls": 4, "max_steps": 5}
+    },
+    {
+      "id": "long-serial-reads",
+      "category": "long_horizon",
+      "split": "dev",
+      "task": "Read all four workspace files in sequence.",
+      "tools": ["read_file"],
+      "workspace": {
+        "app.py": "def add(a, b):\n    return a - b\n",
+        "README.md": "# Notes\n\nThe retry policy lives in runtime.\n",
+        "pkg/util.py": "def helper():\n    return 1\n",
+        "pkg/main.py": "from pkg.util import helper\n\n\ndef run():\n    return helper()\n"
+      },
+      "script": [
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"tool": "read_file", "arguments": {"path": "README.md"}},
+        {"tool": "read_file", "arguments": {"path": "pkg/util.py"}},
+        {"tool": "read_file", "arguments": {"path": "pkg/main.py"}},
+        {"final": "all read"}
+      ],
+      "expected": {"status": "succeeded", "tools": ["read_file"], "max_tool_calls": 4, "max_steps": 5}
+    },
+    {
+      "id": "long-search-read-write-verify",
+      "category": "long_horizon",
+      "split": "dev",
+      "task": "Search, read, record a log entry, then verify with a closing search.",
+      "tools": ["search_code", "read_file", "write_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [
+        {"tool": "search_code", "arguments": {"query": "return"}},
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"tool": "write_file", "arguments": {"path": "log.txt", "content": "1"}},
+        {"tool": "search_code", "arguments": {"query": "done"}},
+        {"final": "verified"}
+      ],
+      "expected": {"status": "succeeded", "tools": ["search_code", "read_file", "write_file"], "max_tool_calls": 4, "max_steps": 5}
+    },
+    {
+      "id": "long-six-decisions",
+      "category": "long_horizon",
+      "split": "dev",
+      "task": "Alternate between markers and reads across the workspace.",
+      "tools": ["echo", "list_files", "read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n", "README.md": "# Notes\n\nThe retry policy lives in runtime.\n"},
+      "script": [
+        {"tool": "echo", "arguments": {"text": "1"}},
+        {"tool": "list_files", "arguments": {"path": "."}},
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"tool": "echo", "arguments": {"text": "2"}},
+        {"tool": "read_file", "arguments": {"path": "README.md"}},
+        {"final": "done"}
+      ],
+      "expected": {"status": "succeeded", "tools": ["echo", "list_files", "read_file"], "max_tool_calls": 5, "max_steps": 6}
+    },
+    {
+      "id": "long-alternate-list-read",
+      "category": "long_horizon",
+      "split": "dev",
+      "task": "Alternate listing and reading to walk two directories.",
+      "tools": ["list_files", "read_file"],
+      "workspace": {"pkg/util.py": "def helper():\n    return 1\n", "pkg/main.py": "from pkg.util import helper\n\n\ndef run():\n    return helper()\n"},
+      "script": [
+        {"tool": "list_files", "arguments": {"path": "pkg"}},
+        {"tool": "read_file", "arguments": {"path": "pkg/util.py"}},
+        {"tool": "list_files", "arguments": {"path": "pkg"}},
+        {"tool": "read_file", "arguments": {"path": "pkg/main.py"}},
+        {"final": "walked"}
+      ],
+      "expected": {"status": "succeeded", "tools": ["list_files", "read_file"], "max_tool_calls": 4, "max_steps": 5}
+    },
+    {
+      "id": "long-holdout-four-step",
+      "category": "long_horizon",
+      "split": "holdout",
+      "task": "List the workspace, read app.py, then write an output file.",
+      "tools": ["list_files", "read_file", "write_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [
+        {"tool": "list_files", "arguments": {"path": "."}},
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"tool": "write_file", "arguments": {"path": "out.txt", "content": "z"}},
+        {"final": "written"}
+      ],
+      "expected": {"status": "succeeded", "tools": ["list_files", "read_file", "write_file"], "max_tool_calls": 3, "max_steps": 4}
+    },
+    {
+      "id": "long-holdout-five-step",
+      "category": "long_horizon",
+      "split": "holdout",
+      "task": "Search, read, record, then confirm the recorded result with a second search.",
+      "tools": ["search_code", "read_file", "write_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [
+        {"tool": "search_code", "arguments": {"query": "add"}},
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"tool": "write_file", "arguments": {"path": "r.txt", "content": "q"}},
+        {"tool": "search_code", "arguments": {"query": "return"}},
+        {"final": "done"}
+      ],
+      "expected": {"status": "succeeded", "tools": ["search_code", "read_file", "write_file"], "max_tool_calls": 4, "max_steps": 5}
+    },
+    {
+      "id": "notool-answer-only",
+      "category": "no_tool",
+      "split": "dev",
+      "task": "State whether a tool is required for a purely definitional question.",
+      "tools": ["echo"],
+      "script": [{"final": "no tool required"}],
+      "expected": {"status": "succeeded", "no_tool": true, "max_tool_calls": 0, "max_steps": 1}
+    },
+    {
+      "id": "notool-arithmetic",
+      "category": "no_tool",
+      "split": "dev",
+      "task": "Answer 1 + 2 without inspecting the workspace.",
+      "tools": ["echo", "read_file"],
+      "script": [{"final": "3"}],
+      "expected": {"status": "succeeded", "no_tool": true, "max_tool_calls": 0, "max_steps": 1}
+    },
+    {
+      "id": "notool-greeting",
+      "category": "no_tool",
+      "split": "dev",
+      "task": "Respond to a greeting.",
+      "tools": ["echo"],
+      "script": [{"final": "hello"}],
+      "expected": {"status": "succeeded", "no_tool": true, "max_tool_calls": 0, "max_steps": 1}
+    },
+    {
+      "id": "notool-restate-request",
+      "category": "no_tool",
+      "split": "dev",
+      "task": "Restate the user's request without touching the workspace.",
+      "tools": ["list_files", "read_file"],
+      "script": [{"final": "restated"}],
+      "expected": {"status": "succeeded", "no_tool": true, "max_tool_calls": 0, "max_steps": 1}
+    },
+    {
+      "id": "notool-holdout-a",
+      "category": "no_tool",
+      "split": "holdout",
+      "task": "Confirm the request was understood without reading any file.",
+      "tools": ["echo"],
+      "script": [{"final": "ok"}],
+      "expected": {"status": "succeeded", "no_tool": true, "max_tool_calls": 0, "max_steps": 1}
+    },
+    {
+      "id": "notool-holdout-b",
+      "category": "no_tool",
+      "split": "holdout",
+      "task": "Answer a clarifying question about the task in prose.",
+      "tools": ["search_code", "read_file"],
+      "script": [{"final": "clarified"}],
+      "expected": {"status": "succeeded", "no_tool": true, "max_tool_calls": 0, "max_steps": 1}
+    },
+    {
+      "id": "budget-steps-two",
+      "category": "budget_boundary",
+      "split": "dev",
+      "task": "Echo twice under a two-step ceiling, which must exhaust rather than succeed.",
+      "tools": ["echo"],
+      "budget": {"max_steps": 2},
+      "script": [
+        {"tool": "echo", "arguments": {"text": "a"}},
+        {"tool": "echo", "arguments": {"text": "b"}},
+        {"final": "never reached"}
+      ],
+      "expected": {"status": "exhausted", "tools": ["echo"], "max_steps": 2}
+    },
+    {
+      "id": "budget-tool-calls-one",
+      "category": "budget_boundary",
+      "split": "dev",
+      "task": "Attempt two echoes with a single-tool-call ceiling.",
+      "tools": ["echo"],
+      "budget": {"max_tool_calls": 1},
+      "script": [
+        {"tool": "echo", "arguments": {"text": "a"}},
+        {"tool": "echo", "arguments": {"text": "b"}},
+        {"final": "never reached"}
+      ],
+      "expected": {"status": "exhausted", "tools": ["echo"]}
+    },
+    {
+      "id": "budget-steps-one",
+      "category": "budget_boundary",
+      "split": "dev",
+      "task": "Read a file under a one-step ceiling.",
+      "tools": ["read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "budget": {"max_steps": 1},
+      "script": [{"tool": "read_file", "arguments": {"path": "app.py"}}, {"final": "never reached"}],
+      "expected": {"status": "exhausted", "tools": ["read_file"], "max_steps": 1}
+    },
+    {
+      "id": "budget-three-steps",
+      "category": "budget_boundary",
+      "split": "dev",
+      "task": "Perform three reads under a three-step ceiling with no room to answer.",
+      "tools": ["list_files", "read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n", "README.md": "# Notes\n\nThe retry policy lives in runtime.\n"},
+      "budget": {"max_steps": 3},
+      "script": [
+        {"tool": "list_files", "arguments": {"path": "."}},
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"tool": "read_file", "arguments": {"path": "README.md"}},
+        {"final": "never reached"}
+      ],
+      "expected": {"status": "exhausted", "tools": ["list_files", "read_file"], "max_steps": 3}
+    },
+    {
+      "id": "budget-holdout-steps",
+      "category": "budget_boundary",
+      "split": "holdout",
+      "task": "Echo twice under a two-step holdout ceiling.",
+      "tools": ["echo"],
+      "budget": {"max_steps": 2},
+      "script": [
+        {"tool": "echo", "arguments": {"text": "a"}},
+        {"tool": "echo", "arguments": {"text": "b"}},
+        {"final": "never reached"}
+      ],
+      "expected": {"status": "exhausted", "tools": ["echo"], "max_steps": 2}
+    },
+    {
+      "id": "budget-holdout-no-calls",
+      "category": "budget_boundary",
+      "split": "holdout",
+      "task": "Attempt a tool call under a zero-tool-call ceiling.",
+      "tools": ["echo"],
+      "budget": {"max_tool_calls": 0},
+      "script": [{"tool": "echo", "arguments": {"text": "a"}}, {"final": "never reached"}],
+      "expected": {"status": "exhausted", "tools": ["echo"]}
+    },
+    {
+      "id": "probe-missing-required-tool",
+      "category": "single_tool",
+      "split": "dev",
+      "task": "Scorer probe: the run omits a tool the contract requires.",
+      "tools": ["list_files", "read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [{"tool": "list_files", "arguments": {"path": "."}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tools": ["read_file"]},
+      "grade": "fail",
+      "notes": "Proves the scorer reports a missing required tool as a failure."
+    },
+    {
+      "id": "probe-forbidden-write",
+      "category": "multi_tool_serial",
+      "split": "dev",
+      "task": "Scorer probe: the run calls a forbidden side-effecting tool.",
+      "tools": ["write_file"],
+      "script": [{"tool": "write_file", "arguments": {"path": "p.txt", "content": "x"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "forbidden_tools": ["write_file"]},
+      "grade": "fail",
+      "notes": "Proves forbidden-tool violations fail the case even when the run succeeds."
+    },
+    {
+      "id": "probe-wrong-sequence",
+      "category": "multi_tool_serial",
+      "split": "dev",
+      "task": "Scorer probe: the right tools run in a destructive order.",
+      "tools": ["read_file", "write_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n"},
+      "script": [
+        {"tool": "write_file", "arguments": {"path": "p.txt", "content": "x"}},
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"final": "done"}
+      ],
+      "expected": {"status": "succeeded", "tool_sequence": ["read_file", "write_file"]},
+      "grade": "fail",
+      "notes": "Proves ordering is asserted, not just set membership."
+    },
+    {
+      "id": "probe-wrong-args",
+      "category": "ambiguous_args",
+      "split": "dev",
+      "task": "Scorer probe: the correct tool is called with the wrong path.",
+      "tools": ["read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a - b\n", "README.md": "# Notes\n\nThe retry policy lives in runtime.\n"},
+      "script": [{"tool": "read_file", "arguments": {"path": "README.md"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "tool_sequence": ["read_file"], "args_contains": [{"path": "app.py"}]},
+      "grade": "fail",
+      "notes": "Proves arguments are a hard assertion and not only a reported metric."
+    },
+    {
+      "id": "probe-unexpected-tool",
+      "category": "no_tool",
+      "split": "dev",
+      "task": "Scorer probe: a no-tool case still calls a tool.",
+      "tools": ["echo"],
+      "script": [{"tool": "echo", "arguments": {"text": "x"}}, {"final": "done"}],
+      "expected": {"status": "succeeded", "no_tool": true},
+      "grade": "fail",
+      "notes": "Proves over-calling on a no-tool case is detected."
+    },
+    {
+      "id": "probe-over-max-calls",
+      "category": "budget_boundary",
+      "split": "dev",
+      "task": "Scorer probe: the run exceeds the allowed tool-call count while still answering.",
+      "tools": ["echo"],
+      "script": [
+        {"tool": "echo", "arguments": {"text": "a"}},
+        {"tool": "echo", "arguments": {"text": "b"}},
+        {"final": "done"}
+      ],
+      "expected": {"status": "succeeded", "max_tool_calls": 1},
+      "grade": "fail",
+      "notes": "Proves call-count ceilings are asserted independently of the run status."
+    },
+    {
+      "id": "probe-status-mismatch",
+      "category": "budget_boundary",
+      "split": "dev",
+      "task": "Scorer probe: budget exhaustion is claimed as success by the contract.",
+      "tools": ["echo"],
+      "budget": {"max_tool_calls": 0},
+      "script": [{"tool": "echo", "arguments": {"text": "a"}}, {"final": "never reached"}],
+      "expected": {"status": "succeeded"},
+      "grade": "fail",
+      "notes": "Proves an exhausted run is never scored as a success."
+    }
+  ]
+}
