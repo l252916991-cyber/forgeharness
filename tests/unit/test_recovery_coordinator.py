@@ -220,6 +220,35 @@ async def test_a_refused_recovery_is_reported_as_refused(tmp_path: Path) -> None
     assert result.decision is not None
 
 
+async def test_a_fail_closed_unsupported_recovery_is_reported_as_failed(
+    tmp_path: Path,
+) -> None:
+    checkpoints = SQLiteCheckpointStore(tmp_path / "runs.sqlite3")
+    checkpoints.save(
+        RunResult(
+            task_id="task-unsupported",
+            status=RunStatus.RUNNING,
+            messages=(Message(role=MessageRole.USER, content="x"),),
+            usage=Usage(steps=1),
+        )
+    )
+
+    async def resume(snapshot: RunResult, workspace: Path) -> RunResult:
+        del workspace
+        return snapshot.model_copy(
+            update={
+                "status": RunStatus.FAILED,
+                "error": "recovery_unsupported: replay is not implemented",
+            }
+        )
+
+    coordinator = _coordinator(checkpoints=checkpoints, resume=resume, workspace=tmp_path)
+    result = await coordinator.recover_run("task-unsupported")
+    assert result.status is RecoveryStatus.FAILED
+    assert result.run_status is RunStatus.FAILED
+    assert "recovery_unsupported" in result.detail
+
+
 async def test_recover_unknown_run_reports_failure(tmp_path: Path) -> None:
     checkpoints = SQLiteCheckpointStore(tmp_path / "runs.sqlite3")
     coordinator = _coordinator(checkpoints=checkpoints, resume=_noop_resume, workspace=tmp_path)

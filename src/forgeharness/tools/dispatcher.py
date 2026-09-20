@@ -120,7 +120,7 @@ class ToolDispatcher:
                 exception_class=type(exc).__name__,
                 extra_metadata={"timeout_seconds": effective_timeout},
             )
-        except BaseException as exc:
+        except Exception as exc:
             return self._classify_exception(started, call, exc)
         return DispatchResult(
             output=self._bound_output(output), elapsed_ms=self._elapsed_ms(started)

@@ -114,9 +114,11 @@ class _Scripted:
 
     def __init__(self, actions: list[object]) -> None:
         self._actions = list(actions)
+        self.calls = 0
 
     async def decide(self, request: object) -> ModelResult:
         del request
+        self.calls += 1
         action = self._actions.pop(0) if self._actions else FinalAction(content="done")
         return ModelResult(action=action, usage=ModelUsage(input_tokens=5, output_tokens=2))
 
@@ -179,6 +181,141 @@ async def test_claimed_is_written_before_the_tool_runs(tmp_path: Path) -> None:
 
     assert seen_states == [InvocationState.STARTED]
     assert tool.executions == 1
+
+
+async def test_cancellation_stops_the_run_and_leaves_started_call_for_recovery(
+    tmp_path: Path,
+) -> None:
+    journal, checkpoints = _stores(tmp_path)
+    entered = asyncio.Event()
+
+    class BlockingTool(CountingTool):
+        async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
+            del arguments, context
+            with self._path.open("a", encoding="utf-8") as handle:
+                handle.write("ran\n")
+            entered.set()
+            await asyncio.Event().wait()
+            raise AssertionError("unreachable")
+
+    tool = BlockingTool(tmp_path / "effects.txt", ToolEffectClass.NON_IDEMPOTENT)
+    model = _Scripted(
+        [
+            ToolAction(call=ToolCall(id="c1", name="effect", arguments={"value": "x"})),
+            FinalAction(content="must not run"),
+        ]
+    )
+    registry = ToolRegistry()
+    registry.register(tool)
+    runtime = AgentRuntime(
+        model=model,
+        registry=registry,
+        dispatcher=ToolDispatcher(registry),
+        policy=_AllowAll(),
+        trace=InMemoryTrace("task"),
+        checkpoint_store=checkpoints,
+        invocation_journal=journal,
+    )
+    task = asyncio.create_task(runtime.run(task_id="task", task="do it", workspace=tmp_path))
+    await asyncio.wait_for(entered.wait(), timeout=1)
+    task.cancel()
+
+    with pytest.raises(asyncio.CancelledError):
+        await asyncio.wait_for(task, timeout=1)
+
+    record = journal.load(run_id="task", logical_call_id="c1")
+    assert record is not None
+    assert record.state is InvocationState.STARTED
+    assert decide_recovery(record) is RecoveryDecision.REFUSE_REPLAY
+    previous = checkpoints.load("task")
+    assert previous is not None
+    resumed = await runtime.resume_running(previous=previous, workspace=tmp_path)
+    assert resumed.status is RunStatus.FAILED
+    assert "indeterminate_side_effect" in (resumed.error or "")
+    settled = journal.load(run_id="task", logical_call_id="c1")
+    assert settled is not None
+    assert settled.state is InvocationState.INDETERMINATE
+    assert model.calls == 1
+    assert tool.executions == 1
+
+
+@pytest.mark.parametrize(
+    ("journalled_state", "effect_class", "expected_reason"),
+    [
+        (None, ToolEffectClass.NON_IDEMPOTENT, "missing_journal_record"),
+        (InvocationState.CLAIMED, ToolEffectClass.NON_IDEMPOTENT, "execute"),
+        (InvocationState.STARTED, ToolEffectClass.READ_ONLY, "replay_read_only"),
+        (InvocationState.STARTED, ToolEffectClass.IDEMPOTENT, "replay_idempotent"),
+    ],
+)
+async def test_unsupported_recovery_outcomes_fail_without_advancing(
+    tmp_path: Path,
+    journalled_state: InvocationState | None,
+    effect_class: ToolEffectClass,
+    expected_reason: str,
+) -> None:
+    from datetime import UTC, datetime
+
+    from forgeharness.domain.models import Message, MessageRole
+    from forgeharness.state.invocation_journal import (
+        InvocationRecord,
+        args_digest,
+        idempotency_key_for,
+    )
+
+    journal, checkpoints = _stores(tmp_path)
+    call = ToolCall(id="c1", name="effect", arguments={"value": "x"})
+    interrupted = checkpoints.save(
+        RunResult(
+            task_id="task",
+            status=RunStatus.RUNNING,
+            messages=(
+                Message(role=MessageRole.USER, content="do it"),
+                Message(role=MessageRole.ASSISTANT, tool_calls=(call,)),
+            ),
+            usage=Usage(steps=1),
+            recovery_semantics_version=CURRENT_RECOVERY_SEMANTICS_VERSION,
+        )
+    )
+    if journalled_state is not None:
+        record = InvocationRecord(
+            invocation_id="task:c1",
+            run_id="task",
+            logical_call_id="c1",
+            tool_name="effect",
+            effect_class=effect_class,
+            args_digest=args_digest(call.arguments),
+            idempotency_key=idempotency_key_for(run_id="task", logical_call_id="c1"),
+            state=InvocationState.CLAIMED,
+            claimed_at=datetime.now(UTC),
+        )
+        journal.claim(record)
+        if journalled_state is InvocationState.STARTED:
+            journal.mark_started(
+                record.invocation_id,
+                checkpoint_revision=interrupted.checkpoint_revision,
+            )
+
+    tool = CountingTool(tmp_path / "effects.txt", effect_class)
+    model = _Scripted([FinalAction(content="must not run")])
+    registry = ToolRegistry()
+    registry.register(tool)
+    runtime = AgentRuntime(
+        model=model,
+        registry=registry,
+        dispatcher=ToolDispatcher(registry),
+        policy=_AllowAll(),
+        trace=InMemoryTrace("task"),
+        checkpoint_store=checkpoints,
+        invocation_journal=journal,
+    )
+    resumed = await runtime.resume_running(previous=interrupted, workspace=tmp_path)
+
+    assert resumed.status is RunStatus.FAILED
+    assert "recovery_unsupported" in (resumed.error or "")
+    assert expected_reason in (resumed.error or "")
+    assert model.calls == 0
+    assert tool.executions == 0
 
 
 async def test_completed_call_is_reused_when_the_checkpoint_was_lost(tmp_path: Path) -> None:

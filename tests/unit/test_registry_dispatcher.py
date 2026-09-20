@@ -170,6 +170,31 @@ async def test_dispatcher_enforces_timeout(tmp_path: Path) -> None:
     assert result.output.error.recoverable is True
 
 
+async def test_dispatcher_propagates_task_cancellation(tmp_path: Path) -> None:
+    entered = asyncio.Event()
+
+    class BlockingTool(FailingTool):
+        async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
+            del arguments, context
+            entered.set()
+            await asyncio.Event().wait()
+            raise AssertionError("unreachable")
+
+    registry = ToolRegistry()
+    registry.register(BlockingTool())
+    task = asyncio.create_task(
+        ToolDispatcher(registry).dispatch(
+            ToolCall(id="call-1", name="failing"),
+            ToolContext(task_id="task-1", workspace=tmp_path),
+        )
+    )
+    await asyncio.wait_for(entered.wait(), timeout=1)
+    task.cancel()
+
+    with pytest.raises(asyncio.CancelledError):
+        await asyncio.wait_for(task, timeout=1)
+
+
 async def test_dispatcher_bounds_all_tool_output(tmp_path: Path) -> None:
     registry = ToolRegistry()
     registry.register(LongOutputTool())

@@ -141,6 +141,13 @@ Frozen. Recovery reads the journal row and applies this table.
 
 M10-A implements no retry, so a `failed` invocation encountered during recovery **terminates the run** rather than being replayed. Which `failed` cases may one day retry is decided in M10-B from `error_code` + `recoverable`; keeping the milestones separate avoids folding retry policy into the journal design.
 
+The current startup recovery path automates only two outcomes: reusing a stored
+`completed` result and refusing an unsafe replay. `claimed`, missing-row,
+`replay_read_only`, and `replay_idempotent` outcomes terminate with
+`recovery_unsupported`; they do not advance the model past an unresolved call.
+Implementing their durable attempt continuation remains an availability feature,
+not a reason to weaken the fail-closed boundary.
+
 ### The crash window this design exists for
 
 ```

@@ -216,11 +216,13 @@ class AgentRuntime:
         * ``started`` on a non-idempotent tool — the effect's occurrence cannot be
           established, so the run fails with an explicit indeterminate error rather
           than guessing.
-        * ``claimed`` or no journal row — nothing executed, so the run continues
-          normally and the call is dispatched under the journal.
+        * ``claimed``, replay-safe ``started``, or no journal row — automatic
+          replay is not implemented; the run fails closed with
+          ``recovery_unsupported`` instead of advancing the model past an
+          unresolved tool call.
 
-        A run without an invocation journal cannot make these guarantees; it resumes
-        from the checkpoint as before.
+        A run without an invocation journal cannot make these guarantees; an
+        unresolved call therefore fails closed.
         """
         if previous.status is not RunStatus.RUNNING:
             raise ValueError("only a running run can be resumed this way")
@@ -300,6 +302,28 @@ class AgentRuntime:
                         "indeterminate_side_effect: cannot confirm whether "
                         f"{outstanding.name} already ran, so it is not replayed"
                     ),
+                )
+            else:
+                reason = "missing_journal_record" if outcome is None else outcome.decision.value
+                self._trace.append(
+                    "tool.recovery.unsupported",
+                    {
+                        "logical_call_id": outstanding.id,
+                        "tool": outstanding.name,
+                        "reason": reason,
+                    },
+                )
+                return self._finish(
+                    task_id=previous.task_id,
+                    status=RunStatus.FAILED,
+                    messages=messages,
+                    usage=usage,
+                    checkpoint_revision=checkpoint_revision,
+                    error=(
+                        "recovery_unsupported: automatic execution or replay is not "
+                        f"implemented for {outstanding.name} ({reason})"
+                    ),
+                    error_type="recovery_unsupported",
                 )
         return await self._drive(
             task_id=previous.task_id,
@@ -624,6 +648,10 @@ class AgentRuntime:
                 )
                 continue
 
+            # Persist the admitted call before any side effect. If this task is
+            # cancelled inside the tool, recovery can pair the checkpointed call
+            # with its STARTED journal row and refuse an unsafe replay.
+            checkpoint_revision = self._save_running(task_id, messages, usage, checkpoint_revision)
             dispatch = await self._dispatch_journalled(
                 action.call,
                 workspace,

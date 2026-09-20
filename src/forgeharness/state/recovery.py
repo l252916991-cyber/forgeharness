@@ -125,6 +125,13 @@ class RecoveryCoordinator:
                 run_status=resumed.status,
                 decision=RecoveryDecision.REFUSE_REPLAY,
             )
+        if resumed.status is RunStatus.FAILED:
+            return RunRecoveryResult(
+                task_id=task_id,
+                status=RecoveryStatus.FAILED,
+                detail=resumed.error or "recovery failed",
+                run_status=resumed.status,
+            )
         return RunRecoveryResult(
             task_id=task_id,
             status=RecoveryStatus.RECOVERED,
