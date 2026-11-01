@@ -51,9 +51,9 @@ sdist SHA-256：`40133cedc7383b6f2cadaa5fb1a2a719269a36d70a3a5c7d79df40a39a02f35
 
 W2 首个 PG 原型仍需锁定正式测试版本、编写后端并执行真实事务/多进程/RLS 矩阵；本次服务端探测不证明这些已实现。
 
-用户已确认中国大陆为主、约 10 名使用者、月度云服务与模型总预算 1000 元人民币，见[试点范围](../../../docs/SAAS_PILOT_SCOPE_2026-10-28.md)。云/区域、真实数据、模型、开发运维负责人和商业收款配置仍待定版。
+用户已确认中国大陆为主、约 10 名使用者、月度云服务与模型总预算 1000 元人民币，见[试点范围](../../../docs/archive/SAAS_PILOT_SCOPE_2026-10-28.md)。云/区域、真实数据、模型、开发运维负责人和商业收款配置仍待定版。
 
-- [工作台启动指南](../../../docs/COMMERCE_WORKBENCH.md)
-- [SaaS 总计划](../../../docs/SAAS_PRODUCTION_MASTER_PLAN_V3_2026-10-28.md)
-- [状态事务契约](../../../docs/SAAS_STATE_CONTRACT.md)
+- [工作台启动指南](../../../docs/guides/COMMERCE_WORKBENCH.md)
+- [SaaS 总计划](../../../docs/archive/SAAS_PRODUCTION_MASTER_PLAN_V3_2026-10-28.md)
+- [状态事务契约](../../../docs/guides/SAAS_STATE_CONTRACT.md)
 - [ADR 039](../../../docs/adr/039-saas-host-and-state-transition.md)

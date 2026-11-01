@@ -368,8 +368,8 @@ core_runtime=src/forgeharness/runtime/loop.py
 rag_system=src/forgeharness/knowledge/indexes.py
 langchain_rag=src/forgeharness/langchain_impl/rag_chain.py
 langgraph_agent=src/forgeharness/langchain_impl/coding_agent.py
-comparison_doc=docs/LANGCHAIN_COMPARISON.md
-tech_stack=docs/TECH_STACK_DETAILED.md
+comparison_doc=docs/guides/LANGCHAIN_COMPARISON.md
+tech_stack=docs/archive/TECH_STACK_DETAILED.md
 ```
 
 ### 5. **Common Pitfalls to Avoid**
@@ -431,8 +431,8 @@ If everything breaks during the interview:
 
 3. **Show the documentation**
    ```bash
-   open docs/LANGCHAIN_COMPARISON.md
-   open docs/TECH_STACK_DETAILED.md
+   open docs/guides/LANGCHAIN_COMPARISON.md
+   open docs/archive/TECH_STACK_DETAILED.md
    ```
 
 4. **Walk through the test cases**

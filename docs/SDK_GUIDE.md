@@ -1,12 +1,12 @@
 # ForgeHarness SDK v1 使用说明
 
-当前 0.8.6 的新增入口见 [固定专家协作](COLLABORATION.md)；工程资格以
+当前 0.8.6 的新增入口见 [固定专家协作](guides/COLLABORATION.md)；工程资格以
 `reports/multi-agent-20261026/REPORT.md` 的独立候选为准。下文 0.6.0 接口指南保留历史版本定位。
 
 适用源码：0.6.0（原 0.5.0 + Unreleased 框架化改动已全部并入），SDK API v1；Python 3.12；当前持久配置为单机 POSIX + SQLite。
 历史 0.3.0/0.4.0/0.5.0 报告仅覆盖各自冻结源码；当前源码是否通过，以本轮独立验证报告为准。
-冻结与验证命令见 [当前候选验证](BASELINE_VERIFICATION.md)。
-工作流、资料版本、人工业务审核和引用模块的接口、示例与限制见 [BUSINESS_MODULES](BUSINESS_MODULES.md)。
+冻结与验证命令见 [当前候选验证](archive/BASELINE_VERIFICATION.md)。
+工作流、资料版本、人工业务审核和引用模块的接口、示例与限制见 [BUSINESS_MODULES](guides/BUSINESS_MODULES.md)。
 
 ## 安装与运行
 
@@ -216,7 +216,7 @@ CSRF/Origin 策略、限流、审计出口与管理界面。旧 `serve`/Coding A
 `authenticate(Request) -> RunContext`，每次请求重新验证身份、会话归属与 scope；请求
 JSON 不得用来构造可信 `RunContext`。提供独立审批者时传入 `authenticate_approver`，
 否则 HTTP 审批为自审批。该路由依赖 `web`/`cli` extra 提供的 FastAPI，不属于基础
-wheel 的依赖集。会话层的完整说明见 [SESSIONS](SESSIONS.md)。
+wheel 的依赖集。会话层的完整说明见 [SESSIONS](guides/SESSIONS.md)。
 
 ## 版本与兼容
 

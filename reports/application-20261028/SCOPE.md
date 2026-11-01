@@ -1,7 +1,7 @@
 # 应用级 W0 范围（A/B 交付）
 
 日期：2026-10-28。状态：已建立。本文件只定义范围与验收口径，不构成业务合格证明。
-详细计划见 [执行计划书](../../docs/APPLICATION_PRODUCT_PLAN_2026-10-28.md)。
+详细计划见 [执行计划书](../../docs/archive/APPLICATION_PRODUCT_PLAN_2026-10-28.md)。
 
 ## 应用与用户
 

@@ -16,7 +16,7 @@ One reference application (Coding) takes a repository issue, lets a model inspec
 - `forgeharness.sdk`：ApplicationSpec、可信 actor/scope、run/inspect/approve/resume/delete。
 - `Capability` + `compose_application`：应用由可信能力组合而成；组合名单与结构 digest 记入 run trace（`application.composition`，ADR 022/028）。
 - `Orchestrator` + `RunKernel`：自定义编排（如只读法律 DAG）复用同一套 model/只读工具/预算/trace/verification 治理；写路径与审批仍由 ReAct 承担（ADR 023/026）。
-- 应用契约与运行时矩阵见 [docs/CONFORMANCE.md](docs/CONFORMANCE.md)。
+- 应用契约与运行时矩阵见 [docs/guides/CONFORMANCE.md](docs/CONFORMANCE.md)。
 - 同一 SQLite 的持久审批、授权 checkpoint 与安全调用恢复；完整有序验收证据。
 - 核心不要求工作区，文件工具明确要求工作区。Coding 和商品查询/模拟转接工单通过公开 SDK 装配。
 - 基础 wheel 只依赖 Pydantic/JSON Schema；Web、模型、知识、平台和旧 CLI 按 extra 安装。
@@ -49,7 +49,7 @@ uv run --no-sync python examples/commerce_readonly_demo.py
 - OMLX chat/vision, 2,560-dimensional embedding, and reranker adapters with provider-enforced structured output.
 - Markdown/text/code/JSON/PDF/image ingestion, FTS5 + vector retrieval, reciprocal-rank fusion, reranking, source-bound citations, and evidence refusal.
 - Durable sessions, intent routing, review-gated semantic memory, a read-only citation Reviewer Agent, idempotent jobs, Inline or Redis/ARQ queues, and real readiness probes.
-- Public durable scoped sessions over the SDK (`SessionService`): host-revalidated identity on every operation, bounded untrusted history, one active turn per session, separately authenticated single-use approval, crash reconciliation, and tombstones that retire a deleted identity. The optional HTTP adapter is described in [docs/SESSIONS.md](docs/SESSIONS.md); the knowledge application's sessions above are a separate legacy store.
+- Public durable scoped sessions over the SDK (`SessionService`): host-revalidated identity on every operation, bounded untrusted history, one active turn per session, separately authenticated single-use approval, crash reconciliation, and tombstones that retire a deleted identity. The optional HTTP adapter is described in [docs/guides/SESSIONS.md](docs/SESSIONS.md); the knowledge application's sessions above are a separate legacy store.
 - Optional asyncpg/PostgreSQL sessions, Qdrant vector spaces, Docker Compose dependencies, two-host-process Nginx balancing, LangChain/LangGraph comparison adapters, and structured JSON request logging.
 
 ## Architecture
@@ -89,7 +89,7 @@ uv run forge freeze-manifest
 
 ### Framework comparison
 
-ForgeHarness includes both a **native Agent runtime** and a **LangChain/LangGraph implementation** to demonstrate framework proficiency and architectural trade-offs. See [`docs/LANGCHAIN_COMPARISON.md`](docs/LANGCHAIN_COMPARISON.md) for detailed comparison.
+ForgeHarness includes both a **native Agent runtime** and a **LangChain/LangGraph implementation** to demonstrate framework proficiency and architectural trade-offs. See [`docs/guides/LANGCHAIN_COMPARISON.md`](docs/LANGCHAIN_COMPARISON.md) for detailed comparison.
 
 ```bash
 uv sync --extra frameworks
@@ -100,7 +100,7 @@ uv run forge framework-compare  # Full benchmark
 
 The control evaluation is keyless and writes [`reports/control-eval.json`](reports/control-eval.json). The fixed 60-case RAG and Reviewer gates write [`reports/rag-eval.json`](reports/rag-eval.json) and [`reports/reviewer-experiment.json`](reports/reviewer-experiment.json); the 5,000-chunk benchmark writes [`reports/retrieval-benchmark.json`](reports/retrieval-benchmark.json).
 
-The keyless Agent Benchmark (`forge eval-agent --split dev`) writes [`reports/agent-eval-dev-keyless.json`](reports/agent-eval-dev-keyless.json). It grades a frozen case set against **both** runtimes — ReAct and Plan-Execute — and reports benchmark cases and scorer probes separately, so a negative control never looks like a failed task. It validates the grading contract, the metric pipeline, the runtime wiring, and budget interaction. It does **not** compare the two orchestration strategies: the scripted model replaces the decision under test, so strategy claims require live-model runs. Its `cost_metrics_valid` flag is `false` and token figures are synthetic. The `holdout` split is deliberately excluded from `make gate` and is reserved for live-model comparison. See [`docs/NEXT_PHASE_PLAN.md`](docs/NEXT_PHASE_PLAN.md).
+The keyless Agent Benchmark (`forge eval-agent --split dev`) writes [`reports/agent-eval-dev-keyless.json`](reports/agent-eval-dev-keyless.json). It grades a frozen case set against **both** runtimes — ReAct and Plan-Execute — and reports benchmark cases and scorer probes separately, so a negative control never looks like a failed task. It validates the grading contract, the metric pipeline, the runtime wiring, and budget interaction. It does **not** compare the two orchestration strategies: the scripted model replaces the decision under test, so strategy claims require live-model runs. Its `cost_metrics_valid` flag is `false` and token figures are synthetic. The `holdout` split is deliberately excluded from `make gate` and is reserved for live-model comparison. See [`docs/archive/NEXT_PHASE_PLAN.md`](docs/NEXT_PHASE_PLAN.md).
 
 Live comparison runs against a real model through the same evaluator:
 
@@ -109,7 +109,7 @@ uv run forge eval-agent --split dev --profile equal   --model <model> --samples 
 uv run forge eval-agent --split dev --profile natural --model <model> --samples 3
 ```
 
-`equal` shares one whole-run budget across arms; `natural` gives both arms a generous budget so planner overhead shows in cost rather than truncation. A live profile requires repeated sampling and reports `measurement_valid` independently of model quality. Measured results, including what could **not** be concluded, are in [`docs/M8B_LIVE_COMPARISON.md`](docs/M8B_LIVE_COMPARISON.md). Live runs are memory-heavy on a local server: keep `--limit` available and never leave the per-request output ceiling unset.
+`equal` shares one whole-run budget across arms; `natural` gives both arms a generous budget so planner overhead shows in cost rather than truncation. A live profile requires repeated sampling and reports `measurement_valid` independently of model quality. Measured results, including what could **not** be concluded, are in [`docs/archive/M8B_LIVE_COMPARISON.md`](docs/M8B_LIVE_COMPARISON.md). Live runs are memory-heavy on a local server: keep `--limit` available and never leave the per-request output ceiling unset.
 
 ## Use the local OMLX models
 
@@ -176,8 +176,8 @@ With OMLX and the four Compose services healthy, `uv run python benchmarks/platf
 
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — module, state, and trust boundaries.
 - [`docs/EVALUATION.md`](docs/EVALUATION.md) — metrics, datasets, and reporting rules.
-- [`docs/STATUS.md`](docs/STATUS.md) — implemented/planned boundary and known limitations.
-- [`docs/REVIEW.md`](docs/REVIEW.md) — mandatory final audit protocol.
+- [`docs/archive/STATUS.md`](docs/STATUS.md) — implemented/planned boundary and known limitations.
+- [`docs/guides/REVIEW.md`](docs/REVIEW.md) — mandatory final audit protocol.
 - [`docs/REFERENCES.md`](docs/REFERENCES.md) — specifications, baselines, and attribution.
 
 This candidate does not claim SWE-bench performance, Reviewer superiority, OS-level sandboxing, automatic Git worktree creation, Qdrant/PostgreSQL production scale, or crash-safe approval resumption after an API restart. The checked-in reports support only their named, revision-bound workloads.

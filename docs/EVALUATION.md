@@ -42,7 +42,7 @@ These values may be quoted only with the workload qualifier. They are not produc
 
 ## Agent Benchmark metric definitions
 
-`forge eval-agent --split <dev|holdout>` runs the frozen case set in `evals/agent_cases.json` against both runtimes. The definitions below are frozen so that later reliability work cannot silently change what a number means. Full design and the M9/M10 boundary are in [`NEXT_PHASE_PLAN.md`](NEXT_PHASE_PLAN.md).
+`forge eval-agent --split <dev|holdout>` runs the frozen case set in `evals/agent_cases.json` against both runtimes. The definitions below are frozen so that later reliability work cannot silently change what a number means. Full design and the M9/M10 boundary are in [`NEXT_PHASE_PLAN.md`](archive/NEXT_PHASE_PLAN.md).
 
 **Benchmark cases and scorer probes are reported separately and are never combined into one ratio.** Seven cases carry `grade: "fail"`; they exist only to prove the scorer detects real deviations (missing tool, forbidden tool, wrong order, wrong arguments, tools called on a no-tool case, over the call ceiling, and `exhausted` claimed as `succeeded`). They are excluded from every headline metric — a report must never read as "the agent passed 54 of 61" when seven of those are negative controls. Headline fields are `benchmark_cases`, `benchmark_pass`, `scorer_probes`, `scorer_probes_detected`, and `grading_agreement`. Probes exist only in the `dev` split; `grading_agreement` is therefore `null` on the holdout split rather than a vacuous `1.0`, because scorer validity is unmeasurable without probes.
 
@@ -114,4 +114,4 @@ A failing sample is captured automatically as a `BadCase` record under `reports/
 
 ## Final release gate
 
-`forge review` rejects missing, undersized, revision-mismatched, or failed reports; unresolved blocker/high findings; a stale source snapshot; insufficient pure branch coverage; or an audit decision other than `passed`. A source snapshot cannot retroactively prove that an older real-model report executed that exact source. The current full-plan audit is held open until these provenance and scope gaps are resolved. See `docs/STATUS.md` and `docs/review/AUDIT.md`.
+`forge review` rejects missing, undersized, revision-mismatched, or failed reports; unresolved blocker/high findings; a stale source snapshot; insufficient pure branch coverage; or an audit decision other than `passed`. A source snapshot cannot retroactively prove that an older real-model report executed that exact source. The current full-plan audit is held open until these provenance and scope gaps are resolved. See `docs/archive/STATUS.md` and `docs/review/AUDIT.md`.

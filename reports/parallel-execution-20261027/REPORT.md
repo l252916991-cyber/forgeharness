@@ -6,8 +6,8 @@
 并行机制合格，当前本机 9B 配置的性能推荐门槛未通过，默认保持并发 1，可显式配置 2。**
 整个项目、真实业务与生产部署不因本期交付自动完成。
 
-计划：[执行计划](../../docs/EXECUTION_PLAN_PARALLEL_EXECUTION.md)。
-接入：[并行说明](../../docs/PARALLEL_EXECUTION.md)。
+计划：[执行计划](../../docs/archive/EXECUTION_PLAN_PARALLEL_EXECUTION.md)。
+接入：[并行说明](../../docs/guides/PARALLEL_EXECUTION.md)。
 架构：[ADR 035](../../docs/adr/035-bounded-model-parallelism.md)、
 [调用身份修正 ADR 036](../../docs/adr/036-scoped-model-invocation-identity.md)。
 审查与残余风险：[AUDIT](AUDIT.md)。

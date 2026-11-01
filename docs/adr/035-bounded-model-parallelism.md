@@ -53,7 +53,7 @@ would also fail to bound several runs using one local model.
 
 ## Consequences and acceptance
 
-Use the matrix in [the execution plan](../EXECUTION_PLAN_PARALLEL_EXECUTION.md).
+Use the matrix in [the execution plan](../archive/EXECUTION_PLAN_PARALLEL_EXECUTION.md).
 Event barriers prove provider-entry overlap independently of timing. Process
 faults must cover both sending ledgers and settlement/outbox boundaries. A new
 candidate must pass source and clean-copy gates. Same-topology concurrency 1 vs 2

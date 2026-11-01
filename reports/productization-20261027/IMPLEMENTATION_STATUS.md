@@ -10,7 +10,7 @@
 | P1 操作闭环 | 控制台可提交咨询、查看历史、审批并继续、查看轮次与 hash-chain 事件；重复 request id 复用原轮次 | `src/forgeharness/applications/commerce/console.html`、`tests/unit/test_commerce_control.py` |
 | P2 缺失业务分支 | 无 SKU/无证据且用户明确请求人工时，可走独立审批创建通用工单；租户内 support 可查询；业务请求去重 | `docs/adr/037-general-commerce-handoff.md`、`tests/unit/test_consultation.py` |
 | P3 恢复安全 | 待审批通用工单经过停机备份、删除原状态、同路径恢复后可审批续跑；重复续跑被拒绝且只生成一个工单 | `tests/unit/test_commerce_operations.py` |
-| P4 本地运维 | 增加 live/ready 探针、服务互斥锁、SQLite 一致性备份、成员与摘要验证、仅原绝对路径原子恢复及操作手册 | `docs/COMMERCE_OPERATIONS.md`、`examples/commerce_state.py` |
+| P4 本地运维 | 增加 live/ready 探针、服务互斥锁、SQLite 一致性备份、成员与摘要验证、仅原绝对路径原子恢复及操作手册 | `docs/guides/COMMERCE_OPERATIONS.md`、`examples/commerce_state.py` |
 | 安全门禁 | 新增的通用转接、访问控制和恢复场景已加入业务安全节点清单，产品化选择 69/69 通过 | `evals/business/safety.json`、`development/GATE.md` |
 | P6 工程候选 | candidate-r1 源码及干净副本各 1339/1339；wheel、sdist、最小安装、示例、审计和比较协议均通过 | `candidate-r1/verification/summary.json` |
 

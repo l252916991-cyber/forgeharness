@@ -39,7 +39,7 @@ sdist SHA256：`32bf96daa775ac5d226d97adbf199d953a4de9040a8077c4661d6db456e3491c
 
 最终证据：[候选摘要](candidate-r1/verification/summary.json)、[源码冻结](candidate-r1/source.json)、
 [发行物绑定](BINDINGS.json)、[分阶段状态](EXECUTION.json)、[审查/残余限制](AUDIT.md)。
-完整状态契约、当前实现与缺口见 [CLOUD_STATE](../../../docs/CLOUD_STATE.md)。
+完整状态契约、当前实现与缺口见 [CLOUD_STATE](../../../docs/guides/CLOUD_STATE.md)。
 
 ## 下一实施阶段
 

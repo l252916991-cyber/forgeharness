@@ -87,7 +87,7 @@ reconciliation, binding and single writer), `tests/unit/test_imports.py` (chain,
 staging retention, idempotent re-import, rejected validation), `tests/unit/test_retrieval.py`
 (version-bound candidates, withdrawal after indexing, scope restriction before
 scoring, stale-entry refusal), plus the S2 acceptance script in
-`docs/BUSINESS_PHASE_SCOPE.md`.
+`docs/archive/BUSINESS_PHASE_SCOPE.md`.
 
 Tenant sweeps never perform global orphan deletion. Active-task retention is conservative
 when task evidence is unavailable. Task results store references, not material bodies.

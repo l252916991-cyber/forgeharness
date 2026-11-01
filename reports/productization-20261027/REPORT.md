@@ -16,7 +16,7 @@ candidate-r1 源码侧和干净副本各 1339/1339，无失败、错误或跳过
 - 实现状态：`IMPLEMENTATION_STATUS.md`
 - 验收契约：`acceptance-contract.json`
 - 应用绑定：`application-bindings.json`
-- 本地运维：`docs/COMMERCE_OPERATIONS.md`
+- 本地运维：`docs/guides/COMMERCE_OPERATIONS.md`
 - 开发门禁：`development/GATE.md`
 - 候选资格：`candidate-r1/verification/summary.json`
 

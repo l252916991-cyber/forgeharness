@@ -9,7 +9,7 @@
 ## 📊 核心成果
 
 ### 1. 完整技术栈文档 ✅
-**文件**: `docs/TECH_STACK_DETAILED.md` (13,000+ 字)
+**文件**: `docs/archive/TECH_STACK_DETAILED.md` (13,000+ 字)
 
 **内容覆盖**:
 - ✅ 每个技术选择的详细理由
@@ -141,7 +141,7 @@ Comparison Matrix:
 - `src/forgeharness/langchain_impl/rag_chain.py` (350 行)
 - `src/forgeharness/langchain_impl/coding_agent.py` (450 行)
 - `src/forgeharness/langchain_impl/benchmark.py` (250 行)
-- `docs/LANGCHAIN_COMPARISON.md` (1,200+ 行)
+- `docs/guides/LANGCHAIN_COMPARISON.md` (1,200+ 行)
 
 **核心价值**:
 - ✅ 展示框架精通度（LCEL + LangGraph）

@@ -83,7 +83,7 @@ Compares both implementations on:
 - Code maintainability metrics
 
 ### 4. Comprehensive Documentation
-**File:** `docs/LANGCHAIN_COMPARISON.md` (1,200+ lines)
+**File:** `docs/guides/LANGCHAIN_COMPARISON.md` (1,200+ lines)
 
 Covers:
 - Architecture comparison table
@@ -408,7 +408,7 @@ Add section:
 ## Framework Comparison
 
 ForgeHarness includes both native and LangChain/LangGraph implementations.
-See [docs/LANGCHAIN_COMPARISON.md](docs/LANGCHAIN_COMPARISON.md) for details.
+See [docs/guides/LANGCHAIN_COMPARISON.md](docs/LANGCHAIN_COMPARISON.md) for details.
 
 Quick demos:
 - `uv run forge langchain-rag "Your question"`

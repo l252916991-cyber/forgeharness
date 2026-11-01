@@ -2,7 +2,7 @@
 
 - 日期：2026-10-28
 - 状态：已采纳首批实施边界；PostgreSQL 运行后端尚未实现/验收
-- 关联：[SaaS 总计划 v3](../SAAS_PRODUCTION_MASTER_PLAN_V3_2026-10-28.md)、[ADR 038](038-application-identity-boundary.md)、[状态事务契约](../SAAS_STATE_CONTRACT.md)
+- 关联：[SaaS 总计划 v3](../archive/SAAS_PRODUCTION_MASTER_PLAN_V3_2026-10-28.md)、[ADR 038](038-application-identity-boundary.md)、[状态事务契约](../guides/SAAS_STATE_CONTRACT.md)
 
 ## 背景
 

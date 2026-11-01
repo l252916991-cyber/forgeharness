@@ -1,6 +1,6 @@
 # 应用产品化执行记录：W0 + W1
 
-日期：2026-10-28。本轮执行的是 [应用产品化计划](../../docs/APPLICATION_PRODUCT_PLAN_2026-10-28.md)
+日期：2026-10-28。本轮执行的是 [应用产品化计划](../../docs/archive/APPLICATION_PRODUCT_PLAN_2026-10-28.md)
 的 W0（范围与验收）与 W1（身份、角色与对象级权限）。真实模型、工作台界面、工单写入、
 部署与试用仍属后续工作包，未在本轮落地。
 
@@ -8,13 +8,13 @@
 
 | 类型 | 路径 | 说明 |
 | --- | --- | --- |
-| 计划书 | `docs/APPLICATION_PRODUCT_PLAN_2026-10-28.md` | A/B 交付计划，C 阶段条件触发；不含求职材料部分 |
+| 计划书 | `docs/archive/APPLICATION_PRODUCT_PLAN_2026-10-28.md` | A/B 交付计划，C 阶段条件触发；不含求职材料部分 |
 | 范围 | `reports/application-20261028/SCOPE.md` | 应用级范围、外部依赖与表述上限 |
 | 权限矩阵 | `reports/application-20261028/permission-matrix.json` | 与代码常量一致的角色→权限、分离规则、负向用例 |
 | 验收契约 | `reports/application-20261028/acceptance-contract.json` | A/B 验收项与硬性安全阈值 |
 | 身份层 | `src/forgeharness/applications/commerce/identity.py` | 账户、成员、邀请、令牌、绑定、审计、对象级检查 |
 | HTTP 层 | `src/forgeharness/applications/commerce/identity_http.py` | 登录/退出/邀请/审批路由；owner 与 approver 依赖 |
-| 设计文档 | `docs/APPLICATION_IDENTITY.md` | 数据模型、流程、部署要求、已知限制 |
+| 设计文档 | `docs/guides/APPLICATION_IDENTITY.md` | 数据模型、流程、部署要求、已知限制 |
 | 决策记录 | `docs/adr/038-application-identity-boundary.md` | 为什么身份自持、为什么审批独立通道 |
 | 回归测试 | `tests/unit/test_commerce_identity.py` | 22 项 |
 

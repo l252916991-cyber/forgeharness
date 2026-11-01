@@ -31,7 +31,7 @@
 - [完整验证摘要](business-verification/summary.json)
 - [法律合成对照](legal-pilot-comparison.json)
 - [开发契约报告](business-development.json)
-- [运行说明与边界](../docs/BUSINESS_PILOTS.md)
+- [运行说明与边界](../docs/guides/BUSINESS_PILOTS.md)
 - [界面验证截图](commerce-console-final.jpg)
 
 启动模拟工作台：`uv run --no-sync python examples/commerce_demo.py --serve`，访问 `http://127.0.0.1:8765/commerce/console`。演示身份见运行说明。

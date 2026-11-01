@@ -159,5 +159,5 @@ then compares legacy owner/approval/invocation/receipt/outbox facts after upgrad
 The broader PostgreSQL migration suite must also retain checkpoint/evidence/budget
 history and fresh-install coverage. The maintenance flag is an operator assertion,
 not a distributed writer lock; downgrade DDL is absent. Those limitations are
-explicit in `docs/CLOUD_CONTROL_PLANE.md` and cannot be reported as proven cloud
+explicit in `docs/guides/CLOUD_CONTROL_PLANE.md` and cannot be reported as proven cloud
 recovery or a completed production SaaS.

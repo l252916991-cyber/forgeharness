@@ -40,7 +40,7 @@
       "severity": "medium",
       "status": "accepted",
       "title": "Filesystem confinement is not an OS sandbox",
-      "evidence": "docs/STATUS.md implemented limits; tests/unit/test_paths_repository.py",
+      "evidence": "docs/archive/STATUS.md implemented limits; tests/unit/test_paths_repository.py",
       "resolution": "Keep path and symlink checks plus exact write approval; require a disposable user-selected worktree and explicitly defer OS isolation."
     },
     {
@@ -48,7 +48,7 @@
       "severity": "medium",
       "status": "accepted",
       "title": "Trace redaction cannot classify arbitrary sensitive source text",
-      "evidence": "docs/STATUS.md trace limit; tests/unit/test_memory_trace.py",
+      "evidence": "docs/archive/STATUS.md trace limit; tests/unit/test_memory_trace.py",
       "resolution": "Redact credential-shaped keys and values, document the boundary, and keep trace storage local by default."
     },
     {
@@ -56,7 +56,7 @@
       "severity": "medium",
       "status": "accepted",
       "title": "Approval grants are not durable across CLI processes",
-      "evidence": "docs/STATUS.md approval limit; src/forgeharness/state/approval.py",
+      "evidence": "docs/archive/STATUS.md approval limit; src/forgeharness/state/approval.py",
       "resolution": "Persist run checkpoints but constrain approvals to the interactive process; defer a durable approval service rather than imply crash-safe approval resume."
     },
     {
@@ -120,7 +120,7 @@
       "severity": "high",
       "status": "open",
       "title": "Full-platform conversation/context/run lifecycle remains incomplete",
-      "evidence": "knowledge/conversation.py::_general_chat/_propose_memory; knowledge/service.py; docs/STATUS.md",
+      "evidence": "knowledge/conversation.py::_general_chat/_propose_memory; knowledge/service.py; docs/archive/STATUS.md",
       "resolution": "Integrate budgeted history/knowledge/memory context and durable summaries. Give chat/memory commands real run/trace records, persist session citation/task state, and add end-to-end tests before closing."
     },
     {
@@ -136,7 +136,7 @@
       "severity": "high",
       "status": "open",
       "title": "Full enhanced release lacks all required frozen integration/comparison evidence",
-      "evidence": "reports/clean-verification.json; reports/platform-verification.json; docs/STATUS.md; examples/",
+      "evidence": "reports/clean-verification.json; reports/platform-verification.json; docs/archive/STATUS.md; examples/",
       "resolution": "Offline clean-source checks passed. Complete independent same-data framework comparisons and in-flight worker failure/recovery, clarify or finish the PostgreSQL metadata migration, then rerun/bind all final live gates after final implementation freeze. No production HA claim."
     },
     {

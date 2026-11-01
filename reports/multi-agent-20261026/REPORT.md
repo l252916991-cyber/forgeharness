@@ -8,8 +8,8 @@
 权威证据：[冻结清单](candidate-r1/source.json)、
 [验证摘要](candidate-r1/verification/summary.json)、[完整执行日志](candidate-r1-run.log)。
 
-计划：[EXECUTION_PLAN_MULTI_AGENT](../../docs/EXECUTION_PLAN_MULTI_AGENT.md)。
-接入：[COLLABORATION](../../docs/COLLABORATION.md)。
+计划：[EXECUTION_PLAN_MULTI_AGENT](../../docs/archive/EXECUTION_PLAN_MULTI_AGENT.md)。
+接入：[COLLABORATION](../../docs/guides/COLLABORATION.md)。
 设计：[ADR 034](../../docs/adr/034-fixed-specialist-collaboration.md)。
 审查与风险：[AUDIT](AUDIT.md)。
 

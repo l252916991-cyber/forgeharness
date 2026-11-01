@@ -5,9 +5,9 @@
 
 本轮对应下一阶段计划的 S0＋S1（`reports/MODULAR_NEXT_PHASE_PLAN.md` 第 5、6 节）。
 S2–S5 未交付；S0 的范围、复用映射与验收脚本见
-[SESSION_PHASE_SCOPE.md](../SESSION_PHASE_SCOPE.md)，设计决定见
+[SESSION_PHASE_SCOPE.md](../archive/SESSION_PHASE_SCOPE.md)，设计决定见
 [ADR 014](../adr/014-durable-scoped-sessions.md)，公共契约见
-[SESSIONS.md](../SESSIONS.md)。
+[SESSIONS.md](../guides/SESSIONS.md)。
 
 ## 审查范围
 
@@ -21,7 +21,7 @@ S2–S5 未交付；S0 的范围、复用映射与验收脚本见
   已删身份不得复用，恢复不使用已删证据。
 * 测试：服务级契约、HTTP 身份再认证、验证驱动自身的回归，以及两条业务会话示例。
 * 依赖与构建：无新增运行依赖；最小 wheel 安装不含 Web/框架 extras；sdist 白名单。
-* 文档：以 `docs/STATUS.md` 为实现/计划边界，并修正 S1 引入的文档矛盾。
+* 文档：以 `docs/archive/STATUS.md` 为实现/计划边界，并修正 S1 引入的文档矛盾。
 
 ## 发现分类
 
@@ -34,7 +34,7 @@ S2–S5 未交付；S0 的范围、复用映射与验收脚本见
 | SESS-005 | medium | fixed | 新增会话代码从未格式化和 lint（24 条发现、4 个文件需重排），且 `benchmarks/` 不是可导入包，导致验证测试模块连收集都失败；补齐格式化、lint、包声明与 pytest `pythonpath` |
 | SESS-006 | low | fixed | README 与范围文件把 `SessionService` 记为公开 SDK，但 `forgeharness.sdk` 未导出；按“增量导出”约定导出会话类型（`session_router` 仍只在子模块，避免基础 SDK 依赖 Web） |
 | SESS-007 | low | fixed | 架构测试的可选适配器豁免若按目录扩展，会顺带放过整个 `sdk` 包；改为逐模块豁免，并新增“适配器必须声明自身平台依赖”和“`import forgeharness` 不加载可选平台包”的断言 |
-| SESS-008 | low | fixed | `docs/BUSINESS_MODULES.md` 仍称会话未迁移为通用模块，`docs/SDK_GUIDE.md` 仍以 0.3.0 为适用发行且只记录 `control_router`；更新为 0.4.0 候选口径并补会话入口与 schema 版本 |
+| SESS-008 | low | fixed | `docs/guides/BUSINESS_MODULES.md` 仍称会话未迁移为通用模块，`docs/SDK_GUIDE.md` 仍以 0.3.0 为适用发行且只记录 `control_router`；更新为 0.4.0 候选口径并补会话入口与 schema 版本 |
 | SESS-009 | high | fixed | 工作流会话里宿主适配器抛错时，轮次只停在 `starting`：既不记录工作流已持久化的挂起状态与错误，也不说明原因，后续只能靠删除轮次恢复；改为按工作流自身的持久状态如实记录（含 `node_control_error`），并用原轮次 `resume` 继续，`test_workflow_adapter_failure_does_not_lose_durable_state` |
 | SESS-010 | medium | fixed | sdist 会带上打包工具默认加入的 `.gitignore`，而它不在冻结身份里，于是“sdist 每个成员都必须已冻结”的门禁永远无法通过；把 `.gitignore` 纳入内容寻址身份（缺失文件不参与摘要，删除仍会改变身份），保持“sdist 只含已审查输入”的规则不放宽 |
 

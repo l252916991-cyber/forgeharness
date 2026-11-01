@@ -6,7 +6,7 @@ from pathlib import Path
 
 def test_documented_quickstart_runs_and_reopens_from_another_process(tmp_path):
     root = Path(__file__).resolve().parents[2]
-    markdown = (root / "docs/QUICKSTART_READONLY.md").read_text()
+    markdown = (root / "docs/guides/QUICKSTART_READONLY.md").read_text()
     code = markdown.split("```python\n", 1)[1].split("```", 1)[0]
     script = tmp_path / "demo.py"
     script.write_text(code)

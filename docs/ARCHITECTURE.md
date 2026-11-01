@@ -88,7 +88,7 @@ composition selects concrete adapters.
 
 - Modular monolith before service decomposition.
 - SQLite event/checkpoint store for the local release, with a protocol that permits PostgreSQL later.
-- Direct runtime implementation for interview visibility and control.
+- Direct runtime implementation, so every loop transition stays visible and controllable.
 - User-provided disposable Git worktree for real runs; temporary Git repositories support keyless tests. OS-level sandboxing remains planned.
 
 ## R&D knowledge-agent extension

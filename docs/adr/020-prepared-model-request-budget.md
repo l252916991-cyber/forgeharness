@@ -49,4 +49,4 @@ transport body. Preparation has no authorized side effects or network calls.
 - Legacy standalone RAG/chat and external provider-internal additions are outside
   the declared scope. No runtime model/endpoint auto-detection or new dependency.
 
-Details and configuration: [REQUEST_PREFLIGHT](../REQUEST_PREFLIGHT.md).
+Details and configuration: [REQUEST_PREFLIGHT](../guides/REQUEST_PREFLIGHT.md).

@@ -14,7 +14,7 @@
 | 当前授权与异步执行 | `cloud/control.py`、`worker.py`；修改 `store.py`、`calls.py`、`execution_calls.py`、`execution_state.py`、`runtime.py` | 原子受理绑定、发送前权威重验、串行 worker、独立批准/拒绝、分页与额度限制；已发送事实继续结算；锁等待后使用新的 checkpoint 快照。 |
 | HTTP 与浏览器工作台 | `cloud/control_api.py`、`workbench.py`、`cloud/assets/workbench.{html,js,css}` | 登录、邀请、组织切换、任务与审批、成员和授权管理；严格输入、Cookie/CSRF/Origin/Host、最小 DTO 与错误归一化。敏感表单显式同源 POST，JS 禁用或资源加载失败时安全拒绝且秘密不进入 URL。 |
 | 回归与独立消费者 | `evals/saas_postgres/tests/test_control_{identity,runtime,snapshot}.py`、`evals/saas_control_plane/`、`tests/unit/test_control_api.py`、`test_control_plane_verification.py`；修改迁移测试 | 真实 PG、真实 HTTP、锁等待快照竞态、安装 wheel、双应用及真实浏览器验证；包含 disabled-JS/blocked-JS 原生表单安全回归。源码与干净副本完整门禁由独立报告记录。 |
-| 架构合同与能力边界 | `docs/adr/046-invitation-control-plane.md`、`docs/CLOUD_CONTROL_PLANE.md`；修改 `README.md`、`docs/CURRENT_CAPABILITIES.md`、`docs/STATUS.md` | 权限矩阵、API/部署说明、已实现与后续范围、审批有效期与其他接受风险。 |
+| 架构合同与能力边界 | `docs/adr/046-invitation-control-plane.md`、`docs/guides/CLOUD_CONTROL_PLANE.md`；修改 `README.md`、`docs/CURRENT_CAPABILITIES.md`、`docs/archive/STATUS.md` | 权限矩阵、API/部署说明、已实现与后续范围、审批有效期与其他接受风险。 |
 | 版本、发行与质量接线 | `pyproject.toml`、`uv.lock`、`Makefile`、`benchmarks/control_plane_{postgres,verification}.py`、`benchmarks/saas_postgres.py`、comparison 驱动与新协议 | 0.13.0 候选构建、迁移/资产打包、完整验证驱动与新协议绑定。 |
 | 终止/拒绝候选的发行保护 | 修改 `benchmarks/release_artifacts.py` 与 `tests/unit/test_release_artifacts.py` | 发行检查显式拒绝存在 `ABORTED.json` 或 `REJECTED.json` 的候选；不依赖旧通过摘要覆盖终止/拒绝事实，包含回归。 |
 

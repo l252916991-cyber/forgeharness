@@ -1,8 +1,8 @@
 # ADR 038：应用身份边界与审批独立通道
 
 - 状态：已采纳（2026-10-28）
-- 关联：[应用身份与授权层](../APPLICATION_IDENTITY.md)、
-  [应用产品化计划](../APPLICATION_PRODUCT_PLAN_2026-10-28.md)、
+- 关联：[应用身份与授权层](../guides/APPLICATION_IDENTITY.md)、
+  [应用产品化计划](../archive/APPLICATION_PRODUCT_PLAN_2026-10-28.md)、
   [ADR 036](036-scoped-model-invocation-identity.md)、[ADR 037](037-general-commerce-handoff.md)
 
 ## 背景
@@ -47,7 +47,7 @@ SDK 的 `can_approve` 有 `requester.actor.id != owner.actor.id` 约束，但前
 ## 后果
 
 - 应用必须自行承担密码策略、令牌过期、登录节流与审计；已在
-  `docs/APPLICATION_IDENTITY.md` 记录限制（无 MFA、无找回、单工作空间绑定、SQLite 单 writer）。
+  `docs/guides/APPLICATION_IDENTITY.md` 记录限制（无 MFA、无找回、单工作空间绑定、SQLite 单 writer）。
 - 备份清单必须包含身份库，否则恢复后账户与审计不一致。
 - 引用应用只能用 `forgeharness.sdk` 公共契约；身份层因此不依赖 `forgeharness.domain` 或
   `forgeharness.state` 内部模块（由 `test_sdk_architecture.py` 强制）。

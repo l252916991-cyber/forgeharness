@@ -1,6 +1,6 @@
 # ADR 009: Tool Invocation Journal and Recovery Semantics
 
-Status: accepted. Implemented in M10-A (see [`M10A_INVOCATION_JOURNAL.md`](../M10A_INVOCATION_JOURNAL.md));
+Status: accepted. Implemented in M10-A (see [`M10A_INVOCATION_JOURNAL.md`](../guides/M10A_INVOCATION_JOURNAL.md));
 the retry half of the recovery matrix is deferred to M10-B by design.
 
 ## Context

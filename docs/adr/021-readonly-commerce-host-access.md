@@ -39,4 +39,4 @@ or semantic quality benchmark. The callback's implementation is not fingerprinte
 hosts must version app/policy when they change its semantics, as for existing policy
 and model implementations.
 
-See [COMMERCE_READONLY](../COMMERCE_READONLY.md).
+See [COMMERCE_READONLY](../guides/COMMERCE_READONLY.md).

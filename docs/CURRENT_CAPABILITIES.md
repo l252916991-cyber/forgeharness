@@ -1,25 +1,25 @@
 # 当前能力、证据与宿主兼容矩阵
 
-2026-11-01；0.13.0 新增[通用邀请制内部 Alpha 控制面](CLOUD_CONTROL_PLANE.md)：
+2026-11-01；0.13.0 新增[通用邀请制内部 Alpha 控制面](guides/CLOUD_CONTROL_PLANE.md)：
 PG 账户及组织/工作空间/部署授权、受理及发送前重验、异步 HTTP、独立串行 worker、
 持久审批批准/拒绝和基础浏览器工作台。工程资格只读取[本轮冻结报告](../reports/saas/20261101-control-plane/REPORT.md)。
 生产 IdP/MFA、人民币月额度、多 worker 容量、公网部署、备份/SLO 与真实业务仍待独立验收。
 
-0.12.0 历史候选已实现[PG 托管串行执行](CLOUD_HOSTED_EXECUTION.md)，原工程资格读取[历史报告](../reports/saas/20261030-hosted/REPORT.md)。
+0.12.0 历史候选已实现[PG 托管串行执行](guides/CLOUD_HOSTED_EXECUTION.md)，原工程资格读取[历史报告](../reports/saas/20261030-hosted/REPORT.md)。
 
-2026-10-29；最近已验收冻结 0.11.0 / API v1，新增独立 [PG 状态首切片](CLOUD_STATE.md)。
+2026-10-29；最近已验收冻结 0.11.0 / API v1，新增独立 [PG 状态首切片](guides/CLOUD_STATE.md)。
 资格见 `reports/saas/20261029-state/REPORT.md`；SDK 接线、通用平台控制面及生产运营尚未完成。
 
 2026-10-28；历史源码候选 0.10.0 / API v1，新增邀请制本地工作台与当前账户授权复核；
-执行和资格见 `reports/saas/20261028-batch1/REPORT.md`，使用见[工作台指南](COMMERCE_WORKBENCH.md)。
+执行和资格见 `reports/saas/20261028-batch1/REPORT.md`，使用见[工作台指南](guides/COMMERCE_WORKBENCH.md)。
 PG SDK 后端、集群调度、SaaS 收费和真实业务仍未验收。下述证据保留各自版本身份。
 
 2026-10-27；历史 SDK 源码候选 0.9.2 / API v1。新增电商参考应用通用人工转接、
 本地备份恢复与运维边界，执行状态见
 `reports/productization-20261027/REPORT.md`；真实宿主与业务资格仍未验收。0.9.1 的有界模型并行接入见
-[并行说明](PARALLEL_EXECUTION.md)，其历史候选资格与性能证据见
+[并行说明](guides/PARALLEL_EXECUTION.md)，其历史候选资格与性能证据见
 `reports/parallel-execution-20261027/REPORT.md`。0.8.6 固定专家交付的历史证据保留在
-`reports/multi-agent-20261026/REPORT.md`，接入见 [协作说明](COLLABORATION.md)。
+`reports/multi-agent-20261026/REPORT.md`，接入见 [协作说明](guides/COLLABORATION.md)。
 下述 0.8.5 与 0.8.3 数字保留各自历史身份，不认证新候选。
 
 0.8.5 显式图能力沿用 0.8.3，新增每次 kernel 模型调用的工具目录控制、实验/演练工具、
@@ -43,10 +43,10 @@ PG SDK 后端、集群调度、SaaS 收费和真实业务仍未验收。下述�
 | 工具权限/审批内容绑定 | 当前授权、完整 run/graph/model/resource/budget 身份重验 | R2 active identity、revoked approver、zero-step 回归 | 宿主身份回调不是内置 IAM；路径限制不是 OS sandbox |
 | 三组策略比较 | A ReAct、B 固定流程、C planner/worker/reviewer 的开发诊断实验工具已实现 | `benchmarks/strategy_comparison.py`、`tests/unit/test_strategy_comparison.py` | 最新真实模型状态见执行报告；短合成题不是代码修复或业务终评 |
 | 原生框架完整比较 | 未完成 | 历史 33 项共同宿主组合全部通过 | `native_full_fault_comparison_complete=false`、`core_advantage_proven=false` |
-| 独立接入/学习 | 文档和可执行自测已准备 | [只读 Quickstart](QUICKSTART_READONLY.md)；`test_readonly_quickstart.py` | 真人首次接入时间、无 AI 定位记录待本人完成 |
+| 独立接入/学习 | 文档和可执行自测已准备 | [只读 Quickstart](guides/QUICKSTART_READONLY.md)；`test_readonly_quickstart.py` | 真人首次接入时间、无 AI 定位记录待本人完成 |
 
 实现文件前缀均为 `src/forgeharness/`。历史文档里 F1c-2 “待实现”描述只适用于当时的
-one-shot 路径；R2 后续实现不应据此重复开发。`docs/CONFORMANCE.md` 是参考应用子矩阵，
+one-shot 路径；R2 后续实现不应据此重复开发。`docs/guides/CONFORMANCE.md` 是参考应用子矩阵，
 不是 SDK 能力总表。
 
 | 宿主 | 绑定 wheel / SHA-256 | API / 使用路径 | 兼容性边界 |

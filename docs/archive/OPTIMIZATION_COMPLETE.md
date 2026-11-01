@@ -12,7 +12,7 @@
 
 ### 1. 技术栈完整文档 ✅
 
-**文件**: `docs/TECH_STACK_DETAILED.md` (13,000+ 字)
+**文件**: `docs/archive/TECH_STACK_DETAILED.md` (13,000+ 字)
 
 **包含内容**:
 - ✅ 每个技术的选择理由（3+ 个理由）
@@ -158,7 +158,7 @@ open reports/comparison-report.html
 ### 5. 完整的面试文档 ✅
 
 #### A. 技术栈详解
-**文件**: `docs/TECH_STACK_DETAILED.md` (13,000+ 字)
+**文件**: `docs/archive/TECH_STACK_DETAILED.md` (13,000+ 字)
 
 **包含**:
 - ✅ 每个技术的 3+ 选择理由
@@ -167,7 +167,7 @@ open reports/comparison-report.html
 - ✅ 面试问答话术模板
 
 #### B. 框架对比分析
-**文件**: `docs/LANGCHAIN_COMPARISON.md` (1,200+ 行)
+**文件**: `docs/guides/LANGCHAIN_COMPARISON.md` (1,200+ 行)
 
 **包含**:
 - ✅ 架构对比表格

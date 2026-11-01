@@ -21,7 +21,7 @@
 
 新增25、修改18、删除0，共43条变更路径；冻结源码609文件。因工作区无Git元数据，采用完整文件摘要清单固定checkout-equivalent状态。见[变更清单](CHANGES.md)、[逐文件摘要](CHANGES.json)和[历史冻结/当前源码复核](CHANGES-verification.json)。
 
-接入与升级指南：[CLOUD_CONTROL_PLANE](../../../docs/CLOUD_CONTROL_PLANE.md)；
+接入与升级指南：[CLOUD_CONTROL_PLANE](../../../docs/guides/CLOUD_CONTROL_PLANE.md)；
 设计：[ADR046](../../../docs/adr/046-invitation-control-plane.md)。
 
 ## 最终候选与验证

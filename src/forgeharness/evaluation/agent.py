@@ -1,7 +1,7 @@
 """Keyless Agent Benchmark: frozen orchestration metrics over a fixed case set.
 
 This module owns the metric definitions for the next-phase Agent Benchmark
-(see `docs/NEXT_PHASE_PLAN.md`). Three separations are deliberate:
+(see `docs/archive/NEXT_PHASE_PLAN.md`). Three separations are deliberate:
 
 * **Benchmark cases vs scorer probes.** Cases carry ``grade: "pass" | "fail"``.
   Probes are deliberately-broken samples used only to prove the scorer detects
@@ -693,7 +693,7 @@ NATURAL_MAX_OUTPUT_TOKENS = 40_000
 # planner decision is spent from this ceiling, not added on top of it.
 #
 # The step ceiling is **derived, not chosen**: the frozen rule
-# (docs/M8C_CALIBRATION_RULES.md) takes the pooled dev-natural P75 of
+# (docs/archive/M8C_CALIBRATION_RULES.md) takes the pooled dev-natural P75 of
 # `total_run_steps`, rounds up, and requires that at least 10% of runs actually bind
 # (`constraint_binding`). Hand-picking a number would make the threshold
 # unfalsifiable. Re-derived after the M10-B regression: pooled P75 = 4.00 -> 4,

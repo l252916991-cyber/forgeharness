@@ -5,7 +5,7 @@
 初始状态（2026-10-14）：完成计划审查，按第 5、6 节执行首轮 S0＋S1。
 当前状态（2026-10-16）：S2–S5 的本地模拟候选已通过工程验收；真实业务接入、自然语言澄清/通用工单与独立专业终评仍未完成。详见 [执行状态](BUSINESS_EXECUTION_STATUS.md) 和 [候选审计](business-release-audit.json)。
 本文件不表示下述功能已经开发或通过验收。首轮范围与补充契约见
-[S0＋S1 范围与验收](../docs/SESSION_PHASE_SCOPE.md) 和
+[S0＋S1 范围与验收](../docs/archive/SESSION_PHASE_SCOPE.md) 和
 [ADR 014](../docs/adr/014-durable-scoped-sessions.md)，实际放行以新候选审计为准。
 
 ## 1. 下一阶段目标
@@ -196,9 +196,9 @@ flowchart TB
 
 ## 8. 依据与交付边界
 
-- [0.3.0 模块说明](../docs/BUSINESS_MODULES.md)
+- [0.3.0 模块说明](../docs/guides/BUSINESS_MODULES.md)
 - [0.3.0 审计报告](modular-release-audit.json)
-- [电商完整业务规划](../docs/ECOMMERCE_AGENT_PLATFORM_PLAN.md)
-- [历史框架演进规划](../docs/FRAMEWORK_EVOLUTION_PLAN.md)
+- [电商完整业务规划](../docs/archive/ECOMMERCE_AGENT_PLATFORM_PLAN.md)
+- [历史框架演进规划](../docs/archive/FRAMEWORK_EVOLUTION_PLAN.md)
 
 本计划从 0.3.0 的已验证状态继续，不重复执行已完成的框架首版建设。它是单独的规划产物，不更改冻结源码或沿用旧报告为未来版本背书。实施时对其他项目仓库的修改范围、真实业务接口和数据条件分别明确。

@@ -16,14 +16,14 @@ from forgeharness.evaluation.control import ControlManifest, ControlReport
 REQUIRED_DOCUMENTS = (
     "README.md",
     "LICENSE",
-    "docs/PRODUCT_SPEC.md",
+    "docs/archive/PRODUCT_SPEC.md",
     "docs/ARCHITECTURE.md",
-    "docs/DELIVERY_PLAN.md",
+    "docs/archive/DELIVERY_PLAN.md",
     "docs/EVALUATION.md",
-    "docs/STATUS.md",
+    "docs/archive/STATUS.md",
     "docs/REFERENCES.md",
-    "docs/REVIEW.md",
-    "docs/NEXT_PHASE_PLAN.md",
+    "docs/guides/REVIEW.md",
+    "docs/archive/NEXT_PHASE_PLAN.md",
 )
 
 REQUIRED_EVIDENCE = (

@@ -43,8 +43,8 @@
 uv run --no-sync python examples/commerce_readonly_demo.py
 ```
 
-接入说明见 [COMMERCE_READONLY](../docs/COMMERCE_READONLY.md)，预算配置和边界见
-[REQUEST_PREFLIGHT](../docs/REQUEST_PREFLIGHT.md)。架构与审查记录为 ADR 020/021 和
+接入说明见 [COMMERCE_READONLY](../docs/guides/COMMERCE_READONLY.md)，预算配置和边界见
+[REQUEST_PREFLIGHT](../docs/guides/REQUEST_PREFLIGHT.md)。架构与审查记录为 ADR 020/021 和
 [REQUEST_PREFLIGHT_AUDIT](../docs/review/REQUEST_PREFLIGHT_AUDIT.md)。
 
 同一源码复验：

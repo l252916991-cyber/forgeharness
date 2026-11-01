@@ -3,7 +3,7 @@
 All notable changes to ForgeHarness are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 [SemVer](https://semver.org/). The authoritative implemented/planned boundary
-remains `docs/STATUS.md`.
+remains `docs/archive/STATUS.md`.
 
 ## [Unreleased]
 
@@ -11,7 +11,7 @@ remains `docs/STATUS.md`.
   directory and a freeze-only mode, preserve existing manifests on source drift,
   and align CI with the new framework candidate. Reconcile whole-tree formatting,
   SDK/version and replay documentation, and distinguish stale pytest nodeids from
-  a freshly collected test count. See `docs/BASELINE_VERIFICATION.md`.
+  a freshly collected test count. See `docs/archive/BASELINE_VERIFICATION.md`.
 - Add `Capability` and `compose_application` to compose applications from ordered,
   trusted contributions of tools, instructions and context providers. Policy, verifier,
   budget and authorization remain explicit application inputs; duplicate capability/tool
@@ -37,7 +37,7 @@ remains `docs/STATUS.md`.
   with fail-closed tests for write tools and approval-required calls.
 - Add application-level conformance/take-apart tests for the legal and commerce reference
   apps (identity, unique executable tools, stable order, policy/verifier presence,
-  wrong-binding rejection) and publish the current gaps in `docs/CONFORMANCE.md`.
+  wrong-binding rejection) and publish the current gaps in `docs/guides/CONFORMANCE.md`.
 - Add a shared runtime conformance matrix for legal DAG and commerce: successful
   run/trace/inspect, verifier rejection, wrong application binding and missing-resource
   fail-closed behavior.
@@ -85,7 +85,7 @@ remains `docs/STATUS.md`.
   a per-session single writer; crash reconciliation that never reports an
   unconfirmed turn as success; deletion tombstones that retire an identity; and
   delegated approval with a separately authenticated, single-use grant. Export the
-  session types from `forgeharness.sdk`; document the contract in `docs/SESSIONS.md`.
+  session types from `forgeharness.sdk`; document the contract in `docs/guides/SESSIONS.md`.
 - Add an optional session HTTP router (`session_router`), which imports FastAPI
   itself so the base SDK and wheel stay web-free, and a synthetic legal/commerce
   client (`examples/session_demo.py`) covering restart, replay, revocation,
@@ -215,7 +215,7 @@ remains `docs/STATUS.md`.
 - `RunBudget.max_protocol_violations` bounds how many recoverable protocol
   violations may be fed back before a run fails with
   `repeated_protocol_violation`.
-- Live Agent Benchmark profiles (M8-B of `docs/NEXT_PHASE_PLAN.md`):
+- Live Agent Benchmark profiles (M8-B of `docs/archive/NEXT_PHASE_PLAN.md`):
   `forge eval-agent --profile equal|natural --model <name>` runs a real model
   through the same evaluator, projection and grading contract as the keyless
   profile. `equal` shares one whole-run budget across arms with no planner
@@ -224,7 +224,7 @@ remains `docs/STATUS.md`.
   `measurement_valid` independently of model quality.
 - `--limit` runs the first N cases; such a run is reported with
   `complete_split: false` and can never be counted as a measurement.
-- Bad Case capture and diagnosis (M9-B1 of `docs/NEXT_PHASE_PLAN.md`):
+- Bad Case capture and diagnosis (M9-B1 of `docs/archive/NEXT_PHASE_PLAN.md`):
   `forgeharness.evaluation.bad_case` defines a `BadCase` record bound to its
   origin (`revision`/`profile`/`arm`/`model`/`sample_id`) and to its evidence
   (`trace_hash`, and the raw hash-chained trace persisted under
@@ -323,7 +323,7 @@ remains `docs/STATUS.md`.
   `EXHAUSTED` outcome under a per-case budget that live profiles deliberately
   override; both are unsatisfiable or meaningless against a real model, so
   including them only diluted the comparison with always-failing cases.
-- Trace step projection (M9-A of `docs/NEXT_PHASE_PLAN.md`):
+- Trace step projection (M9-A of `docs/archive/NEXT_PHASE_PLAN.md`):
   `forgeharness.observability.steps` turns a verified hash-chained trace into
   ordered step records, and `forge trace-steps <task-id>` renders them. It is the
   project's single trace→step projection — the agent evaluator now reads its step
@@ -407,5 +407,5 @@ remains `docs/STATUS.md`.
 
 - Process/status summary documents duplicated across the repository root and
   `docs/` were consolidated; superseded material now lives under
-  `docs/archive/`. `docs/STATUS.md` remains the single source of truth for the
+  `docs/archive/`. `docs/archive/STATUS.md` remains the single source of truth for the
   implemented/planned boundary.
