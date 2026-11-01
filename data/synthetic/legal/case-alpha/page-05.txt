@@ -1,0 +1,9 @@
+Synthetic invoice (fixture): the billing document below is invented and bills no real goods.
+
+Invoice INV-2026-014 was issued on 2026-04-14 by Party B (synthetic) and addressed to Party A (synthetic) under matter SYN-2026-014.
+
+The invoice lists a single line for synthetic component type C-12 at a unit price of 90.00 SCU per unit, giving a net amount of 21600.00 SCU for the consignment. A handling charge of 100.00 SCU is then added, so the invoice totals 21700.00 SCU, payable within thirty days of the issue date. The stated currency is the synthetic credit unit (SCU).
+
+The invoice carries the reference "consignment K-88" and a footnote: "part payment already received to be credited on request". It does not state which amount has already been received, and it does not attach a statement of account.
+
+Nothing on the invoice refers to Clause 4.5 of the contract or to any late-delivery credit. The payment record held by Party A (synthetic) shows a different figure for the same consignment, and no document in this fixture reconciles the two amounts.

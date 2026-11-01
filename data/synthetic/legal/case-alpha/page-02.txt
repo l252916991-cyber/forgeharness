@@ -1,0 +1,11 @@
+Synthetic contract excerpt (fixture): the clause text below is invented for this corpus and quotes no real agreement.
+
+The excerpt is taken from contract SYN-2026-014-C between Party A (synthetic) and Party B (synthetic). Only the clauses about delivery and value are reproduced here.
+
+Clause 4.2 (Delivery): "The supplier shall complete delivery of the consignment covered by Schedule 1 no later than 2026-04-05. Time of delivery is of the essence for the purposes of this clause."
+
+Clause 4.5 (Late delivery): "If delivery is completed after the date stated in Clause 4.2, the customer may claim a credit equal to one half of one percent of the contract value for each whole day of delay, up to a ceiling of five percent."
+
+Clause 2.1 (Contract value): "The parties agree a contract value of 46000.00 SCU, exclusive of any credit claimed under Clause 4.5. All amounts are stated in synthetic credit units (SCU)."
+
+Clause 9.3 (Notices): "Notices must be given in writing and are treated as received on the next business day."

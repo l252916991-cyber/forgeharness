@@ -110,7 +110,7 @@ A failing sample is captured automatically as a `BadCase` record under `reports/
 
 **No-progress is a strict claim.** It is reported only when a tool is called with an identical name, identical canonicalised arguments, **and** an identical observation for every repeat. Repeating a call whose results differ may be legitimate progress, so identical arguments alone are never enough. This rule already prevented one wrong classification: `retr-find-then-read` looks like repeated searching but its queries differ (`retry policy` / `retry` / `max_retries`), so it is model quality, not a stall. `repeated_call_signature`, `repeat_count`, and `observation_hashes` are recorded so a later fix can be verified against numbers rather than by reading a trace by eye.
 
-**Replay is not implemented.** `replay_mode: recorded_model_candidate` declares a candidate channel, and `replay_eligibility` states what a recorded replay could reproduce — neither asserts a capability. When it lands, a recorded replay will hold model choices constant to prove a *harness* fix, while a prompt or planner change will require a live re-evaluation; the two are never interchangeable.
+**Limited recorded-model replay is implemented.** `evaluation/replay.py` provides `RecordedModel` for frozen failure samples, with regression evidence in `tests/unit/test_replay.py` and the M9-B3 reports. This holds recorded model choices constant to test a harness fix; it is not arbitrary run replay or evidence of prompt/planner improvement. Older `recorded_model_candidate` report labels describe their historical scope. Prompt or planner quality changes still require live re-evaluation.
 
 ## Final release gate
 

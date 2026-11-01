@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "faq-11",
+  "tenant_id": "shop-a",
+  "question": "How long is the warranty on synthetic electrical items?",
+  "answer": "Synthetic answer: electrical items carry a 12 month warranty from the delivery date.",
+  "category": "warranty",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:warranty-electrical-period"
+    }
+  ],
+  "conflict_with": "faq-12"
+}

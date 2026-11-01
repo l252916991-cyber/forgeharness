@@ -10,7 +10,9 @@ Concurrency is handled by the stores that already own it rather than by a lease:
 the journal's ``UNIQUE (run_id, logical_call_id)`` refuses a second claim of the
 same logical call, and the checkpoint's optimistic revision refuses a second write.
 A recovery that loses either race is reported as `conflict` and stops, so two
-processes starting at once cannot both execute the same side effect.
+processes with the same stopped-worker snapshot cannot both claim that snapshot.
+This low-level coordinator has no active-worker lease; SDK operations add a local
+file lock. Never recover while a legacy worker is still executing.
 """
 
 from __future__ import annotations

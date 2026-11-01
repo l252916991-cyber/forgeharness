@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-07",
+  "tenant_id": "shop-a",
+  "question": "Who pays for return shipping?",
+  "answer": "Synthetic answer: the customer pays return shipping unless the item arrived faulty, in which case shop-a issues a prepaid label.",
+  "category": "returns",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:returns-shipping-cost"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+Synthetic fixture: this page is artificial test data for a read-only pilot and describes no real person, company, or matter.
+
+Matter SYN-2026-014 concerns a payment dispute between Party A (synthetic) and Party B (synthetic). Both labels are invented for this fixture and stand for no real organisation.
+
+Payment record PR-2026-0147, kept by the finance desk of Party A (synthetic), states that a payment of 18400.00 SCU was transferred on 2026-03-12. The stated currency is the synthetic credit unit (SCU), a fictional unit used only inside this fixture. The record names the remitting account holder as Party B (synthetic) and the receiving account holder as Party A (synthetic), and it carries the free-text reference "part settlement, goods consignment K-88".
+
+The record does not say which invoice the payment was meant to settle, and it does not say whether any further amount remained due. A margin note added later by the finance desk reads "allocated against the oldest open item". The finance desk has produced no bank statement, and no statement number is quoted anywhere in this fixture.

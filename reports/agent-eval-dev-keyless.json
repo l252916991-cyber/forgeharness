@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "created_at": "2026-09-17T13:59:47.679724Z",
-  "revision": "1be5f9219185978b9d9b981ede10f2ad57130881",
+  "created_at": "2026-10-30T13:53:15.111554Z",
+  "revision": "uncommitted",
   "profile": "keyless",
   "model_name": "scripted",
   "model_parameters": {},
   "split": "dev",
   "observation_contract_version": 1,
-  "recovery_semantics_version": 2,
+  "recovery_semantics_version": 3,
   "benchmark_version": 1,
   "budget_profile_version": 2,
   "token_source": "synthetic",
@@ -189,6 +189,18 @@
         "max_output_tokens": 20000
       },
       "long-alternate-list-read": {
+        "max_steps": 12,
+        "max_tool_calls": 20,
+        "max_input_tokens": 100000,
+        "max_output_tokens": 20000
+      },
+      "long-todo-gate-cleared": {
+        "max_steps": 12,
+        "max_tool_calls": 20,
+        "max_input_tokens": 100000,
+        "max_output_tokens": 20000
+      },
+      "long-todo-unfinished-fails": {
         "max_steps": 12,
         "max_tool_calls": 20,
         "max_input_tokens": 100000,
@@ -466,6 +478,18 @@
         "max_input_tokens": 100000,
         "max_output_tokens": 20000
       },
+      "long-todo-gate-cleared": {
+        "max_steps": 13,
+        "max_tool_calls": 20,
+        "max_input_tokens": 100000,
+        "max_output_tokens": 20000
+      },
+      "long-todo-unfinished-fails": {
+        "max_steps": 13,
+        "max_tool_calls": 20,
+        "max_input_tokens": 100000,
+        "max_output_tokens": 20000
+      },
       "notool-answer-only": {
         "max_steps": 13,
         "max_tool_calls": 20,
@@ -562,14 +586,14 @@
   "constraint_effective": null,
   "constrained_run_share": null,
   "complete_split": true,
-  "wall_time_ms": 394.635,
-  "manifest_sha256": "016cb2824bb71ad1f45b2d79ae1e6da711ec84756906034cfb41ed048850c554",
+  "wall_time_ms": 546.308,
+  "manifest_sha256": "2561b46cf29d76791e2e94be68a423850a9eb34204cf1a91ccefecd00bc734eb",
   "holdout_case_ids_hash": "9090918f40173489ca92daf4b3d7e62a987f5a2d4cdadf6e9d4f6d37db2dd16c",
   "manifest_split_counts": {
-    "dev": 45,
+    "dev": 47,
     "holdout": 16
   },
-  "benchmark_cases": 38,
+  "benchmark_cases": 40,
   "scorer_probes": 7,
   "grading_agreement": 1.0,
   "measurement_valid": true,
@@ -583,8 +607,8 @@
   "arms": [
     {
       "strategy": "react",
-      "benchmark_cases": 38,
-      "benchmark_pass": 38,
+      "benchmark_cases": 40,
+      "benchmark_pass": 40,
       "mean_pass_rate": 1.0,
       "scorer_probes": 7,
       "scorer_probes_detected": 7,
@@ -594,19 +618,19 @@
       "tool_set_accuracy": 1.0,
       "tool_sequence_match": 1.0,
       "argument_accuracy": 1.0,
-      "mean_steps": 2.8421052631578947,
-      "mean_logical_tool_calls": 1.9210526315789473,
+      "mean_steps": 2.95,
+      "mean_logical_tool_calls": 1.925,
       "diagnostics": {
         "synthetic_token_usage": true,
-        "mean_input_tokens": 62.36842105263158,
-        "mean_output_tokens": 14.210526315789474,
-        "mean_tool_attempts": 1.9210526315789473
+        "mean_input_tokens": 66.75,
+        "mean_output_tokens": 14.75,
+        "mean_tool_attempts": 1.925
       }
     },
     {
       "strategy": "plan_execute",
-      "benchmark_cases": 38,
-      "benchmark_pass": 38,
+      "benchmark_cases": 40,
+      "benchmark_pass": 40,
       "mean_pass_rate": 1.0,
       "scorer_probes": 7,
       "scorer_probes_detected": 7,
@@ -616,13 +640,13 @@
       "tool_set_accuracy": 1.0,
       "tool_sequence_match": 1.0,
       "argument_accuracy": 1.0,
-      "mean_steps": 3.8421052631578947,
-      "mean_logical_tool_calls": 1.9210526315789473,
+      "mean_steps": 3.95,
+      "mean_logical_tool_calls": 1.925,
       "diagnostics": {
         "synthetic_token_usage": true,
-        "mean_input_tokens": 69.36842105263158,
-        "mean_output_tokens": 17.210526315789473,
-        "mean_tool_attempts": 1.9210526315789473
+        "mean_input_tokens": 73.75,
+        "mean_output_tokens": 17.75,
+        "mean_tool_attempts": 1.925
       }
     }
   ],
@@ -670,8 +694,8 @@
     {
       "strategy": "react",
       "category": "long_horizon",
-      "cases": 5,
-      "judged_pass": 5,
+      "cases": 7,
+      "judged_pass": 7,
       "tool_set_accuracy": 1.0,
       "argument_accuracy": null
     },
@@ -734,8 +758,8 @@
     {
       "strategy": "plan_execute",
       "category": "long_horizon",
-      "cases": 5,
-      "judged_pass": 5,
+      "cases": 7,
+      "judged_pass": 7,
       "tool_set_accuracy": 1.0,
       "argument_accuracy": null
     },
@@ -781,7 +805,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.858
+      "latency_ms": 1.291
     },
     {
       "id": "single-list-root",
@@ -807,7 +831,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.566
+      "latency_ms": 0.897
     },
     {
       "id": "single-read-app",
@@ -833,7 +857,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.298
+      "latency_ms": 0.651
     },
     {
       "id": "single-search-return",
@@ -859,7 +883,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 9.726
+      "latency_ms": 9.76
     },
     {
       "id": "single-write-new",
@@ -885,7 +909,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.764
+      "latency_ms": 1.267
     },
     {
       "id": "single-read-window",
@@ -911,7 +935,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.334
+      "latency_ms": 0.799
     },
     {
       "id": "multi-list-then-read",
@@ -937,7 +961,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 0.552
+      "latency_ms": 1.161
     },
     {
       "id": "multi-search-then-read",
@@ -963,7 +987,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 10.502
+      "latency_ms": 10.084
     },
     {
       "id": "multi-read-two-files",
@@ -989,7 +1013,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 0.527
+      "latency_ms": 1.144
     },
     {
       "id": "multi-list-read-write",
@@ -1015,7 +1039,7 @@
       "tool_attempts": 3,
       "input_tokens": 100,
       "output_tokens": 20,
-      "latency_ms": 1.021
+      "latency_ms": 2.365
     },
     {
       "id": "multi-echo-then-read",
@@ -1041,7 +1065,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 0.898
+      "latency_ms": 1.311
     },
     {
       "id": "multi-search-read-write",
@@ -1067,7 +1091,7 @@
       "tool_attempts": 3,
       "input_tokens": 100,
       "output_tokens": 20,
-      "latency_ms": 10.77
+      "latency_ms": 11.533
     },
     {
       "id": "retr-find-then-read",
@@ -1093,7 +1117,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 9.748
+      "latency_ms": 11.541
     },
     {
       "id": "retr-find-then-write",
@@ -1119,7 +1143,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 11.068
+      "latency_ms": 11.027
     },
     {
       "id": "retr-two-searches",
@@ -1145,7 +1169,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 19.747
+      "latency_ms": 20.523
     },
     {
       "id": "retr-list-then-search",
@@ -1171,7 +1195,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 10.956
+      "latency_ms": 10.715
     },
     {
       "id": "ambig-nested-path",
@@ -1197,7 +1221,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.307
+      "latency_ms": 0.68
     },
     {
       "id": "ambig-explicit-root",
@@ -1223,7 +1247,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.271
+      "latency_ms": 1.132
     },
     {
       "id": "ambig-overwrite-with-hash",
@@ -1249,7 +1273,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 0.886
+      "latency_ms": 1.735
     },
     {
       "id": "ambig-line-window",
@@ -1275,7 +1299,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.277
+      "latency_ms": 0.627
     },
     {
       "id": "recover-timeout-retry",
@@ -1301,7 +1325,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 0.315
+      "latency_ms": 0.872
     },
     {
       "id": "recover-error-retry",
@@ -1327,7 +1351,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 10.378
+      "latency_ms": 11.36
     },
     {
       "id": "recover-notfound-then-alternate",
@@ -1353,7 +1377,7 @@
       "tool_attempts": 3,
       "input_tokens": 100,
       "output_tokens": 20,
-      "latency_ms": 0.61
+      "latency_ms": 1.603
     },
     {
       "id": "recover-second-attempt-fails",
@@ -1379,7 +1403,7 @@
       "tool_attempts": 3,
       "input_tokens": 100,
       "output_tokens": 20,
-      "latency_ms": 0.476
+      "latency_ms": 1.204
     },
     {
       "id": "recover-timeout-then-search",
@@ -1405,7 +1429,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 10.187
+      "latency_ms": 9.508
     },
     {
       "id": "long-five-step",
@@ -1431,7 +1455,7 @@
       "tool_attempts": 4,
       "input_tokens": 150,
       "output_tokens": 25,
-      "latency_ms": 11.306
+      "latency_ms": 14.404
     },
     {
       "id": "long-serial-reads",
@@ -1457,7 +1481,7 @@
       "tool_attempts": 4,
       "input_tokens": 150,
       "output_tokens": 25,
-      "latency_ms": 0.897
+      "latency_ms": 1.92
     },
     {
       "id": "long-search-read-write-verify",
@@ -1483,7 +1507,7 @@
       "tool_attempts": 4,
       "input_tokens": 150,
       "output_tokens": 25,
-      "latency_ms": 20.314
+      "latency_ms": 24.072
     },
     {
       "id": "long-six-decisions",
@@ -1509,7 +1533,7 @@
       "tool_attempts": 5,
       "input_tokens": 210,
       "output_tokens": 30,
-      "latency_ms": 2.037
+      "latency_ms": 4.652
     },
     {
       "id": "long-alternate-list-read",
@@ -1535,7 +1559,59 @@
       "tool_attempts": 4,
       "input_tokens": 150,
       "output_tokens": 25,
-      "latency_ms": 0.994
+      "latency_ms": 2.157
+    },
+    {
+      "id": "long-todo-gate-cleared",
+      "strategy": "react",
+      "category": "long_horizon",
+      "split": "dev",
+      "is_probe": false,
+      "expected_grade": "pass",
+      "no_tool_required": false,
+      "judged_pass": true,
+      "agreed": true,
+      "failed_assertions": [],
+      "samples": 1,
+      "passes": 1,
+      "pass_rate": 1.0,
+      "tool_set_accuracy": 1.0,
+      "tool_sequence_match": 1.0,
+      "argument_accuracy": null,
+      "forbidden_violation": false,
+      "status": "succeeded",
+      "steps": 5,
+      "logical_tool_calls": 3,
+      "tool_attempts": 3,
+      "input_tokens": 150,
+      "output_tokens": 25,
+      "latency_ms": 2.065
+    },
+    {
+      "id": "long-todo-unfinished-fails",
+      "strategy": "react",
+      "category": "long_horizon",
+      "split": "dev",
+      "is_probe": false,
+      "expected_grade": "pass",
+      "no_tool_required": false,
+      "judged_pass": true,
+      "agreed": true,
+      "failed_assertions": [],
+      "samples": 1,
+      "passes": 1,
+      "pass_rate": 1.0,
+      "tool_set_accuracy": 1.0,
+      "tool_sequence_match": null,
+      "argument_accuracy": null,
+      "forbidden_violation": false,
+      "status": "failed",
+      "steps": 5,
+      "logical_tool_calls": 1,
+      "tool_attempts": 1,
+      "input_tokens": 150,
+      "output_tokens": 25,
+      "latency_ms": 1.233
     },
     {
       "id": "notool-answer-only",
@@ -1561,7 +1637,7 @@
       "tool_attempts": 0,
       "input_tokens": 10,
       "output_tokens": 5,
-      "latency_ms": 0.095
+      "latency_ms": 0.274
     },
     {
       "id": "notool-arithmetic",
@@ -1587,7 +1663,7 @@
       "tool_attempts": 0,
       "input_tokens": 10,
       "output_tokens": 5,
-      "latency_ms": 0.118
+      "latency_ms": 0.287
     },
     {
       "id": "notool-greeting",
@@ -1613,7 +1689,7 @@
       "tool_attempts": 0,
       "input_tokens": 10,
       "output_tokens": 5,
-      "latency_ms": 0.098
+      "latency_ms": 0.328
     },
     {
       "id": "notool-restate-request",
@@ -1639,7 +1715,7 @@
       "tool_attempts": 0,
       "input_tokens": 10,
       "output_tokens": 5,
-      "latency_ms": 0.04
+      "latency_ms": 0.204
     },
     {
       "id": "budget-steps-two",
@@ -1665,7 +1741,7 @@
       "tool_attempts": 2,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.548
+      "latency_ms": 1.68
     },
     {
       "id": "budget-tool-calls-one",
@@ -1691,7 +1767,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.391
+      "latency_ms": 0.767
     },
     {
       "id": "budget-steps-one",
@@ -1717,7 +1793,7 @@
       "tool_attempts": 1,
       "input_tokens": 10,
       "output_tokens": 5,
-      "latency_ms": 0.199
+      "latency_ms": 0.447
     },
     {
       "id": "budget-three-steps",
@@ -1743,7 +1819,7 @@
       "tool_attempts": 3,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 0.691
+      "latency_ms": 1.314
     },
     {
       "id": "probe-missing-required-tool",
@@ -1771,7 +1847,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.258
+      "latency_ms": 0.707
     },
     {
       "id": "probe-forbidden-write",
@@ -1799,7 +1875,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.53
+      "latency_ms": 0.875
     },
     {
       "id": "probe-wrong-sequence",
@@ -1827,7 +1903,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 0.66
+      "latency_ms": 1.392
     },
     {
       "id": "probe-wrong-args",
@@ -1855,7 +1931,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.242
+      "latency_ms": 0.598
     },
     {
       "id": "probe-unexpected-tool",
@@ -1883,7 +1959,7 @@
       "tool_attempts": 1,
       "input_tokens": 30,
       "output_tokens": 10,
-      "latency_ms": 0.423
+      "latency_ms": 0.749
     },
     {
       "id": "probe-over-max-calls",
@@ -1911,7 +1987,7 @@
       "tool_attempts": 2,
       "input_tokens": 60,
       "output_tokens": 15,
-      "latency_ms": 0.647
+      "latency_ms": 1.137
     },
     {
       "id": "probe-status-mismatch",
@@ -1939,7 +2015,7 @@
       "tool_attempts": 0,
       "input_tokens": 10,
       "output_tokens": 5,
-      "latency_ms": 0.087
+      "latency_ms": 0.176
     },
     {
       "id": "single-echo-ask",
@@ -1965,7 +2041,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.467
+      "latency_ms": 1.105
     },
     {
       "id": "single-list-root",
@@ -1991,7 +2067,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.328
+      "latency_ms": 0.721
     },
     {
       "id": "single-read-app",
@@ -2017,7 +2093,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.225
+      "latency_ms": 1.007
     },
     {
       "id": "single-search-return",
@@ -2043,7 +2119,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 11.442
+      "latency_ms": 10.056
     },
     {
       "id": "single-write-new",
@@ -2069,7 +2145,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.666
+      "latency_ms": 1.338
     },
     {
       "id": "single-read-window",
@@ -2095,7 +2171,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.288
+      "latency_ms": 0.875
     },
     {
       "id": "multi-list-then-read",
@@ -2121,7 +2197,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 0.481
+      "latency_ms": 1.465
     },
     {
       "id": "multi-search-then-read",
@@ -2147,7 +2223,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 10.59
+      "latency_ms": 10.619
     },
     {
       "id": "multi-read-two-files",
@@ -2173,7 +2249,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 0.641
+      "latency_ms": 1.122
     },
     {
       "id": "multi-list-read-write",
@@ -2199,7 +2275,7 @@
       "tool_attempts": 3,
       "input_tokens": 107,
       "output_tokens": 23,
-      "latency_ms": 1.251
+      "latency_ms": 2.362
     },
     {
       "id": "multi-echo-then-read",
@@ -2225,7 +2301,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 0.9
+      "latency_ms": 1.48
     },
     {
       "id": "multi-search-read-write",
@@ -2251,7 +2327,7 @@
       "tool_attempts": 3,
       "input_tokens": 107,
       "output_tokens": 23,
-      "latency_ms": 11.593
+      "latency_ms": 12.57
     },
     {
       "id": "retr-find-then-read",
@@ -2277,7 +2353,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 12.165
+      "latency_ms": 9.357
     },
     {
       "id": "retr-find-then-write",
@@ -2303,7 +2379,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 10.033
+      "latency_ms": 10.638
     },
     {
       "id": "retr-two-searches",
@@ -2329,7 +2405,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 18.827
+      "latency_ms": 20.732
     },
     {
       "id": "retr-list-then-search",
@@ -2355,7 +2431,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 9.815
+      "latency_ms": 13.338
     },
     {
       "id": "ambig-nested-path",
@@ -2381,7 +2457,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.356
+      "latency_ms": 0.866
     },
     {
       "id": "ambig-explicit-root",
@@ -2407,7 +2483,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.367
+      "latency_ms": 0.708
     },
     {
       "id": "ambig-overwrite-with-hash",
@@ -2433,7 +2509,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 0.929
+      "latency_ms": 2.025
     },
     {
       "id": "ambig-line-window",
@@ -2459,7 +2535,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.289
+      "latency_ms": 0.774
     },
     {
       "id": "recover-timeout-retry",
@@ -2485,7 +2561,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 0.369
+      "latency_ms": 0.822
     },
     {
       "id": "recover-error-retry",
@@ -2511,7 +2587,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 9.426
+      "latency_ms": 11.585
     },
     {
       "id": "recover-notfound-then-alternate",
@@ -2537,7 +2613,7 @@
       "tool_attempts": 3,
       "input_tokens": 107,
       "output_tokens": 23,
-      "latency_ms": 0.844
+      "latency_ms": 1.843
     },
     {
       "id": "recover-second-attempt-fails",
@@ -2563,7 +2639,7 @@
       "tool_attempts": 3,
       "input_tokens": 107,
       "output_tokens": 23,
-      "latency_ms": 0.527
+      "latency_ms": 1.433
     },
     {
       "id": "recover-timeout-then-search",
@@ -2589,7 +2665,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 9.233
+      "latency_ms": 10.583
     },
     {
       "id": "long-five-step",
@@ -2615,7 +2691,7 @@
       "tool_attempts": 4,
       "input_tokens": 157,
       "output_tokens": 28,
-      "latency_ms": 11.273
+      "latency_ms": 14.598
     },
     {
       "id": "long-serial-reads",
@@ -2641,7 +2717,7 @@
       "tool_attempts": 4,
       "input_tokens": 157,
       "output_tokens": 28,
-      "latency_ms": 0.887
+      "latency_ms": 1.847
     },
     {
       "id": "long-search-read-write-verify",
@@ -2667,7 +2743,7 @@
       "tool_attempts": 4,
       "input_tokens": 157,
       "output_tokens": 28,
-      "latency_ms": 22.442
+      "latency_ms": 24.145
     },
     {
       "id": "long-six-decisions",
@@ -2693,7 +2769,7 @@
       "tool_attempts": 5,
       "input_tokens": 217,
       "output_tokens": 33,
-      "latency_ms": 1.811
+      "latency_ms": 11.957
     },
     {
       "id": "long-alternate-list-read",
@@ -2719,7 +2795,59 @@
       "tool_attempts": 4,
       "input_tokens": 157,
       "output_tokens": 28,
-      "latency_ms": 1.036
+      "latency_ms": 2.886
+    },
+    {
+      "id": "long-todo-gate-cleared",
+      "strategy": "plan_execute",
+      "category": "long_horizon",
+      "split": "dev",
+      "is_probe": false,
+      "expected_grade": "pass",
+      "no_tool_required": false,
+      "judged_pass": true,
+      "agreed": true,
+      "failed_assertions": [],
+      "samples": 1,
+      "passes": 1,
+      "pass_rate": 1.0,
+      "tool_set_accuracy": 1.0,
+      "tool_sequence_match": 1.0,
+      "argument_accuracy": null,
+      "forbidden_violation": false,
+      "status": "succeeded",
+      "steps": 6,
+      "logical_tool_calls": 3,
+      "tool_attempts": 3,
+      "input_tokens": 157,
+      "output_tokens": 28,
+      "latency_ms": 3.293
+    },
+    {
+      "id": "long-todo-unfinished-fails",
+      "strategy": "plan_execute",
+      "category": "long_horizon",
+      "split": "dev",
+      "is_probe": false,
+      "expected_grade": "pass",
+      "no_tool_required": false,
+      "judged_pass": true,
+      "agreed": true,
+      "failed_assertions": [],
+      "samples": 1,
+      "passes": 1,
+      "pass_rate": 1.0,
+      "tool_set_accuracy": 1.0,
+      "tool_sequence_match": null,
+      "argument_accuracy": null,
+      "forbidden_violation": false,
+      "status": "failed",
+      "steps": 6,
+      "logical_tool_calls": 1,
+      "tool_attempts": 1,
+      "input_tokens": 157,
+      "output_tokens": 28,
+      "latency_ms": 2.808
     },
     {
       "id": "notool-answer-only",
@@ -2745,7 +2873,7 @@
       "tool_attempts": 0,
       "input_tokens": 17,
       "output_tokens": 8,
-      "latency_ms": 0.128
+      "latency_ms": 0.408
     },
     {
       "id": "notool-arithmetic",
@@ -2771,7 +2899,7 @@
       "tool_attempts": 0,
       "input_tokens": 17,
       "output_tokens": 8,
-      "latency_ms": 0.142
+      "latency_ms": 0.489
     },
     {
       "id": "notool-greeting",
@@ -2797,7 +2925,7 @@
       "tool_attempts": 0,
       "input_tokens": 17,
       "output_tokens": 8,
-      "latency_ms": 0.163
+      "latency_ms": 1.345
     },
     {
       "id": "notool-restate-request",
@@ -2823,7 +2951,7 @@
       "tool_attempts": 0,
       "input_tokens": 17,
       "output_tokens": 8,
-      "latency_ms": 0.076
+      "latency_ms": 0.366
     },
     {
       "id": "budget-steps-two",
@@ -2849,7 +2977,7 @@
       "tool_attempts": 2,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.746
+      "latency_ms": 1.133
     },
     {
       "id": "budget-tool-calls-one",
@@ -2875,7 +3003,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.424
+      "latency_ms": 0.866
     },
     {
       "id": "budget-steps-one",
@@ -2901,7 +3029,7 @@
       "tool_attempts": 1,
       "input_tokens": 17,
       "output_tokens": 8,
-      "latency_ms": 0.258
+      "latency_ms": 0.485
     },
     {
       "id": "budget-three-steps",
@@ -2927,7 +3055,7 @@
       "tool_attempts": 3,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 0.757
+      "latency_ms": 1.465
     },
     {
       "id": "probe-missing-required-tool",
@@ -2955,7 +3083,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.257
+      "latency_ms": 0.983
     },
     {
       "id": "probe-forbidden-write",
@@ -2983,7 +3111,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.56
+      "latency_ms": 1.113
     },
     {
       "id": "probe-wrong-sequence",
@@ -3011,7 +3139,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 1.025
+      "latency_ms": 1.976
     },
     {
       "id": "probe-wrong-args",
@@ -3039,7 +3167,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.261
+      "latency_ms": 1.389
     },
     {
       "id": "probe-unexpected-tool",
@@ -3067,7 +3195,7 @@
       "tool_attempts": 1,
       "input_tokens": 37,
       "output_tokens": 13,
-      "latency_ms": 0.469
+      "latency_ms": 1.115
     },
     {
       "id": "probe-over-max-calls",
@@ -3095,7 +3223,7 @@
       "tool_attempts": 2,
       "input_tokens": 67,
       "output_tokens": 18,
-      "latency_ms": 0.678
+      "latency_ms": 1.605
     },
     {
       "id": "probe-status-mismatch",
@@ -3123,7 +3251,7 @@
       "tool_attempts": 0,
       "input_tokens": 17,
       "output_tokens": 8,
-      "latency_ms": 0.153
+      "latency_ms": 1.063
     }
   ]
 }

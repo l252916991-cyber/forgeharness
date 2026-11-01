@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-03",
+  "tenant_id": "shop-a",
+  "question": "Is there an extra charge for remote areas?",
+  "answer": "Synthetic answer: yes. Deliveries to remote synthetic regions carry a remote-area handling surcharge of 6.00 CNY per parcel, collected by the carrier.",
+  "category": "shipping",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:shipping-remote-areas"
+    }
+  ]
+}

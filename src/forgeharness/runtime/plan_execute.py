@@ -7,6 +7,9 @@ from pathlib import Path
 
 from pydantic import Field, ValidationError
 
+from forgeharness.context.assembly import ContextAssembler
+from forgeharness.context.compiler import ContextBudgetError
+from forgeharness.context.request_budget import prepare_request
 from forgeharness.domain.models import (
     FinalAction,
     FrozenModel,
@@ -19,6 +22,7 @@ from forgeharness.domain.models import (
     Usage,
 )
 from forgeharness.models.base import Model, ModelRequest
+from forgeharness.models.prepared import decide_prepared_model
 from forgeharness.observability.trace import TraceRecorder
 from forgeharness.runtime.budget import RunBudget
 from forgeharness.runtime.loop import AgentRuntime
@@ -135,6 +139,7 @@ class PlanExecuteRuntime:
         executor: AgentRuntime,
         trace: TraceRecorder,
         max_planner_retries: int | None = None,
+        budget: RunBudget | None = None,
     ) -> None:
         """Bound planner protocol retries; the default allows a single correction.
 
@@ -148,6 +153,7 @@ class PlanExecuteRuntime:
         if max_planner_retries < 0:
             raise ValueError("max_planner_retries must not be negative")
         self._planner = planner
+        self._budget = budget or executor.budget
         self._executor = executor
         self._trace = trace
         self._max_planner_retries = max_planner_retries
@@ -175,7 +181,16 @@ class PlanExecuteRuntime:
         attempt = 0
         while True:
             attempt += 1
+            dispatched = False
             try:
+                _, prepared, estimate = prepare_request(
+                    self._planner,
+                    ModelRequest(task_id=task_id, messages=tuple(messages), tools=()),
+                    self._budget,
+                    ContextAssembler(max_tokens=self._budget.max_context_tokens),
+                    self._trace,
+                    phase="planner",
+                )
                 # Record the planner request so the projection can pair it with
                 # the plan decision and derive planner latency, exactly as the
                 # executor loop does for each model decision.
@@ -183,21 +198,32 @@ class PlanExecuteRuntime:
                     "model.request",
                     {
                         "phase": "planner",
-                        "task_id": task_id,
+                        **prepared.request.model_dump(mode="json"),
                         "tool_count": 0,
                         "attempt": attempt,
                         "correction": attempt > 1,
+                        "preflight": estimate.model_dump(mode="json"),
+                        "prepared_payload": prepared.payload,
                     },
                 )
-                response = await self._planner.decide(
-                    ModelRequest(task_id=task_id, messages=tuple(messages), tools=())
-                )
-            except Exception as exc:
-                usage = self._charge(usage, steps=1)
+                dispatched = True
+                response = await decide_prepared_model(self._planner, prepared)
+            except ContextBudgetError as exc:
                 return self._planning_failure(
                     task_id,
                     tuple(messages),
-                    f"planner failed: {exc}",
+                    f"context budget exceeded: {exc}",
+                    usage,
+                    error_type="context_budget_exceeded",
+                )
+            except Exception as exc:
+                usage = self._charge(usage, steps=int(dispatched))
+                return self._planning_failure(
+                    task_id,
+                    tuple(messages),
+                    f"planner failed: {exc}"
+                    if dispatched
+                    else f"planner preparation failed: {type(exc).__name__}",
                     usage,
                     error_type="planner_failed",
                 )

@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "qualified": true,
+  "release_scope": "ForgeHarness 0.3.0 embedded SDK v1 with reusable business modules, single-machine POSIX/local SQLite and trusted host adapters",
+  "finalized_date_local": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "verification_time_note": "Original execution timestamps are preserved in quality and raw reports; finalization rechecked the frozen source and evidence without rerunning unchanged tests.",
+  "review_method": "Maintainer-style self-review, contract/fault regressions, frozen candidate and clean checkout-equivalent rerun; no independent external certification",
+  "source_kind": "archive checkout equivalent; no Git metadata",
+  "baseline_tree_digest": "f7cf1dd30f5122ecd6d1c92f75831ef4ea490b05d9346fa90cac0c6362aab4aa",
+  "candidate_tree_digest": "0ba8f040a3d480c12a3c800e47bd2950c9d5795428e20bb46107419c2d2620dc",
+  "candidate_files": 257,
+  "source_identity_rechecked": true,
+  "changes_from_baseline": {
+    "added_files": 15,
+    "modified_files": 12,
+    "removed_files": 0,
+    "new_test_cases": 64
+  },
+  "versions": {
+    "distribution": "0.3.0",
+    "sdk_api": 1,
+    "workflow_state": 1,
+    "record_schema": 1
+  },
+  "implemented": [
+    "Deterministic sequential DAG workflows with aggregate budget reservation, durable parent/child progress, approval resume, audit events and retryable deletion",
+    "Scoped revisioned records with optimistic concurrency, business request idempotency, independent review, publication and withdrawal",
+    "Exact source-version dependencies checked on derived-record save, approval, publication and published reads",
+    "Current-source exact-quote citation verification, composed validators and final workflow validation",
+    "Synthetic legal cited-note, commerce consultation and reviewed content workflows using public SDK modules",
+    "Minimal wheel installation and executable new/old examples without web or orchestration frameworks"
+  ],
+  "quality": {
+    "source": {
+      "tests_passed": 654,
+      "tests_failed": 0,
+      "tests_skipped": 0,
+      "tests_timestamp_as_recorded": "2026-10-12T15:48:09.439214+08:00",
+      "combined_coverage_percent": 91.79896855091516,
+      "pure_branch_coverage_percent": 86.27342888643881,
+      "pure_branch_threshold_percent": 85,
+      "control_cases_passed": 7,
+      "control_cases_total": 7,
+      "dev_agent_cases_per_strategy": 38,
+      "dev_scorer_probes_per_strategy": 7,
+      "dev_strategies": [
+        "react",
+        "plan_execute"
+      ],
+      "model_profile": "keyless scripted; synthetic token usage; no live-model, legal accuracy, business outcome or cost claim",
+      "dependency_counts": {
+        "core": 10,
+        "all": 151
+      },
+      "unignored_dependency_findings": 0
+    },
+    "clean": {
+      "tests_passed": 654,
+      "tests_failed": 0,
+      "tests_skipped": 0,
+      "tests_timestamp_as_recorded": "2026-10-12T15:48:50.431133+08:00",
+      "combined_coverage_percent": 91.84952978056427,
+      "pure_branch_coverage_percent": 86.32855567805953,
+      "pure_branch_threshold_percent": 85,
+      "control_cases_passed": 7,
+      "control_cases_total": 7,
+      "dev_agent_cases_per_strategy": 38,
+      "dev_scorer_probes_per_strategy": 7,
+      "dev_strategies": [
+        "react",
+        "plan_execute"
+      ],
+      "model_profile": "keyless scripted; synthetic token usage; no live-model, legal accuracy, business outcome or cost claim",
+      "dependency_counts": {
+        "core": 10,
+        "all": 151
+      },
+      "unignored_dependency_findings": 0
+    }
+  },
+  "verification": {
+    "commands_all_passed": true,
+    "checks_count": 43,
+    "summary": "reports/modular-verification/summary.json",
+    "driver": "reports/modular-verification-runner.txt",
+    "clean_copy": "Every frozen input copied and hash-checked into a temporary checkout with a fresh Python 3.12 environment; full gates rerun.",
+    "minimal_consumer": "Wheel-only fresh environment outside the repository; both SDK demos pass and FastAPI/LangGraph are absent.",
+    "wheel_source_members_matched": 103,
+    "sdist_allowlist": "passed",
+    "source_unchanged_after_verification": true
+  },
+  "artifacts": {
+    "forgeharness-0.3.0-py3-none-any.whl": {
+      "path": "reports/modular-verification/dist/forgeharness-0.3.0-py3-none-any.whl",
+      "sha256": "90efc5702223c1fb41ff89608106365c8fe56cca517eae278ff42d15b534a733"
+    },
+    "forgeharness-0.3.0.tar.gz": {
+      "path": "reports/modular-verification/dist/forgeharness-0.3.0.tar.gz",
+      "sha256": "5909e6a7ec7e17f765f21e95c9306dc142f101f123922749752f43c45c0b6a39"
+    }
+  },
+  "review": {
+    "open_blocker_in_supported_scope": 0,
+    "open_high_in_supported_scope": 0,
+    "findings": [
+      {
+        "id": "MOD-001",
+        "severity": "high",
+        "status": "fixed",
+        "resolution": "节点各自成功不证明流程结束时来源仍有效；加入 WorkflowVerifier，`test_workflow_final_verifier_catches_source_change_between_nodes`"
+      },
+      {
+        "id": "MOD-002",
+        "severity": "high",
+        "status": "fixed",
+        "resolution": "派生稿可能在来源变更后继续批准/发布；加入事务内 RecordDependency 检查及发布读取时传递失效，`test_dependency_versions_and_review_preconditions`、两应用共享草稿测试"
+      },
+      {
+        "id": "MOD-003",
+        "severity": "medium",
+        "status": "fixed",
+        "resolution": "无效审批者不应把仍可处理的等待流程永久改为 FAILED；保留可恢复父状态，`test_bad_approval_keeps_workflow_resumable`"
+      },
+      {
+        "id": "MOD-004",
+        "severity": "medium",
+        "status": "fixed",
+        "resolution": "重复依赖可能放大递归校验开销；同事务缓存、深度/数量上限，`test_cycle_rejected_and_shared_dependency_checked_once`、`test_dependency_expansion_has_a_total_bound`"
+      },
+      {
+        "id": "MOD-005",
+        "severity": "medium",
+        "status": "fixed",
+        "resolution": "节点完成事件先清空 active，导致事件缺节点名；保留完成前节点身份，`test_dag_order_input_handoff_and_aggregate_usage`，red 证据见 `reports/modular-event-red.log`"
+      },
+      {
+        "id": "MOD-006",
+        "severity": "medium",
+        "status": "fixed",
+        "resolution": "全 extras 的 LlamaIndex 间接依赖 banks 2.5.0 命中 GHSA-556j-vv39-8rqv；锁定升级到 2.5.1，重跑对照兼容测试与完整依赖门禁"
+      }
+    ],
+    "details": "docs/review/MODULAR_AUDIT.md",
+    "accepted_residuals": [
+      "Single-machine POSIX and local SQLite only; no distributed leases, OS sandbox or universal exactly-once effects.",
+      "Sequential fixed DAG; no parallel scheduling, dynamic plans, workflow cancellation API or general durable background task service.",
+      "Static node budget reservation and existing soft deadline semantics remain.",
+      "Host authenticates actors and versions code, model configuration, policy and privacy changes; graph digests are not implementation fingerprints.",
+      "Exact quotations prove current source identity and character ranges, not semantic support for every claim, legal applicability or current law.",
+      "Dependencies validate the local record ledger; external files, API freshness and media rights require application verification.",
+      "Credential masking is heuristic; host owns PII controls, quotas, external backups, attachments and physical erasure.",
+      "Workflow deletion does not delete business records; record retention/deletion is separate.",
+      "Inherited optional NLTK exception PYSEC-2026-3740/GHSA-8mgp-746c-j5xp remains accepted under FH-019; all-extras audits use the existing ignore flag."
+    ],
+    "historical_enhanced_platform_release_qualified": false,
+    "historical_open_findings_preserved": [
+      "FH-015",
+      "FH-016",
+      "FH-017",
+      "FH-018"
+    ],
+    "not_implemented_or_claimed": [
+      "Full LexVault migration, legal workbench or live legal-domain model quality validation",
+      "Complete ecommerce UI, real platform channels, orders, payments or external publishing",
+      "Universal application coverage, multi-agent superiority, production SLA or demonstrated business returns"
+    ]
+  },
+  "evidence_sha256": {
+    "docs/BUSINESS_MODULES.md": "cdd53b95fea4a4616b4f44daf5b64a80f5cd368521e3e7613653130a64f6dc9c",
+    "docs/adr/013-modular-business-workflows.md": "2282c7c6a4c114b25004adea11dc1b67ef3e5333e08e8c5e13772e355c7446d8",
+    "docs/review/MODULAR_AUDIT.md": "8584809c6c6979257f25c9f5ab8dbc8feb31666dea39981c4463387fc4865480",
+    "reports/modular-baseline-source.json": "948c15c5cd99f40a52baa0c93779677c7f5dff0d01bbfdd6aa948d3627890870",
+    "reports/modular-candidate-source-initial.json": "00831048f9aacd967f518a58c3d5dbf49790118598d644e0aad64afc1d26c173",
+    "reports/modular-candidate-source.json": "2eadc8c0f72a19b43ca2d7dd228838cc1c10303351aedc85b0bd4610133456cc",
+    "reports/modular-event-red.log": "9744d88c836b86278a3960af64b6269a0f72e14c025d012335c8f4146ddad314",
+    "reports/modular-verification/build.log": "b0e670eeeed18fb0094a8ef3a74159a9001376e9c01974225d882c86ef5830cf",
+    "reports/modular-verification/clean/agent-dev.json": "b4831013015bce02551841b2523e72b2b74b42bf22e7560f1c1cd338561f0984",
+    "reports/modular-verification/clean/agent-dev.log": "a68ebd54dd5d5e7ad3bb409badf3f333dd39765f31c350ce92772b2b42fb64ea",
+    "reports/modular-verification/clean/all-dependencies.json": "e2fdbdc0d499ad2d630d9e6277037d6d9c3bce2fdc54f8a308c96429be8813c0",
+    "reports/modular-verification/clean/all-requirements.txt": "7069cbb261d095915e9647bb8cb53db05b8bcc1250f74dba9d54ff120f6288e4",
+    "reports/modular-verification/clean/audit-all.log": "96770858753ca0feec845b98f85a3cc5c2ee0afd5b33dddb2fe6b17b1c8979ab",
+    "reports/modular-verification/clean/audit-core.log": "79d30422388543b2563e1dde76bb7e7857d7ef0c6fdf05c8c71598633ca07e1e",
+    "reports/modular-verification/clean/business-demo.log": "c55574035d6d4d155edee743f852546aeb6421540c84fab41e7fdabd26a4ad6c",
+    "reports/modular-verification/clean/cli.log": "6155e500f41e9161256899e641d021e3830344ce238cc54bcb6351c452bae2ea",
+    "reports/modular-verification/clean/comparison-cli.log": "c7017c1a2edc8e51ae50f17722f465b773dff722845f745eb130f2c87a567a46",
+    "reports/modular-verification/clean/control.json": "f6b8c8671e27ec88400ff80d8a3bd7c53a9df49616319aba633bcaf637005649",
+    "reports/modular-verification/clean/control.log": "45a94b74c64c9f80de7a4d29c747a510fcd9d8a6e4aaaaa88e469330a258b511",
+    "reports/modular-verification/clean/core-dependencies.json": "22873505871db9e0a6bfa556f63eebf0ddbe103f4b76d237e776d0aff19b4afd",
+    "reports/modular-verification/clean/core-requirements.txt": "5b2192fd0a186eb7bf7d6aedaf195b3847a2293213b200a2af6fca24427f7314",
+    "reports/modular-verification/clean/coverage.json": "4873e4862a7b78e900dbc48712472a1a9ec04dbf22e449c7b9204e93dba1aba0",
+    "reports/modular-verification/clean/export-all.log": "7069cbb261d095915e9647bb8cb53db05b8bcc1250f74dba9d54ff120f6288e4",
+    "reports/modular-verification/clean/export-core.log": "5b2192fd0a186eb7bf7d6aedaf195b3847a2293213b200a2af6fca24427f7314",
+    "reports/modular-verification/clean/format.log": "28a62275631bd1465b8dbc1506809b573ce8ade5a6ad02cd73da816bab1230a4",
+    "reports/modular-verification/clean/framework-types.log": "e317872697c2cbfdefa321527a6efe73290dff3a390b0fa8723b87092eccba6a",
+    "reports/modular-verification/clean/lint.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "reports/modular-verification/clean/lock.log": "c0c20b4e1dcc454a2049d32bafbd3b8a092c9bfa33550508bf48f8eef8f33bea",
+    "reports/modular-verification/clean/old-demo.log": "6958cf76ae9c556dc275c0187ffd7305089fef78183c00c8234f8864f3adca76",
+    "reports/modular-verification/clean/pip-check.log": "015f999220406b45dc18240e75f387edf5616d14c58aa3502cab6a18f8ebfa7c",
+    "reports/modular-verification/clean/sync.log": "fa44c1249bbee711a1a21d69f028f367241591aea7da8d15d19be3cdf082a45d",
+    "reports/modular-verification/clean/tests.log": "b22c0c0f612544a9ece252f5025b605c843adb64f4e77f9684a139679a277230",
+    "reports/modular-verification/clean/tests.xml": "4b50dd6d4a1b78ee071020fdff199a69eb4f33647350fb835d779233fc4ffc16",
+    "reports/modular-verification/clean/types.log": "092e5eb1e45e241cfabcc8c61bcc544108ae075fc01d13940b2b24013bbd1e3a",
+    "reports/modular-verification/dist/.gitignore": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+    "reports/modular-verification/dist/forgeharness-0.3.0-py3-none-any.whl": "90efc5702223c1fb41ff89608106365c8fe56cca517eae278ff42d15b534a733",
+    "reports/modular-verification/dist/forgeharness-0.3.0.tar.gz": "5909e6a7ec7e17f765f21e95c9306dc142f101f123922749752f43c45c0b6a39",
+    "reports/modular-verification/minimal/business_modules_demo.py.log": "c55574035d6d4d155edee743f852546aeb6421540c84fab41e7fdabd26a4ad6c",
+    "reports/modular-verification/minimal/import.log": "34976aef2dbb829d7cbdfcd91256f3e1de57e50f84a6ca4431c9b3ec938957b9",
+    "reports/modular-verification/minimal/install.log": "32418fa8f227a3e69823dcc711a91abc462f933fc5c9254061ac986f64704524",
+    "reports/modular-verification/minimal/sdk_demo.py.log": "6958cf76ae9c556dc275c0187ffd7305089fef78183c00c8234f8864f3adca76",
+    "reports/modular-verification/minimal/venv.log": "e649490c6a75c511bf63bc1357a3f95c0301e2a9c975508666574076d44a90fd",
+    "reports/modular-verification/source/agent-dev.json": "fcfbef2ac5f7d453428621ebf5a3b8a2d322d52cfeb6acc7d8ffd7266c3aa0f7",
+    "reports/modular-verification/source/agent-dev.log": "936761c8e82b5cdadecc97c97db1965345a66b0f019c8317dfe965d0a06cd2d5",
+    "reports/modular-verification/source/all-dependencies.json": "e2fdbdc0d499ad2d630d9e6277037d6d9c3bce2fdc54f8a308c96429be8813c0",
+    "reports/modular-verification/source/all-requirements.txt": "f914ece14207751659db75c1ccbea423157ceeaf139dddbd7683a490d29aaa7a",
+    "reports/modular-verification/source/audit-all.log": "96770858753ca0feec845b98f85a3cc5c2ee0afd5b33dddb2fe6b17b1c8979ab",
+    "reports/modular-verification/source/audit-core.log": "79d30422388543b2563e1dde76bb7e7857d7ef0c6fdf05c8c71598633ca07e1e",
+    "reports/modular-verification/source/business-demo.log": "c55574035d6d4d155edee743f852546aeb6421540c84fab41e7fdabd26a4ad6c",
+    "reports/modular-verification/source/cli.log": "6155e500f41e9161256899e641d021e3830344ce238cc54bcb6351c452bae2ea",
+    "reports/modular-verification/source/comparison-cli.log": "c7017c1a2edc8e51ae50f17722f465b773dff722845f745eb130f2c87a567a46",
+    "reports/modular-verification/source/control.json": "91ff6fb5f470c16e511eafbe739cca9b7439f30b011c4424a9f43424a62a5cc6",
+    "reports/modular-verification/source/control.log": "4acccaee6dec1b4486a1f4d5eb26ac8ebd3164a571d2ba5b3cf8c1e218622072",
+    "reports/modular-verification/source/core-dependencies.json": "22873505871db9e0a6bfa556f63eebf0ddbe103f4b76d237e776d0aff19b4afd",
+    "reports/modular-verification/source/core-requirements.txt": "8118cd49a4d28cd0e5f6e1e23603a49842434502ef468de5971152aa4174a38d",
+    "reports/modular-verification/source/coverage.json": "da7d2bcbf4fe75f05c1f54f45c7ac3c4dce3e46dd96bcaec5f903c888dfaa770",
+    "reports/modular-verification/source/export-all.log": "f914ece14207751659db75c1ccbea423157ceeaf139dddbd7683a490d29aaa7a",
+    "reports/modular-verification/source/export-core.log": "8118cd49a4d28cd0e5f6e1e23603a49842434502ef468de5971152aa4174a38d",
+    "reports/modular-verification/source/format.log": "28a62275631bd1465b8dbc1506809b573ce8ade5a6ad02cd73da816bab1230a4",
+    "reports/modular-verification/source/framework-types.log": "e317872697c2cbfdefa321527a6efe73290dff3a390b0fa8723b87092eccba6a",
+    "reports/modular-verification/source/lint.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "reports/modular-verification/source/lock.log": "c0c20b4e1dcc454a2049d32bafbd3b8a092c9bfa33550508bf48f8eef8f33bea",
+    "reports/modular-verification/source/old-demo.log": "6958cf76ae9c556dc275c0187ffd7305089fef78183c00c8234f8864f3adca76",
+    "reports/modular-verification/source/pip-check.log": "015f999220406b45dc18240e75f387edf5616d14c58aa3502cab6a18f8ebfa7c",
+    "reports/modular-verification/source/tests.log": "9bb5a0508e6fce9342f54a460d4db2cefe0ea974dcb74b259548bb69dd664336",
+    "reports/modular-verification/source/tests.xml": "df446fa4d58cddc5fc6a6ae524b000e49e7e1286b789523033f284de20592f8f",
+    "reports/modular-verification/source/types.log": "092e5eb1e45e241cfabcc8c61bcc544108ae075fc01d13940b2b24013bbd1e3a",
+    "reports/modular-verification/summary.json": "6810f127fd4ceb18439e13cc7b04351d7a77050999e2174791c2b260344d9005",
+    "reports/modular-verification-runner.txt": "5900fcd5b8cf932cf83c6b52736b31ba4847590763445e76ef54b7953b00e3ba"
+  }
+}

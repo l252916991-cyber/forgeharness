@@ -9,12 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          package-manager-cache: false
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
           enable-cache: true
       - run: sudo apt-get update && sudo apt-get install -y ripgrep
-      - run: uv sync --extra dev --extra platform --extra benchmark --extra frameworks --frozen
+      - run: uv sync --extra dev --extra cli --extra platform --extra benchmark --extra frameworks --extra postgres-test --frozen
       - run: make gate
   frameworks:
     runs-on: ubuntu-latest
@@ -25,3 +29,27 @@ jobs:
           python-version: "3.12"
           enable-cache: true
       - run: make framework-check
+  release-candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          package-manager-cache: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - run: uv sync --extra dev --extra cli --extra platform --extra benchmark --extra frameworks --extra postgres-test --frozen
+      - run: uv run --no-sync python -m benchmarks.comparison.verify --candidate-dir reports/saas/20261030-hosted/candidate-r2 --freeze-only
+      - run: uv run --no-sync python -m benchmarks.comparison.verify --candidate-dir reports/saas/20261030-hosted/candidate-r2
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: framework-candidate-verification
+          path: |
+            reports/saas/20261030-hosted/candidate-r2/source.json
+            reports/saas/20261030-hosted/candidate-r2/verification/summary.json
+            reports/saas/20261030-hosted/candidate-r2/verification/runs/

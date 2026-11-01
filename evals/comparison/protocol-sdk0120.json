@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "protocol_id": "p0p1-local-contract-sdk0120-v1",
+  "declared_date": "2026-10-30",
+  "phase": "P0/P1 first comparison iteration",
+  "main_pilot": "commerce",
+  "model": "deterministic equivalent read/write fixture; no remote model calls",
+  "business_qualified": false,
+  "baseline_source_identity": "dc9ef875b25c814e11cd01b0b25d01fc0a057098243823213c7a0959dd15c213",
+  "arms": {
+    "forge": {
+      "package": "forgeharness",
+      "version": "0.12.0",
+      "source": "candidate snapshot",
+      "native": "Harness exact approval, checkpoint and invocation journal"
+    },
+    "deepagents": {
+      "package": "deepagents",
+      "version": "0.7.25",
+      "project": "evals/comparison/environments/deepagents",
+      "native": "create_deep_agent, interrupt_on, SQLite checkpointer"
+    },
+    "pydantic": {
+      "package": "pydantic-ai-harness",
+      "version": "0.59.0",
+      "companion": "pydantic-ai-slim==2.59.0",
+      "project": "evals/comparison/environments/pydantic",
+      "native": "Agent, FunctionModel, deferred tool approval; host serialized message state"
+    }
+  },
+  "profiles": {
+    "minimal": {
+      "purpose": "Native read and approval/resume smoke only; not scored as meeting full business contract",
+      "fault_matrix": "not measured in first iteration"
+    },
+    "equivalent": {
+      "purpose": "Same portable host contract around each native agent loop",
+      "host_guarantees": [
+        "current authorization",
+        "current source versions before history/model exposure",
+        "exact approved business payload",
+        "stable request and business key",
+        "result reconciliation",
+        "cancellation outcome accounting"
+      ],
+      "attribution": "Shared host guarantees are not native framework advantages"
+    }
+  },
+  "budget": {
+    "max_model_requests": 4,
+    "max_tools": 2,
+    "max_tool_output_chars": 4000,
+    "worker_timeout_seconds": 90,
+    "concurrency": 1,
+    "model_token_cost": null,
+    "context_tokens": null,
+    "token_measurement_valid": false
+  },
+  "fixture": {
+    "tenant": "synthetic-shop",
+    "actor": "requester",
+    "approver": "reviewer",
+    "resource": "document:catalog",
+    "source_version": 1,
+    "content": "Synthetic price is 1299 cents.",
+    "write_payload": "Synthetic support request"
+  },
+  "scenarios": [
+    {
+      "id": "read_control",
+      "family": "control",
+      "expect": "actual model sees current authorized content; tool executes and output matches"
+    },
+    {
+      "id": "approval_restart_control",
+      "family": "control",
+      "expect": "zero writes while pending; independent reviewer resumes in a new process; exactly one effect"
+    },
+    {
+      "id": "permission_revocation",
+      "family": "revocation",
+      "expect": "after revocation no new model-visible content or business write"
+    },
+    {
+      "id": "source_withdrawal",
+      "family": "source_lifecycle",
+      "expect": "after withdrawal cached result/history cannot be exposed or forwarded to model"
+    },
+    {
+      "id": "approval_mutation",
+      "family": "approval_binding",
+      "expect": "changed approved payload denied without effects; valid original payload still resumable"
+    },
+    {
+      "id": "lost_receipt",
+      "family": "reconciliation",
+      "expect": "worker exits after commit; next process reconciles actual ledger result without duplicate write"
+    },
+    {
+      "id": "duplicate_request",
+      "family": "idempotency",
+      "expect": "repeat across processes returns same result; changed payload conflicts; single business effect"
+    },
+    {
+      "id": "cancel_before_write",
+      "family": "cancellation",
+      "expect": "cancel before tool side effect yields no write"
+    },
+    {
+      "id": "cancel_after_write",
+      "family": "cancellation",
+      "expect": "actual committed result retained/reconciled; no claim of rollback; one effect"
+    }
+  ],
+  "execution": {
+    "fresh_state_per_arm_profile_case": true,
+    "process_restart": "distinct worker process for every action; fault worker exits with explicit injected code after durable commit",
+    "cache": "per-case cold state, replay only when scenario requests it",
+    "run_order": "forge, deepagents, pydantic; each case sequential",
+    "latency": "local setup plus worker/import time only; not service SLO",
+    "retries": "no automatic evaluator rerun; failed attempts preserved"
+  },
+  "grading": {
+    "oracle": "persistent business ledger + actual model-input events + returned durable state",
+    "all_deny_control": "read_control and approval_restart_control must succeed",
+    "terminal_outcome": [
+      "passed",
+      "failed",
+      "not_measured"
+    ],
+    "infrastructure_error": "not_measured with reason; never relabel as upstream defect",
+    "scope": "configured integrations only; no general framework security or quality ranking"
+  },
+  "data_policy": {
+    "synthetic_only": true,
+    "sealed_set_access": false,
+    "private_data_in_reports": false
+  },
+  "required_evidence": [
+    "candidate source digest",
+    "protocol sha256",
+    "installed versions and lockfile hashes",
+    "per-case action logs",
+    "model inputs and tool outcomes",
+    "guarantee attribution",
+    "all failures and not-measured reasons"
+  ],
+  "decision_rule": {
+    "support_custom_core": "reproducible native advantage or explained integration/maintenance benefit under equivalent business contracts",
+    "no_observed_advantage": "valid same-contract measurement with sufficient coverage; not equivalent to universal superiority",
+    "insufficient_evidence": "shared-host-only guarantees, incomplete native matrix, no independent onboarding or missing real business evaluation; pause core expansion, retain missing items"
+  },
+  "first_iteration_limits": [
+    "No independent onboarding participant",
+    "Native-only full six-fault matrix is not measured; equivalent profile measures shared-host composition",
+    "No real model, real commerce data or professional review available (user confirmed none)"
+  ],
+  "previous_protocol_sha256": "73dcf64bfe53cc3504ecc726beae995ddc1c084094e16f9256a43f23ea269f95",
+  "declaration_change": "SDK 0.12.0 hosted serial PostgreSQL execution plus local runtime hardening; unchanged comparison scenarios, profiles, grading and dependency declarations; previous protocols preserved. Hosted real-PG, loopback HTTP, independent business-ledger and installed-wheel contracts are separate engineering release gates, not evidence of native framework advantage or production SaaS qualification."
+}

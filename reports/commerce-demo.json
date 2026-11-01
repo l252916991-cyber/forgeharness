@@ -1,0 +1,60 @@
+{
+  "data": "synthetic only",
+  "model": "deterministic fixture",
+  "comparison": {
+    "faqs": [],
+    "products": [
+      {
+        "as_of": "2026-10-15T05:08:19.958310+00:00",
+        "currency": "CNY",
+        "price_cents": 1299,
+        "sku": "SYN-NB-001",
+        "stock": 12,
+        "version": 3
+      },
+      {
+        "as_of": "2026-10-15T05:08:19.958434+00:00",
+        "currency": "CNY",
+        "price_cents": 1899,
+        "sku": "SYN-NB-002",
+        "stock": 7,
+        "version": 2
+      }
+    ],
+    "reason": "verified_records",
+    "sources": [
+      "product:SYN-NB-001@3#row:1",
+      "product:SYN-NB-002@2#row:2"
+    ],
+    "status": "answered"
+  },
+  "follow_up": {
+    "faqs": [],
+    "products": [
+      {
+        "as_of": "2026-10-15T05:08:19.975912+00:00",
+        "currency": "CNY",
+        "price_cents": 1299,
+        "sku": "SYN-NB-001",
+        "stock": 12,
+        "version": 3
+      },
+      {
+        "as_of": "2026-10-15T05:08:19.976027+00:00",
+        "currency": "CNY",
+        "price_cents": 1899,
+        "sku": "SYN-NB-002",
+        "stock": 7,
+        "version": 2
+      }
+    ],
+    "reason": "verified_records",
+    "sources": [
+      "product:SYN-NB-001@3#row:1",
+      "product:SYN-NB-002@2#row:2"
+    ],
+    "status": "answered"
+  },
+  "ticket_id": "9682c2f0-edd3-43b7-8003-8b45818c3093",
+  "ticket_count": 1
+}

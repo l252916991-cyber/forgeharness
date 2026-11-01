@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-04",
+  "tenant_id": "shop-a",
+  "question": "Can the delivery address be changed after dispatch?",
+  "answer": "Synthetic answer: the address can be changed only before dispatch; once the parcel has left, it must be refused on arrival and ordered again.",
+  "category": "shipping",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:shipping-address-change"
+    }
+  ]
+}

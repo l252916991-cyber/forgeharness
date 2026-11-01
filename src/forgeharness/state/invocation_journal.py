@@ -29,7 +29,7 @@ from typing import Protocol
 
 from pydantic import Field
 
-from forgeharness.domain.models import FrozenModel
+from forgeharness.domain.models import FrozenModel, Usage
 from forgeharness.state.sqlite import connect_wal
 from forgeharness.tools.base import ToolEffectClass, ToolOutput
 
@@ -133,6 +133,8 @@ class AttemptRecord(FrozenModel):
     # the first), so latency evidence can explain a slow logical call.
     timeout_seconds: float = Field(gt=0)
     backoff_before_ms: int = Field(default=0, ge=0)
+    # None means not established, including attempts created before R2.
+    usage: Usage | None = None
 
 
 class JournalError(RuntimeError):
@@ -287,6 +289,7 @@ class SQLiteInvocationJournal:
         self._path = path
         self._path.parent.mkdir(parents=True, exist_ok=True)
         with self._connect() as connection:
+            connection.execute("BEGIN IMMEDIATE")
             connection.execute(
                 """
                 CREATE TABLE IF NOT EXISTS tool_invocations (
@@ -336,6 +339,9 @@ class SQLiteInvocationJournal:
                 )
                 """
             )
+            columns = {row[1] for row in connection.execute("PRAGMA table_info(tool_attempts)")}
+            if "usage_json" not in columns:
+                connection.execute("ALTER TABLE tool_attempts ADD COLUMN usage_json TEXT")
 
     def claim(self, record: InvocationRecord) -> InvocationRecord:
         """Insert a new invocation. A repeat of the same logical call is an error."""
@@ -398,6 +404,34 @@ class SQLiteInvocationJournal:
         loaded = self._load_by_id(invocation_id)
         if loaded is None:
             raise JournalError(f"invocation vanished after start: {invocation_id}")
+        return loaded
+
+    def restart(self, record: InvocationRecord, *, checkpoint_revision: int) -> InvocationRecord:
+        """CAS a safe unfinished invocation for a stopped-worker recovery."""
+        if decide_recovery(record) not in (
+            RecoveryDecision.EXECUTE,
+            RecoveryDecision.REPLAY_READ_ONLY,
+            RecoveryDecision.REPLAY_IDEMPOTENT,
+        ):
+            raise JournalError("unsafe invocation cannot restart")
+        with self._connect() as connection:
+            cursor = connection.execute(
+                "UPDATE tool_invocations SET state=?, started_at=?, checkpoint_revision=? "
+                "WHERE invocation_id=? AND state=? AND checkpoint_revision=?",
+                (
+                    InvocationState.STARTED.value,
+                    datetime.now(UTC).isoformat(),
+                    checkpoint_revision,
+                    record.invocation_id,
+                    record.state.value,
+                    record.checkpoint_revision,
+                ),
+            )
+            if cursor.rowcount != 1:
+                raise JournalError("invocation changed during restart")
+        loaded = self._load_by_id(record.invocation_id)
+        if loaded is None:
+            raise JournalError("invocation vanished during restart")
         return loaded
 
     def settle(self, record: InvocationRecord) -> InvocationRecord:
@@ -511,13 +545,14 @@ class SQLiteInvocationJournal:
             cursor = connection.execute(
                 """
                 UPDATE tool_attempts
-                SET finished_at = ?, outcome = ?, error_code = ?
+                SET finished_at = ?, outcome = ?, error_code = ?, usage_json = ?
                 WHERE attempt_id = ? AND outcome IS NULL
                 """,
                 (
                     (attempt.finished_at or datetime.now(UTC)).isoformat(),
                     attempt.outcome.value,
                     attempt.error_code,
+                    attempt.usage.model_dump_json() if attempt.usage is not None else None,
                     attempt.attempt_id,
                 ),
             )
@@ -534,6 +569,38 @@ class SQLiteInvocationJournal:
                 (invocation_id,),
             ).fetchall()
         return tuple(_row_to_attempt(row) for row in rows)
+
+    def reconcile_in_transaction(
+        self, connection: sqlite3.Connection, record: InvocationRecord, output: ToolOutput
+    ) -> None:
+        """Resolve uncertain facts from a trusted receipt query, never by replaying."""
+        if record.state not in {
+            InvocationState.CLAIMED,
+            InvocationState.STARTED,
+            InvocationState.INDETERMINATE,
+        }:
+            raise JournalError("only unresolved invocations may be reconciled")
+        if connection.execute("PRAGMA database_list").fetchone()[2] != str(self._path.resolve()):
+            raise JournalError("reconciliation requires the journal database")
+        settled = settle_invocation(record, output, datetime.now(UTC))
+        if len(output.model_dump_json().encode()) > MAX_JOURNALED_RESULT_BYTES:
+            raise JournalError("reconciled result exceeds journal limit")
+        cursor = connection.execute(
+            "UPDATE tool_invocations SET state=?, result=?, result_digest=?, "
+            "result_size_bytes=?, finished_at=?, error_code=? WHERE invocation_id=? AND state=?",
+            (
+                settled.state.value,
+                output.model_dump_json(),
+                settled.result_digest,
+                settled.result_size_bytes,
+                (settled.finished_at or datetime.now(UTC)).isoformat(),
+                settled.error_code,
+                record.invocation_id,
+                record.state.value,
+            ),
+        )
+        if cursor.rowcount != 1:
+            raise JournalError("invocation changed during reconciliation")
 
     def _load_by_id(self, invocation_id: str) -> InvocationRecord | None:
         with self._connect() as connection:
@@ -553,6 +620,13 @@ class SQLiteInvocationJournal:
 def _row_to_record(row: sqlite3.Row) -> InvocationRecord:
     """Rebuild an InvocationRecord from a SQLite row by column name."""
     result_payload = row["result"]
+    if (
+        result_payload
+        and hashlib.sha256(str(result_payload).encode()).hexdigest() != row["result_digest"]
+    ):
+        raise JournalError("stored invocation result digest mismatch")
+    if int(row["journal_version"]) != JOURNAL_VERSION:
+        raise JournalError("unsupported invocation journal version")
     return InvocationRecord(
         invocation_id=str(row["invocation_id"]),
         run_id=str(row["run_id"]),
@@ -592,6 +666,7 @@ def _row_to_attempt(row: sqlite3.Row) -> AttemptRecord:
         error_code=str(row["error_code"]) if row["error_code"] else None,
         timeout_seconds=float(row["timeout_seconds"]),
         backoff_before_ms=_as_int(row["backoff_before_ms"]),
+        usage=Usage.model_validate_json(row["usage_json"]) if row["usage_json"] else None,
     )
 
 

@@ -1,0 +1,9 @@
+Synthetic delivery note (fixture): this is an invented logistics record for a consignment that does not exist.
+
+Delivery note DN-4471 was issued by the logistics desk of Party B (synthetic) for consignment K-88 under matter SYN-2026-014. The note has a single line item: 240 units of synthetic component type C-12, packed on four pallets.
+
+The note states that the consignment was received on 2026-04-09 at the loading bay of Party A (synthetic). The receiving column carries the initials "R.T." and a handwritten remark: "four pallets, outer wrapping intact".
+
+The signature block names the receiving clerk as "R. Teller (synthetic)" and records receipt during the afternoon shift. The note adds that the driver left without a countersignature because the bay printer was offline, so only the logistics copy was signed. It also records that pallet two had a torn corner on the outer wrap, which was photographed before unloading.
+
+The delivery note does not mention the contract clause on delivery dates, and it does not state whether the goods conformed to Schedule 1.

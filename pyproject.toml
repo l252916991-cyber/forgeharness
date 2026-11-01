@@ -10,27 +10,53 @@ default = true
 
 [project]
 name = "forgeharness"
-version = "0.1.0"
-description = "An evaluation-first Agent Harness with a software-engineering vertical agent"
+version = "0.13.0"
+description = "An evaluation-first, application-neutral Agent Harness SDK: governed runtime, capability composition, custom orchestrators and reference applications"
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 license = { text = "MIT" }
+license-files = ["LICENSE"]
 authors = [{ name = "ForgeHarness contributors" }]
+keywords = [
+  "agent",
+  "agent-harness",
+  "llm",
+  "tool-use",
+  "mcp",
+  "orchestration",
+  "approvals",
+  "tracing",
+  "evaluation",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries :: Application Frameworks",
+  "Topic :: Software Development :: Quality Assurance",
+  "Typing :: Typed",
+]
 dependencies = [
-  "fastapi>=0.116,<1",
-  "httpx>=0.28,<1",
   "jsonschema>=4.25,<5",
-  "python-multipart>=0.0.20,<1",
-  "pillow>=12,<13",
-  "pypdf>=6,<7",
   "pydantic>=2.11,<3",
-  "pydantic-settings>=2.10,<3",
-  "pyyaml>=6.0,<7",
-  "typer>=0.16,<1",
-  "uvicorn>=0.35,<1",
 ]
 
 [project.optional-dependencies]
+skills = ["pyyaml>=6.0,<7"]
+models = ["httpx>=0.28,<1"]
+web = ["fastapi>=0.116,<1", "uvicorn>=0.35,<1", "python-multipart>=0.0.20,<1"]
+cloud = ["asyncpg>=0.30,<1"]
+knowledge = ["pillow>=13,<14", "pypdf>=6.21.4,<7", "pyyaml>=6.0,<7"]
+cli = ["httpx>=0.28,<1", "pydantic-settings>=2.10,<3", "pyyaml>=6.0,<7", "typer>=0.16,<1",
+       "fastapi>=0.116,<1", "uvicorn>=0.35,<1", "python-multipart>=0.0.20,<1",
+       "pillow>=13,<14", "pypdf>=6.21.4,<7"]
+
 platform = [
   "arq>=0.26,<1",
   "asyncpg>=0.30,<1",
@@ -42,11 +68,30 @@ frameworks = [
   "langchain>=1,<2",
   "langchain-core>=1,<2",
   "langchain-openai>=1,<2",
-  "langgraph>=1,<2",
+  "langgraph>=1.2.14,<2",
   "llama-index-core>=0.14,<1",
 ]
 
+# The recommended single extra: everything the interactive `forge` CLI imports.
+# `pip install "forgeharness[cli]"` is the one-line install in the Quickstart.
+all = [
+  "asyncpg>=0.30,<1",
+  "fastapi>=0.116,<1",
+  "httpx>=0.28,<1",
+  "langchain>=1,<2",
+  "langchain-core>=1,<2",
+  "langchain-openai>=1,<2",
+  "langgraph>=1.2.14,<2",
+  "pillow>=13,<14",
+  "pydantic-settings>=2.10,<3",
+  "pypdf>=6.21.4,<7",
+  "python-multipart>=0.0.20,<1",
+  "pyyaml>=6.0,<7",
+  "typer>=0.16,<1",
+  "uvicorn>=0.35,<1",
+]
 benchmark = ["locust>=2.40,<3"]
+postgres-test = ["embedded-postgres==18.6.3", "asyncpg>=0.30,<1"]
 
 dev = [
   "mypy>=1.17,<2",
@@ -61,17 +106,32 @@ dev = [
 [project.scripts]
 forge = "forgeharness.cli:app"
 
+[tool.hatch.build.targets.sdist]
+include = ["src/forgeharness", "pyproject.toml", "README.md", "LICENSE", "docs", "examples/sdk_demo.py", "examples/business_modules_demo.py", "examples/session_demo.py", "examples/import_tasks_demo.py", "examples/legal_pilot_demo.py", "examples/commerce_demo.py", "examples/commerce_state.py", "examples/commerce_workbench.py", "examples/workbench_smoke.py", "examples/commerce_readonly_demo.py", "examples/durable_demo.py", "examples/collaboration_demo.py", "examples/parallel_demo.py", "examples/cloud_state_demo.py", "examples/cloud_hosted_demo.py", "data/synthetic"]
+# Anchor development-only directories: a basename include such as pyproject.toml
+# otherwise also matches the nested, independent comparison project configs.
+exclude = ["/evals", "/benchmarks", "/tests", "/reports", "/.github", "/deploy", "/data/sealed"]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/forgeharness"]
+# py.typed and the SQL schema shipped next to the code are runtime data, not
+# build leftovers: a wheel without them installs a package that lies about typing.
+artifacts = ["src/forgeharness/py.typed", "src/forgeharness/**/*.sql"]
 
 [tool.pytest.ini_options]
 addopts = "-q --strict-markers --strict-config"
 testpaths = ["tests"]
+# Repository root on sys.path so tests can import the offline drivers under
+# benchmarks/ (the release-verification gates) as ordinary modules.
+pythonpath = ["."]
 asyncio_mode = "auto"
 
 [tool.ruff]
 target-version = "py312"
 line-length = 100
+# Verification runs copy the whole repository under reports/<phase>-verification/work/.
+# Those are generated evidence trees, never project source.
+extend-exclude = ["reports"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "ASYNC", "RUF"]

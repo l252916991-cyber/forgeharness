@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-15",
+  "tenant_id": "shop-a",
+  "question": "How should synthetic cotton covers be washed?",
+  "answer": "Synthetic answer: machine wash at 30 degrees on a gentle cycle and dry flat away from direct heat.",
+  "category": "care",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:care-textiles-washing"
+    }
+  ]
+}

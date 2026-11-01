@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-24",
+  "tenant_id": "shop-b",
+  "question": "Which payment methods does shop-b accept?",
+  "answer": "Synthetic answer: shop-b accepts synthetic card payment and synthetic bank transfer; cash is not accepted.",
+  "category": "payment",
+  "sources": [
+    {
+      "source": "shop-b-policy",
+      "version": "2026-10-05",
+      "locator": "section:payment-methods"
+    }
+  ]
+}

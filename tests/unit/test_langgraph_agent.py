@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import asyncio
+import shlex
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +31,17 @@ def _tool_call(name: str, args: dict[str, Any], call_id: str) -> AIMessage:
 def _agent(workspace: Path, messages: list[AIMessage], **kwargs: Any) -> LangGraphCodingAgent:
     model = _ScriptedToolModel(messages=iter(messages))
     return LangGraphCodingAgent(llm=model, workspace=workspace, **kwargs)
+
+
+def _python(code: str) -> str:
+    """A command string that runs ``code`` under the interpreter running the tests.
+
+    A bare ``python`` is not on PATH in every environment (virtualenvs, uv-managed
+    interpreters, CI images), and ``run_tests`` resolves the command with
+    ``shlex.split`` plus an exec — so an absolute interpreter path is what makes
+    these tests about the agent's behaviour instead of about the developer's PATH.
+    """
+    return f"{shlex.quote(sys.executable)} -c {shlex.quote(code)}"
 
 
 def test_coding_tools_build_bound_tools(tmp_path: Path) -> None:
@@ -81,12 +94,13 @@ def test_path_traversal_is_rejected(tmp_path: Path) -> None:
 
 @pytest.mark.asyncio
 async def test_agent_completes_when_tests_pass(tmp_path: Path) -> None:
+    command = _python("print(1)")
     messages = [
         _tool_call("read_file", {"path": "calc.py"}, "c1"),
-        _tool_call("run_tests", {"command": "python -c 'print(1)'"}, "c2"),
+        _tool_call("run_tests", {"command": command}, "c2"),
         AIMessage(content="tests are green"),
     ]
-    agent = _agent(tmp_path, messages, test_command="python -c 'print(1)'")
+    agent = _agent(tmp_path, messages, test_command=command)
 
     result = await agent.run("verify calc.py")
 
@@ -99,9 +113,10 @@ async def test_agent_fails_after_denied_write_and_failing_tests(tmp_path: Path) 
     async def deny(action: str, path: str, content: str) -> bool:
         return False
 
+    failing = _python("raise SystemExit(1)")
     messages = [
         _tool_call("write_file", {"path": "x.txt", "content": "n"}, "c1"),
-        _tool_call("run_tests", {"command": "python -c 'raise SystemExit(1)'"}, "c2"),
+        _tool_call("run_tests", {"command": failing}, "c2"),
         AIMessage(content="trying"),
         AIMessage(content="still trying"),
     ]
@@ -110,7 +125,7 @@ async def test_agent_fails_after_denied_write_and_failing_tests(tmp_path: Path) 
         messages,
         max_iterations=2,
         approval_callback=deny,
-        test_command="python -c 'raise SystemExit(1)'",
+        test_command=failing,
     )
 
     result = await agent.run("break things")

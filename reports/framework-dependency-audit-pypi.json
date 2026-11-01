@@ -1,0 +1,1081 @@
+{
+  "schema_version": 1,
+  "service": "official PyPI version JSON vulnerabilities",
+  "timestamp": "2026-10-07T02:56:18.588000+00:00",
+  "packages": [
+    {
+      "name": "aiohappyeyeballs",
+      "version": "2.7.1",
+      "source": "https://pypi.org/pypi/aiohappyeyeballs/2.7.1/json",
+      "response_sha256": "90a6fe95d5083b27fa3cb21b46a78cdf84befd72a03001ea3182747e6794b983",
+      "vulnerabilities": []
+    },
+    {
+      "name": "aiohttp",
+      "version": "3.14.3",
+      "source": "https://pypi.org/pypi/aiohttp/3.14.3/json",
+      "response_sha256": "7acaab0b6391afb5c670cc103179baed55d7b413b28313d8c94caf560f045465",
+      "vulnerabilities": []
+    },
+    {
+      "name": "aiosignal",
+      "version": "1.4.0",
+      "source": "https://pypi.org/pypi/aiosignal/1.4.0/json",
+      "response_sha256": "443bdf542505c93e62117e868b9984b0c5784d50ab5b40ad0ae36d600b2d75ae",
+      "vulnerabilities": []
+    },
+    {
+      "name": "aiosqlite",
+      "version": "0.22.1",
+      "source": "https://pypi.org/pypi/aiosqlite/0.22.1/json",
+      "response_sha256": "93392bfc92c3fe2a1df7c8ca779af90836ec342f30140704a68c0844e55a931f",
+      "vulnerabilities": []
+    },
+    {
+      "name": "annotated-doc",
+      "version": "0.0.5",
+      "source": "https://pypi.org/pypi/annotated-doc/0.0.5/json",
+      "response_sha256": "1aab691a5f37dd292e6d93ab53f7da5d839f56ba605345f017022ec75eb643af",
+      "vulnerabilities": []
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "source": "https://pypi.org/pypi/annotated-types/0.8.0/json",
+      "response_sha256": "a6e8e5b10c8fd2f596bba53e015cd37f6279fb5cec26ce0c5e9968625be4fefa",
+      "vulnerabilities": []
+    },
+    {
+      "name": "anyio",
+      "version": "4.14.2",
+      "source": "https://pypi.org/pypi/anyio/4.14.2/json",
+      "response_sha256": "db8486b090bcf9977cd53888ffcd558fdf646d47887f656ab2eeeb0e9bb4cd06",
+      "vulnerabilities": []
+    },
+    {
+      "name": "arq",
+      "version": "0.28.0",
+      "source": "https://pypi.org/pypi/arq/0.28.0/json",
+      "response_sha256": "afa818606406a08d2a604d5c26c2271e20e44897c57fbeb4e3c8fddc36127691",
+      "vulnerabilities": []
+    },
+    {
+      "name": "asyncpg",
+      "version": "0.31.0",
+      "source": "https://pypi.org/pypi/asyncpg/0.31.0/json",
+      "response_sha256": "14df08ee9e684d29e49b5cc7183abda250f918f9c063e6f39f5ac729bb428d3e",
+      "vulnerabilities": []
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0",
+      "source": "https://pypi.org/pypi/attrs/26.1.0/json",
+      "response_sha256": "a882bf941fb4a0bb748d0194df544121cc130f5fb15a710ab6b804c17d2899b7",
+      "vulnerabilities": []
+    },
+    {
+      "name": "banks",
+      "version": "2.5.0",
+      "source": "https://pypi.org/pypi/banks/2.5.0/json",
+      "response_sha256": "ad5edcaaece84ecde340890452eeb4436cc033a55c8289de690c945580ed13c4",
+      "vulnerabilities": []
+    },
+    {
+      "name": "bidict",
+      "version": "0.24.1",
+      "source": "https://pypi.org/pypi/bidict/0.24.1/json",
+      "response_sha256": "a786859adb7e76c20d2a9a90fe459d1a218170204358aeb7ce6b4d497f6258f1",
+      "vulnerabilities": []
+    },
+    {
+      "name": "blinker",
+      "version": "1.9.0",
+      "source": "https://pypi.org/pypi/blinker/1.9.0/json",
+      "response_sha256": "f14d9c3deb29ae1aa16824a067c4e1fb68e38e286d31e8f0f8319b2e01c9778d",
+      "vulnerabilities": []
+    },
+    {
+      "name": "brotli",
+      "version": "1.2.0",
+      "source": "https://pypi.org/pypi/brotli/1.2.0/json",
+      "response_sha256": "fff7b315334c40e145ed39acf6fa025c315f2a18a023e64b39efbd4c5a4efbd8",
+      "vulnerabilities": []
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22",
+      "source": "https://pypi.org/pypi/certifi/2026.7.22/json",
+      "response_sha256": "c6fe912677e373608eab51e324946005998faeb0fa999e6ddada24676e3556d3",
+      "vulnerabilities": []
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.1",
+      "source": "https://pypi.org/pypi/charset-normalizer/3.5.1/json",
+      "response_sha256": "d023a4c812bc4478f294dbb8b9c7e5699c62a98ed0516129c22982f983d47f95",
+      "vulnerabilities": []
+    },
+    {
+      "name": "click",
+      "version": "8.5.0",
+      "source": "https://pypi.org/pypi/click/8.5.0/json",
+      "response_sha256": "4e36adc9b46f837e10ce801b7a478f9146fefdfb287292b7668fc64b1474e41d",
+      "vulnerabilities": []
+    },
+    {
+      "name": "cloudpickle",
+      "version": "3.1.2",
+      "source": "https://pypi.org/pypi/cloudpickle/3.1.2/json",
+      "response_sha256": "36cd9b8b2a3b6691c78f87bac524652edbe9e81cda0f13767577174de31954bc",
+      "vulnerabilities": []
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6",
+      "source": "https://pypi.org/pypi/colorama/0.4.6/json",
+      "response_sha256": "43fb351344384a44c2b7d7fff1c63496b89ac830aea714301525c1f3718addd1",
+      "vulnerabilities": []
+    },
+    {
+      "name": "configargparse",
+      "version": "1.7.5",
+      "source": "https://pypi.org/pypi/configargparse/1.7.5/json",
+      "response_sha256": "418cd24e9f62ad16a55c12795f09182a5c3d5dfd63f69a79422672e72d56a27a",
+      "vulnerabilities": []
+    },
+    {
+      "name": "coverage",
+      "version": "7.16.0",
+      "source": "https://pypi.org/pypi/coverage/7.16.0/json",
+      "response_sha256": "9f1625859e4b12a7be04bcd1c698c8344c7a35a81c67ea347f2200e915390ca4",
+      "vulnerabilities": []
+    },
+    {
+      "name": "dataclasses-json",
+      "version": "0.6.7",
+      "source": "https://pypi.org/pypi/dataclasses-json/0.6.7/json",
+      "response_sha256": "7b7eee3b5993e716e8b3929418419666b3a14a3daf74e54b9c8a4bde9d843597",
+      "vulnerabilities": []
+    },
+    {
+      "name": "defusedxml",
+      "version": "0.7.1",
+      "source": "https://pypi.org/pypi/defusedxml/0.7.1/json",
+      "response_sha256": "f015c37fa0b87a1d7fad57bea96c5c34856df2cbb29626004dee2122d510136a",
+      "vulnerabilities": []
+    },
+    {
+      "name": "deprecated",
+      "version": "1.3.1",
+      "source": "https://pypi.org/pypi/deprecated/1.3.1/json",
+      "response_sha256": "3fd80148edb7edcb459241807d9eef98bcec5d26346dc7e971cd3008c44b2597",
+      "vulnerabilities": []
+    },
+    {
+      "name": "dirtyjson",
+      "version": "1.0.8",
+      "source": "https://pypi.org/pypi/dirtyjson/1.0.8/json",
+      "response_sha256": "d46dca427d855eb78fea32bc23745cd3d83054236d297280748e307071b9ee41",
+      "vulnerabilities": []
+    },
+    {
+      "name": "distro",
+      "version": "1.9.0",
+      "source": "https://pypi.org/pypi/distro/1.9.0/json",
+      "response_sha256": "d83d91adebd208c0ce5b969017d4ce5c4ec59ea7d46793c20d36b261325fc236",
+      "vulnerabilities": []
+    },
+    {
+      "name": "fastapi",
+      "version": "0.141.1",
+      "source": "https://pypi.org/pypi/fastapi/0.141.1/json",
+      "response_sha256": "5e02eb25b092ccba150d087ba1044d95833e390c6a83cbf49b5911e1be20682a",
+      "vulnerabilities": []
+    },
+    {
+      "name": "filetype",
+      "version": "1.2.0",
+      "source": "https://pypi.org/pypi/filetype/1.2.0/json",
+      "response_sha256": "2861359cbfafd6a5518073592195be7ff47c7ec5c703f76811e5ee41aac565be",
+      "vulnerabilities": []
+    },
+    {
+      "name": "flask",
+      "version": "3.1.3",
+      "source": "https://pypi.org/pypi/flask/3.1.3/json",
+      "response_sha256": "782593ae20369a820d57d3311d04d54f805e40262b95448ce325a8cae182c354",
+      "vulnerabilities": []
+    },
+    {
+      "name": "flask-cors",
+      "version": "6.0.5",
+      "source": "https://pypi.org/pypi/flask-cors/6.0.5/json",
+      "response_sha256": "a54cfe646569e6d3406ba92c4b78e8e726ceb384db2d50f7ee85219795f7e9ce",
+      "vulnerabilities": []
+    },
+    {
+      "name": "flask-login",
+      "version": "0.6.3",
+      "source": "https://pypi.org/pypi/flask-login/0.6.3/json",
+      "response_sha256": "973a418b36d3c80c467fcfe616d195927217448d66b65fd8097d2369c413cc47",
+      "vulnerabilities": []
+    },
+    {
+      "name": "frozenlist",
+      "version": "1.8.0",
+      "source": "https://pypi.org/pypi/frozenlist/1.8.0/json",
+      "response_sha256": "b12a7f8b816bfb2a70f2eb97140890efb08a234ab3b75841b0e89e197effa5ad",
+      "vulnerabilities": []
+    },
+    {
+      "name": "fsspec",
+      "version": "2026.7.0",
+      "source": "https://pypi.org/pypi/fsspec/2026.7.0/json",
+      "response_sha256": "55eeed4d2aa6c53010b8dc6ac67ce83f2620ef17203c5922f5a642f479b484b0",
+      "vulnerabilities": []
+    },
+    {
+      "name": "gevent",
+      "version": "26.8.0",
+      "source": "https://pypi.org/pypi/gevent/26.8.0/json",
+      "response_sha256": "9da0ae98cf53e13703b7e0eeb97ab2f419f87371ff95abfea2484d34fa0007dc",
+      "vulnerabilities": []
+    },
+    {
+      "name": "geventhttpclient",
+      "version": "2.3.9",
+      "source": "https://pypi.org/pypi/geventhttpclient/2.3.9/json",
+      "response_sha256": "20da26f1f7a086ae036507948b15fc2171b9f2d9486dc8bac6e74c059b5f6142",
+      "vulnerabilities": []
+    },
+    {
+      "name": "greenlet",
+      "version": "3.5.5",
+      "source": "https://pypi.org/pypi/greenlet/3.5.5/json",
+      "response_sha256": "d2b48e6be18038b3cfb588ed5b0b35594d26b2dc7be8b94cbeb916f94d48db2b",
+      "vulnerabilities": []
+    },
+    {
+      "name": "griffe",
+      "version": "2.2.0",
+      "source": "https://pypi.org/pypi/griffe/2.2.0/json",
+      "response_sha256": "0b7dd4ed865c959b8fcef64cd65c8bc804cc0e951510baad32c43ede9912c4a8",
+      "vulnerabilities": []
+    },
+    {
+      "name": "griffecli",
+      "version": "2.2.0",
+      "source": "https://pypi.org/pypi/griffecli/2.2.0/json",
+      "response_sha256": "5b9150723b5b1fe13f79ef4119cddd80791d842a17579c6b785c65bc25e13b72",
+      "vulnerabilities": []
+    },
+    {
+      "name": "griffelib",
+      "version": "2.2.0",
+      "source": "https://pypi.org/pypi/griffelib/2.2.0/json",
+      "response_sha256": "06ce09a33def5deeb9c3c5492b40db51f81a01c37510cb4ac37b106d221dd5e1",
+      "vulnerabilities": []
+    },
+    {
+      "name": "grpcio",
+      "version": "1.83.1",
+      "source": "https://pypi.org/pypi/grpcio/1.83.1/json",
+      "response_sha256": "541c7c0382fcf6bd7e4e9dc769d490d4989b83b6f40257669a1fdee648c12985",
+      "vulnerabilities": []
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "source": "https://pypi.org/pypi/h11/0.16.0/json",
+      "response_sha256": "97f4efb9cc00826f0408076983adc1a1e48e8f2cabf403aaf250f724e081440d",
+      "vulnerabilities": []
+    },
+    {
+      "name": "h2",
+      "version": "4.4.1",
+      "source": "https://pypi.org/pypi/h2/4.4.1/json",
+      "response_sha256": "8903fbfc73b625064e48cc99a2c629bd47e4dd47593fa3530de83aeb55f89105",
+      "vulnerabilities": []
+    },
+    {
+      "name": "hiredis",
+      "version": "3.4.1",
+      "source": "https://pypi.org/pypi/hiredis/3.4.1/json",
+      "response_sha256": "2b97d4a82e073ffb93b48edb45f37c6e969eeb12ec7c8477dcf2618b88db3c3c",
+      "vulnerabilities": []
+    },
+    {
+      "name": "hpack",
+      "version": "4.2.0",
+      "source": "https://pypi.org/pypi/hpack/4.2.0/json",
+      "response_sha256": "30c2f7e29c9c0cad70eac912fa745252f62c4a7bab1fd5e1a79f5202666b6456",
+      "vulnerabilities": []
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "source": "https://pypi.org/pypi/httpcore/1.0.9/json",
+      "response_sha256": "e26eca5c3d288fe9e6446af9bcbca1038ba688629d5c8a2886c47d74718d87a2",
+      "vulnerabilities": []
+    },
+    {
+      "name": "httpcore2",
+      "version": "2.12.0",
+      "source": "https://pypi.org/pypi/httpcore2/2.12.0/json",
+      "response_sha256": "52294464cce7f47ad461a3c714e3af77ddc2eb1c7aeef36b75e37495602ff654",
+      "vulnerabilities": []
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "source": "https://pypi.org/pypi/httpx/0.28.1/json",
+      "response_sha256": "293bfab7bf587fcd0825f1bd8eed8e6303285ba14801b15659853827cbe30796",
+      "vulnerabilities": []
+    },
+    {
+      "name": "httpx2",
+      "version": "2.12.0",
+      "source": "https://pypi.org/pypi/httpx2/2.12.0/json",
+      "response_sha256": "abd7c126bf84ccfcd449696b9a0725964d0dd2c6919e9df82a140cc9c616d225",
+      "vulnerabilities": []
+    },
+    {
+      "name": "hyperframe",
+      "version": "6.1.0",
+      "source": "https://pypi.org/pypi/hyperframe/6.1.0/json",
+      "response_sha256": "161f3cc4aa873bb55267755306b46993c7f16ed1f1c3dca10c6059f6cd8f1af0",
+      "vulnerabilities": []
+    },
+    {
+      "name": "idna",
+      "version": "3.19",
+      "source": "https://pypi.org/pypi/idna/3.19/json",
+      "response_sha256": "cf4ff5d748a88fe6e9d75ffbcc19b946d304b334dd10baa21bd90fb5566dfa44",
+      "vulnerabilities": []
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.0",
+      "source": "https://pypi.org/pypi/iniconfig/2.3.0/json",
+      "response_sha256": "10a4699a386b2309a98d4c368b6696e80562cefebe20107610337447d7f13f65",
+      "vulnerabilities": []
+    },
+    {
+      "name": "itsdangerous",
+      "version": "2.2.0",
+      "source": "https://pypi.org/pypi/itsdangerous/2.2.0/json",
+      "response_sha256": "aa5e5ed36c2160bc41e306cdf8f69429074282ebfa328529de4c979c750344c1",
+      "vulnerabilities": []
+    },
+    {
+      "name": "jinja2",
+      "version": "3.1.6",
+      "source": "https://pypi.org/pypi/jinja2/3.1.6/json",
+      "response_sha256": "1bc757d7065f3e67d3a49e72ebc731d0774055575732592eede9820c136329cc",
+      "vulnerabilities": []
+    },
+    {
+      "name": "jiter",
+      "version": "0.16.0",
+      "source": "https://pypi.org/pypi/jiter/0.16.0/json",
+      "response_sha256": "7364e2f81b94c1ae971cb0cfed0a2cfae8229df7aa2bb63347849963adcf2dec",
+      "vulnerabilities": []
+    },
+    {
+      "name": "joblib",
+      "version": "1.6.0",
+      "source": "https://pypi.org/pypi/joblib/1.6.0/json",
+      "response_sha256": "7b5f78a64b3685fd996ea5e641ae14b8990a40f3998a24a9e7adc03d84f7e7fa",
+      "vulnerabilities": []
+    },
+    {
+      "name": "jsonpatch",
+      "version": "1.33",
+      "source": "https://pypi.org/pypi/jsonpatch/1.33/json",
+      "response_sha256": "504a9ec4a393510cfc6a5218120b032958f81536193d5aeb07a90f3a0fc0f30e",
+      "vulnerabilities": []
+    },
+    {
+      "name": "jsonpointer",
+      "version": "3.1.1",
+      "source": "https://pypi.org/pypi/jsonpointer/3.1.1/json",
+      "response_sha256": "230769c7dbfd5639db5709f1b3a40ee54dc56d67e7b0213b277b718b452581ed",
+      "vulnerabilities": []
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.26.0",
+      "source": "https://pypi.org/pypi/jsonschema/4.26.0/json",
+      "response_sha256": "d0c9ccdfa30c3cdc57b048c2be21123dfb0c2f4d6bef2e8324dcb4eac985cfcf",
+      "vulnerabilities": []
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1",
+      "source": "https://pypi.org/pypi/jsonschema-specifications/2025.9.1/json",
+      "response_sha256": "91810d8f79384375ad0c0cf631e06903e2790b030d3fad2f1ad657b20ddd839e",
+      "vulnerabilities": []
+    },
+    {
+      "name": "langchain",
+      "version": "1.4.0",
+      "source": "https://pypi.org/pypi/langchain/1.4.0/json",
+      "response_sha256": "21321999b32d9b84e4f937390732a4fcadfce2451c6e0ba9e23b6b7aa8dc5654",
+      "vulnerabilities": []
+    },
+    {
+      "name": "langchain-core",
+      "version": "1.6.1",
+      "source": "https://pypi.org/pypi/langchain-core/1.6.1/json",
+      "response_sha256": "bb5e1f9ad3bf48cfc6560681b0147b39574d77dd54be6d3917f8120e74a7175e",
+      "vulnerabilities": []
+    },
+    {
+      "name": "langchain-openai",
+      "version": "1.6.0",
+      "source": "https://pypi.org/pypi/langchain-openai/1.6.0/json",
+      "response_sha256": "1be0a1b8bc1fb4ad69e80bd43208566ae547ebae44f27350cc1051d263b8222e",
+      "vulnerabilities": []
+    },
+    {
+      "name": "langchain-protocol",
+      "version": "0.0.19",
+      "source": "https://pypi.org/pypi/langchain-protocol/0.0.19/json",
+      "response_sha256": "7e2cf97e3ca04aa9e9d3836016300e960be093071c30146e4f11d7db65dfb1ec",
+      "vulnerabilities": []
+    },
+    {
+      "name": "langgraph",
+      "version": "1.2.11",
+      "source": "https://pypi.org/pypi/langgraph/1.2.11/json",
+      "response_sha256": "d0e61e0c69f05bbb9c462f8d3d4024bd8936bde9bb6db0ea7f0665a6a8be8b5a",
+      "vulnerabilities": []
+    },
+    {
+      "name": "langgraph-checkpoint",
+      "version": "4.2.0",
+      "source": "https://pypi.org/pypi/langgraph-checkpoint/4.2.0/json",
+      "response_sha256": "5a53728b5637b8e65e1ef4c51e10cf832da4b9abc9931320a9378cc59cd84d65",
+      "vulnerabilities": []
+    },
+    {
+      "name": "langgraph-prebuilt",
+      "version": "1.1.0",
+      "source": "https://pypi.org/pypi/langgraph-prebuilt/1.1.0/json",
+      "response_sha256": "6d1b10a1d2f08a3002034c6a9716ea01c90524a04392b7f4849a9463b8784f10",
+      "vulnerabilities": []
+    },
+    {
+      "name": "langgraph-sdk",
+      "version": "0.4.4",
+      "source": "https://pypi.org/pypi/langgraph-sdk/0.4.4/json",
+      "response_sha256": "2f20b08441edfffe2f06e9bdf0aee159d1dd26a2559b295ed8c8e804a34ca183",
+      "vulnerabilities": []
+    },
+    {
+      "name": "langsmith",
+      "version": "0.12.1",
+      "source": "https://pypi.org/pypi/langsmith/0.12.1/json",
+      "response_sha256": "76b3e2ae5297f291f2f80527ef1facf21446f4b66abc06b09651b217af429716",
+      "vulnerabilities": []
+    },
+    {
+      "name": "librt",
+      "version": "0.15.0",
+      "source": "https://pypi.org/pypi/librt/0.15.0/json",
+      "response_sha256": "34e02456acf56c8dc3a6180acb03e426cd57d1b441410482ad8d9f43d247f164",
+      "vulnerabilities": []
+    },
+    {
+      "name": "llama-index-core",
+      "version": "0.14.24",
+      "source": "https://pypi.org/pypi/llama-index-core/0.14.24/json",
+      "response_sha256": "7253ba8a3bfdab182fc110edc5b6ce2e5170f91fbe217a9b549c29ebd6748c80",
+      "vulnerabilities": []
+    },
+    {
+      "name": "llama-index-instrumentation",
+      "version": "0.6.0",
+      "source": "https://pypi.org/pypi/llama-index-instrumentation/0.6.0/json",
+      "response_sha256": "007af42717485a2dd3304a7d9a8a6156259407407375f8eded8b10142abfbcd5",
+      "vulnerabilities": []
+    },
+    {
+      "name": "llama-index-workflows",
+      "version": "2.23.3",
+      "source": "https://pypi.org/pypi/llama-index-workflows/2.23.3/json",
+      "response_sha256": "3402a4a2f22089d394b20cad24e8920ed1f9162232df0f515a4b8718f3c4224b",
+      "vulnerabilities": []
+    },
+    {
+      "name": "locust",
+      "version": "2.46.4",
+      "source": "https://pypi.org/pypi/locust/2.46.4/json",
+      "response_sha256": "3a54879a105489063d1dcfcad859ef2bdda59f132beed66533e5cc6c78894881",
+      "vulnerabilities": []
+    },
+    {
+      "name": "markdown-it-py",
+      "version": "4.2.0",
+      "source": "https://pypi.org/pypi/markdown-it-py/4.2.0/json",
+      "response_sha256": "62affba459c80b1279b5759735f7da3e9c7d24966086ff81ec0303c94512b966",
+      "vulnerabilities": []
+    },
+    {
+      "name": "markupsafe",
+      "version": "3.0.3",
+      "source": "https://pypi.org/pypi/markupsafe/3.0.3/json",
+      "response_sha256": "0de4f18187d0fc2318de8504c4178f2297bc7cfa7a55adfb6d013190aff8cff4",
+      "vulnerabilities": []
+    },
+    {
+      "name": "marshmallow",
+      "version": "3.26.2",
+      "source": "https://pypi.org/pypi/marshmallow/3.26.2/json",
+      "response_sha256": "617da7cb2e658fbceef2674164a29d09f949314c92fb7b92b14374c7ca32dfde",
+      "vulnerabilities": []
+    },
+    {
+      "name": "mdurl",
+      "version": "0.1.2",
+      "source": "https://pypi.org/pypi/mdurl/0.1.2/json",
+      "response_sha256": "c7baac0b363d92cf55f1f3a313f4bb0564bff27343e6a0a4e9d7ff03afc8a6c7",
+      "vulnerabilities": []
+    },
+    {
+      "name": "msgpack",
+      "version": "1.2.2",
+      "source": "https://pypi.org/pypi/msgpack/1.2.2/json",
+      "response_sha256": "64061ba460b8cea6339f357151f558fb3cb1f167a1b2e773055d0aedff978895",
+      "vulnerabilities": []
+    },
+    {
+      "name": "multidict",
+      "version": "6.9.1",
+      "source": "https://pypi.org/pypi/multidict/6.9.1/json",
+      "response_sha256": "19b3cc3ace93ce2c0c093fe7fa83f6873716773326ce1520438de133b6c13224",
+      "vulnerabilities": []
+    },
+    {
+      "name": "mypy",
+      "version": "1.20.2",
+      "source": "https://pypi.org/pypi/mypy/1.20.2/json",
+      "response_sha256": "900dd3ebcaf5f4519fc3886d6eb77cf95bc749d470b8a08699db119b4c475425",
+      "vulnerabilities": []
+    },
+    {
+      "name": "mypy-extensions",
+      "version": "1.1.0",
+      "source": "https://pypi.org/pypi/mypy-extensions/1.1.0/json",
+      "response_sha256": "1c470d3b03e21974b5ea09a572478f10864174511c3a46864b759409451d3ba8",
+      "vulnerabilities": []
+    },
+    {
+      "name": "nest-asyncio",
+      "version": "1.6.0",
+      "source": "https://pypi.org/pypi/nest-asyncio/1.6.0/json",
+      "response_sha256": "08cc25fa669f14dd33b3e70f0bcbfad9f7ba0520e8396c1b6c526cd9b9cb0478",
+      "vulnerabilities": []
+    },
+    {
+      "name": "networkx",
+      "version": "3.6.1",
+      "source": "https://pypi.org/pypi/networkx/3.6.1/json",
+      "response_sha256": "086ea20eae0bce8c0100f4ad27141818546f904be441a713ce4c3a7f2d650d19",
+      "vulnerabilities": []
+    },
+    {
+      "name": "nltk",
+      "version": "3.10.3",
+      "source": "https://pypi.org/pypi/nltk/3.10.3/json",
+      "response_sha256": "2b427a4d43422d771578c857339e036b5b5d0ba8efb1cdbc4443883c86ed860b",
+      "vulnerabilities": [
+        {
+          "aliases": [
+            "CVE-2026-81726",
+            "PYSEC-2026-3740"
+          ],
+          "details": "### Summary\n\nSeveral model-artifact APIs still treat caller-controlled model paths as ordinary filenames even when NLTK path security is enforced. The same outside-root paths are rejected by guarded helpers, but these public read and write flows still use raw file APIs.\n\n### Details\n\n- **Vulnerability type:** File sandbox bypass\n- **Affected component:** `TransitionParser.train`, `TransitionParser.parse`, `AveragedPerceptron.save`, `AveragedPerceptron.load`, `PerceptronTagger.save_to_json`, `save_maxent_params`\n- **Affected versions:** Published `3.9.4` and current source `v3.10.0-rc2` both reproduced.\n- **Patched versions:** Not yet patched\n- **Root cause:** Model import and export helpers use built-in `open()` on caller-controlled paths instead of pathsec-aware helpers.\n\n`TransitionParser.train()` writes outside allowed roots, `TransitionParser.parse()` reads outside allowed roots, `AveragedPerceptron` bypasses the sandbox in both directions, and adjacent read-side helpers in the same family already show the intended guarded behavior. I confirmed outside-root reads and writes while `pathsec.open()` or the guarded sibling helpers rejected the same paths.\n\n### PoC\n\n**Preconditions**\n- The application enables `pathsec` enforcement and lets untrusted workflows choose model import or export paths.\n\n**Steps**\n1. Enable `pathsec.ENFORCE=True` and restrict allowed roots to a dedicated sandbox directory.\n2. Use public model import or export APIs with paths that point outside that root.\n3. Observe the same paths are rejected by negative-control guarded helpers such as `pathsec.open()`, `PerceptronTagger.load_from_json()`, or `load_maxent_params()`.\n4. Observe the vulnerable APIs still read or write outside-root files successfully.\n\n**Minimal reproducible excerpt**\n\n```text\ntransition_train_exists True\ntransition_parse_loader_read_bytes 13\naveraged_load_keys ['bias']\nmaxent_save wrote ['alwayson.tab', 'labels.txt']\n```\n\n### Impact\n\nConsumers that rely on `pathsec` for local containment can be tricked into reading or overwriting files outside approved roots through normal model persistence and loading APIs.\n\n### Remediation\n\nRoute all model-path file access through `nltk.pathsec.open()` or existing pathsec-aware helpers, and add regression tests that pair each vulnerable API with a negative control on the same path.",
+          "fixed_in": [],
+          "id": "GHSA-8mgp-746c-j5xp",
+          "link": "https://osv.dev/vulnerability/GHSA-8mgp-746c-j5xp",
+          "source": "osv",
+          "summary": null,
+          "withdrawn": null
+        }
+      ]
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.2",
+      "source": "https://pypi.org/pypi/numpy/2.5.2/json",
+      "response_sha256": "e0c2397586ef70cb96ba74e306dd896d70c409daff74a7263ce2c833a71eab91",
+      "vulnerabilities": []
+    },
+    {
+      "name": "openai",
+      "version": "3.8.0",
+      "source": "https://pypi.org/pypi/openai/3.8.0/json",
+      "response_sha256": "1103cea9f2ba2cee67dd4e83398f6ae7d3533b5204f441f2f9653103e9d01ead",
+      "vulnerabilities": []
+    },
+    {
+      "name": "orjson",
+      "version": "3.12.0",
+      "source": "https://pypi.org/pypi/orjson/3.12.0/json",
+      "response_sha256": "fad73d1f6e83567c0a1380d127ef6dcb1e6b576eebc8e202f132708372be96b3",
+      "vulnerabilities": []
+    },
+    {
+      "name": "ormsgpack",
+      "version": "1.12.2",
+      "source": "https://pypi.org/pypi/ormsgpack/1.12.2/json",
+      "response_sha256": "6e159ebb31d57bddcfc6ff6d7c224ef8dd23bd74df9e060a8cd7121e055c3e28",
+      "vulnerabilities": []
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "source": "https://pypi.org/pypi/packaging/26.3/json",
+      "response_sha256": "4f190d2f0b312b3086058cee64ab4333bf3ce67fb78b4c2bdb43899049b29f4d",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pathspec",
+      "version": "1.1.1",
+      "source": "https://pypi.org/pypi/pathspec/1.1.1/json",
+      "response_sha256": "24f66829a7f40485bdccfcf32294218b0f4260b289ee4806ab644feb6c194766",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pillow",
+      "version": "12.3.0",
+      "source": "https://pypi.org/pypi/pillow/12.3.0/json",
+      "response_sha256": "63159d6013cf20f98ff9caeb8b0b210b7f5877975587f4265397ffb0fd8c72a0",
+      "vulnerabilities": []
+    },
+    {
+      "name": "platformdirs",
+      "version": "4.11.7",
+      "source": "https://pypi.org/pypi/platformdirs/4.11.7/json",
+      "response_sha256": "7897a58673284bd3f8e6629fbae68486b1914248bda9c3ec4fb86ab50ed07249",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0",
+      "source": "https://pypi.org/pypi/pluggy/1.6.0/json",
+      "response_sha256": "db23d1227f5870da7538b1e29371d9fc9a93b0499989f8e3ef021fdccd75bc8e",
+      "vulnerabilities": []
+    },
+    {
+      "name": "portalocker",
+      "version": "3.2.0",
+      "source": "https://pypi.org/pypi/portalocker/3.2.0/json",
+      "response_sha256": "643b8e83e424780e19ca262f4898451af7cc60edaf0d0171cf8d5b28465f6c1f",
+      "vulnerabilities": []
+    },
+    {
+      "name": "propcache",
+      "version": "0.5.2",
+      "source": "https://pypi.org/pypi/propcache/0.5.2/json",
+      "response_sha256": "bf0fa80e3834e66b1411dab44de239a9751860316029a4eaaff04bd07409a632",
+      "vulnerabilities": []
+    },
+    {
+      "name": "protobuf",
+      "version": "7.36.1",
+      "source": "https://pypi.org/pypi/protobuf/7.36.1/json",
+      "response_sha256": "72c23c6544d5d003ad561abda3b59eeaa4a4ecda0faa4fcae2c170b54354d3cc",
+      "vulnerabilities": []
+    },
+    {
+      "name": "psutil",
+      "version": "7.2.2",
+      "source": "https://pypi.org/pypi/psutil/7.2.2/json",
+      "response_sha256": "84f9d2597c3c15fe19d1ce069bfdbf25951dc423dc51d67c3979468c029b6415",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pydantic",
+      "version": "2.13.5",
+      "source": "https://pypi.org/pypi/pydantic/2.13.5/json",
+      "response_sha256": "201fdebc5da596df2df23805e8f2b6386888fad4c396dadc48c1c297a61431a5",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pydantic-core",
+      "version": "2.46.5",
+      "source": "https://pypi.org/pypi/pydantic-core/2.46.5/json",
+      "response_sha256": "5b5b7b259b0b98f2594f92cb9255a1ce3ec978608a81def66193e77f65212a1c",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pydantic-settings",
+      "version": "2.15.0",
+      "source": "https://pypi.org/pypi/pydantic-settings/2.15.0/json",
+      "response_sha256": "646b7fd5cf2763825e26b0fbb35835d33c4218cedb611efb9106f06109960608",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pygments",
+      "version": "2.21.0",
+      "source": "https://pypi.org/pypi/pygments/2.21.0/json",
+      "response_sha256": "330104a10adc8a587e3f98f4e207557125ca0c1d489e129334da5acb2b813a03",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyjwt",
+      "version": "2.15.1",
+      "source": "https://pypi.org/pypi/pyjwt/2.15.1/json",
+      "response_sha256": "f13089db8caff0efbdec85ab5c3fa281a3cc76d5b708c74fab427c98e1f29a0d",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pypdf",
+      "version": "6.19.0",
+      "source": "https://pypi.org/pypi/pypdf/6.19.0/json",
+      "response_sha256": "9eca4c2315cec5fcb72f58ed96752dabd6711ba84603eb53160caa19eefe8c7f",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pytest",
+      "version": "9.1.1",
+      "source": "https://pypi.org/pypi/pytest/9.1.1/json",
+      "response_sha256": "8ed48304ba7fd0ae974a041f117487b499d553b40e5ce55a9ece677e946f68dd",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pytest-asyncio",
+      "version": "1.4.0",
+      "source": "https://pypi.org/pypi/pytest-asyncio/1.4.0/json",
+      "response_sha256": "7d73d89418af6bc6b73a93948bc304486249893ec37cd973c25dd3ff8038c08f",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pytest-cov",
+      "version": "6.3.0",
+      "source": "https://pypi.org/pypi/pytest-cov/6.3.0/json",
+      "response_sha256": "f580ef5acc9c2116f33ab6b677b2f6e8f5edf0de238cd11dc6bce69033141a6a",
+      "vulnerabilities": []
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.3",
+      "source": "https://pypi.org/pypi/python-dotenv/1.2.3/json",
+      "response_sha256": "5bbd730075bcfd67860e03d3bf67e844824e1b6e3df94c9b39c6556cff2ae193",
+      "vulnerabilities": []
+    },
+    {
+      "name": "python-engineio",
+      "version": "4.14.0",
+      "source": "https://pypi.org/pypi/python-engineio/4.14.0/json",
+      "response_sha256": "784754665710814dab45cc358b1b16c95c4ef0c89dda309ad746b86eadcab550",
+      "vulnerabilities": []
+    },
+    {
+      "name": "python-multipart",
+      "version": "0.0.32",
+      "source": "https://pypi.org/pypi/python-multipart/0.0.32/json",
+      "response_sha256": "a031fb02f69ea8125edc9473c7bc8d3876556de8812dcd694d76482631d7fc2b",
+      "vulnerabilities": []
+    },
+    {
+      "name": "python-socketio",
+      "version": "5.16.4",
+      "source": "https://pypi.org/pypi/python-socketio/5.16.4/json",
+      "response_sha256": "bf0c0ebd7bef03ef78ec03fb090060b843cb169f9ded7172397a238baf39c0be",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyyaml",
+      "version": "6.0.3",
+      "source": "https://pypi.org/pypi/pyyaml/6.0.3/json",
+      "response_sha256": "c3f35597bc2f08cc990c2a5fe57bef6687b3a3d7c61d8b0ba4cc067777eb1def",
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyzmq",
+      "version": "27.2.0",
+      "source": "https://pypi.org/pypi/pyzmq/27.2.0/json",
+      "response_sha256": "c5a15b67a143195e2516181d5d13845050f4b64e63747f7c9e35d31690225648",
+      "vulnerabilities": []
+    },
+    {
+      "name": "qdrant-client",
+      "version": "1.19.0",
+      "source": "https://pypi.org/pypi/qdrant-client/1.19.0/json",
+      "response_sha256": "5e9c125ffc987517f63b0d7dff336d616a4b633480e104acb03f9ce9380fee70",
+      "vulnerabilities": []
+    },
+    {
+      "name": "redis",
+      "version": "5.3.1",
+      "source": "https://pypi.org/pypi/redis/5.3.1/json",
+      "response_sha256": "2d5d2a5b3120e0d90872405e01a13eba2b24b71ad3704bea80b7190dd43c5335",
+      "vulnerabilities": []
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0",
+      "source": "https://pypi.org/pypi/referencing/0.37.0/json",
+      "response_sha256": "a67968d8e03aa45e650fc2ff0d07796676db1a7841ce8e810bf2dba5af689464",
+      "vulnerabilities": []
+    },
+    {
+      "name": "regex",
+      "version": "2026.9.3",
+      "source": "https://pypi.org/pypi/regex/2026.9.3/json",
+      "response_sha256": "951f494ea749db4968add59f5f4515725039276e3ad022f0c69b2355a64769ab",
+      "vulnerabilities": []
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2",
+      "source": "https://pypi.org/pypi/requests/2.34.2/json",
+      "response_sha256": "8622e50ffd295ed759ec793f2a009172a4ed0204bbc5e948de23111bc3d2aeae",
+      "vulnerabilities": []
+    },
+    {
+      "name": "requests-toolbelt",
+      "version": "1.0.0",
+      "source": "https://pypi.org/pypi/requests-toolbelt/1.0.0/json",
+      "response_sha256": "77572be079b3e272fe239c8a0e1ae3491e90ee3c58eb63614ea4d7e5bcbc2b8e",
+      "vulnerabilities": []
+    },
+    {
+      "name": "rich",
+      "version": "15.0.0",
+      "source": "https://pypi.org/pypi/rich/15.0.0/json",
+      "response_sha256": "455015cb0b237a24819d91236152ad0e71b2be39a83cbe6afa0e29ea8aafa550",
+      "vulnerabilities": []
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.6.3",
+      "source": "https://pypi.org/pypi/rpds-py/2026.6.3/json",
+      "response_sha256": "c791bb0eaf9f18668ca978bd500d8dd8e25cdf692cf5bc92229d1c2854e8d852",
+      "vulnerabilities": []
+    },
+    {
+      "name": "ruff",
+      "version": "0.16.5",
+      "source": "https://pypi.org/pypi/ruff/0.16.5/json",
+      "response_sha256": "f82dd12798605d586d39fcd7e9dc64553ec7b16a013f2dcffd577bd0107ab61c",
+      "vulnerabilities": []
+    },
+    {
+      "name": "setuptools",
+      "version": "84.0.0",
+      "source": "https://pypi.org/pypi/setuptools/84.0.0/json",
+      "response_sha256": "24d07932459261bbf9e66e5cfdebfeba23a977234ab24bf9c3a1df053c53ba21",
+      "vulnerabilities": []
+    },
+    {
+      "name": "shellingham",
+      "version": "1.5.4",
+      "source": "https://pypi.org/pypi/shellingham/1.5.4/json",
+      "response_sha256": "9381443cd6295d50fc7f7bd34a457243b0f3a54732cde45b0fc2d0994b61f3af",
+      "vulnerabilities": []
+    },
+    {
+      "name": "simple-websocket",
+      "version": "1.1.0",
+      "source": "https://pypi.org/pypi/simple-websocket/1.1.0/json",
+      "response_sha256": "8fe9b9d852a9a0cf1c93087076ed3e2d01effac3c7739438f91b6f03de91a86a",
+      "vulnerabilities": []
+    },
+    {
+      "name": "sniffio",
+      "version": "1.3.1",
+      "source": "https://pypi.org/pypi/sniffio/1.3.1/json",
+      "response_sha256": "1217ad6ed84734e8f77ecfd151d91786d5a633b0482af1cde28185de0159bd37",
+      "vulnerabilities": []
+    },
+    {
+      "name": "sqlalchemy",
+      "version": "2.0.52",
+      "source": "https://pypi.org/pypi/sqlalchemy/2.0.52/json",
+      "response_sha256": "123991aec4e326543ef649c4568a7013a6ace573172013b5e977a38b32d87bc8",
+      "vulnerabilities": []
+    },
+    {
+      "name": "starlette",
+      "version": "1.6.0",
+      "source": "https://pypi.org/pypi/starlette/1.6.0/json",
+      "response_sha256": "43ebafd94051031ee7f4754e668c200e1ae3c723ac4a242d312ffaa583ba5317",
+      "vulnerabilities": []
+    },
+    {
+      "name": "tenacity",
+      "version": "9.1.4",
+      "source": "https://pypi.org/pypi/tenacity/9.1.4/json",
+      "response_sha256": "cc96d74875f71690af9e671694ebdda65795c2ed6c04d2a271552514f83ec104",
+      "vulnerabilities": []
+    },
+    {
+      "name": "tiktoken",
+      "version": "0.14.0",
+      "source": "https://pypi.org/pypi/tiktoken/0.14.0/json",
+      "response_sha256": "05ff3946dc41fffc7ba7a35826e6385e29baa736fbe4fcc8ac9a37088049d58a",
+      "vulnerabilities": []
+    },
+    {
+      "name": "tinytag",
+      "version": "2.3.1",
+      "source": "https://pypi.org/pypi/tinytag/2.3.1/json",
+      "response_sha256": "a0d924f490d4febd2ae98bc7481fd0832b9bd84f06b6a7786f52fe8bf96e4923",
+      "vulnerabilities": []
+    },
+    {
+      "name": "tqdm",
+      "version": "4.70.0",
+      "source": "https://pypi.org/pypi/tqdm/4.70.0/json",
+      "response_sha256": "2e987cad04ce7745797a04286ed00e2dc9bf4833e974dadce9913a0da753063d",
+      "vulnerabilities": []
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.4",
+      "source": "https://pypi.org/pypi/truststore/0.10.4/json",
+      "response_sha256": "803a5dafe852bdd8b209c3df0dd7488c8f949ce7d1862820557704db1134cb41",
+      "vulnerabilities": []
+    },
+    {
+      "name": "typer",
+      "version": "0.27.2",
+      "source": "https://pypi.org/pypi/typer/0.27.2/json",
+      "response_sha256": "27850be470627a4901d261ac1173963bac88001d22bb3c87670f6765499c1f7b",
+      "vulnerabilities": []
+    },
+    {
+      "name": "types-jsonschema",
+      "version": "4.26.0.20260518",
+      "source": "https://pypi.org/pypi/types-jsonschema/4.26.0.20260518/json",
+      "response_sha256": "ff0d59ed8ce41f19601a81e770be21814ac384586400be5f721c92ab2d9c62f5",
+      "vulnerabilities": []
+    },
+    {
+      "name": "types-pyyaml",
+      "version": "6.0.12.20260815",
+      "source": "https://pypi.org/pypi/types-pyyaml/6.0.12.20260815/json",
+      "response_sha256": "b2e6603b5e305189c977b728ffc03e7190fecb1aa9dd0ade941177fa57555c50",
+      "vulnerabilities": []
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "source": "https://pypi.org/pypi/typing-extensions/4.16.0/json",
+      "response_sha256": "2140da00d62dde967f52d0be0ae28444f1d6a3fe603f52c83c23988c32122d5a",
+      "vulnerabilities": []
+    },
+    {
+      "name": "typing-inspect",
+      "version": "0.9.0",
+      "source": "https://pypi.org/pypi/typing-inspect/0.9.0/json",
+      "response_sha256": "92fc88198f26a38047c878a18c75553dedc6db29f1ac68c1164cbcb0ab182d52",
+      "vulnerabilities": []
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4",
+      "source": "https://pypi.org/pypi/typing-inspection/0.4.4/json",
+      "response_sha256": "0605416f2f37f2df04e45360cf5ce4ca5eeca6d414bb6ddb1ec5a9893c62ac30",
+      "vulnerabilities": []
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0",
+      "source": "https://pypi.org/pypi/urllib3/2.8.0/json",
+      "response_sha256": "5315e7401db3cacccd0c2ce5daf81f752a9cc3614b18c37f2b79930b7159ce2f",
+      "vulnerabilities": []
+    },
+    {
+      "name": "uuid-utils",
+      "version": "0.17.0",
+      "source": "https://pypi.org/pypi/uuid-utils/0.17.0/json",
+      "response_sha256": "bbee1cd4e7a4fb68fc2790b3fa941c6e6637bbc35821ba3393d5999d06cb9b90",
+      "vulnerabilities": []
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.52.4",
+      "source": "https://pypi.org/pypi/uvicorn/0.52.4/json",
+      "response_sha256": "55eb483da3cac41098529adca00eb6be4d5b54c372287cdf439805cd280f073b",
+      "vulnerabilities": []
+    },
+    {
+      "name": "websocket-client",
+      "version": "1.9.2",
+      "source": "https://pypi.org/pypi/websocket-client/1.9.2/json",
+      "response_sha256": "24ae17dbe7896ce2bd4f7ab63d402b0d96524f814c8a1b82d55f11ecd14d43c4",
+      "vulnerabilities": []
+    },
+    {
+      "name": "websockets",
+      "version": "16.1.1",
+      "source": "https://pypi.org/pypi/websockets/16.1.1/json",
+      "response_sha256": "96ee39a2519d39d06c5f2f4e45b196fbb1ac9ca6bbe697ed316df511d8ae8bb6",
+      "vulnerabilities": []
+    },
+    {
+      "name": "werkzeug",
+      "version": "3.1.9",
+      "source": "https://pypi.org/pypi/werkzeug/3.1.9/json",
+      "response_sha256": "2ebf74c299c008b5df95eaf3d0aa223cd9504142686eb3186627ab46b733096a",
+      "vulnerabilities": []
+    },
+    {
+      "name": "wrapt",
+      "version": "2.4.0",
+      "source": "https://pypi.org/pypi/wrapt/2.4.0/json",
+      "response_sha256": "f9fe0bf14b193dc499f54799351608f42735e661128d0d7fc1db8c7d9ddcddf9",
+      "vulnerabilities": []
+    },
+    {
+      "name": "wsproto",
+      "version": "1.3.2",
+      "source": "https://pypi.org/pypi/wsproto/1.3.2/json",
+      "response_sha256": "8aa831cf9c02afdf8161e814e00c574e7e345c73f9497aeef9c709e3cc994367",
+      "vulnerabilities": []
+    },
+    {
+      "name": "xxhash",
+      "version": "4.0.1",
+      "source": "https://pypi.org/pypi/xxhash/4.0.1/json",
+      "response_sha256": "38b3a4e32f94aefebd3e4819f03110ab217c111142d07ee7a3aa2972fc838a93",
+      "vulnerabilities": []
+    },
+    {
+      "name": "yarl",
+      "version": "1.24.5",
+      "source": "https://pypi.org/pypi/yarl/1.24.5/json",
+      "response_sha256": "249b1949c92255b2e1a70ed6315b472d614fb372199486eb8a32e24533197f79",
+      "vulnerabilities": []
+    },
+    {
+      "name": "zope-event",
+      "version": "6.2",
+      "source": "https://pypi.org/pypi/zope-event/6.2/json",
+      "response_sha256": "7377ee8cb5a676e5a9416c1518d53c47370be3f3dfc3d467989bf83841db5468",
+      "vulnerabilities": []
+    },
+    {
+      "name": "zope-interface",
+      "version": "8.6",
+      "source": "https://pypi.org/pypi/zope-interface/8.6/json",
+      "response_sha256": "2f12d2f2a258f11fa8d1710aaf66bec532e14e9c405313a24a38814ced474e0c",
+      "vulnerabilities": []
+    },
+    {
+      "name": "zstandard",
+      "version": "0.25.0",
+      "source": "https://pypi.org/pypi/zstandard/0.25.0/json",
+      "response_sha256": "a9d6f5a97e7a3b5f5125d0c4bac1d5e2c268fd2a5b2148dd8aad511d17240aef",
+      "vulnerabilities": []
+    }
+  ],
+  "errors": [],
+  "vulnerable_packages": 1,
+  "qualified": false
+}

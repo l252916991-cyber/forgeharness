@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "case_id": "case-alpha",
+  "tenant_id": "firm-alpha",
+  "title": "Synthetic payment dispute (fixture)",
+  "resources": [
+    "case:case-alpha",
+    "source:case-alpha"
+  ],
+  "pages": [
+    {
+      "locator": "page:1",
+      "file": "page-01.txt",
+      "summary": "Payment record PR-2026-0147: the disputed payment, its date and its amount."
+    },
+    {
+      "locator": "page:2",
+      "file": "page-02.txt",
+      "summary": "Contract excerpt SYN-2026-014-C: delivery deadline, late-delivery credit and contract value."
+    },
+    {
+      "locator": "page:3",
+      "file": "page-03.txt",
+      "summary": "Delivery note DN-4471: the date and condition of the consignment on receipt."
+    },
+    {
+      "locator": "page:4",
+      "file": "page-04.txt",
+      "summary": "Witness statement WS-2026-014-B: a recollection that contradicts the delivery note."
+    },
+    {
+      "locator": "page:5",
+      "file": "page-05.txt",
+      "summary": "Invoice INV-2026-014: line item, handling charge and total."
+    },
+    {
+      "locator": "page:6",
+      "file": "page-06.txt",
+      "summary": "Internal memo: handler opinion only, with no verifiable fact."
+    }
+  ]
+}

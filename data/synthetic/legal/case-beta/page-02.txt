@@ -1,0 +1,9 @@
+Synthetic refund record (fixture): the payment history below is invented for the deposit dispute.
+
+Refund record RR-2026-031 was prepared by the estate office of Party C (synthetic) and lists every movement on the deposit account for the storage unit covered by matter SYN-2026-031.
+
+The record shows that the first instalment of 4500.00 SCU was returned on 2026-05-02, and that the second instalment of 4500.00 SCU was returned on 2026-06-01. A further line records a deduction of 600.00 SCU for a synthetic repair charge, described only as "door mechanism, replacement part". Those three lines account for the whole deposit, and no other movement is listed.
+
+Party D (synthetic) accepts the two instalment dates but disputes the repair charge, on the ground that the door mechanism was already worn when the unit was handed over. The record notes that no inspection report was attached at handover and that the estate office relied on a note from its own maintenance contractor.
+
+The record states that the dispute over the repair charge remains open and that no further instalment is scheduled.

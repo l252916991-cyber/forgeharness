@@ -18,7 +18,7 @@ class TokenEstimator(Protocol):
 
 
 class CharacterTokenEstimator:
-    """Conservative tokenizer-independent estimate for keyless operation."""
+    """Tokenizer-independent heuristic for keyless operation, not a token ceiling."""
 
     def estimate(self, text: str) -> int:
         """Estimate one token per four characters, with a minimum for non-empty text."""
@@ -36,7 +36,7 @@ class ContextItem(FrozenModel):
 
 
 class ContextDecision(FrozenModel):
-    """Explain why a candidate was included or excluded."""
+    """Selection reason and isolated rendered-fragment estimate, including its separator."""
 
     item_id: str
     source: str
@@ -67,24 +67,33 @@ class ContextCompiler:
         self._estimator = estimator or CharacterTokenEstimator()
 
     def compile(self, items: list[ContextItem]) -> CompiledContext:
-        """Fit required items first, then optional items by descending relevance."""
+        """Fit complete rendered fragments, including provenance and separators.
+
+        The total is estimated from the complete outgoing text; independent
+        fragment estimates need not add up for an injected tokenizer. This is
+        the material budget, not a bound on a provider's complete model request.
+        """
         if len({item.id for item in items}) != len(items):
             raise ValueError("context item ids must be unique")
         ordered = sorted(items, key=lambda item: (not item.required, -item.score, item.id))
         used = 0
-        included: list[ContextItem] = []
+        text = ""
         decisions: list[ContextDecision] = []
         for item in ordered:
-            tokens = self._estimator.estimate(item.content)
-            fits = used + tokens <= self._max_tokens
+            fragment = f"<context source={item.source!r}>\n{item.content}\n</context>"
+            addition = ("\n\n" if text else "") + fragment
+            tokens = self._estimator.estimate(addition)
+            candidate_text = text + addition
+            candidate_tokens = self._estimator.estimate(candidate_text)
+            fits = candidate_tokens <= self._max_tokens
             if item.required and not fits:
                 raise ContextBudgetError(
-                    f"required context item {item.id!r} needs {tokens} tokens with {used} used "
-                    f"of {self._max_tokens}"
+                    f"required context item {item.id!r} would need {candidate_tokens} tokens "
+                    f"with limit {self._max_tokens}"
                 )
             if fits:
-                included.append(item)
-                used += tokens
+                text = candidate_text
+                used = candidate_tokens
                 reason = "required" if item.required else "selected by relevance"
             else:
                 reason = "token budget exhausted"
@@ -97,7 +106,4 @@ class ContextCompiler:
                     reason=reason,
                 )
             )
-        text = "\n\n".join(
-            f"<context source={item.source!r}>\n{item.content}\n</context>" for item in included
-        )
         return CompiledContext(text=text, estimated_tokens=used, decisions=tuple(decisions))

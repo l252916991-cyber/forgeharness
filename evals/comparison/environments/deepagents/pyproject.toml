@@ -1,0 +1,16 @@
+[project]
+name = "forgeharness-comparison-deepagents"
+version = "0.0.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "deepagents==0.7.25",
+  "langgraph-checkpoint-sqlite==3.1.2"
+]
+
+[tool.uv]
+package = false
+constraint-dependencies = ["pyasn1>=0.6.5"]
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple/"
+default = true

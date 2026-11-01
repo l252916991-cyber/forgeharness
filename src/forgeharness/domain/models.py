@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 from enum import StrEnum
+from pathlib import Path
 from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -17,6 +18,8 @@ TaskId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$")]
 # 1 = invocation journal with effect-class recovery (ADR 009, M10-A).
 # 2 = (1) plus runtime retry with attempt records and deterministic backoff (M10-B)
 #     and the whole-run soft deadline (M10-C).
+# 3 = scoped SDK binding, durable approval admission, ordered evidence, and safe
+#     stopped-worker replay using current authorization and physical attempt IDs.
 #
 # The point of the number is that two generations must not share it, so a report
 # can never be read as if the runtime behaved the same way. **Known record defect:**
@@ -24,7 +27,7 @@ TaskId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$")]
 # `1` even though they exercised retry and deadline semantics. They are historical
 # files and are deliberately not rewritten; only reports from the freeze onward
 # carry `2`.
-CURRENT_RECOVERY_SEMANTICS_VERSION = 2
+CURRENT_RECOVERY_SEMANTICS_VERSION = 3
 
 
 class FrozenModel(BaseModel):
@@ -139,6 +142,62 @@ class PendingApproval(FrozenModel):
     reason: str
 
 
+class Actor(FrozenModel):
+    """Identity asserted by the trusted host, never extracted from task text."""
+
+    id: str = Field(min_length=1, max_length=200)
+    roles: tuple[str, ...] = ()
+
+
+class ResourceScope(FrozenModel):
+    """Host-authorized workspace and business resources."""
+
+    tenant_id: str = Field(min_length=1, max_length=128)
+    resources: tuple[str, ...] = ()
+    workspace: Path | None = None
+
+    @model_validator(mode="after")
+    def canonical_workspace(self) -> ResourceScope:
+        if self.workspace is not None and self.workspace != self.workspace.resolve():
+            raise ValueError("workspace must be an absolute canonical path")
+        return self
+
+
+class RunContext(FrozenModel):
+    """Versioned, trusted execution binding persisted with every SDK run."""
+
+    application_id: TaskId
+    application_version: str = Field(min_length=1)
+    run_id: TaskId
+    session_id: str = Field(min_length=1)
+    actor: Actor
+    scope: ResourceScope
+    policy_version: str = Field(min_length=1)
+    correlation_id: str = Field(min_length=1)
+    contract_version: Literal[1] = 1
+
+
+class BusinessReceipt(FrozenModel):
+    """Application evidence; accepted/queued does not mean completed."""
+
+    resource_id: str = Field(min_length=1)
+    status: str = Field(min_length=1)
+    version: str = Field(min_length=1)
+    evidence_refs: tuple[str, ...] = ()
+    schema_version: Literal[1] = 1
+
+
+class ToolEvidence(FrozenModel):
+    """Ordered structured outcome persisted across approval and recovery."""
+
+    name: str
+    ok: bool
+    content: str
+    metadata: dict[str, Any] = Field(default_factory=dict)
+    logical_call_id: str | None = None
+    receipt: BusinessReceipt | None = None
+
+
 class RunResult(FrozenModel):
     """Complete observable result of one runtime invocation."""
 
@@ -155,6 +214,12 @@ class RunResult(FrozenModel):
     # Recovery must fail closed on such a run rather than infer from the trace,
     # because a missing `tool.completed` event never proves a tool did not run.
     recovery_semantics_version: int = Field(default=0, ge=0)
+    # R2 writes v2 so older installations reject rather than treating graph
+    # checkpoints as resumable ReAct transcripts. Existing runs remain v1.
+    state_version: Literal[1, 2] = 1
+    run_context: RunContext | None = None
+    tool_evidence: tuple[ToolEvidence, ...] = ()
+    authorized_call_id: str | None = None
 
 
 class TraceEvent(FrozenModel):
@@ -163,5 +228,6 @@ class TraceEvent(FrozenModel):
     task_id: TaskId
     sequence: int = Field(ge=1)
     type: str = Field(pattern=r"^[a-z][a-z0-9_.-]{0,63}$")
+    event_version: Literal[1] = 1
     timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     payload: dict[str, Any] = Field(default_factory=dict)

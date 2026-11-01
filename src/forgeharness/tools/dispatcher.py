@@ -98,6 +98,8 @@ class ToolDispatcher:
                 exception_class="UnknownTool",
                 extra_metadata={"tool": call.name},
             )
+        if tool.spec.requires_workspace and context.workspace is None:
+            return self._invalid_arguments(started, call, "MissingWorkspace")
         try:
             if tool.spec.schema_source == SchemaSource.EXTERNAL_JSON_SCHEMA:
                 Draft202012Validator(tool.spec.input_schema).validate(call.arguments)

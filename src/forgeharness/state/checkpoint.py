@@ -55,40 +55,47 @@ class SQLiteCheckpointStore:
         """Insert or compare-and-swap a task snapshot."""
         with self._connect() as connection:
             connection.execute("BEGIN IMMEDIATE")
-            row = connection.execute(
-                "SELECT revision FROM run_checkpoints WHERE task_id = ?", (result.task_id,)
-            ).fetchone()
-            current = 0 if row is None else int(row[0])
-            if current != result.checkpoint_revision:
-                raise CheckpointConflict(
-                    f"checkpoint revision conflict for {result.task_id}: "
-                    f"expected {result.checkpoint_revision}, found {current}"
-                )
-            saved = result.model_copy(update={"checkpoint_revision": current + 1})
-            if row is None:
-                connection.execute(
-                    "INSERT INTO run_checkpoints(task_id, revision, payload) VALUES (?, ?, ?)",
-                    (saved.task_id, saved.checkpoint_revision, saved.model_dump_json()),
-                )
-            else:
-                cursor = connection.execute(
-                    """
-                    UPDATE run_checkpoints
-                    SET revision = ?, payload = ?
-                    WHERE task_id = ? AND revision = ?
-                    """,
-                    (
-                        saved.checkpoint_revision,
-                        saved.model_dump_json(),
-                        saved.task_id,
-                        current,
-                    ),
-                )
-                if cursor.rowcount != 1:
-                    raise CheckpointConflict(
-                        f"checkpoint changed while saving task {result.task_id}"
-                    )
-            return saved
+            return self.save_in_transaction(connection, result)
+
+    @property
+    def path(self) -> Path:
+        """Database identity for optional transactional composition."""
+        return self._path
+
+    def save_in_transaction(self, connection: sqlite3.Connection, result: RunResult) -> RunResult:
+        """CAS inside a transaction owned by the caller (approval admission)."""
+        row = connection.execute(
+            "SELECT revision FROM run_checkpoints WHERE task_id = ?", (result.task_id,)
+        ).fetchone()
+        current = 0 if row is None else int(row[0])
+        if current != result.checkpoint_revision:
+            raise CheckpointConflict(
+                f"checkpoint revision conflict for {result.task_id}: "
+                f"expected {result.checkpoint_revision}, found {current}"
+            )
+        saved = result.model_copy(update={"checkpoint_revision": current + 1})
+        if row is None:
+            connection.execute(
+                "INSERT INTO run_checkpoints(task_id, revision, payload) VALUES (?, ?, ?)",
+                (saved.task_id, saved.checkpoint_revision, saved.model_dump_json()),
+            )
+        else:
+            cursor = connection.execute(
+                """
+                UPDATE run_checkpoints
+                SET revision = ?, payload = ?
+                WHERE task_id = ? AND revision = ?
+                """,
+                (
+                    saved.checkpoint_revision,
+                    saved.model_dump_json(),
+                    saved.task_id,
+                    current,
+                ),
+            )
+            if cursor.rowcount != 1:
+                raise CheckpointConflict(f"checkpoint changed while saving task {result.task_id}")
+        return saved
 
     def load(self, task_id: str) -> RunResult | None:
         """Return the current snapshot or `None` when a task is unknown."""

@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "source_identity": "1aa15ec7599c0f16389cbefc76eb4a0353e9c830cb48c966eae3000fae082241",
+  "mode": "synthetic_adapter_exact_span_comparison",
+  "source_report": "reports/business-verification/runs/20261015T160949Z-1310cdc9/clean/business-dev.json",
+  "real_lexvault_measured": false,
+  "legal_quality_qualified": false,
+  "case_count": 40,
+  "case_families": 2,
+  "exact_positive_spans": 16,
+  "negative_or_no_evidence_scenarios": 24,
+  "all_contract_scenarios_passed": true,
+  "outcomes": [
+    {
+      "id": "legal-case-alpha-1-page",
+      "kind": "page",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-1-search",
+      "kind": "search",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-1-withdrawn",
+      "kind": "withdrawn",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-1-cross_scope",
+      "kind": "cross_scope",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-1-missing",
+      "kind": "missing",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-2-page",
+      "kind": "page",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-2-search",
+      "kind": "search",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-2-withdrawn",
+      "kind": "withdrawn",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-2-cross_scope",
+      "kind": "cross_scope",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-2-missing",
+      "kind": "missing",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-3-page",
+      "kind": "page",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-3-search",
+      "kind": "search",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-3-withdrawn",
+      "kind": "withdrawn",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-3-cross_scope",
+      "kind": "cross_scope",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-3-missing",
+      "kind": "missing",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-4-page",
+      "kind": "page",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-4-search",
+      "kind": "search",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-4-withdrawn",
+      "kind": "withdrawn",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-4-cross_scope",
+      "kind": "cross_scope",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-4-missing",
+      "kind": "missing",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-5-page",
+      "kind": "page",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-5-search",
+      "kind": "search",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-5-withdrawn",
+      "kind": "withdrawn",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-5-cross_scope",
+      "kind": "cross_scope",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-5-missing",
+      "kind": "missing",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-6-page",
+      "kind": "page",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-6-search",
+      "kind": "search",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-alpha-6-withdrawn",
+      "kind": "withdrawn",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-6-cross_scope",
+      "kind": "cross_scope",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-alpha-6-missing",
+      "kind": "missing",
+      "family": "case-alpha",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-beta-1-page",
+      "kind": "page",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-beta-1-search",
+      "kind": "search",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-beta-1-withdrawn",
+      "kind": "withdrawn",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-beta-1-cross_scope",
+      "kind": "cross_scope",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-beta-1-missing",
+      "kind": "missing",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-beta-2-page",
+      "kind": "page",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-beta-2-search",
+      "kind": "search",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": true
+    },
+    {
+      "id": "legal-case-beta-2-withdrawn",
+      "kind": "withdrawn",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-beta-2-cross_scope",
+      "kind": "cross_scope",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    },
+    {
+      "id": "legal-case-beta-2-missing",
+      "kind": "missing",
+      "family": "case-beta",
+      "passed": true,
+      "status": "succeeded",
+      "baseline_exact_span_match": null
+    }
+  ],
+  "limitation": "Synthetic original-page comparison only. No real LexVault same-question comparison or professional legal review."
+}

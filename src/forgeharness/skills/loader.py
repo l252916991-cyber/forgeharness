@@ -21,6 +21,10 @@ class SkillManifest(FrozenModel):
     version: str = Field(pattern=r"^\d+\.\d+\.\d+$")
     description: str = Field(min_length=1, max_length=500)
     allowed_tools: tuple[str, ...] = ()
+    #: The command that proves the skill works before it is allowed to influence a run.
+    #: Empty means "the author declared no smoke test", which the installer treats as a
+    #: policy decision rather than a silent pass.
+    smoke_command: tuple[str, ...] = ()
 
 
 class LoadedSkill(FrozenModel):
@@ -30,13 +34,32 @@ class LoadedSkill(FrozenModel):
     instructions: str = Field(min_length=1, max_length=20_000)
     source: str
 
+    def unavailable_tools(self, available_tools: set[str]) -> tuple[str, ...]:
+        """Capabilities the manifest declares that this deployment does not compose."""
+        return tuple(sorted(set(self.manifest.allowed_tools) - available_tools))
+
     def validate_capabilities(self, available_tools: set[str]) -> None:
         """Reject capabilities not present in the composed server-side registry."""
-        unavailable = sorted(set(self.manifest.allowed_tools) - available_tools)
+        unavailable = self.unavailable_tools(available_tools)
         if unavailable:
             raise SkillLoadError(
                 f"skill {self.manifest.name} requests unavailable tools: {', '.join(unavailable)}"
             )
+
+    def trimmed(self, available_tools: set[str]) -> LoadedSkill:
+        """Drop unavailable capabilities instead of rejecting the whole package.
+
+        Installation is a different moment than selection: a package that names a tool
+        this deployment does not compose is still usable for the parts it can run, and
+        refusing it outright makes every deployment maintain a fork. Dropping is
+        recorded by the installer so the reduction is visible, not silent.
+        """
+        unavailable = set(self.unavailable_tools(available_tools))
+        if not unavailable:
+            return self
+        kept = tuple(tool for tool in self.manifest.allowed_tools if tool not in unavailable)
+        manifest = self.manifest.model_copy(update={"allowed_tools": kept})
+        return LoadedSkill(manifest=manifest, instructions=self.instructions, source=self.source)
 
 
 class SkillLoader:
@@ -47,7 +70,7 @@ class SkillLoader:
         resolved_root = root.resolve(strict=True)
         skills: list[LoadedSkill] = []
         for directory in sorted(resolved_root.iterdir()):
-            if not directory.is_dir() or directory.is_symlink():
+            if directory.name.startswith(".") or not directory.is_dir() or directory.is_symlink():
                 continue
             path = directory / "SKILL.md"
             if not path.is_file() or path.is_symlink():

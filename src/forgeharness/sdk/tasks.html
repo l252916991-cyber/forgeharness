@@ -1,0 +1,25 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<title>后台任务 · ForgeHarness</title><style>
+body{font:16px system-ui;max-width:960px;margin:3rem auto;padding:1rem;color:#182b36}
+button{padding:.5rem 1rem;cursor:pointer}pre{white-space:pre-wrap;background:#f1f5f7;padding:1rem}
+</style><h1>后台任务</h1><p>仅展示当前身份有权访问的持久状态。
+取消表示停止尚未开始的工作；已经执行的写入需要核对，不会自动回滚。</p>
+<button id="reload">刷新任务</button><div id="tasks"></div><pre id="error"></pre>
+<script>
+async function refresh(){
+ const root=document.getElementById('tasks');root.replaceChildren();
+ const response=await fetch('./tasks');
+ if(!response.ok){document.getElementById('error').textContent='读取失败：'+response.status;return;}
+ for(const task of await response.json()){
+  const box=document.createElement('section'), pre=document.createElement('pre');
+  pre.textContent=JSON.stringify(task,null,2);box.append(pre);
+  if(['queued','running','needs_reconciliation'].includes(task.state)){
+   const cancel=document.createElement('button');cancel.textContent='请求取消';
+   cancel.onclick=async()=>{const r=await fetch('./tasks/'+encodeURIComponent(task.id)+'/cancel',
+    {method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    if(!r.ok){document.getElementById('error').textContent='取消失败：'+r.status;}await refresh();};
+   box.append(cancel);
+  }root.append(box);
+ }
+}document.getElementById('reload').onclick=refresh;refresh();
+</script></html>

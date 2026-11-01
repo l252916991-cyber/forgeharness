@@ -9,7 +9,7 @@ from typing import Any, Protocol
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from forgeharness.domain.models import FrozenModel, Usage
+from forgeharness.domain.models import BusinessReceipt, FrozenModel, RunContext, Usage
 
 
 class RiskLevel(StrEnum):
@@ -58,6 +58,14 @@ class ToolSpec(FrozenModel):
     # Per-tool execution ceiling. Declared here so a slow tool can own its number
     # instead of everything sharing one constant.
     timeout_seconds: float = Field(default=30.0, gt=0)
+    requires_workspace: bool = False
+    # Declares that this tool's results depend on governed sources (a published
+    # revision, a case record, a product row). Receipts from such a tool contribute
+    # version-bound `SourceRef` entries that must be revalidated before the stored
+    # output is served again (ADR 016). The compatibility default leaves existing
+    # tools unchanged; hosts must explicitly mark every source-reading tool.
+    governed_sources: bool = False
+    schema_version: int = Field(default=1, ge=1)
 
 
 class ToolErrorCode(StrEnum):
@@ -124,16 +132,26 @@ class ExecutionAllowance(FrozenModel):
 class ToolContext(BaseModel):
     """Runtime-owned values passed to a tool after policy approval."""
 
-    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid")
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid", frozen=True)
 
     task_id: str
-    workspace: Path
+    workspace: Path | None = None
+    run_context: RunContext | None = None
+    attempt_id: str | None = None
     allowance: ExecutionAllowance | None = None
     # Stable for the lifetime of one logical call: recovery must reuse the same
     # values, never derive new ones. A tool that does not consume `idempotency_key`
     # must not be declared `idempotent`.
     logical_call_id: str | None = None
     idempotency_key: str | None = None
+
+    def require_workspace(self) -> Path:
+        """Fail closed for file/process tools without a host-owned workspace."""
+        if self.workspace is None:
+            raise ValueError("tool requires a workspace")
+        if self.run_context is not None and self.workspace.resolve() != self.workspace:
+            raise ValueError("trusted workspace root changed")
+        return self.workspace
 
 
 class ToolOutput(FrozenModel):
@@ -146,6 +164,7 @@ class ToolOutput(FrozenModel):
     error: ToolFailure | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)
     usage: Usage | None = None
+    receipt: BusinessReceipt | None = None
 
 
 class Tool(Protocol):

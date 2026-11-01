@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-08",
+  "tenant_id": "shop-a",
+  "question": "Are opened items accepted back?",
+  "answer": "Synthetic answer: opened items are accepted only when all parts are present; an item with a broken hygiene seal is refused.",
+  "category": "returns",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:returns-opened-items"
+    }
+  ]
+}

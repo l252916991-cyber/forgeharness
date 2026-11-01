@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 from pydantic import BaseModel, ConfigDict, Field
 
 from forgeharness.domain.models import FrozenModel, Message, MessageRole
@@ -30,6 +28,10 @@ class SubAgentSpec(FrozenModel):
     name: str = Field(pattern=r"^[a-z][a-z0-9_-]{0,31}$")
     description: str = Field(min_length=1, max_length=500)
     instructions: str = Field(min_length=1, max_length=4_000)
+    #: Compiled skill text this sub-agent is assigned. Kept separate from
+    #: ``instructions`` so an installed package can be attached without rewriting the
+    #: operator's own brief, and bounded because it lands in every child request.
+    skill_instructions: str = Field(default="", max_length=20_000)
     allowed_risks: tuple[RiskLevel, ...] = (RiskLevel.READ,)
     max_steps: int = Field(default=6, ge=1, le=50)
     max_tool_calls: int = Field(default=8, ge=0, le=100)
@@ -49,6 +51,18 @@ class SubAgentTool:
     """Expose one preconfigured sub-agent as a native, policy-visible tool."""
 
     input_model = DelegateInput
+
+    def _composed_instructions(self) -> str:
+        """Return the operator brief followed by any assigned skill text.
+
+        The brief comes first on purpose: a skill is reusable advice, and the operator's
+        scope and limits are what make it applicable here. Putting the package first
+        would let a downloaded skill outrank the delegation boundary.
+        """
+        skill = self._subagent_spec.skill_instructions.strip()
+        if not skill:
+            return self._subagent_spec.instructions
+        return f"{self._subagent_spec.instructions}\n\n{skill}"
 
     def __init__(
         self,
@@ -102,10 +116,8 @@ class SubAgentTool:
         result = await runtime.run(
             task_id=child_id,
             task=values.task,
-            workspace=Path(context.workspace),
-            instructions=(
-                Message(role=MessageRole.SYSTEM, content=self._subagent_spec.instructions),
-            ),
+            workspace=context.require_workspace(),
+            instructions=(Message(role=MessageRole.SYSTEM, content=self._composed_instructions()),),
         )
         content = result.final_output or result.error or f"sub-agent ended: {result.status.value}"
         return ToolOutput(

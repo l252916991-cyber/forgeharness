@@ -12,9 +12,11 @@ class RunBudget(FrozenModel):
     max_tool_calls: int = Field(default=20, ge=0, le=5000)
     max_input_tokens: int = Field(default=100_000, ge=0)
     max_output_tokens: int = Field(default=20_000, ge=0)
-    # Ceiling for a single assembled model request, distinct from the
-    # cumulative input-token cap above. History is compacted to fit this.
+    # Admission ceiling for the full prepared request estimate plus declared
+    # overhead and output reservation. Not a real tokenizer upper bound.
     max_context_tokens: int = Field(default=32_000, ge=1)
+    reserve_output_tokens: int = Field(default=0, ge=0)
+    request_overhead_tokens: int = Field(default=0, ge=0)
     # How many model-protocol violations may be fed back for correction before the
     # run fails safely. Bounded because a model that keeps violating the protocol
     # would otherwise loop: recovery is a courtesy, not an unlimited allowance.

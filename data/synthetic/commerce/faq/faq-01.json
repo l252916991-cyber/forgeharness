@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "faq-01",
+  "tenant_id": "shop-a",
+  "question": "How long does delivery take?",
+  "answer": "Synthetic answer: standard delivery inside the home region takes 2 to 4 business days after dispatch.",
+  "category": "shipping",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:shipping-delivery-window"
+    }
+  ],
+  "conflict_with": "faq-02"
+}

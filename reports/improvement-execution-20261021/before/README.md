@@ -1,0 +1,187 @@
+> 当前源码：0.5.0 + Unreleased 框架化改动（2026-10-21）。共享模型调用、能力组合和只读自定义编排已实现；自定义写入/审批/恢复仍待 F1c-2。
+> 当前候选的冻结与验证见 [BASELINE_VERIFICATION](docs/BASELINE_VERIFICATION.md)，剩余工作见 [完善计划](docs/REMAINING_WORK_PLAN_2026-10-20.md)。
+> 10 月 17 日及更早报告仅认证各自冻结源码；真实业务与生产部署仍未验收。
+
+# ForgeHarness
+
+> 法律与电商参考应用的运行方式及模拟边界见 [BUSINESS_PILOTS](docs/BUSINESS_PILOTS.md)。
+> 当前实现状态以 [STATUS](docs/STATUS.md) 为入口，工程验收结论以适用候选报告为准。
+
+ForgeHarness is an evaluation-first, application-neutral Agent Harness with Coding and minimal commerce reference applications, plus an optional local R&D knowledge application. It exposes the engineering decisions that higher-level agent frameworks often hide: loop transitions, tool validation, permissions, context selection, checkpoints, hybrid retrieval, reviewed memory, delegation scope, and trace integrity.
+
+One reference application (Coding) takes a repository issue, lets a model inspect the codebase, pauses every file mutation for an exact-action approval, runs a fixed test command, inspects the Git diff, and returns test-backed evidence. It is a reference app on the SDK, not the framework's fixed shape.
+
+## 公开 SDK 与参考应用
+
+- `forgeharness.sdk`：ApplicationSpec、可信 actor/scope、run/inspect/approve/resume/delete。
+- `Capability` + `compose_application`：应用由可信能力组合而成；组合名单与结构 digest 记入 run trace（`application.composition`，ADR 022/028）。
+- `Orchestrator` + `RunKernel`：自定义编排（如只读法律 DAG）复用同一套 model/只读工具/预算/trace/verification 治理；写路径与审批仍由 ReAct 承担（ADR 023/026）。
+- 应用契约与运行时矩阵见 [docs/CONFORMANCE.md](docs/CONFORMANCE.md)。
+- 同一 SQLite 的持久审批、授权 checkpoint 与安全调用恢复；完整有序验收证据。
+- 核心不要求工作区，文件工具明确要求工作区。Coding 和商品查询/模拟转接工单通过公开 SDK 装配。
+- 基础 wheel 只依赖 Pydantic/JSON Schema；Web、模型、知识、平台和旧 CLI 按 extra 安装。
+- `WorkflowRunner` 组合多个 SDK 节点：依赖校验、总预算预留、审批恢复和流程终验。
+- `RevisionStore` 管理审核资料/草稿：版本冲突、独立审核、发布撤回、来源失效和作用域隔离。
+- `SessionService` 关联持久轮次与运行/工作流，复用历史预算与审批恢复；每次访问由宿主重新授权。
+- 法律笔记、电商咨询/内容摘录合成示例共享 SDK；LexVault 原项目和完整电商平台尚未迁移。
+
+```bash
+uv sync --extra dev --extra cli --frozen
+uv run --no-sync python examples/sdk_demo.py
+uv run --no-sync python examples/business_modules_demo.py
+uv run --no-sync python examples/session_demo.py
+uv run --no-sync python examples/commerce_readonly_demo.py
+```
+
+支持单机 POSIX 与本地 SQLite。身份认证和业务存储由宿主拥有；不承诺分布式 exactly-once。
+
+## What is implemented
+
+- Direct ReAct-style runtime and a Plan-Execute variant over a provider-neutral model protocol.
+- Hard step, tool-call, and token budgets with explicit success, failure, exhaustion, and approval-suspension states.
+- Pydantic/JSON Schema tool validation, risk policy, timeouts, bounded output, sanitized subprocess environments, and workspace path confinement.
+- Exact, expiring, one-shot approvals plus optimistic SQLite checkpoints.
+- Token-budgeted context selection, per-request window assembly with deterministic history compaction, observation compression, and an AST-based Python repository map that never imports repository code.
+- A coding agent with list/search/read/optimistic-write/test/diff tools and an end-to-end fixture-repair test.
+- Versioned local Skills, stateless HTTP MCP tools, and scoped sub-agents whose usage is charged to the parent.
+- Review-gated long-term memory and redacted, fsynced, SHA-256 hash-chained JSONL traces.
+- Typer CLI, local FastAPI control surface, and a manifest-driven keyless control evaluation.
+- OMLX chat/vision, 2,560-dimensional embedding, and reranker adapters with provider-enforced structured output.
+- Markdown/text/code/JSON/PDF/image ingestion, FTS5 + vector retrieval, reciprocal-rank fusion, reranking, source-bound citations, and evidence refusal.
+- Durable sessions, intent routing, review-gated semantic memory, a read-only citation Reviewer Agent, idempotent jobs, Inline or Redis/ARQ queues, and real readiness probes.
+- Public durable scoped sessions over the SDK (`SessionService`): host-revalidated identity on every operation, bounded untrusted history, one active turn per session, separately authenticated single-use approval, crash reconciliation, and tombstones that retire a deleted identity. The optional HTTP adapter is described in [docs/SESSIONS.md](docs/SESSIONS.md); the knowledge application's sessions above are a separate legacy store.
+- Optional asyncpg/PostgreSQL sessions, Qdrant vector spaces, Docker Compose dependencies, two-host-process Nginx balancing, LangChain/LangGraph comparison adapters, and structured JSON request logging.
+
+## Architecture
+
+```text
+Web / CLI / FastAPI
+        |
+Session -> IntentRouter
+        +-- knowledge_query -> FTS5 + Vector -> RRF -> Reranker -> citations
+        +-- coding_task -> workspace-bound CodingAgent
+        +-- memory_command -> candidate -> human review -> memory vectors
+        +-- general_chat -> OMLX chat
+                                |
+AgentRuntime -> ToolRegistry -> Policy -> Dispatcher -> native / MCP / sub-agent
+             -> ApprovalLedger / Checkpoint / HashChainedTrace
+```
+
+Harness controls remain outside model prompts. Model output, repository text, tool arguments, and MCP responses are treated as untrusted input.
+
+## Quick start
+
+Python 3.12 and [`uv`](https://docs.astral.sh/uv/) are required. The `search_code` tool shells out to [`ripgrep`](https://github.com/BurntSushi/ripgrep) (`rg`), which must be on `PATH`.
+
+```bash
+uv sync --extra dev --extra cli --extra platform --extra benchmark
+make check
+uv run forge demo --text "hello"
+uv run forge eval-control
+uv run forge eval-agent --split dev
+uv run forge eval-rag
+uv run forge eval-reviewer
+uv run forge bench-retrieval
+uv run forge trace-steps <task-id>
+uv run forge recover <workspace> --model <id> --api-key <key>
+uv run forge freeze-manifest
+```
+
+### Framework comparison
+
+ForgeHarness includes both a **native Agent runtime** and a **LangChain/LangGraph implementation** to demonstrate framework proficiency and architectural trade-offs. See [`docs/LANGCHAIN_COMPARISON.md`](docs/LANGCHAIN_COMPARISON.md) for detailed comparison.
+
+```bash
+uv sync --extra frameworks
+uv run forge langchain-rag "What is ForgeHarness?"
+uv run forge langchain-agent "Add tests to example.py"
+uv run forge framework-compare  # Full benchmark
+```
+
+The control evaluation is keyless and writes [`reports/control-eval.json`](reports/control-eval.json). The fixed 60-case RAG and Reviewer gates write [`reports/rag-eval.json`](reports/rag-eval.json) and [`reports/reviewer-experiment.json`](reports/reviewer-experiment.json); the 5,000-chunk benchmark writes [`reports/retrieval-benchmark.json`](reports/retrieval-benchmark.json).
+
+The keyless Agent Benchmark (`forge eval-agent --split dev`) writes [`reports/agent-eval-dev-keyless.json`](reports/agent-eval-dev-keyless.json). It grades a frozen case set against **both** runtimes — ReAct and Plan-Execute — and reports benchmark cases and scorer probes separately, so a negative control never looks like a failed task. It validates the grading contract, the metric pipeline, the runtime wiring, and budget interaction. It does **not** compare the two orchestration strategies: the scripted model replaces the decision under test, so strategy claims require live-model runs. Its `cost_metrics_valid` flag is `false` and token figures are synthetic. The `holdout` split is deliberately excluded from `make gate` and is reserved for live-model comparison. See [`docs/NEXT_PHASE_PLAN.md`](docs/NEXT_PHASE_PLAN.md).
+
+Live comparison runs against a real model through the same evaluator:
+
+```bash
+uv run forge eval-agent --split dev --profile equal   --model <model> --samples 3
+uv run forge eval-agent --split dev --profile natural --model <model> --samples 3
+```
+
+`equal` shares one whole-run budget across arms; `natural` gives both arms a generous budget so planner overhead shows in cost rather than truncation. A live profile requires repeated sampling and reports `measurement_valid` independently of model quality. Measured results, including what could **not** be concluded, are in [`docs/M8B_LIVE_COMPARISON.md`](docs/M8B_LIVE_COMPARISON.md). Live runs are memory-heavy on a local server: keep `--limit` available and never leave the per-request output ceiling unset.
+
+## Use the local OMLX models
+
+```bash
+omlx start
+export FORGE_ENABLE_OMLX=true
+uv run forge qualify-omlx --quick
+uv run forge serve --data-dir .forgeharness --port 8001
+```
+
+Defaults are `Qwen3.5-9B-4bit`, `Qwen3-Embedding-4B-4bit-DWQ`, and `bge-reranker-v2-m3-mlx` at `http://127.0.0.1:8000/v1`. Loopback HTTP ignores desktop proxy settings. No model is downloaded by ForgeHarness.
+
+Use `uv run forge qualify-omlx` for the full 100-case capability gate (20 tool, 20 intent, 20 vision, 10 embedding, and 30 reranker cases). The checked-in full report passed with the existing models; the quick form remains only a smoke test.
+
+## Run the coding agent
+
+Use a disposable branch or worktree. The API key can be provided without putting it in shell history:
+
+```bash
+export FORGE_API_KEY="..."
+uv run forge repair /path/to/git/repo \
+  "Describe the defect and acceptance criteria" \
+  --model MODEL_NAME \
+  --base-url https://provider.example/v1 \
+  --test-command "python -m pytest -q"
+```
+
+Reads and the configured test command are allowed by the coding policy. Each `write_file` request prints its exact path, content, and expected SHA-256 before approval. `--yes` is available for isolated disposable environments, but interactive approval is the safer default.
+
+Run artifacts are stored under the target repository's `.forgeharness/` directory:
+
+```bash
+uv run forge inspect-run TASK_ID --data-dir /path/to/git/repo/.forgeharness
+```
+
+## Local API
+
+```bash
+uv run forge serve --data-dir .forgeharness
+curl http://127.0.0.1:8001/health
+curl -X POST http://127.0.0.1:8001/runs/keyless-demo \
+  -H 'content-type: application/json' \
+  -d '{"text":"controlled"}'
+```
+
+Open `http://127.0.0.1:8001/` for the lightweight UI or `/docs` for every endpoint. The UI supports file/image uploads, indexing status, media attachment, and citation-bearing answers. Port 8000 belongs to OMLX; the API defaults to 8001. Coding sessions are disabled unless `FORGE_CODING_WORKSPACE_ROOT` is set. A requested workspace must be relative to that root, must resolve inside it, and must contain `.git`; writes still suspend on exact-action approval.
+
+The local profile rejects non-loopback Host names and cross-origin browser mutations. It has no multi-user authentication and must not be exposed publicly. Approved memories can be revoked with `POST /v1/memories/{id}/review` (`approve: false`) or soft-deleted with `DELETE /v1/memories/{id}`; both remove retrieval indexes, while retaining the local audit record. This is not secure erasure.
+
+For an internal single-tenant deployment, set `FORGE_SERVICE_API_KEY` to a random value of at least 16 characters. `/v1/*` and `/runs/*` then require `X-API-Key` or `Authorization: Bearer ...`; health, metrics, and the UI remain available for probes and operator access. This is an API key boundary, not multi-tenant authorization.
+
+## Platform profile
+
+```bash
+docker compose -f deploy/docker-compose.yml up -d
+. deploy/run-platform.sh
+```
+
+Run the two displayed API commands and the ARQ worker in separate host terminals. Host processes can reach localhost-only OMLX; Nginx listens at `http://127.0.0.1:8080`. This is a local failover demonstration, not a claim of regional high availability.
+
+With OMLX and the four Compose services healthy, `uv run python benchmarks/platform_verification.py` runs the reproducible cross-process session/vector/queue/recovery/failover drill. `uv run python benchmarks/freeze_candidate.py` freezes the exact source snapshot, and `uv run forge review` checks all release evidence and unresolved findings.
+
+## Evidence and scope
+
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — module, state, and trust boundaries.
+- [`docs/EVALUATION.md`](docs/EVALUATION.md) — metrics, datasets, and reporting rules.
+- [`docs/STATUS.md`](docs/STATUS.md) — implemented/planned boundary and known limitations.
+- [`docs/REVIEW.md`](docs/REVIEW.md) — mandatory final audit protocol.
+- [`docs/REFERENCES.md`](docs/REFERENCES.md) — specifications, baselines, and attribution.
+
+This candidate does not claim SWE-bench performance, Reviewer superiority, OS-level sandboxing, automatic Git worktree creation, Qdrant/PostgreSQL production scale, or crash-safe approval resumption after an API restart. The checked-in reports support only their named, revision-bound workloads.
+
+## License
+
+MIT. External specifications and research baselines retain their own licenses; no upstream agent implementation is copied into the runtime.

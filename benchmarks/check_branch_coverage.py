@@ -12,7 +12,7 @@ def main() -> None:
     covered = totals["covered_branches"]
     percent = covered / branches * 100 if branches else 0
     print(f"pure_branch_coverage={covered}/{branches} ({percent:.2f}%) target=85%")
-    if percent < 85:
+    if percent < 85 or totals["percent_covered"] < 85:
         raise SystemExit(1)
 
 

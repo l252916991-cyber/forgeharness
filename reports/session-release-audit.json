@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "qualified": true,
+  "release_scope": "ForgeHarness 0.4.0 candidate: public durable scoped sessions (plan phase S1) over SDK API v1, single-machine POSIX/local SQLite and trusted host adapters",
+  "finalized_date_local": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "verification_time_note": "Command timestamps, logs and per-attempt reports are preserved under reports/session-verification/; the source profile ran in the repository and the clean profile reran every gate on a hash-checked copy of the frozen inputs.",
+  "review_method": "Maintainer-style self-review, contract/fault regressions, frozen candidate and clean checkout-equivalent rerun plus minimal wheel install; no independent external certification and no real-model or business-quality evaluation",
+  "source_kind": "archive checkout equivalent; no Git metadata",
+  "baseline_tree_digest": "0ba8f040a3d480c12a3c800e47bd2950c9d5795428e20bb46107419c2d2620dc",
+  "candidate_tree_digest": "497f07c6483047fe4d8fbf5ee8627a68e9f209900dd071085c77b84c5578f2b8",
+  "candidate_files": 270,
+  "source_identity_rechecked": true,
+  "changes_from_baseline": {
+    "added_files": 13,
+    "modified_files": 11,
+    "removed_files": 0,
+    "added_paths": [
+      ".gitignore",
+      "benchmarks/__init__.py",
+      "benchmarks/session_verification.py",
+      "docs/SESSIONS.md",
+      "docs/SESSION_PHASE_SCOPE.md",
+      "docs/adr/014-durable-scoped-sessions.md",
+      "docs/review/SESSION_AUDIT.md",
+      "examples/session_demo.py",
+      "src/forgeharness/sdk/session_control.py",
+      "src/forgeharness/sdk/sessions.py",
+      "tests/unit/test_session_control.py",
+      "tests/unit/test_session_verification.py",
+      "tests/unit/test_sessions.py"
+    ],
+    "modified_paths": [
+      "CHANGELOG.md",
+      "README.md",
+      "benchmarks/framework_snapshot.py",
+      "docs/BUSINESS_MODULES.md",
+      "docs/SDK_GUIDE.md",
+      "docs/STATUS.md",
+      "pyproject.toml",
+      "src/forgeharness/__init__.py",
+      "src/forgeharness/sdk/__init__.py",
+      "tests/unit/test_sdk_architecture.py",
+      "uv.lock"
+    ]
+  },
+  "versions": {
+    "distribution": "0.4.0",
+    "sdk_api": 1,
+    "session_schema": 1
+  },
+  "implemented": [
+    "Embeddable SessionService over the public Harness and WorkflowRunner: sessions fixed to application, policy version, tenant, actor, resources and workspace; ordered turns with stable request keys; host re-authorization on every operation",
+    "Bounded untrusted conversation history assembled through the existing context compiler; recorded source versions; actual model input remains the trace's model.request evidence",
+    "Per-session single writer, one active turn at a time, crash reconciliation on the stable run id, and explicit failure/exhaustion/awaiting-approval/success states",
+    "Delegated approval with a separately authenticated approver and single-use grants; a consumed or inapplicable grant is refused rather than acknowledged",
+    "Evidence transformation before persistence, deletion tombstones, retired session identities and local copy cleanup",
+    "Optional FastAPI session router kept out of the base SDK and wheel; synthetic legal-style and commerce-style client with restart, replay, revocation and cross-tenant refusal",
+    "Candidate-bound verification gate: source freeze that refuses to overwrite, clean-copy rerun, wheel/sdist membership against the freeze, minimal wheel-only install"
+  ],
+  "quality": {
+    "source": {
+      "tests_passed": 699,
+      "tests_failed": 0,
+      "tests_errors": 0,
+      "tests_skipped": 0,
+      "combined_coverage_percent": 92.08230608761616,
+      "pure_branch_coverage_percent": 86.63926002,
+      "pure_branch_threshold_percent": 85,
+      "control_cases_passed": 7,
+      "control_cases_total": 7,
+      "dev_agent_cases_per_strategy": 38,
+      "dev_scorer_probes_per_strategy": 7,
+      "dev_strategies": [
+        "react",
+        "plan_execute"
+      ],
+      "dependency_counts": {
+        "core": 10,
+        "all": 151
+      },
+      "unignored_dependency_findings": 0,
+      "model_profile": "keyless scripted; synthetic token usage; no live-model, legal accuracy, business outcome or cost claim"
+    },
+    "clean": {
+      "tests_passed": 699,
+      "tests_failed": 0,
+      "tests_errors": 0,
+      "tests_skipped": 0,
+      "combined_coverage_percent": 92.12971742840888,
+      "pure_branch_coverage_percent": 86.69064748,
+      "pure_branch_threshold_percent": 85,
+      "control_cases_passed": 7,
+      "control_cases_total": 7,
+      "dev_agent_cases_per_strategy": 38,
+      "dev_scorer_probes_per_strategy": 7,
+      "dev_strategies": [
+        "react",
+        "plan_execute"
+      ],
+      "dependency_counts": {
+        "core": 10,
+        "all": 151
+      },
+      "unignored_dependency_findings": 0,
+      "model_profile": "keyless scripted; synthetic token usage; no live-model, legal accuracy, business outcome or cost claim"
+    }
+  },
+  "verification": {
+    "commands_all_passed": true,
+    "failed_commands": [],
+    "checks_count": 55,
+    "summary": "reports/session-verification/summary.json",
+    "attempt_directory": "reports/session-verification/runs/20261014T140308Z-e38129f8",
+    "clean_copy": "Every frozen input copied and hash-checked into a report-local working tree; full gates rerun in a fresh Python 3.12 environment.",
+    "minimal_consumer": "Wheel-only fresh environment outside the repository: imports without FastAPI or LangGraph and runs all three public examples.",
+    "dependency_audit": "pip-audit over the exported requirements: no unignored finding in either scope. The accepted PYSEC-2026-3740 (transitive, optional frameworks extra) is passed as --ignore-vuln and remains an accepted residual risk (docs/review FH-019), reachable only through the optional LlamaIndex comparison."
+  },
+  "artifacts": {
+    "forgeharness-0.4.0-py3-none-any.whl": {
+      "path": "reports/session-verification/runs/20261014T140308Z-e38129f8/dist/forgeharness-0.4.0-py3-none-any.whl",
+      "sha256": "9758fbe3c0d2f106b59c091a731529085dd491c7020d5bb996c2896425480d3e"
+    },
+    "forgeharness-0.4.0.tar.gz": {
+      "path": "reports/session-verification/runs/20261014T140308Z-e38129f8/dist/forgeharness-0.4.0.tar.gz",
+      "sha256": "f3476b2e4067db14dd34529f45f3c821c663fefc7faef0dd3caab38e358d9c59"
+    }
+  },
+  "review": {
+    "open_blocker_in_supported_scope": 0,
+    "open_high_in_supported_scope": 0,
+    "record": "docs/review/SESSION_AUDIT.md",
+    "findings": [
+      {
+        "id": "SESS-001",
+        "severity": "high",
+        "status": "fixed",
+        "resolution": "Replaying a consumed approval grant on a finished turn returned a silent success; it is now refused as a conflict (409). The durable ledger still rejects double consumption. tests/unit/test_session_control.py::test_http_delegated_approval_reauthenticates_and_restarts"
+      },
+      {
+        "id": "SESS-002",
+        "severity": "medium",
+        "status": "fixed",
+        "resolution": "Recreating a deleted session identity reported a naming conflict; it is now unavailable (403) and the identity stays retired. tests/unit/test_sessions.py::test_deleted_session_retires_its_identity"
+      },
+      {
+        "id": "SESS-003",
+        "severity": "medium",
+        "status": "fixed",
+        "resolution": "The verification driver discarded its failure summary when the source tree could no longer be hashed. tests/unit/test_session_verification.py::test_driver_exception_persists_failed_result"
+      },
+      {
+        "id": "SESS-004",
+        "severity": "medium",
+        "status": "fixed",
+        "resolution": "The gate invoked Ruff with --exclude reports, which replaces Ruff's default excludes and linted the whole virtual environment (about 96k findings), so the lint gate could not pass; switched to --extend-exclude plus a project-level reports/ exclusion."
+      },
+      {
+        "id": "SESS-005",
+        "severity": "medium",
+        "status": "fixed",
+        "resolution": "The new session code had never been formatted or linted and benchmarks/ was not importable, so the verification test module failed collection; formatted, linted, packaged and given a pytest pythonpath entry."
+      },
+      {
+        "id": "SESS-006",
+        "severity": "low",
+        "status": "fixed",
+        "resolution": "README and the scope document advertised SessionService as public SDK while it was not exported; the session types are now exported from forgeharness.sdk and the optional router deliberately is not."
+      },
+      {
+        "id": "SESS-007",
+        "severity": "low",
+        "status": "fixed",
+        "resolution": "The architecture test's optional-adapter exemption was widened safely: per-module exemption plus assertions that adapters declare their platform dependency and that importing forgeharness loads no optional platform package."
+      },
+      {
+        "id": "SESS-008",
+        "severity": "low",
+        "status": "fixed",
+        "resolution": "Stale documentation (BUSINESS_MODULES session claim, SDK_GUIDE release version and missing session router section) corrected for the 0.4.0 candidate."
+      },
+      {
+        "id": "SESS-009",
+        "severity": "high",
+        "status": "fixed",
+        "resolution": "A workflow node adapter failure left the turn looking unstarted instead of recording the durable workflow state and its error; the suspended state is now recorded and the original turn is resumed. tests/unit/test_sessions.py::test_workflow_adapter_failure_does_not_lose_durable_state"
+      },
+      {
+        "id": "SESS-010",
+        "severity": "medium",
+        "status": "fixed",
+        "resolution": "The sdist ships the packaging tool's default .gitignore, which was outside the frozen identity, so the 'every sdist member is frozen' rule could never pass. .gitignore is now part of the content-addressed identity (absent root files simply do not contribute; deleting one still changes the digest) instead of being exempted."
+      }
+    ],
+    "not_closed": [
+      "FH-015 full-platform conversation/context/run lifecycle",
+      "FH-016 real-world qualification fixtures",
+      "FH-017 frozen integration/comparison evidence",
+      "FH-018 interview materials",
+      "FH-019 accepted advisory (optional frameworks extra NLTK)"
+    ]
+  },
+  "evidence_sha256": {
+    "docs/SESSIONS.md": "75f13512763fee47dd83d3139946cfa145d01e8b77d9804b700cf4ab0b2e2da6",
+    "docs/SESSION_PHASE_SCOPE.md": "0be24fcde5e61ca2de4c233eb0c043ccc576214523ae119043f4248da99fd6d7",
+    "docs/adr/014-durable-scoped-sessions.md": "25bdceb6054d2695e3449d02717a52618343124b151858f87cca3afcb4098120",
+    "docs/review/SESSION_AUDIT.md": "bbc69b13d1649efe93063f6fc943a5f1f44da284ad68e39a44e7b8e6f5b6b50d",
+    "docs/STATUS.md": "6ad69fd2d3431dc1e4fe8b31f9ba314dab49ab01ab9eb3867e912bf6e3444eae",
+    "benchmarks/session_verification.py": "436b9662bcee7a19d7917f6ecb48ae083b51ba16d0d2d08a3cfaf58813158c74",
+    "reports/session-baseline-source.json": "2eadc8c0f72a19b43ca2d7dd228838cc1c10303351aedc85b0bd4610133456cc",
+    "reports/session-candidate-source.json": "5bbb98e0a057dfb6fdfd6ab0ec876c9ca7ec99f85691c6cf481099db0141f0ed"
+  }
+}

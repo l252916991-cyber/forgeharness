@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-09",
+  "tenant_id": "shop-a",
+  "question": "Which payment methods are accepted?",
+  "answer": "Synthetic answer: synthetic card, synthetic wallet transfer and cash on delivery are accepted for shop-a orders.",
+  "category": "payment",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:payment-methods"
+    }
+  ]
+}

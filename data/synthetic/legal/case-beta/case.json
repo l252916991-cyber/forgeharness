@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "case_id": "case-beta",
+  "tenant_id": "firm-beta",
+  "title": "Synthetic tenancy deposit dispute (fixture)",
+  "resources": [
+    "case:case-beta",
+    "source:case-beta"
+  ],
+  "pages": [
+    {
+      "locator": "page:1",
+      "file": "page-01.txt",
+      "summary": "Deposit and tenancy start for the synthetic storage unit."
+    },
+    {
+      "locator": "page:2",
+      "file": "page-02.txt",
+      "summary": "Refund record RR-2026-031: instalments and the disputed repair deduction."
+    }
+  ]
+}

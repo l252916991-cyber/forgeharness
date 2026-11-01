@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import asyncio
 import shlex
+import sys
 from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
@@ -67,7 +68,7 @@ class CodingTools:
         self,
         workspace: Path,
         approval_callback: Any = None,
-        test_command: str = "pytest -q",
+        test_command: str = f"{shlex.quote(sys.executable)} -m pytest -q",
     ) -> None:
         self.workspace = workspace
         self.approval_callback = approval_callback
@@ -171,7 +172,7 @@ class LangGraphCodingAgent:
         self,
         llm: BaseChatModel,
         workspace: Path,
-        test_command: str = "pytest -q",
+        test_command: str = f"{shlex.quote(sys.executable)} -m pytest -q",
         max_iterations: int = 10,
         max_tool_calls: int = 50,
         approval_callback: Any = None,
@@ -380,7 +381,7 @@ def test_add():
     agent = LangGraphCodingAgent(
         llm=llm,
         workspace=workspace,
-        test_command="python -m pytest test_demo.py -v",
+        test_command=f"{shlex.quote(sys.executable)} -m pytest test_demo.py -v",
     )
 
     print("=== LangGraph Coding Agent Demo ===\n")

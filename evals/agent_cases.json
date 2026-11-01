@@ -488,6 +488,37 @@
       "expected": {"status": "succeeded", "tools": ["search_code", "read_file", "write_file"], "max_tool_calls": 4, "max_steps": 5}
     },
     {
+      "id": "long-todo-gate-cleared",
+      "category": "long_horizon",
+      "split": "dev",
+      "task": "Record the plan as todo items, read the module, then close the item before finishing.",
+      "tools": ["write_todos", "read_file"],
+      "workspace": {"app.py": "def add(a, b):\n    return a + b\n"},
+      "script": [
+        {"tool": "write_todos", "arguments": {"todos": [{"id": "read-app", "content": "read app.py", "status": "in_progress"}], "rationale": "one item left"}},
+        {"tool": "read_file", "arguments": {"path": "app.py"}},
+        {"final": "done"},
+        {"tool": "write_todos", "arguments": {"todos": [{"id": "read-app", "content": "read app.py", "status": "completed"}], "rationale": "read"}},
+        {"final": "done and closed"}
+      ],
+      "expected": {"status": "succeeded", "tools": ["write_todos", "read_file"], "tool_sequence": ["write_todos", "read_file", "write_todos"], "max_tool_calls": 3, "max_steps": 5}
+    },
+    {
+      "id": "long-todo-unfinished-fails",
+      "category": "long_horizon",
+      "split": "dev",
+      "task": "Plan the work, then report success without doing it.",
+      "tools": ["write_todos"],
+      "script": [
+        {"tool": "write_todos", "arguments": {"todos": [{"id": "left-open", "content": "finish the report", "status": "pending"}], "rationale": "planned"}},
+        {"final": "done"},
+        {"final": "done"},
+        {"final": "done"},
+        {"final": "done"}
+      ],
+      "expected": {"status": "failed", "tools": ["write_todos"], "error_contains": "unfinished_todos", "max_tool_calls": 1, "max_steps": 6}
+    },
+    {
       "id": "notool-answer-only",
       "category": "no_tool",
       "split": "dev",

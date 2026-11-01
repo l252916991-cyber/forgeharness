@@ -1,0 +1,7 @@
+Synthetic fixture: this page is artificial test data for a read-only pilot and describes no real person, company, or matter.
+
+Matter SYN-2026-031 is held by tenant firm-beta and concerns a deposit dispute under a synthetic tenancy. The parties are labelled Party C (synthetic), the landlord, and Party D (synthetic), the tenant; both labels are invented for this fixture.
+
+The tenancy began on 2026-01-15 and covered a synthetic storage unit, described in the file as Unit 7 of a fictional estate. Party D (synthetic) paid a deposit of 9600.00 SCU, stated in synthetic credit units (SCU), and the deposit receipt carries the reference "deposit, storage unit, one year term".
+
+The tenancy ended early by agreement. The file records that the unit was handed back and that the keys were returned to the estate office. Party C (synthetic) notified a deduction for a repair charge, which Party D (synthetic) disputes. The tenancy agreement itself is not reproduced in this fixture, and the page that follows records the refund history only.

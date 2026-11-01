@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-18",
+  "tenant_id": "shop-a",
+  "question": "How is a stain removed from a synthetic notebook cover?",
+  "answer": "Synthetic answer: wipe the cover with a damp cloth and mild soap; solvent cleaners must not be used.",
+  "category": "care",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:care-notebook-covers"
+    }
+  ]
+}

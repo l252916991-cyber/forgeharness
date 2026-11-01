@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "faq-02",
+  "tenant_id": "shop-a",
+  "question": "When will an order placed at the weekend arrive?",
+  "answer": "Synthetic answer: weekend orders are dispatched on the next business day and arrive 5 to 7 business days after dispatch.",
+  "category": "shipping",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:shipping-weekend-orders"
+    }
+  ],
+  "conflict_with": "faq-01"
+}

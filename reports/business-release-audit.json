@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "distribution_version": "0.5.0",
+  "decision": "qualified_local_synthetic_candidate",
+  "project_complete": false,
+  "business_qualified": false,
+  "production_qualified": false,
+  "source_identity": "1aa15ec7599c0f16389cbefc76eb4a0353e9c830cb48c966eae3000fae082241",
+  "source_files": 350,
+  "source_kind": "archive checkout equivalent; no Git metadata",
+  "git_revision": null,
+  "manifest": "reports/business-candidate-source.json",
+  "manifest_sha256": "03a82d07d679cc02c055d3ae094444922a291406cee193b9061dc478a7d09f15",
+  "verification_summary": "reports/business-verification/summary.json",
+  "immutable_attempt_summary": "reports/business-verification/runs/20261015T160949Z-1310cdc9/summary.json",
+  "all_gates_passed": true,
+  "gate_count": 72,
+  "source": {
+    "coverage": {
+      "covered_lines": 10123,
+      "num_statements": 10813,
+      "percent_covered": 92.29226999331699,
+      "percent_covered_display": "92",
+      "missing_lines": 690,
+      "excluded_lines": 288,
+      "percent_statements_covered": 93.61879219458059,
+      "percent_statements_covered_display": "94",
+      "num_branches": 2654,
+      "num_partial_branches": 244,
+      "covered_branches": 2306,
+      "missing_branches": 348,
+      "percent_branches_covered": 86.88771665410701,
+      "percent_branches_covered_display": "87"
+    },
+    "pure_branch_percent": 86.88771665410701,
+    "tests": {
+      "tests": 978,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_contracts": {
+      "case_count": 120,
+      "families": {
+        "legal": 2,
+        "commerce": 30
+      },
+      "passed": true,
+      "measurement_valid": false,
+      "business_qualified": false
+    }
+  },
+  "clean": {
+    "coverage": {
+      "covered_lines": 10127,
+      "num_statements": 10813,
+      "percent_covered": 92.32939778718348,
+      "percent_covered_display": "92",
+      "missing_lines": 686,
+      "excluded_lines": 288,
+      "percent_statements_covered": 93.65578470359752,
+      "percent_statements_covered_display": "94",
+      "num_branches": 2654,
+      "num_partial_branches": 245,
+      "covered_branches": 2307,
+      "missing_branches": 347,
+      "percent_branches_covered": 86.92539562923888,
+      "percent_branches_covered_display": "87"
+    },
+    "pure_branch_percent": 86.92539562923888,
+    "tests": {
+      "tests": 978,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_contracts": {
+      "case_count": 120,
+      "families": {
+        "legal": 2,
+        "commerce": 30
+      },
+      "passed": true,
+      "measurement_valid": false,
+      "business_qualified": false
+    }
+  },
+  "safety_regression_nodes": 63,
+  "safety_regressions_passed": true,
+  "development_report": "reports/business-development.json",
+  "legal_comparison": "reports/legal-pilot-comparison.json",
+  "artifacts": {
+    "forgeharness-0.5.0-py3-none-any.whl": {
+      "path": "reports/business-verification/runs/20261015T160949Z-1310cdc9/dist/forgeharness-0.5.0-py3-none-any.whl",
+      "sha256": "ce0ed65532ce4606e4266ce83a12eb95d806e5f16e31a952c54447b892e128e7"
+    },
+    "forgeharness-0.5.0.tar.gz": {
+      "path": "reports/business-verification/runs/20261015T160949Z-1310cdc9/dist/forgeharness-0.5.0.tar.gz",
+      "sha256": "da5e6fd727e0c9e1ff2224755879a6debf5073fd175d622053c9156b8baa8d86"
+    }
+  },
+  "review_dimensions": [
+    "architecture",
+    "correctness and recovery",
+    "tests and evaluation",
+    "security boundaries",
+    "dependencies",
+    "documentation and resume claims"
+  ],
+  "review_method": "Repository code review, targeted defect regressions, frozen full gates and clean-copy/package verification; no independent professional business review.",
+  "findings": [
+    {
+      "id": "STATE-001",
+      "finding": "tool sources absent from session dependencies",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Governed receipts and durable evidence are rechecked on history/inspect/events/resume; source withdrawal regression"
+    },
+    {
+      "id": "STATE-002",
+      "finding": "failed/no-checkpoint cleanup could not be retried",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "resolution": "Binding-safe allow-missing tombstones and repeated session/workflow cleanup"
+    },
+    {
+      "id": "STATE-003",
+      "finding": "recursive repeated history checks",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "resolution": "Iterative traversal, shared per-operation reads, 512-turn refusal bound, oldest-dependency regression"
+    },
+    {
+      "id": "BUS-001",
+      "finding": "provider await reused stale permission conclusions",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Final context-provider barrier rechecks current materials, ancestors and READ authorization before any model call"
+    },
+    {
+      "id": "BUS-002",
+      "finding": "staging identity and sweep crossed tenant/actor boundaries",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Scope-bound identities/files, per-material authorization, active-task protection independent of caller listing"
+    },
+    {
+      "id": "BUS-003",
+      "finding": "parser output changed after cached validation",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Draft parses once and validates that same object with the current validator"
+    },
+    {
+      "id": "BUS-004",
+      "finding": "task results retained deleted material text",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Import task results contain only resource/version/digest/state references"
+    },
+    {
+      "id": "BUS-005",
+      "finding": "missing task ledger allowed cleanup of active imports",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Linked imports require task evidence; cleanup fails closed without it"
+    },
+    {
+      "id": "BUS-006",
+      "finding": "deletion reused task identity; crash requeue exceeded budget",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Persistent task/business-key tombstones and exhausted-budget refusal"
+    },
+    {
+      "id": "BUS-007",
+      "finding": "dynamic retrieval authorization followed scoring",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Verify current access before scoring and again before returning hits"
+    },
+    {
+      "id": "BUS-008",
+      "finding": "customer knowledge-management reads exposed drafts",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Staff-only management endpoint; consultation reads published records"
+    },
+    {
+      "id": "BUS-009",
+      "finding": "same actor could approve own commerce write",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Distinct actor required for supervisor approval"
+    },
+    {
+      "id": "BUS-010",
+      "finding": "live product version could name changed contents",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Ledger seed rejects same-version mutation and version rollback"
+    },
+    {
+      "id": "BUS-011",
+      "finding": "legal adapter lacked page confinement and exact current page matching",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "Per-page grants, local path confinement, duplicate-locator refusal, whole-page comparison"
+    },
+    {
+      "id": "BUS-012",
+      "finding": "completed handoff alias failed final verification",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "resolution": "Both registered handoff names verify the completed ledger receipt"
+    }
+  ],
+  "open_blocker_or_high_in_declared_new_scope": [],
+  "legacy_findings_not_closed": [
+    "FH-015",
+    "FH-016",
+    "FH-017",
+    "FH-018"
+  ],
+  "implemented_boundary": [
+    "S1 scoped sessions: current source/permission revalidation, bounded history, durable approval/recovery and cleanup fixes",
+    "S2 local durable tasks, scope-bound import/validation/draft/review/publication/index lifecycle, optional task API/page",
+    "S3 synthetic case/page adapter, exact citations, independently reviewed note lifecycle demonstration",
+    "S4 structured synthetic consultation, comparisons/follow-ups, live mock ledger facts, approved idempotent product tickets, management console",
+    "S5 40 legal + 80 commerce development contracts, 63 selected safety regressions, one-shot seal helper, full frozen candidate qualification"
+  ],
+  "remaining_conditions": [
+    "Real LexVault adapter, authorized materials and same-question comparison",
+    "Real model selection/parameters/budgets, independent business questions, professional legal reviewers and frozen scoring/quality targets",
+    "General tickets without a selected product and natural-language clarification quality",
+    "Production identity integration, real shop/platform APIs and external write reconciliation",
+    "Legacy platform findings FH-015 through FH-018 remain outside this candidate qualification"
+  ],
+  "accepted_residual_risks": [
+    "Local POSIX/SQLite scope only; no distributed queue/leases/outbox or production HA",
+    "Host authorization/source adapters are trusted integration boundaries; governed-source opt-in must be configured correctly",
+    "History over 512 reachable turns refuses validation; no high-volume service latency qualification",
+    "Current no-product path indicates human help but creates no productless ticket; deterministic structured UI has no natural-language quality claim",
+    "Retention cleanup is not secure erasure of backups, external logs or host orphans",
+    "Public demo role tokens are fixture-only and require replacement before deployment",
+    "Optional all-extras dependency advisory PYSEC-2026-3740 accepted under existing FH-019; core audit has no accepted advisory",
+    "Synthetic sealed fixtures are machine-authored and unopened for evaluation; not independent professional evidence"
+  ],
+  "sealed_evaluation": {
+    "opened": false,
+    "real_model_run": false,
+    "professional_quality_claim": false
+  },
+  "ui_manual_check": {
+    "date": "2026-10-16",
+    "comparison": true,
+    "follow_up_requeries": true,
+    "independent_approval_to_ticket": true,
+    "ticket_list": true,
+    "screenshot": "reports/commerce-console-final.jpg"
+  },
+  "claim_boundary": "Tests and synthetic contracts qualify this exact local implementation, not legal/commercial reasoning or production readiness."
+}

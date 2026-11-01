@@ -10,6 +10,7 @@ from uuid import uuid4
 import httpx
 
 from forgeharness.coding.agent import CodingAgent
+from forgeharness.coding.verification import CodingVerifier
 from forgeharness.domain.models import RunResult, RunStatus
 from forgeharness.knowledge.models import AgentResponse, Intent
 from forgeharness.knowledge.storage import SQLiteApplicationStore
@@ -19,7 +20,7 @@ from forgeharness.models.openai_compatible import (
 )
 from forgeharness.observability.hash_chain import HashChainedJSONLTrace
 from forgeharness.runtime.budget import RunBudget
-from forgeharness.runtime.verification import CodingVerifier, Verifier
+from forgeharness.runtime.verification import Verifier
 from forgeharness.state.approval import InMemoryApprovalLedger
 from forgeharness.state.checkpoint import SQLiteCheckpointStore
 from forgeharness.state.invocation_journal import SQLiteInvocationJournal

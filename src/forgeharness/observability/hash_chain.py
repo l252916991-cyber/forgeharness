@@ -107,7 +107,10 @@ def _load_envelopes(path: Path) -> list[TraceEnvelope]:
 
 def _canonical_event(event: TraceEvent) -> str:
     return json.dumps(
-        event.model_dump(mode="json"), ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        event.model_dump(mode="json", exclude={"event_version"}),
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
     )
 
 

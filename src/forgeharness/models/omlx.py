@@ -9,7 +9,7 @@ from typing import Any, Literal
 import httpx
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
-from forgeharness.knowledge.models import ModelCapability
+from forgeharness.models.capabilities import ModelCapability
 
 
 class OMLXProtocolError(RuntimeError):

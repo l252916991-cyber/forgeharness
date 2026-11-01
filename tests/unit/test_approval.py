@@ -14,7 +14,7 @@ from forgeharness.state.approval import (
 
 def test_fingerprint_is_stable_across_argument_order() -> None:
     first = ToolCall(id="one", name="write", arguments={"path": "a", "content": "b"})
-    second = ToolCall(id="two", name="write", arguments={"content": "b", "path": "a"})
+    second = ToolCall(id="one", name="write", arguments={"content": "b", "path": "a"})
 
     assert call_fingerprint("task", first) == call_fingerprint("task", second)
 

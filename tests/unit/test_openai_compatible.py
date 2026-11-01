@@ -104,6 +104,37 @@ async def test_adapter_sends_explicit_local_generation_bounds() -> None:
     assert sent["chat_template_kwargs"] == {"enable_thinking": False}
 
 
+@pytest.mark.parametrize(
+    "usage",
+    [
+        None,
+        {},
+        {"prompt_tokens": 3},
+        {"prompt_tokens": True, "completion_tokens": 1},
+        {"prompt_tokens": -1, "completion_tokens": 1},
+        {"prompt_tokens": "3", "completion_tokens": 1},
+    ],
+)
+async def test_strict_usage_cannot_treat_missing_or_invalid_accounting_as_zero(usage):
+    async def handler(request):
+        return httpx.Response(
+            200, json={"choices": [{"message": {"content": "ok"}}], "usage": usage}
+        )
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        model = OpenAICompatibleModel(
+            OpenAICompatibleConfig(
+                base_url="http://127.0.0.1:8000/v1",
+                api_key="local",
+                model="synthetic",
+                require_usage=True,
+            ),
+            client=client,
+        )
+        with pytest.raises(ModelProtocolError):
+            await model.decide(request())
+
+
 async def test_adapter_serializes_assistant_and_tool_messages() -> None:
     captured: list[httpx.Request] = []
     model = build_model(

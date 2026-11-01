@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-16",
+  "tenant_id": "shop-a",
+  "question": "Are synthetic steel bottles dishwasher safe?",
+  "answer": "Synthetic answer: the bottle body is dishwasher safe on the top rack; the lid seal should be washed by hand.",
+  "category": "care",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:care-bottles"
+    }
+  ]
+}

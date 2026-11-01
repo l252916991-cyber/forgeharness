@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 from typing import Any
 from urllib.parse import urlparse
@@ -13,7 +14,6 @@ from forgeharness.domain.models import (
     AgentAction,
     FinalAction,
     Message,
-    MessageRole,
     ModelResult,
     ModelUsage,
     ToolAction,
@@ -21,6 +21,13 @@ from forgeharness.domain.models import (
 )
 from forgeharness.models.base import ModelProtocolError as SharedModelProtocolError
 from forgeharness.models.base import ModelRequest
+from forgeharness.models.caching import CacheMode, CachePlan, apply_cache_plan, plan_cache
+from forgeharness.models.prepared import (
+    PreparedModelCall,
+    canonical_json,
+    chat_inputs,
+    chat_message,
+)
 
 _LOOPBACK_HOSTS = frozenset({"127.0.0.1", "localhost", "::1"})
 
@@ -47,10 +54,21 @@ class OpenAICompatibleConfig(BaseModel):
     base_url: str
     api_key: str = Field(min_length=1)
     model: str = Field(min_length=1)
-    timeout_seconds: float = Field(default=120.0, gt=0)
+    timeout_seconds: float = Field(default=120.0, gt=0, allow_inf_nan=False)
+    require_usage: bool = Field(default=False, strict=True)
+    #: Bound untrusted HTTP bytes before JSON parsing or evidence staging.
+    max_response_bytes: int = Field(
+        default=8 * 1024 * 1024, ge=1024, le=16 * 1024 * 1024, strict=True
+    )
     temperature: float = Field(default=0.0, ge=0, le=2)
     max_tokens: int | None = Field(default=None, ge=1, le=32_768)
     enable_thinking: bool | None = None
+    context_window_tokens: int | None = Field(default=None, ge=1)
+    provider_overhead_tokens: int | None = Field(default=None, ge=0)
+    #: How this endpoint wants a cacheable prefix expressed. Defaults to OFF because
+    #: an unknown server may reject ``cache_control``; a gateway that caches prefixes
+    #: automatically loses nothing by staying OFF, it only loses the report.
+    cache_mode: CacheMode = CacheMode.OFF
 
 
 class _FunctionCall(BaseModel):
@@ -81,11 +99,32 @@ class _Choice(BaseModel):
     message: _AssistantMessage
 
 
-class _RemoteUsage(BaseModel):
+class _PromptDetails(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    prompt_tokens: int = 0
-    completion_tokens: int = 0
+    cached_tokens: int = Field(default=0, ge=0, strict=True)
+
+
+class _RemoteUsage(BaseModel):
+    """Provider usage, including whatever form of cache accounting it reports.
+
+    Two spellings are in the wild for the same number: OpenAI-compatible gateways put
+    it under ``prompt_tokens_details.cached_tokens``, Anthropic-flavoured ones report
+    ``cache_read_input_tokens``. Both are optional and default to zero.
+    """
+
+    model_config = ConfigDict(extra="ignore")
+
+    prompt_tokens: int = Field(default=0, ge=0, strict=True)
+    completion_tokens: int = Field(default=0, ge=0, strict=True)
+    prompt_tokens_details: _PromptDetails | None = None
+    cache_read_input_tokens: int = Field(default=0, ge=0, strict=True)
+
+    @property
+    def cached_tokens(self) -> int:
+        """Prompt tokens the provider served from its cache, in either spelling."""
+        nested = self.prompt_tokens_details.cached_tokens if self.prompt_tokens_details else 0
+        return max(nested, self.cache_read_input_tokens)
 
 
 class _ChatCompletion(BaseModel):
@@ -93,7 +132,7 @@ class _ChatCompletion(BaseModel):
 
     model: str = "unknown"
     choices: list[_Choice]
-    usage: _RemoteUsage = _RemoteUsage()
+    usage: _RemoteUsage | None = None
 
 
 class OpenAICompatibleModel:
@@ -103,6 +142,10 @@ class OpenAICompatibleModel:
         self, config: OpenAICompatibleConfig, *, client: httpx.AsyncClient | None = None
     ) -> None:
         self._config = config
+        #: Cached prompt tokens the provider reported for the last dispatch. Kept off
+        #: ``ModelUsage`` so the budget contract stays provider-neutral: this is an
+        #: accounting fact, not a chargeable input.
+        self.last_cache_read_tokens = 0
         if client is not None:
             self._client = client
             return
@@ -116,17 +159,68 @@ class OpenAICompatibleModel:
 
     async def decide(self, request: ModelRequest) -> ModelResult:
         """Request and validate exactly one final answer or tool call."""
-        response = await self._client.post(
-            f"{self._config.base_url.rstrip('/')}/chat/completions",
-            headers={"Authorization": f"Bearer {self._config.api_key}"},
-            json=self._request_body(request),
-            timeout=self._config.timeout_seconds,
+        return await self.decide_prepared(self.prepare_request(request))
+
+    def cache_plan(self, request: ModelRequest) -> CachePlan:
+        """Expose the prefix plan so the runtime can record it in the trace.
+
+        Deterministic in the request alone, so a replay recomputes the same plan and
+        the recorded policy stays checkable against the recorded input.
+        """
+        return plan_cache(request, mode=self._config.cache_mode)
+
+    def prepare_request(self, request: ModelRequest) -> PreparedModelCall:
+        """Freeze the exact credential-free body that the transport will send."""
+        body = self._request_body(request)
+        explicit = self._config.cache_mode is CacheMode.EXPLICIT
+        if explicit:
+            body = apply_cache_plan(body, self.cache_plan(request))
+        return PreparedModelCall(
+            request_json=canonical_json(request.model_dump(mode="json")),
+            payload_json=canonical_json(body),
+            format="chat-completions-cache-explicit-v1" if explicit else "chat-completions-v1",
+            output_limit=self._config.max_tokens,
+            context_window=self._config.context_window_tokens,
+            provider_overhead_tokens=self._config.provider_overhead_tokens,
         )
-        response.raise_for_status()
+
+    async def decide_prepared(self, prepared: PreparedModelCall) -> ModelResult:
+        """Send the admitted snapshot rather than regenerating its messages or schema."""
+        if prepared.format not in {"chat-completions-v1", "chat-completions-cache-explicit-v1"}:
+            raise ValueError("unexpected prepared request format")
+        # httpx applies its timeout per network operation. A peer continuously
+        # sending tiny chunks must also obey one total request/read deadline.
+        async with asyncio.timeout(self._config.timeout_seconds):
+            async with self._client.stream(
+                "POST",
+                f"{self._config.base_url.rstrip('/')}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {self._config.api_key}",
+                    "Content-Type": "application/json",
+                    # Refuse unsolicited compression below, before any inflation.
+                    "Accept-Encoding": "identity",
+                },
+                content=prepared.payload_json.encode(),
+                timeout=self._config.timeout_seconds,
+                # A host-injected client's redirect loop must not buffer an
+                # intermediate unbounded body before this response guard runs.
+                follow_redirects=False,
+            ) as response:
+                response.raise_for_status()
+                body = await self._read_response(response)
         try:
-            completion = _ChatCompletion.model_validate(response.json())
+            completion = _ChatCompletion.model_validate(json.loads(body))
         except (ValidationError, ValueError) as exc:
             raise ModelProtocolError(f"invalid chat-completions response: {exc}") from exc
+        if self._config.require_usage and (
+            completion.usage is None
+            or not {"prompt_tokens", "completion_tokens"} <= completion.usage.model_fields_set
+        ):
+            raise ModelProtocolError(
+                "provider omitted usage", code="missing_usage", recoverable=False
+            )
+        usage = completion.usage or _RemoteUsage()
+        self.last_cache_read_tokens = usage.cached_tokens
         if len(completion.choices) != 1:
             raise ModelProtocolError(
                 f"expected exactly one completion choice, got {len(completion.choices)}"
@@ -142,8 +236,8 @@ class OpenAICompatibleModel:
                 # The request consumed these tokens, so a run that retries must
                 # still be charged for the rejected attempt.
                 usage=ModelUsage(
-                    input_tokens=completion.usage.prompt_tokens,
-                    output_tokens=completion.usage.completion_tokens,
+                    input_tokens=usage.prompt_tokens,
+                    output_tokens=usage.completion_tokens,
                 ),
             )
         action: AgentAction
@@ -157,63 +251,74 @@ class OpenAICompatibleModel:
             action=action,
             model_name=completion.model,
             usage=ModelUsage(
-                input_tokens=completion.usage.prompt_tokens,
-                output_tokens=completion.usage.completion_tokens,
+                input_tokens=usage.prompt_tokens,
+                output_tokens=usage.completion_tokens,
             ),
+        )
+
+    async def _read_response(self, response: httpx.Response) -> bytes:
+        """Close an oversized/encoded response without retaining its raw content."""
+        encoding = response.headers.get("content-encoding", "identity").strip().lower()
+        if encoding not in ("", "identity"):
+            raise ModelProtocolError(
+                "provider sent an unsupported encoded response",
+                code="unsupported_content_encoding",
+                recoverable=False,
+            )
+        limit = self._config.max_response_bytes
+        length = response.headers.get("content-length")
+        if length is not None:
+            try:
+                declared = int(length)
+            except ValueError:
+                raise ModelProtocolError(
+                    "provider sent an invalid response length", recoverable=False
+                ) from None
+            if declared < 0:
+                raise ModelProtocolError(
+                    "provider sent an invalid response length", recoverable=False
+                )
+            if declared > limit:
+                raise self._oversized_response()
+        if response.is_stream_consumed:
+            # Explicitly injected transports may return preloaded responses
+            # (e.g. MockTransport). They are trusted host code; still refuse an
+            # oversized document before copying/parsing it here.
+            if len(response.content) > limit:
+                raise self._oversized_response()
+            return response.content
+        captured = bytearray()
+        async for chunk in response.aiter_raw(chunk_size=min(64 * 1024, limit + 1)):
+            if len(captured) + len(chunk) > limit:
+                raise self._oversized_response()
+            captured.extend(chunk)
+        return bytes(captured)
+
+    @staticmethod
+    def _oversized_response() -> ModelProtocolError:
+        # No response prefix or untrusted header value is included in evidence.
+        # The provider may have executed; missing trustworthy usage stays unknown.
+        return ModelProtocolError(
+            "provider response exceeds its byte limit",
+            code="response_too_large",
+            recoverable=False,
         )
 
     def _request_body(self, request: ModelRequest) -> dict[str, Any]:
         body: dict[str, Any] = {
             "model": self._config.model,
             "temperature": self._config.temperature,
-            "messages": [self._serialize_message(message) for message in request.messages],
+            **chat_inputs(request),
         }
         if self._config.max_tokens is not None:
             body["max_tokens"] = self._config.max_tokens
         if self._config.enable_thinking is not None:
             body["chat_template_kwargs"] = {"enable_thinking": self._config.enable_thinking}
-        if request.tools:
-            body["tools"] = [
-                {
-                    "type": "function",
-                    "function": {
-                        "name": spec.name,
-                        "description": spec.description,
-                        "parameters": spec.input_schema,
-                    },
-                }
-                for spec in request.tools
-            ]
-            body["tool_choice"] = "auto"
-            body["parallel_tool_calls"] = False
         return body
 
     @staticmethod
     def _serialize_message(message: Message) -> dict[str, Any]:
-        serialized: dict[str, Any] = {"role": message.role.value}
-        if message.content is not None:
-            serialized["content"] = message.content
-        if message.tool_calls:
-            serialized["content"] = message.content
-            serialized["tool_calls"] = [
-                {
-                    "id": call.id,
-                    "type": "function",
-                    "function": {
-                        "name": call.name,
-                        "arguments": json.dumps(
-                            call.arguments,
-                            ensure_ascii=False,
-                            separators=(",", ":"),
-                            sort_keys=True,
-                        ),
-                    },
-                }
-                for call in message.tool_calls
-            ]
-        if message.role == MessageRole.TOOL:
-            serialized["tool_call_id"] = message.tool_call_id
-        return serialized
+        return chat_message(message)
 
     @staticmethod
     def _parse_tool_call(remote: _RemoteToolCall) -> ToolCall:

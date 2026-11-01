@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-10",
+  "tenant_id": "shop-a",
+  "question": "When is a card charged?",
+  "answer": "Synthetic answer: the card is authorised at checkout and captured when the parcel is handed to the carrier.",
+  "category": "payment",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:payment-charge-timing"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "researched_on": "2026-10-16",
+  "timezone": "Asia/Shanghai",
+  "method": "Read-only comparison of official GitHub repositories, official documentation and current local audited source; no cross-framework execution benchmark.",
+  "local_candidate": "1aa15ec7599c0f16389cbefc76eb4a0353e9c830cb48c966eae3000fae082241",
+  "repositories": [
+    {
+      "repo": "langchain-ai/deepagents",
+      "sha": "7764f1f8d21a594f0cbd31d273a7cad36597d6ba",
+      "date": "2026-10-15T08:25:23Z",
+      "url": "https://github.com/langchain-ai/deepagents/commit/7764f1f8d21a594f0cbd31d273a7cad36597d6ba",
+      "title": "docs(repo): update OpenWiki (#6961)"
+    },
+    {
+      "repo": "langchain-ai/langgraph",
+      "sha": "5eb60aef6f3837a1fb632a8abc6cf8e8da81785b",
+      "date": "2026-10-15T01:31:09Z",
+      "url": "https://github.com/langchain-ai/langgraph/commit/5eb60aef6f3837a1fb632a8abc6cf8e8da81785b",
+      "title": "release(prebuilt): 1.1.1 (#9316)"
+    },
+    {
+      "repo": "pydantic/pydantic-ai",
+      "sha": "46e0c8fe146731ce0907d7d7547ae99c103a0159",
+      "date": "2026-10-15T15:16:23Z",
+      "url": "https://github.com/pydantic/pydantic-ai/commit/46e0c8fe146731ce0907d7d7547ae99c103a0159",
+      "title": "Use the `result.usage` property in the `ModelResponse.usage` docstring (#10230)"
+    },
+    {
+      "repo": "microsoft/agent-framework",
+      "sha": "cae49553ce7f1c54edec97ad97fb820fd792175d",
+      "date": "2026-10-15T12:49:28Z",
+      "url": "https://github.com/microsoft/agent-framework/commit/cae49553ce7f1c54edec97ad97fb820fd792175d",
+      "title": ".NET: fix(dotnet): refresh reused workflow executor state (#9394)"
+    },
+    {
+      "repo": "OpenHands/software-agent-sdk",
+      "sha": "f5f849f5ab51502cdfff97870f29de95307882a4",
+      "date": "2026-10-15T14:15:51Z",
+      "url": "https://github.com/OpenHands/software-agent-sdk/commit/f5f849f5ab51502cdfff97870f29de95307882a4",
+      "title": "fix(agent-server): drop pip's vendored pkg_resources (#5991)"
+    },
+    {
+      "repo": "openai/openai-agents-python",
+      "sha": "17d994bd3045dae71acda676a4ef4762ed8ecd94",
+      "date": "2026-10-15T02:08:00Z",
+      "url": "https://github.com/openai/openai-agents-python/commit/17d994bd3045dae71acda676a4ef4762ed8ecd94",
+      "title": "release: 0.24.0 (#5285)"
+    }
+  ],
+  "note": "Default-branch heads observed during research. Documentation is rolling and was not archived. Stars are not used to rank quality or safety."
+}

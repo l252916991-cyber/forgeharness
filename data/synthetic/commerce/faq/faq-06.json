@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "faq-06",
+  "tenant_id": "shop-a",
+  "question": "How long does a customer have to send an item back?",
+  "answer": "Synthetic answer: the return window is 15 calendar days from the delivery date.",
+  "category": "returns",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:returns-window-extended"
+    }
+  ],
+  "conflict_with": "faq-05"
+}

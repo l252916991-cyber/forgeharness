@@ -76,6 +76,7 @@ from forgeharness.observability.trace import InMemoryTrace
 from forgeharness.runtime.budget import RunBudget
 from forgeharness.runtime.loop import AgentRuntime
 from forgeharness.runtime.plan_execute import PlanExecuteRuntime
+from forgeharness.runtime.todos import TodoBoard, WriteTodosTool
 from forgeharness.tools.base import Tool, ToolContext, ToolOutput, ToolSpec
 from forgeharness.tools.builtin import EchoTool
 from forgeharness.tools.dispatcher import ToolDispatcher
@@ -83,7 +84,14 @@ from forgeharness.tools.policy import PolicyDecision, PolicyDecisionType
 from forgeharness.tools.process import run_command
 from forgeharness.tools.registry import ToolRegistry
 
-BENCHMARK_TOOL_NAMES = ("echo", "list_files", "read_file", "search_code", "write_file")
+BENCHMARK_TOOL_NAMES = (
+    "echo",
+    "list_files",
+    "read_file",
+    "search_code",
+    "write_file",
+    "write_todos",
+)
 
 # A fresh model per arm keeps the two arms independent; one model per planner and
 # executor keeps a Plan-Execute run's planning and execution on the same endpoint.
@@ -216,6 +224,10 @@ class ExpectedOutcome(FrozenModel):
     args_contains: tuple[dict[str, Any] | None, ...] | None = None
     no_tool: bool = False
     max_steps: int | None = Field(default=None, ge=1)
+    # Assertions about *why* a run ended. A negative outcome is not evidence of the
+    # mechanism that produced it: a run can fail for a dozen reasons, so a case that
+    # claims "the todo gate refused this" has to name the text code the gate emits.
+    error_contains: str | None = None
 
     @model_validator(mode="after")
     def aligned_arguments(self) -> Self:
@@ -579,13 +591,14 @@ class _InjectedFailureTool:
         return await self._inner.execute(arguments, context)
 
 
-def _build_registry(case: AgentCase) -> ToolRegistry:
+def _build_registry(case: AgentCase, todos: TodoBoard) -> ToolRegistry:
     available: dict[str, Tool] = {
         "echo": EchoTool(),
         "list_files": ListFilesTool(),
         "read_file": ReadFileTool(),
         "search_code": SearchCodeTool(),
         "write_file": WriteFileTool(),
+        "write_todos": WriteTodosTool(todos),
     }
     registry = ToolRegistry()
     for name in case.tools:
@@ -750,7 +763,10 @@ def _build_runtime(
     model_factory: ModelFactory | None = None,
 ) -> AgentRuntime | PlanExecuteRuntime:
     """Compose one arm for one case under the requested profile."""
-    registry = _build_registry(case)
+    # One board instance per arm: the tool writes it and the runtime reads it, and two
+    # instances would let the gate disagree with what the model was told.
+    todos = TodoBoard()
+    registry = _build_registry(case, todos)
     if model_factory is None:
         executor_model: Model = ScriptedModel(_scripted_responses(case))
         planner_model: Model | None = ScriptedModel(
@@ -774,6 +790,7 @@ def _build_runtime(
         policy=_AllowAllPolicy(),
         trace=trace,
         budget=budget,
+        todos=todos if "write_todos" in case.tools else None,
     )
     if strategy is Strategy.REACT:
         return executor
@@ -890,6 +907,10 @@ def judge_case(case: AgentCase, observed: ObservedRun, *, planner_steps: int = 0
         failures.append(
             f"sequence:{'/'.join(observed.tool_sequence)}!=expected:{'/'.join(expected.tool_sequence)}"
         )
+    if expected.error_contains is not None:
+        observed_error = observed.error or ""
+        if expected.error_contains not in observed_error:
+            failures.append(f"error:{observed_error[:80] or '<none>'}")
     step_ceiling = None if expected.max_steps is None else expected.max_steps + planner_steps
     if step_ceiling is not None and observed.steps > step_ceiling:
         failures.append(f"steps:{observed.steps}>max:{step_ceiling}")

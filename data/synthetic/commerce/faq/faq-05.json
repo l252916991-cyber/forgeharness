@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "faq-05",
+  "tenant_id": "shop-a",
+  "question": "What is the return window for shop-a orders?",
+  "answer": "Synthetic answer: unused items may be returned within 7 calendar days of delivery.",
+  "category": "returns",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:returns-window-standard"
+    }
+  ],
+  "conflict_with": "faq-06"
+}

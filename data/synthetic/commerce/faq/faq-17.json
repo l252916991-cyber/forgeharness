@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-17",
+  "tenant_id": "shop-a",
+  "question": "How should synthetic textiles be stored for the off season?",
+  "answer": "Synthetic answer: store them folded, dry and out of direct sunlight, and do not seal them in plastic.",
+  "category": "care",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:care-storage"
+    }
+  ]
+}

@@ -14,16 +14,8 @@ from typing import Any, Protocol
 
 from pydantic import Field
 
-from forgeharness.domain.models import FinalAction, FrozenModel
-
-
-class ToolEvidence(FrozenModel):
-    """Structured outcome of one executed tool call, captured by the runtime."""
-
-    name: str
-    ok: bool
-    content: str
-    metadata: dict[str, Any] = Field(default_factory=dict)
+from forgeharness.domain.models import FinalAction, FrozenModel, RunContext
+from forgeharness.domain.models import ToolEvidence as ToolEvidence
 
 
 class VerificationRequest(FrozenModel):
@@ -31,7 +23,8 @@ class VerificationRequest(FrozenModel):
 
     task_id: str
     final: FinalAction
-    workspace: Path
+    workspace: Path | None
+    run_context: RunContext | None = None
     tool_results: tuple[ToolEvidence, ...] = ()
 
 
@@ -59,39 +52,10 @@ class NoopVerifier:
         return VerificationResult(passed=True, reason="no verification configured")
 
 
-class CodingVerifier:
-    """Require a successful workspace edit and passing tests before accepting."""
+def __getattr__(name: str) -> Any:
+    """Compatibility for the pre-SDK verifier import; removed at API v2."""
+    if name == "CodingVerifier":
+        from importlib import import_module
 
-    async def verify(self, request: VerificationRequest) -> VerificationResult:
-        """Check structured tool evidence, never message strings."""
-        writes = [result for result in request.tool_results if result.name == "write_file"]
-        failed_writes = tuple(result.name for result in writes if not result.ok)
-        if failed_writes:
-            return VerificationResult(
-                passed=False,
-                reason="a requested file write did not succeed",
-                evidence=failed_writes,
-            )
-        if not any(result.ok for result in writes):
-            return VerificationResult(
-                passed=False,
-                reason="no workspace change was made",
-            )
-        tests = [result for result in request.tool_results if result.name == "run_tests"]
-        if not tests:
-            return VerificationResult(
-                passed=False,
-                reason="no test evidence: run the test command before finishing",
-            )
-        last = tests[-1]
-        if not last.ok:
-            return VerificationResult(
-                passed=False,
-                reason="the test command did not pass",
-                evidence=(f"tests: exit_code={last.metadata.get('exit_code')}",),
-            )
-        return VerificationResult(
-            passed=True,
-            reason="a workspace change was written and tests pass",
-            evidence=(f"tests: exit_code={last.metadata.get('exit_code')}",),
-        )
+        return import_module("forgeharness.coding.verification").CodingVerifier
+    raise AttributeError(name)

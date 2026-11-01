@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-19",
+  "tenant_id": "shop-a",
+  "question": "Can an order be changed or cancelled?",
+  "answer": "Synthetic answer: an order can be changed or cancelled until the parcel is handed to the carrier.",
+  "category": "orders",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:orders-cancellation"
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 .PHONY: sync framework-check format lint typecheck test check gate review
 
 sync:
-	uv sync --extra dev --extra platform --extra benchmark
+	uv sync --extra dev --extra cli --extra platform --extra benchmark --extra postgres-test
 
 framework-check:
-	uv sync --extra dev --extra frameworks --frozen
+	uv sync --extra dev --extra cli --extra frameworks --frozen
 	uv run --no-sync pytest tests/unit/test_langchain_impl.py tests/unit/test_langgraph_agent.py
 	uv run --no-sync mypy src/forgeharness/langchain_impl/*.py
 
@@ -20,7 +20,8 @@ typecheck:
 	uv run --no-sync mypy
 
 test:
-	uv run --no-sync pytest --cov=forgeharness --cov-branch --cov-report=term-missing --cov-report=json:reports/coverage.json
+	uv run --no-sync pytest --cov=forgeharness --cov-branch --cov-fail-under=0 --cov-report=term-missing --cov-report=json:reports/coverage.json
+	uv run --no-sync python -m benchmarks.control_plane_postgres --coverage-output reports/coverage.json
 	uv run --no-sync python benchmarks/check_branch_coverage.py
 
 check: lint typecheck test
@@ -32,15 +33,18 @@ check: lint typecheck test
 # commit would let its per-case results guide tuning and destroy its purpose.
 # The NLTK advisory (PYSEC-2026-3740) is an accepted residual risk reachable only
 # through the optional LlamaIndex comparison extra; see
-# docs/review/FINDINGS.json FH-008.
+# docs/review/FINDINGS.json FH-019.
 gate: check
+	node tests/browser/workbench_races.cjs
 	uv run --no-sync forge eval-control
 	uv run --no-sync forge eval-agent --split dev
 	uv run --no-sync forge --help
 	uv run --no-sync forge framework-compare --help
 	uv lock --check
 	uv export --frozen --no-emit-project --format requirements-txt -o /tmp/forgeharness-audit-requirements.txt
-	uv run --no-sync --with pip-audit pip-audit -r /tmp/forgeharness-audit-requirements.txt --ignore-vuln PYSEC-2026-3740
+	uv run --no-sync --with pip-audit pip-audit -r /tmp/forgeharness-audit-requirements.txt --no-deps --disable-pip
+	uv export --frozen --all-extras --no-emit-project --format requirements-txt -o /tmp/forgeharness-audit-all-requirements.txt
+	uv run --no-sync --with pip-audit pip-audit -r /tmp/forgeharness-audit-all-requirements.txt --no-deps --disable-pip --ignore-vuln PYSEC-2026-3740
 
 review: check
 	uv run --no-sync python -m forgeharness.review

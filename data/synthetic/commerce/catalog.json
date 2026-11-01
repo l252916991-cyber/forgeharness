@@ -1,0 +1,730 @@
+{
+  "schema_version": 1,
+  "generated_for": "synthetic consultation MVP (no real store)",
+  "tenants": [
+    "shop-a",
+    "shop-b"
+  ],
+  "products": [
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-NB-001",
+      "name": "Synthetic notebook A5 80 pages",
+      "category": "stationery",
+      "price_cents": 1299,
+      "currency": "CNY",
+      "stock": 12,
+      "version": 3,
+      "attributes": {
+        "pages": "80",
+        "size": "A5",
+        "color": "blue"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:1"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-NB-002",
+      "name": "Synthetic notebook A5 160 pages",
+      "category": "stationery",
+      "price_cents": 1899,
+      "currency": "CNY",
+      "stock": 7,
+      "version": 2,
+      "attributes": {
+        "pages": "160",
+        "size": "A5",
+        "color": "blue"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:2"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-PN-003",
+      "name": "Synthetic gel pen set of six",
+      "category": "stationery",
+      "price_cents": 1599,
+      "currency": "CNY",
+      "stock": 34,
+      "version": 1,
+      "attributes": {
+        "pieces": "6",
+        "tip": "0.5 mm",
+        "color": "black"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:3"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-PD-004",
+      "name": "Synthetic notepad B6 ruled",
+      "category": "stationery",
+      "price_cents": 899,
+      "currency": "CNY",
+      "stock": 21,
+      "version": 1,
+      "attributes": {
+        "pages": "120",
+        "size": "B6",
+        "color": "grey"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:4"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-BT-201",
+      "name": "Synthetic water bottle 500 ml",
+      "category": "kitchen",
+      "price_cents": 2599,
+      "currency": "CNY",
+      "stock": 20,
+      "version": 1,
+      "attributes": {
+        "capacity": "500 ml",
+        "material": "steel",
+        "color": "steel"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:5"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-BT-202",
+      "name": "Synthetic water bottle 750 ml",
+      "category": "kitchen",
+      "price_cents": 3199,
+      "currency": "CNY",
+      "stock": 14,
+      "version": 2,
+      "attributes": {
+        "capacity": "750 ml",
+        "material": "steel",
+        "color": "steel"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:6"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-MG-203",
+      "name": "Synthetic ceramic mug 350 ml",
+      "category": "kitchen",
+      "price_cents": 1899,
+      "currency": "CNY",
+      "stock": 26,
+      "version": 1,
+      "attributes": {
+        "capacity": "350 ml",
+        "material": "ceramic",
+        "color": "white"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:7"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-CB-204",
+      "name": "Synthetic bamboo cutting board",
+      "category": "kitchen",
+      "price_cents": 4599,
+      "currency": "CNY",
+      "stock": 11,
+      "version": 1,
+      "attributes": {
+        "size": "38x28 cm",
+        "material": "bamboo",
+        "color": "natural"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:8"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-KN-205",
+      "name": "Synthetic kitchen scale 5 kg",
+      "category": "kitchen",
+      "price_cents": 6999,
+      "currency": "CNY",
+      "stock": 6,
+      "version": 1,
+      "attributes": {
+        "capacity": "5 kg",
+        "unit": "1 g",
+        "color": "white"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:9"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-TW-301",
+      "name": "Synthetic bath towel cotton",
+      "category": "textiles",
+      "price_cents": 3999,
+      "currency": "CNY",
+      "stock": 9,
+      "version": 1,
+      "attributes": {
+        "size": "70x140 cm",
+        "weight": "500 g",
+        "color": "beige"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:10"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-TW-302",
+      "name": "Synthetic bath towel bamboo blend",
+      "category": "textiles",
+      "price_cents": 5499,
+      "currency": "CNY",
+      "stock": 0,
+      "version": 1,
+      "attributes": {
+        "size": "90x160 cm",
+        "weight": "650 g",
+        "color": "white"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:11"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-SH-303",
+      "name": "Synthetic bed sheet set double",
+      "category": "textiles",
+      "price_cents": 12999,
+      "currency": "CNY",
+      "stock": 5,
+      "version": 1,
+      "attributes": {
+        "size": "double",
+        "threads": "200",
+        "color": "white"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:12"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-PL-304",
+      "name": "Synthetic throw blanket waffle",
+      "category": "textiles",
+      "price_cents": 7999,
+      "currency": "CNY",
+      "stock": 8,
+      "version": 1,
+      "attributes": {
+        "size": "130x170 cm",
+        "weight": "900 g",
+        "color": "grey"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:13"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-LM-101",
+      "name": "Synthetic desk lamp warm white",
+      "category": "lighting",
+      "price_cents": 4599,
+      "currency": "CNY",
+      "stock": 5,
+      "version": 1,
+      "attributes": {
+        "lumens": "400",
+        "power": "6 W",
+        "color": "white"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:14"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-LM-102",
+      "name": "Synthetic desk lamp daylight",
+      "category": "lighting",
+      "price_cents": 5299,
+      "currency": "CNY",
+      "stock": 0,
+      "version": 4,
+      "attributes": {
+        "lumens": "700",
+        "power": "9 W",
+        "color": "black"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:15"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-LM-103",
+      "name": "Synthetic floor lamp tripod",
+      "category": "lighting",
+      "price_cents": 12999,
+      "currency": "CNY",
+      "stock": 4,
+      "version": 1,
+      "attributes": {
+        "lumens": "800",
+        "power": "12 W",
+        "color": "black"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:16"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-LM-104",
+      "name": "Synthetic night light motion sensor",
+      "category": "lighting",
+      "price_cents": 2999,
+      "currency": "CNY",
+      "stock": 30,
+      "version": 1,
+      "attributes": {
+        "lumens": "60",
+        "power": "1 W",
+        "color": "white"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:17"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-KT-401",
+      "name": "Synthetic storage crate 20 litres",
+      "category": "storage",
+      "price_cents": 3499,
+      "currency": "CNY",
+      "stock": 18,
+      "version": 2,
+      "attributes": {
+        "capacity": "20 litres",
+        "material": "plastic",
+        "color": "grey"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:18"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-KT-402",
+      "name": "Synthetic storage crate 20 litres",
+      "category": "storage",
+      "price_cents": 3999,
+      "currency": "CNY",
+      "stock": 13,
+      "version": 5,
+      "attributes": {
+        "capacity": "20 litres",
+        "material": "plastic",
+        "color": "clear"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:19"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-BX-403",
+      "name": "Synthetic archive box with lid",
+      "category": "storage",
+      "price_cents": 2299,
+      "currency": "CNY",
+      "stock": 40,
+      "version": 1,
+      "attributes": {
+        "size": "A4",
+        "material": "card",
+        "color": "kraft"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:20"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-RK-404",
+      "name": "Synthetic shelf rack four tiers",
+      "category": "storage",
+      "price_cents": 18999,
+      "currency": "CNY",
+      "stock": 3,
+      "version": 1,
+      "attributes": {
+        "tiers": "4",
+        "width": "80 cm",
+        "color": "black"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:21"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-HK-405",
+      "name": "Synthetic hook rail six hooks",
+      "category": "storage",
+      "price_cents": 2799,
+      "currency": "CNY",
+      "stock": 0,
+      "version": 1,
+      "attributes": {
+        "hooks": "6",
+        "width": "45 cm",
+        "color": "steel"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:22"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-SP-501",
+      "name": "Synthetic hand soap refill 500 ml",
+      "category": "care",
+      "price_cents": 1999,
+      "currency": "CNY",
+      "stock": 44,
+      "version": 1,
+      "attributes": {
+        "volume": "500 ml",
+        "scent": "unscented",
+        "color": "clear"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:23"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-LN-502",
+      "name": "Synthetic laundry detergent 2 litres",
+      "category": "care",
+      "price_cents": 4599,
+      "currency": "CNY",
+      "stock": 22,
+      "version": 1,
+      "attributes": {
+        "volume": "2 litres",
+        "scent": "fresh",
+        "color": "blue"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:24"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-TB-503",
+      "name": "Synthetic toothbrush heads pack of four",
+      "category": "care",
+      "price_cents": 3299,
+      "currency": "CNY",
+      "stock": 17,
+      "version": 1,
+      "attributes": {
+        "pieces": "4",
+        "bristle": "soft",
+        "color": "white"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:25"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-CC-504",
+      "name": "Synthetic microfibre cloths pack of eight",
+      "category": "care",
+      "price_cents": 2499,
+      "currency": "CNY",
+      "stock": 25,
+      "version": 1,
+      "attributes": {
+        "pieces": "8",
+        "size": "30x30 cm",
+        "color": "mixed"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:26"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-CH-601",
+      "name": "Synthetic chair mat for hard floors",
+      "category": "office",
+      "price_cents": 8999,
+      "currency": "CNY",
+      "stock": 6,
+      "version": 1,
+      "attributes": {
+        "size": "120x90 cm",
+        "material": "pvc",
+        "color": "clear"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:27"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-DS-602",
+      "name": "Synthetic desk organiser with drawers",
+      "category": "office",
+      "price_cents": 5699,
+      "currency": "CNY",
+      "stock": 10,
+      "version": 1,
+      "attributes": {
+        "drawers": "3",
+        "material": "wood",
+        "color": "oak"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:28"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-PT-701",
+      "name": "Synthetic plant pot 24 cm",
+      "category": "garden",
+      "price_cents": 2199,
+      "currency": "CNY",
+      "stock": 28,
+      "version": 1,
+      "attributes": {
+        "diameter": "24 cm",
+        "material": "terracotta",
+        "color": "natural"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:29"
+      }
+    },
+    {
+      "tenant_id": "shop-a",
+      "sku": "SYN-TR-702",
+      "name": "Synthetic hand trowel stainless",
+      "category": "garden",
+      "price_cents": 1899,
+      "currency": "CNY",
+      "stock": 19,
+      "version": 2,
+      "attributes": {
+        "length": "30 cm",
+        "material": "steel",
+        "color": "black"
+      },
+      "source": {
+        "source": "shop-a-catalog",
+        "version": "2026-10-01",
+        "locator": "row:30"
+      }
+    },
+    {
+      "tenant_id": "shop-b",
+      "sku": "SYN-NB-001",
+      "name": "Synthetic steel hose clamp 12 mm",
+      "category": "hardware",
+      "price_cents": 4580,
+      "currency": "CNY",
+      "stock": 3,
+      "version": 2,
+      "attributes": {
+        "diameter": "12 mm",
+        "material": "steel",
+        "pack": "10"
+      },
+      "source": {
+        "source": "shop-b-catalog",
+        "version": "2026-10-05",
+        "locator": "row:1"
+      }
+    },
+    {
+      "tenant_id": "shop-b",
+      "sku": "SYN-HW-002",
+      "name": "Synthetic brass gate valve 20 mm",
+      "category": "hardware",
+      "price_cents": 12900,
+      "currency": "CNY",
+      "stock": 8,
+      "version": 1,
+      "attributes": {
+        "diameter": "20 mm",
+        "material": "brass",
+        "thread": "female"
+      },
+      "source": {
+        "source": "shop-b-catalog",
+        "version": "2026-10-05",
+        "locator": "row:2"
+      }
+    },
+    {
+      "tenant_id": "shop-b",
+      "sku": "SYN-HW-003",
+      "name": "Synthetic rubber gasket assortment",
+      "category": "hardware",
+      "price_cents": 2350,
+      "currency": "CNY",
+      "stock": 5,
+      "version": 1,
+      "attributes": {
+        "pieces": "24",
+        "material": "rubber",
+        "color": "black"
+      },
+      "source": {
+        "source": "shop-b-catalog",
+        "version": "2026-10-05",
+        "locator": "row:3"
+      }
+    },
+    {
+      "tenant_id": "shop-b",
+      "sku": "SYN-HW-004",
+      "name": "Synthetic pipe wrench 250 mm",
+      "category": "hardware",
+      "price_cents": 8790,
+      "currency": "CNY",
+      "stock": 4,
+      "version": 1,
+      "attributes": {
+        "length": "250 mm",
+        "material": "steel",
+        "color": "red"
+      },
+      "source": {
+        "source": "shop-b-catalog",
+        "version": "2026-10-05",
+        "locator": "row:4"
+      }
+    },
+    {
+      "tenant_id": "shop-b",
+      "sku": "SYN-HW-005",
+      "name": "Synthetic thread seal tape",
+      "category": "hardware",
+      "price_cents": 690,
+      "currency": "CNY",
+      "stock": 40,
+      "version": 1,
+      "attributes": {
+        "width": "12 mm",
+        "length": "10 m",
+        "color": "white"
+      },
+      "source": {
+        "source": "shop-b-catalog",
+        "version": "2026-10-05",
+        "locator": "row:5"
+      }
+    },
+    {
+      "tenant_id": "shop-b",
+      "sku": "SYN-HW-006",
+      "name": "Synthetic copper elbow 15 mm",
+      "category": "hardware",
+      "price_cents": 1450,
+      "currency": "CNY",
+      "stock": 0,
+      "version": 1,
+      "attributes": {
+        "diameter": "15 mm",
+        "material": "copper",
+        "bend": "right angle"
+      },
+      "source": {
+        "source": "shop-b-catalog",
+        "version": "2026-10-05",
+        "locator": "row:6"
+      }
+    }
+  ]
+}

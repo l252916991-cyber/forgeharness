@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-13",
+  "tenant_id": "shop-a",
+  "question": "How is a warranty claim made?",
+  "answer": "Synthetic answer: send the order number and a photo of the fault through the case channel; a prepaid return label follows within two business days.",
+  "category": "warranty",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:warranty-claim-steps"
+    }
+  ]
+}

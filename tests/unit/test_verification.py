@@ -80,3 +80,20 @@ async def test_uses_the_latest_test_result(tmp_path: Path) -> None:
     result = await CodingVerifier().verify(request(tmp_path, write(), run_tests(1), run_tests(0)))
 
     assert result.passed
+
+
+async def test_tests_before_last_write_are_stale(tmp_path: Path) -> None:
+    result = await CodingVerifier().verify(
+        VerificationRequest(
+            task_id="task",
+            workspace=tmp_path,
+            final=FinalAction(content="done"),
+            tool_results=(
+                ToolEvidence(name="write_file", ok=True, content="old"),
+                ToolEvidence(name="run_tests", ok=True, content="pass"),
+                ToolEvidence(name="write_file", ok=True, content="new"),
+            ),
+        )
+    )
+    assert not result.passed
+    assert "stale" in result.reason

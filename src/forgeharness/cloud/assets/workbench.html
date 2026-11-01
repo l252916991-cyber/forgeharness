@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ForgeHarness · 内部工作台</title><link rel="stylesheet" href="/assets/workbench.css">
+<script src="/assets/workbench.js" defer></script></head><body>
+<header><div><span class="mark">F</span><strong>ForgeHarness</strong><span class="badge">内部 Alpha</span></div>
+<p>组织授权 · 异步执行 · 独立审批</p></header>
+<main><aside><section><h1>账户</h1><p id="identity">尚未登录</p>
+<form id="login-form" method="post" action="/v1/login"><label>邮箱<input id="login-email" name="email" type="email" autocomplete="username" required></label>
+<label>密码<input id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="1024"></label>
+<button id="login-button" type="submit">登录</button></form>
+<button id="logout-button" type="button" hidden>退出登录</button>
+<details><summary>接受邀请</summary><form id="accept-form" method="post" action="/v1/invitations/accept">
+<label>一次性邀请令牌<input id="invitation-token" name="token" autocomplete="off" required></label>
+<label>新账户密码<input id="invitation-password" name="password" type="password" autocomplete="new-password" maxlength="1024"></label>
+<p class="hint">已有账户请先登录；接受邀请不会更改原密码。</p><button id="accept-button">接受邀请</button></form></details></section>
+<section id="scope-section" hidden><h2>工作范围</h2><label>组织<select id="organization-select"><option value="">选择组织</option></select></label>
+<label>工作空间<select id="workspace-select"><option value="">选择工作空间</option></select></label>
+<button id="refresh-button" type="button">刷新</button></section>
+<p class="hint">当前用量为执行单位。人民币月度额度和生产身份接入仍待独立验收。</p></aside>
+<div class="content"><div id="notice" role="status" aria-live="polite">请使用受邀账户登录。</div>
+<section id="task-section" hidden><div class="section-head"><h2>提交任务</h2><span class="hint">后台 worker 异步执行</span></div>
+<form id="task-form"><label>已授权部署<select id="deployment-select" required><option value="">选择部署</option></select></label>
+<label>任务<textarea id="task-input" rows="4" maxlength="32000" required placeholder="描述需要完成的任务"></textarea></label>
+<div class="actions"><button id="submit-button">提交任务</button><button id="new-request-button" type="button" class="secondary">新建请求</button></div>
+<p class="hint">网络失败后可重试同一请求；修改任务或部署会生成新的幂等键。</p></form></section>
+<div class="grid"><section id="runs-section" hidden><div class="section-head"><h2>本人运行</h2><button id="runs-refresh-button" class="secondary" type="button">刷新</button></div>
+<div id="runs-list" class="list"></div><button id="runs-more-button" class="secondary" type="button" hidden>更多</button></section>
+<section id="detail-section" hidden><h2>运行详情</h2><p id="run-id" class="mono"></p><p id="run-status"></p><p id="run-usage" class="hint"></p>
+<pre id="run-result"></pre><button id="cancel-button" class="danger" type="button" hidden>请求取消</button>
+<p class="hint">取消请求不代表已发生的业务效果已撤回；对账中保留未知调用的预留。</p></section></div>
+<section id="approval-section" hidden><div class="section-head"><h2>待审批</h2><button id="approvals-refresh-button" class="secondary" type="button">刷新</button></div>
+<p class="hint">请使用审批人自己的账户审阅精确提案。组织管理权限不自动授予业务审批权。</p>
+<p class="hint">批准凭据有效期为 5 分钟，运行期限仍优先。同一提案的决议不可更换；批准过期或审批人撤权后，请取消原运行并提交新运行。</p>
+<div id="approvals-list" class="list"></div><button id="approvals-more-button" class="secondary" type="button" hidden>更多</button>
+<div id="approval-detail" hidden><p id="approval-run-id" class="mono"></p><pre id="approval-proposal"></pre><p id="approval-fingerprint" class="mono hint"></p>
+<div class="actions"><button id="approve-button" type="button">批准此提案</button><button id="reject-button" class="danger" type="button">拒绝此提案</button></div></div></section>
+<section id="admin-section" hidden><h2>成员与授权</h2><p class="hint">管理权限与客户运行内容、业务审批权限分别授予。</p>
+<div class="grid"><form id="invite-form"><h3>邀请成员</h3><label>邮箱<input id="invite-email" type="email" required></label>
+<label>组织角色<select id="invite-role"><option value="member">成员</option><option value="admin">管理员</option><option value="owner">所有者</option></select></label><button id="invite-submit-button">创建邀请</button>
+<output id="invite-output" class="mono"></output>
+<div id="invitations-list" class="list"></div>
+<button id="invitations-more-button" class="secondary" type="button" hidden>更多邀请</button>
+</form>
+<form id="member-form"><h3>组织成员</h3><label>成员<select id="member-select" required></select></label>
+<label>角色<select id="member-role"><option value="member">成员</option><option value="admin">管理员</option><option value="owner">所有者</option></select></label>
+<label class="check"><input id="member-active" type="checkbox" checked>启用成员</label><button>保存成员</button></form>
+<form id="workspace-form"><h3>工作空间</h3><label>空间标识<input id="workspace-id" required maxlength="128" pattern="[A-Za-z0-9_.:-]+"></label>
+<label>名称<input id="workspace-name" required maxlength="120"></label><label class="check"><input id="workspace-active" type="checkbox" checked>启用空间</label><button>保存空间</button></form>
+<form id="workspace-member-form"><h3>工作空间成员</h3><label>成员<select id="workspace-member-select" required></select></label>
+<label class="check"><input id="workspace-member-active" type="checkbox" checked>允许访问当前空间</label><button>保存空间授权</button></form>
+<form id="deployment-form"><h3>注册已审核部署</h3><label>服务端部署标识<input id="deployment-id" required maxlength="128"></label>
+<label class="check"><input id="deployment-active" type="checkbox" checked>启用当前空间部署</label><button>保存部署</button></form>
+<form id="grant-form"><h3>部署授权</h3><label>部署标识<input id="grant-deployment" required maxlength="128"></label>
+<label>成员<select id="grant-member-select" required></select></label><label class="check"><input id="grant-use" type="checkbox" checked>可使用部署</label>
+<label class="check"><input id="grant-approve" type="checkbox">可独立审批</label><label class="check"><input id="grant-active" type="checkbox" checked>启用授权</label><button>保存部署授权</button></form></div>
+<button id="disable-organization-button" class="danger" type="button" hidden>停用当前组织（需管理员离线恢复）</button>
+</section>
+</div></main><footer>ForgeHarness 内部验证入口 · 邀请制 · 单 worker 串行执行</footer></body></html>

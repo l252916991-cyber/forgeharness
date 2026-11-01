@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "qualified": true,
+  "release_scope": "ForgeHarness 0.2.0 embedded SDK v1 on single-machine POSIX/local SQLite with trusted host adapters",
+  "review_date_local": "2026-10-07",
+  "review_method": "maintainer-style self-review, contract/fault regressions and clean checkout-equivalent rerun; no independent external certification",
+  "baseline_archive_sha256": "42596edcba958cc3cc34ac971d753a72e1fec45ebb54ec2f46f03d81452508c9",
+  "baseline_tree_sha256": "63523ed6842219e41c98734151022d0b8799be5df878062d4c5dc3d0b29565b7",
+  "candidate_tree_digest": "f7cf1dd30f5122ecd6d1c92f75831ef4ea490b05d9346fa90cac0c6362aab4aa",
+  "candidate_files": 242,
+  "versions": {
+    "distribution": "0.2.0",
+    "sdk_api": 1,
+    "state": 1,
+    "event": 1,
+    "receipt": 1,
+    "journal": 1,
+    "recovery": 3,
+    "applications": {
+      "coding": "1",
+      "commerce": "1"
+    }
+  },
+  "quality": {
+    "tests_passed": 590,
+    "tests_failed": 0,
+    "combined_coverage_percent": 91.30531465421392,
+    "covered_branches": 1377,
+    "branches": 1610,
+    "pure_branch_coverage_percent": 85.527950310559,
+    "lint": "pass",
+    "format": "pass",
+    "strict_types": "pass",
+    "source_gate_exit_code": 0,
+    "clean_gate_exit_code": 0,
+    "control_cases_passed": 7,
+    "control_cases_total": 7,
+    "dev_agent_cases_per_strategy": 38,
+    "dev_scorer_probes": 7,
+    "model_profile": "keyless scripted; synthetic token usage; no new live-model or cost claim"
+  },
+  "artifacts": {
+    "wheel": "dist/forgeharness-0.2.0-py3-none-any.whl",
+    "wheel_sha256": "2e677c79544d96f4b3a1697d0c31c744d9b21b1afeed4b2736dc37c143cd9dd5",
+    "wheel_source_files_matched": 97,
+    "minimal_environment_packages_including_project": 11,
+    "two_installed_reference_apps": "pass",
+    "sdist_sha256": "2ed0e6d9582007138108ad6b435ea2c6589f012c32628f381fb0f1fbc7e96ca3",
+    "sdist_allowlist": "pass"
+  },
+  "review": {
+    "open_blocker_in_supported_scope": 0,
+    "open_high_in_supported_scope": 0,
+    "fixed_findings": [
+      "FW-001",
+      "FW-002",
+      "FW-003",
+      "FW-004",
+      "FW-005",
+      "FW-006",
+      "FW-007",
+      "FW-008",
+      "FW-009",
+      "FW-010",
+      "FW-011",
+      "FW-012",
+      "FW-013",
+      "FW-014"
+    ],
+    "finding_details": "docs/FRAMEWORK_DELIVERY.md",
+    "accepted_residuals": [
+      "POSIX/local SQLite only; no distributed leases or general exactly-once",
+      "host authentication and registered adapters are trusted; no malicious plugin sandbox",
+      "Coding fixed test commands are trusted operator code, not OS-isolated execution of arbitrary repositories",
+      "credential masking is heuristic; host owns PII, external attachments/business ledger/backups and physical erasure",
+      "internal trace chain has no external final anchor",
+      "optional NLTK advisory PYSEC-2026-3740/GHSA-8mgp-746c-j5xp remains accepted under historical FH-019"
+    ],
+    "historical_enhanced_platform_release_qualified": false,
+    "historical_open_findings_preserved": [
+      "FH-015",
+      "FH-016",
+      "FH-017",
+      "FH-018"
+    ]
+  },
+  "evidence_sha256": {
+    "reports/framework-candidate-source.json": "948c15c5cd99f40a52baa0c93779677c7f5dff0d01bbfdd6aa948d3627890870",
+    "reports/framework-baseline-source.json": "d530bf68f5692ac3a4fc3e5ed3494489a432499e641b1d9b0ff2fe836af949a0",
+    "reports/framework-gate.log": "ffe071bfe513d31d3f9a1794ed32d422a60351e96ef2579312d170cb87aebc49",
+    "reports/framework-clean-gate.log": "95c6d8ac3f17d6a32ea05885b86d5682e958f660e9d850822e78057347863f71",
+    "reports/framework-clean-sync.log": "bbae3800deffa2e037bc1babac27100f74be644dc1774a976beb5ce1aa0eff0d",
+    "reports/framework-clean-source.log": "953b9573b78081c7a006e1d8f4b9039cd0d865332ef1867ae0e6d5454fed038e",
+    "reports/framework-clean-coverage.json": "aef115eb06eda97646c303c718df8ac54d8a68e2c69b8c07b41065b39b099d80",
+    "reports/framework-wheel-smoke.log": "a0f60ba83999603af16d6769d598f9005e95b0f7d09126c55c2b524cf1356851",
+    "reports/framework-build-members.log": "8a2c73d0a15a6d48e9d0e61b01ca6bb57d597bfd19cdde707b9c0ca4b823ff2a",
+    "reports/framework-dependency-audit-core.json": "22873505871db9e0a6bfa556f63eebf0ddbe103f4b76d237e776d0aff19b4afd",
+    "reports/framework-dependency-audit-all.json": "2f9eed6ef0401820ee67347afc44685e8286d0d02d8ba4e55ef140b9bcbdf500",
+    "reports/framework-dependency-audit-pypi.json": "96b58f0fcf992f36ed6cec0cbb3e63f7917acfb4067ff6fb632a698a4a2bb326",
+    "reports/framework-duplicate-start-red.log": "0d4a563d5eb23b4ff0a9218320610ac2f2f2d2c12323b16b975f0e30a82a158d",
+    "reports/framework-final-boundary-tests.log": "542fcc12e88203372289a6c2fe64f2d5e92bf521da950242cc903fc59cf631e6",
+    "reports/control-eval.json": "020c090740107de6d989f9e1efe5657daf7252abe9df9a2658f2378733405b8a",
+    "reports/agent-eval-dev-keyless.json": "1674059a7ee5f3b4d596c1eca3447384d3010dc46552e5cbe948d09fda788ad8"
+  }
+}

@@ -1,10 +1,71 @@
+> 0.13.0 正在实现[通用邀请制内部 Alpha 控制面](docs/CLOUD_CONTROL_PLANE.md)：PG 账户、组织/工作空间/部署授权、异步 API、独立 worker 与浏览器工作台。资格只以[本轮冻结报告](reports/saas/20261101-control-plane/REPORT.md)为准；未经该报告通过不能宣称完成。
+> 0.12.0 历史候选已实现[PG 托管串行执行](docs/CLOUD_HOSTED_EXECUTION.md)，原工程资格以[历史报告](reports/saas/20261030-hosted/REPORT.md)为准。
+> 2026-10-29：最近已验收的 0.11.0 / API v1 冻结新增独立 [PG 状态首切片](docs/CLOUD_STATE.md)。
+> 0.11.0 历史资格只认证其冻结源码；通用生产级 SaaS 尚未完成。
+> 2026-10-28 的 0.10.0 工程候选接入邀请制账户工作台并修复身份边界缺陷。
+> 使用见[工作台指南](docs/COMMERCE_WORKBENCH.md)，执行与资格见[本批报告](reports/saas/20261028-batch1/REPORT.md)。
+> SaaS 总体路线见[v3 计划](docs/SAAS_PRODUCTION_MASTER_PLAN_V3_2026-10-28.md)；生产身份、实际云部署、人民币预算及真实业务仍待验收。
+>
+> 2026-10-27：历史 SDK 0.9.2 / API v1 工程候选补齐电商参考应用的通用人工转接、
+> 本地备份恢复与运维边界；[产品化报告](reports/productization-20261027/REPORT.md)明确其仍非真实业务上线证明。
+> SDK 0.9.1 的有界模型并行及其[历史报告](reports/parallel-execution-20261027/REPORT.md)保留原候选身份，不认证当前源码。
+>
+> 2026-10-26：SDK 0.8.6 / API v1 历史候选新增 [固定专家协作](docs/COLLABORATION.md)；
+> [执行计划](docs/EXECUTION_PLAN_MULTI_AGENT.md)与[本轮报告](reports/multi-agent-20261026/REPORT.md)。
+> 当前能力和宿主独立 wheel 绑定见 [能力矩阵](docs/CURRENT_CAPABILITIES.md)。下文 0.8.5 证据保留历史身份。
+>
+> 0.8.5 / API v1 候选的首次接入见 [只读 Quickstart](docs/QUICKSTART_READONLY.md)，历史执行结果见 [报告](reports/improvement-20261026/REPORT.md)。
+> 本轮修复候选使用 `reports/improvement-20261026/candidate-r3/`；candidate-r2 的历史通过和首次 candidate-r1 的依赖审计失败与历史 SDK 候选 `reports/release-0.8.3-r1/` 保留原证据。R2 已实现显式图的受控写入、审批与恢复；任意 one-shot kernel 仍只读。历史失败及修复过程见 [STATUS](docs/STATUS.md)。
+> 10 月 17 日及更早报告仅认证各自冻结源码；真实业务与生产部署仍未验收。
+
 # ForgeHarness
 
-> Enhanced candidate, not a completed release: see [`docs/STATUS.md`](docs/STATUS.md) for implemented features and remaining full-plan gates. The old 91-test audit applies only to the original Harness.
+> 法律与电商参考应用的运行方式及模拟边界见 [BUSINESS_PILOTS](docs/BUSINESS_PILOTS.md)。
+> 当前实现状态以 [STATUS](docs/STATUS.md) 为入口，工程验收结论以适用候选报告为准。
 
-ForgeHarness is an evaluation-first Agent Harness plus a local R&D knowledge agent. It exposes the engineering decisions that higher-level agent frameworks often hide: loop transitions, tool validation, permissions, context selection, checkpoints, hybrid retrieval, reviewed memory, delegation scope, and trace integrity.
+ForgeHarness is an evaluation-first, application-neutral Agent Harness with Coding and minimal commerce reference applications, plus an optional local R&D knowledge application. It exposes the engineering decisions that higher-level agent frameworks often hide: loop transitions, tool validation, permissions, context selection, checkpoints, hybrid retrieval, reviewed memory, delegation scope, and trace integrity.
 
-The main workflow takes a repository issue, lets a model inspect the codebase, pauses every file mutation for an exact-action approval, runs a fixed test command, inspects the Git diff, and returns test-backed evidence.
+## Install
+
+当前新增能力使用候选报告指定的 wheel 安装；下列包名安装形式用于正式发行后，
+不表示本轮已发布到 PyPI。源码开发使用 `uv sync` 和本文的本地示例。
+
+```bash
+pip install "forgeharness[cli]"    # core SDK + the interactive `forge` CLI
+```
+
+Ten lines to a governed run, plus the tool, approval, and coding-vertical paths:
+[Quickstart](docs/QUICKSTART.md). Pipelines that need the extra surfaces use
+`forgeharness[web]`, `[knowledge]`, `[platform]`, `[frameworks]`, or `[all]`.
+
+One reference application (Coding) takes a repository issue, lets a model inspect the codebase, pauses every file mutation for an exact-action approval, runs a fixed test command, inspects the Git diff, and returns test-backed evidence. It is a reference app on the SDK, not the framework's fixed shape.
+
+## 公开 SDK 与参考应用
+
+- `forgeharness.sdk`：ApplicationSpec、可信 actor/scope、run/inspect/approve/resume/delete。
+- `Capability` + `compose_application`：应用由可信能力组合而成；组合名单与结构 digest 记入 run trace（`application.composition`，ADR 022/028）。
+- `Orchestrator` + `RunKernel`：自定义编排（如只读法律 DAG）复用同一套 model/只读工具/预算/trace/verification 治理；写路径与审批仍由 ReAct 承担（ADR 023/026）。
+- 应用契约与运行时矩阵见 [docs/CONFORMANCE.md](docs/CONFORMANCE.md)。
+- 同一 SQLite 的持久审批、授权 checkpoint 与安全调用恢复；完整有序验收证据。
+- 核心不要求工作区，文件工具明确要求工作区。Coding 和商品查询/模拟转接工单通过公开 SDK 装配。
+- 基础 wheel 只依赖 Pydantic/JSON Schema；Web、模型、知识、平台和旧 CLI 按 extra 安装。
+- `WorkflowRunner` 组合多个 SDK 节点：依赖校验、总预算预留、审批恢复和流程终验。
+- `Collaboration`：固定只读专家分工与协调者，复用 R2 的预算、持久化和恢复；支持显式配置两个模型请求并发，结构化结果先校验，任务树可检查。
+- `RevisionStore` 管理审核资料/草稿：版本冲突、独立审核、发布撤回、来源失效和作用域隔离。
+- `SessionService` 关联持久轮次与运行/工作流，复用历史预算与审批恢复；每次访问由宿主重新授权。
+- 法律笔记、电商咨询/内容摘录合成示例共享 SDK；LexVault 原项目和完整电商平台尚未迁移。
+
+```bash
+uv sync --extra dev --extra cli --frozen
+uv run --no-sync python examples/sdk_demo.py
+uv run --no-sync python examples/business_modules_demo.py
+uv run --no-sync python examples/session_demo.py
+uv run --no-sync python examples/commerce_readonly_demo.py
+uv run --no-sync python examples/collaboration_demo.py
+uv run --no-sync python examples/parallel_demo.py
+```
+
+支持单机 POSIX 与本地 SQLite。身份认证和业务存储由宿主拥有；不承诺分布式 exactly-once。
 
 ## What is implemented
 
@@ -20,6 +81,7 @@ The main workflow takes a repository issue, lets a model inspect the codebase, p
 - OMLX chat/vision, 2,560-dimensional embedding, and reranker adapters with provider-enforced structured output.
 - Markdown/text/code/JSON/PDF/image ingestion, FTS5 + vector retrieval, reciprocal-rank fusion, reranking, source-bound citations, and evidence refusal.
 - Durable sessions, intent routing, review-gated semantic memory, a read-only citation Reviewer Agent, idempotent jobs, Inline or Redis/ARQ queues, and real readiness probes.
+- Public durable scoped sessions over the SDK (`SessionService`): host-revalidated identity on every operation, bounded untrusted history, one active turn per session, separately authenticated single-use approval, crash reconciliation, and tombstones that retire a deleted identity. The optional HTTP adapter is described in [docs/SESSIONS.md](docs/SESSIONS.md); the knowledge application's sessions above are a separate legacy store.
 - Optional asyncpg/PostgreSQL sessions, Qdrant vector spaces, Docker Compose dependencies, two-host-process Nginx balancing, LangChain/LangGraph comparison adapters, and structured JSON request logging.
 
 ## Architecture
@@ -44,7 +106,7 @@ Harness controls remain outside model prompts. Model output, repository text, to
 Python 3.12 and [`uv`](https://docs.astral.sh/uv/) are required. The `search_code` tool shells out to [`ripgrep`](https://github.com/BurntSushi/ripgrep) (`rg`), which must be on `PATH`.
 
 ```bash
-uv sync --extra dev --extra platform --extra benchmark
+uv sync --extra dev --extra cli --extra platform --extra benchmark
 make check
 uv run forge demo --text "hello"
 uv run forge eval-control
@@ -150,7 +212,7 @@ With OMLX and the four Compose services healthy, `uv run python benchmarks/platf
 - [`docs/REVIEW.md`](docs/REVIEW.md) — mandatory final audit protocol.
 - [`docs/REFERENCES.md`](docs/REFERENCES.md) — specifications, baselines, and attribution.
 
-This candidate does not claim SWE-bench performance, Reviewer superiority, OS-level sandboxing, automatic Git worktree creation, Qdrant/PostgreSQL production scale, or crash-safe approval resumption after an API restart. The checked-in reports support only their named, revision-bound workloads.
+This candidate does not claim SWE-bench performance, Reviewer superiority, OS-level sandboxing, automatic Git worktree creation, or Qdrant/PostgreSQL production scale. Host HTTP/UI recovery needs its own acceptance beyond the durable SDK contracts. The checked-in reports support only their named, source-bound workloads.
 
 ## License
 

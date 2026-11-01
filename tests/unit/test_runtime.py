@@ -413,7 +413,8 @@ async def test_runtime_compacts_history_to_the_context_window(tmp_path: Path) ->
     )
     trace = InMemoryTrace("task-1")
 
-    result = await build_runtime(model, trace, RunBudget(max_context_tokens=200)).run(
+    # The window now includes full serialized messages and the tool schema.
+    result = await build_runtime(model, trace, RunBudget(max_context_tokens=500)).run(
         task_id="task-1", task="use several tools", workspace=tmp_path
     )
 
@@ -487,7 +488,7 @@ async def test_runtime_accepts_verified_final_answer(tmp_path: Path) -> None:
     assert result.final_output == "done"
     # The verifier sees structured evidence, not the chat transcript.
     assert verifier.requests[0].tool_results == (
-        ToolEvidence(name="echo", ok=True, content="observed"),
+        ToolEvidence(name="echo", ok=True, content="observed", logical_call_id="call-1"),
     )
     assert "verification.passed" in [event.type for event in trace.events]
 

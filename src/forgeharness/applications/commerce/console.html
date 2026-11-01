@@ -1,0 +1,60 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>模拟商店 · ForgeHarness</title><style>
+body{margin:0;background:#f3f5f8;color:#203046;font:16px system-ui}main{max-width:1100px;margin:auto;padding:32px}
+header{background:#122d49;color:white;padding:28px 36px}h1{margin:0 0 8px}h2{font-size:20px}
+section{background:white;padding:24px;border-radius:12px;margin:18px 0;border:1px solid #dfe6ed}
+input{padding:10px;border:1px solid #b8c8d6;border-radius:6px;max-width:90%;margin:5px}
+button{padding:10px 16px;border:0;border-radius:6px;background:#12685c;color:white;margin:5px;cursor:pointer}
+label{display:inline-block}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f5f8;padding:16px;font-size:13px}
+small{color:#536477}a{color:#12685c}#status{position:sticky;top:0;background:#fff1cc;padding:12px}
+</style><header><h1>模拟商店工作台</h1>合成资料 · 确定性演示模型 · 无真实店铺接入</header><main>
+<div id="status">选择身份并开始查询。审批人需要独立的宿主授权。</div>
+<section><h2>当前访问</h2><label>访问凭据 <input id="token" type="password" autocomplete="off"></label>
+<label>会话 <input id="session" value="demo-session"></label><small>凭据仅保留在本页内存，不保存到浏览器存储。</small></section>
+<section><h2>商品咨询</h2><p>选择 SKU 可比较商品；追问会重新读取商品台账。</p>
+<input id="query" placeholder="关键词" value="notebook"><input id="skus" placeholder="SKU，多个用逗号分隔">
+<input id="faqs" placeholder="FAQ ID，如 faq-01"><br>
+<label><input id="follow" type="checkbox">沿用上一轮商品</label><label><input id="human" type="checkbox">请求人工</label>
+<button id="ask">提交咨询</button><button id="history">查看历史</button><pre id="consult"></pre>
+<label>待审批轮次 <input id="turn" size="48"></label><button id="approve">审批并继续</button></section>
+<section><h2>资料审核</h2><p>编辑、审核、发布使用各自角色；审核不会自动发布。</p>
+<button id="knowledge">查看授权资料</button><input id="resource" placeholder="faq:faq-01"><input id="version" type="number" value="1" min="1">
+<button id="review">审核通过</button><button id="publish">发布</button><pre id="records"></pre></section>
+<section><h2>工单</h2><button id="tickets">刷新列表</button><input id="ticket" placeholder="工单 ID"><button id="detail">查看详情</button><pre id="queue"></pre></section>
+<section><h2>运行证据</h2><p>查看当前轮次的持久结果和 hash-chain 验证后的事件。咨询由当前请求同步执行，不生成独立后台任务。</p>
+<button id="inspect">查看运行结果</button><button id="events">查看事件</button><pre id="evidence"></pre></section>
+<script>
+const el=id=>document.getElementById(id), split=id=>el(id).value.split(',').map(x=>x.trim()).filter(Boolean);
+async function api(path,body){const r=await fetch(path,{method:body===undefined?'GET':'POST',headers:{
+ 'Authorization':'Bearer '+el('token').value,'X-Session-ID':el('session').value,'Content-Type':'application/json'},
+ body:body===undefined?undefined:JSON.stringify(body)});const data=await r.json();if(!r.ok)throw Error(r.status+' '+JSON.stringify(data));return data;}
+function display(value){
+ if(Array.isArray(value))return value.map(display);
+ if(value && value.sequence && value.context){
+  const states={succeeded:'已验证',awaiting_approval:'等待执行审批',failed:'执行失败',running:'执行中'};
+  let answer=null;
+  if(value.status==='succeeded' && value.output){try{answer=JSON.parse(value.output);}catch{answer={工单:value.output};}}
+  return {状态:states[value.status]||value.status,轮次:value.sequence,
+   ...(answer ? {结果:display(answer)} : {}),...(value.error ? {说明:value.error} : {})};
+ }
+ if(value && value.products){return {状态:value.status==='answered'?'有据回答':'需要人工处理',
+  原因:value.reason,商品:value.products.map(p=>({SKU:p.sku,价格:(p.price_cents/100).toFixed(2)+' '+p.currency,
+   库存:p.stock,查询时点:p.as_of,资料版本:p.version})),知识:value.faqs,来源:value.sources};}
+ if(value && value.resource_id && value.content)return {资料:value.resource_id,版本:value.version,
+  状态:value.state,作者:value.author,审核人:value.reviewer,内容:value.content};
+ return value;
+}
+function action(id,target,fn){el(id).onclick=async()=>{try{const value=await fn();el(target).textContent=JSON.stringify(display(value),null,2);el('status').textContent='操作完成；以下为服务器持久状态。';}catch(e){el('status').textContent=String(e);}};}
+action('ask','consult',async()=>{const r=await api('/commerce/consult',{request_id:crypto.randomUUID(),query:el('query').value,skus:split('skus'),faq_ids:split('faqs'),follow_up:el('follow').checked,handoff:el('human').checked});el('turn').value=r.id;return r;});
+const sessionPath=()=>'/harness/sessions/'+encodeURIComponent(el('session').value);
+action('history','consult',()=>api(sessionPath()+'/history'));
+action('approve','consult',async()=>{const path=sessionPath()+'/turns/'+encodeURIComponent(el('turn').value);const grant=await api(path+'/approve',{});return api(path+'/resume',{grant});});
+action('knowledge','records',()=>api('/commerce/knowledge'));
+for(const name of ['review','publish'])action(name,'records',()=>api('/commerce/knowledge/'+encodeURIComponent(el('resource').value)+'/'+name,{expected_version:Number(el('version').value)}));
+action('tickets','queue',()=>api('/commerce/tickets'));
+action('detail','queue',()=>api('/commerce/tickets/'+encodeURIComponent(el('ticket').value)));
+const turnPath=()=>sessionPath()+'/turns/'+encodeURIComponent(el('turn').value);
+action('inspect','evidence',()=>api(turnPath()+'/inspect'));
+action('events','evidence',()=>api(turnPath()+'/events'));
+</script></main></html>

@@ -10,6 +10,7 @@ from uuid import uuid4
 from pydantic import Field, model_validator
 
 from forgeharness.domain.models import FrozenModel
+from forgeharness.models.capabilities import ModelCapability as ModelCapability
 
 
 class Intent(StrEnum):
@@ -157,14 +158,6 @@ class IngestJob(FrozenModel):
     error: str | None = Field(default=None, max_length=2_000)
     created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
-
-
-class ModelCapability(FrozenModel):
-    """Observed OMLX model inventory used by readiness checks."""
-
-    model_id: str
-    role: Literal["chat", "embedding", "reranker"]
-    available: bool
 
 
 class EvaluationCase(FrozenModel):

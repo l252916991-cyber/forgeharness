@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-14",
+  "tenant_id": "shop-a",
+  "question": "Does the warranty cover accidental damage?",
+  "answer": "Synthetic answer: accidental damage, damage from misuse and cosmetic scratches are excluded from the warranty.",
+  "category": "warranty",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:warranty-exclusions"
+    }
+  ]
+}

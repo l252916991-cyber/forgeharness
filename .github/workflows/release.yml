@@ -1,0 +1,96 @@
+name: Release
+
+# Tag-driven publishing uses the exact wheel/sdist from a fully qualified source
+# and clean-copy attempt. No separate rebuild can bypass the release gates.
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      confirm_version:
+        description: "Type the version being published (must equal pyproject.toml)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Qualify and stage the distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          package-manager-cache: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - run: uv sync --extra dev --extra cli --extra platform --extra benchmark --extra frameworks --extra postgres-test --frozen
+
+      - name: Resolve the version under test
+        id: version
+        run: |
+          version=$(uv run --no-sync python -c \
+            "import tomllib,pathlib;print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'])")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Require the tag to match the version
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          PROJECT_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          test "$tag" = "$PROJECT_VERSION"
+
+      - name: Require the manual dispatch to match the version
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          CONFIRMED_VERSION: ${{ github.event.inputs.confirm_version }}
+          PROJECT_VERSION: ${{ steps.version.outputs.version }}
+        run: test "$CONFIRMED_VERSION" = "$PROJECT_VERSION"
+
+      - name: Freeze and qualify the exact source
+        run: |
+          uv run --no-sync python -m benchmarks.comparison.verify --candidate-dir reports/release/ci-candidate --freeze-only
+          uv run --no-sync python -m benchmarks.comparison.verify --candidate-dir reports/release/ci-candidate
+
+      - name: Stage only the qualified artifacts
+        run: uv run --no-sync python -m benchmarks.release_artifacts --candidate-dir reports/release/ci-candidate --output dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-qualification
+          path: |
+            reports/release/ci-candidate/source.json
+            reports/release/ci-candidate/verification/summary.json
+            reports/release/ci-candidate/verification/runs/
+
+  publish:
+    name: Publish to PyPI
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/forgeharness
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          attestations: true

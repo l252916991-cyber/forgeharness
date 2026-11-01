@@ -1,0 +1,847 @@
+{
+  "schema_version": 1,
+  "split": "sealed",
+  "provenance": "machine-generated synthetic fixture; no independent professional authorship or business qualification",
+  "cases": [
+    {
+      "id": "sealed-001",
+      "family": "sealed-instrument-1",
+      "sku": "HOLD-001",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 3498,
+        "stock": 33,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-1 scenario 1; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-002",
+      "family": "sealed-instrument-1",
+      "sku": "HOLD-002",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 17936,
+        "stock": 42,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-1 scenario 2; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-003",
+      "family": "sealed-instrument-1",
+      "sku": "HOLD-003",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 3867,
+        "stock": 44,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-1 scenario 3; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-004",
+      "family": "sealed-instrument-1",
+      "sku": "HOLD-004",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 8264,
+        "stock": 19,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-1 scenario 4; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-005",
+      "family": "sealed-instrument-1",
+      "sku": "HOLD-005",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 15935,
+        "stock": 40,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-1 scenario 5; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-006",
+      "family": "sealed-instrument-2",
+      "sku": "HOLD-006",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 20019,
+        "stock": 2,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-2 scenario 6; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-007",
+      "family": "sealed-instrument-2",
+      "sku": "HOLD-007",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 6528,
+        "stock": 18,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-2 scenario 7; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-008",
+      "family": "sealed-instrument-2",
+      "sku": "HOLD-008",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 7320,
+        "stock": 5,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-2 scenario 8; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-009",
+      "family": "sealed-instrument-2",
+      "sku": "HOLD-009",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 18427,
+        "stock": 2,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-2 scenario 9; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-010",
+      "family": "sealed-instrument-2",
+      "sku": "HOLD-010",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 24712,
+        "stock": 29,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-2 scenario 10; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-011",
+      "family": "sealed-instrument-3",
+      "sku": "HOLD-011",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 19659,
+        "stock": 36,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-3 scenario 11; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-012",
+      "family": "sealed-instrument-3",
+      "sku": "HOLD-012",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 29796,
+        "stock": 49,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-3 scenario 12; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-013",
+      "family": "sealed-instrument-3",
+      "sku": "HOLD-013",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 15710,
+        "stock": 1,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-3 scenario 13; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-014",
+      "family": "sealed-instrument-3",
+      "sku": "HOLD-014",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 18900,
+        "stock": 23,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-3 scenario 14; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-015",
+      "family": "sealed-instrument-3",
+      "sku": "HOLD-015",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 10012,
+        "stock": 31,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-3 scenario 15; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-016",
+      "family": "sealed-instrument-4",
+      "sku": "HOLD-016",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 5885,
+        "stock": 41,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-4 scenario 16; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-017",
+      "family": "sealed-instrument-4",
+      "sku": "HOLD-017",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 20404,
+        "stock": 48,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-4 scenario 17; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-018",
+      "family": "sealed-instrument-4",
+      "sku": "HOLD-018",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 23990,
+        "stock": 14,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-4 scenario 18; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-019",
+      "family": "sealed-instrument-4",
+      "sku": "HOLD-019",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 25749,
+        "stock": 20,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-4 scenario 19; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-020",
+      "family": "sealed-instrument-4",
+      "sku": "HOLD-020",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 13687,
+        "stock": 1,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-4 scenario 20; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-021",
+      "family": "sealed-instrument-5",
+      "sku": "HOLD-021",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 11063,
+        "stock": 47,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-5 scenario 21; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-022",
+      "family": "sealed-instrument-5",
+      "sku": "HOLD-022",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 29052,
+        "stock": 31,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-5 scenario 22; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-023",
+      "family": "sealed-instrument-5",
+      "sku": "HOLD-023",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 6461,
+        "stock": 10,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-5 scenario 23; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-024",
+      "family": "sealed-instrument-5",
+      "sku": "HOLD-024",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 12446,
+        "stock": 50,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-5 scenario 24; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-025",
+      "family": "sealed-instrument-5",
+      "sku": "HOLD-025",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 24458,
+        "stock": 44,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-5 scenario 25; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-026",
+      "family": "sealed-instrument-6",
+      "sku": "HOLD-026",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 6520,
+        "stock": 10,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-6 scenario 26; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-027",
+      "family": "sealed-instrument-6",
+      "sku": "HOLD-027",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 25157,
+        "stock": 22,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-6 scenario 27; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-028",
+      "family": "sealed-instrument-6",
+      "sku": "HOLD-028",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 29990,
+        "stock": 43,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-6 scenario 28; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-029",
+      "family": "sealed-instrument-6",
+      "sku": "HOLD-029",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 10102,
+        "stock": 1,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-6 scenario 29; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-030",
+      "family": "sealed-instrument-6",
+      "sku": "HOLD-030",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 29944,
+        "stock": 27,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-6 scenario 30; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-031",
+      "family": "sealed-instrument-7",
+      "sku": "HOLD-031",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 16649,
+        "stock": 7,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-7 scenario 31; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-032",
+      "family": "sealed-instrument-7",
+      "sku": "HOLD-032",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 23360,
+        "stock": 50,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-7 scenario 32; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-033",
+      "family": "sealed-instrument-7",
+      "sku": "HOLD-033",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 9428,
+        "stock": 20,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-7 scenario 33; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-034",
+      "family": "sealed-instrument-7",
+      "sku": "HOLD-034",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 9274,
+        "stock": 21,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-7 scenario 34; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-035",
+      "family": "sealed-instrument-7",
+      "sku": "HOLD-035",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 16287,
+        "stock": 41,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-7 scenario 35; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-036",
+      "family": "sealed-instrument-8",
+      "sku": "HOLD-036",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 15313,
+        "stock": 32,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-8 scenario 36; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-037",
+      "family": "sealed-instrument-8",
+      "sku": "HOLD-037",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 3451,
+        "stock": 31,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-8 scenario 37; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-038",
+      "family": "sealed-instrument-8",
+      "sku": "HOLD-038",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 23683,
+        "stock": 33,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-8 scenario 38; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-039",
+      "family": "sealed-instrument-8",
+      "sku": "HOLD-039",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 16952,
+        "stock": 11,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-8 scenario 39; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-040",
+      "family": "sealed-instrument-8",
+      "sku": "HOLD-040",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 2199,
+        "stock": 8,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-8 scenario 40; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-041",
+      "family": "sealed-instrument-9",
+      "sku": "HOLD-041",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 29701,
+        "stock": 29,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-9 scenario 41; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-042",
+      "family": "sealed-instrument-9",
+      "sku": "HOLD-042",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 12022,
+        "stock": 35,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-9 scenario 42; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-043",
+      "family": "sealed-instrument-9",
+      "sku": "HOLD-043",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 4343,
+        "stock": 8,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-9 scenario 43; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-044",
+      "family": "sealed-instrument-9",
+      "sku": "HOLD-044",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 28098,
+        "stock": 14,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-9 scenario 44; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-045",
+      "family": "sealed-instrument-9",
+      "sku": "HOLD-045",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 5778,
+        "stock": 27,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-9 scenario 45; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-046",
+      "family": "sealed-instrument-10",
+      "sku": "HOLD-046",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 4911,
+        "stock": 7,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-10 scenario 46; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-047",
+      "family": "sealed-instrument-10",
+      "sku": "HOLD-047",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 8881,
+        "stock": 12,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-10 scenario 47; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-048",
+      "family": "sealed-instrument-10",
+      "sku": "HOLD-048",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 7706,
+        "stock": 34,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-10 scenario 48; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-049",
+      "family": "sealed-instrument-10",
+      "sku": "HOLD-049",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 14320,
+        "stock": 44,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-10 scenario 49; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-050",
+      "family": "sealed-instrument-10",
+      "sku": "HOLD-050",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 4499,
+        "stock": 25,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-10 scenario 50; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-051",
+      "family": "sealed-instrument-11",
+      "sku": "HOLD-051",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 15289,
+        "stock": 11,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-11 scenario 51; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-052",
+      "family": "sealed-instrument-11",
+      "sku": "HOLD-052",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 15253,
+        "stock": 33,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-11 scenario 52; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-053",
+      "family": "sealed-instrument-11",
+      "sku": "HOLD-053",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 28145,
+        "stock": 8,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-11 scenario 53; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-054",
+      "family": "sealed-instrument-11",
+      "sku": "HOLD-054",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 13837,
+        "stock": 49,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-11 scenario 54; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-055",
+      "family": "sealed-instrument-11",
+      "sku": "HOLD-055",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 21315,
+        "stock": 50,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-11 scenario 55; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-056",
+      "family": "sealed-instrument-12",
+      "sku": "HOLD-056",
+      "tenant_id": "sealed-shop",
+      "kind": "price",
+      "material": {
+        "price_cents": 3490,
+        "stock": 16,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-12 scenario 56; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-057",
+      "family": "sealed-instrument-12",
+      "sku": "HOLD-057",
+      "tenant_id": "sealed-shop",
+      "kind": "stock",
+      "material": {
+        "price_cents": 23287,
+        "stock": 44,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-12 scenario 57; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-058",
+      "family": "sealed-instrument-12",
+      "sku": "HOLD-058",
+      "tenant_id": "sealed-shop",
+      "kind": "comparison",
+      "material": {
+        "price_cents": 22225,
+        "stock": 29,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-12 scenario 58; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-059",
+      "family": "sealed-instrument-12",
+      "sku": "HOLD-059",
+      "tenant_id": "sealed-shop",
+      "kind": "missing_evidence",
+      "material": {
+        "price_cents": 4573,
+        "stock": 40,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-12 scenario 59; answer only from the provided current material."
+    },
+    {
+      "id": "sealed-060",
+      "family": "sealed-instrument-12",
+      "sku": "HOLD-060",
+      "tenant_id": "sealed-shop",
+      "kind": "handoff",
+      "material": {
+        "price_cents": 7002,
+        "stock": 25,
+        "version": 1,
+        "synthetic": true
+      },
+      "prompt": "Synthetic sealed-instrument-12 scenario 60; answer only from the provided current material."
+    }
+  ]
+}

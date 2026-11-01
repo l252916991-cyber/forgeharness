@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-21",
+  "tenant_id": "shop-b",
+  "question": "Does shop-b deliver synthetic hardware outside the region?",
+  "answer": "Synthetic answer: shop-b ships hardware inside the region only; orders from outside the region are cancelled and refunded in full.",
+  "category": "shipping",
+  "sources": [
+    {
+      "source": "shop-b-policy",
+      "version": "2026-10-05",
+      "locator": "section:shipping-region-limit"
+    }
+  ]
+}

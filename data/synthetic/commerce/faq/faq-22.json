@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "faq-22",
+  "tenant_id": "shop-b",
+  "question": "Can a synthetic valve be returned?",
+  "answer": "Synthetic answer: sealed valves may be returned within 10 calendar days of delivery.",
+  "category": "returns",
+  "sources": [
+    {
+      "source": "shop-b-policy",
+      "version": "2026-10-05",
+      "locator": "section:returns-valves-window"
+    }
+  ],
+  "conflict_with": "faq-23"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "faq-12",
+  "tenant_id": "shop-a",
+  "question": "What warranty period applies to lighting products?",
+  "answer": "Synthetic answer: lighting products carry a 24 month warranty from the delivery date.",
+  "category": "warranty",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:warranty-lighting-period"
+    }
+  ],
+  "conflict_with": "faq-11"
+}

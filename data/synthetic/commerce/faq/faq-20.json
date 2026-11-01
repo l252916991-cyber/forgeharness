@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "faq-20",
+  "tenant_id": "shop-a",
+  "question": "How is a synthetic account password reset?",
+  "answer": "Synthetic answer: use the reset link on the sign-in page; the link stays valid for thirty minutes.",
+  "category": "account",
+  "sources": [
+    {
+      "source": "shop-a-policy",
+      "version": "2026-10-01",
+      "locator": "section:account-password-reset"
+    }
+  ]
+}

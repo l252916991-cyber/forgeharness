@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "split": "sealed",
+  "count": 60,
+  "families": [
+    "sealed-instrument-1",
+    "sealed-instrument-10",
+    "sealed-instrument-11",
+    "sealed-instrument-12",
+    "sealed-instrument-2",
+    "sealed-instrument-3",
+    "sealed-instrument-4",
+    "sealed-instrument-5",
+    "sealed-instrument-6",
+    "sealed-instrument-7",
+    "sealed-instrument-8",
+    "sealed-instrument-9"
+  ],
+  "path": "data/sealed/commerce-final.synthetic.json",
+  "sha256": "e6f9bf512e607c1a6f4847deff7145a48f1a177a88fa81c7b32fd7ba16d99d93",
+  "opened_for_evaluation": false,
+  "quality_qualified": false,
+  "external_review_required": true
+}

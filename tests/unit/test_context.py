@@ -3,13 +3,18 @@
 import pytest
 
 from forgeharness.context.assembly import ContextAssembler
-from forgeharness.context.compiler import ContextBudgetError, ContextCompiler, ContextItem
+from forgeharness.context.compiler import (
+    CharacterTokenEstimator,
+    ContextBudgetError,
+    ContextCompiler,
+    ContextItem,
+)
 from forgeharness.context.compression import ObservationCompressor
 from forgeharness.domain.models import Message, MessageRole, ToolCall
 
 
 def test_compiler_prioritizes_required_then_relevant_context() -> None:
-    compiler = ContextCompiler(max_tokens=6)
+    compiler = ContextCompiler(max_tokens=34)
     result = compiler.compile(
         [
             ContextItem(id="low", source="low.py", content="12345678", score=0.1),
@@ -19,7 +24,7 @@ def test_compiler_prioritizes_required_then_relevant_context() -> None:
         ]
     )
 
-    assert result.estimated_tokens == 5
+    assert result.estimated_tokens == CharacterTokenEstimator().estimate(result.text) == 34
     assert "issue" in result.text
     assert "high.py" in result.text
     assert "mid.py" in result.text
@@ -40,6 +45,60 @@ def test_compiler_rejects_duplicate_ids_and_invalid_budget() -> None:
     item = ContextItem(id="same", source="source", content="content")
     with pytest.raises(ValueError, match="must be unique"):
         ContextCompiler(max_tokens=10).compile([item, item])
+
+
+def test_compiler_rejects_required_source_wrapper_that_exceeds_budget() -> None:
+    # The payload alone costs one estimated token. Its source wrapper costs 39
+    # more, and must be charged before this required material can be accepted.
+    item = ContextItem(id="sku", source="product/" + "x" * 120, content="1", required=True)
+    with pytest.raises(ContextBudgetError, match="required context item"):
+        ContextCompiler(max_tokens=1).compile([item])
+
+
+def test_compiler_skips_expensive_source_and_still_selects_smaller_material() -> None:
+    result = ContextCompiler(max_tokens=12).compile(
+        [
+            ContextItem(id="long", source="x" * 120, content="1", score=10),
+            ContextItem(id="small", source="sku", content="2", score=1),
+        ]
+    )
+    assert "x" * 120 not in result.text
+    assert result.text == "<context source='sku'>\n2\n</context>"
+    assert [decision.included for decision in result.decisions] == [False, True]
+    assert result.estimated_tokens == CharacterTokenEstimator().estimate(result.text) <= 12
+
+
+class _CharacterCountEstimator:
+    def estimate(self, text: str) -> int:
+        return len(text)
+
+
+def test_compiler_counts_separators_at_an_exact_boundary() -> None:
+    items = [ContextItem(id=str(i), source="s", content="x") for i in range(2)]
+    # Each rendered block has 33 characters; the joining separator needs two.
+    estimator = _CharacterCountEstimator()
+    excluded = ContextCompiler(max_tokens=67, estimator=estimator).compile(items)
+    included = ContextCompiler(max_tokens=68, estimator=estimator).compile(items)
+    assert [decision.included for decision in excluded.decisions] == [True, False]
+    assert [decision.included for decision in included.decisions] == [True, True]
+    assert excluded.estimated_tokens == len(excluded.text) == 33
+    assert included.estimated_tokens == len(included.text) == 68
+
+
+def test_compiler_estimates_the_joined_projection_without_rounding_each_fragment() -> None:
+    result = ContextCompiler(max_tokens=17).compile(
+        [ContextItem(id=str(i), source="s", content="x") for i in range(2)]
+    )
+    assert all(decision.included for decision in result.decisions)
+    assert sum(decision.estimated_tokens for decision in result.decisions) == 18
+    assert result.estimated_tokens == CharacterTokenEstimator().estimate(result.text) == 17
+
+
+def test_compiler_empty_input_has_no_rendering_cost() -> None:
+    result = ContextCompiler(max_tokens=1).compile([])
+    assert result.text == ""
+    assert result.estimated_tokens == 0
+    assert result.decisions == ()
 
 
 def test_compressor_preserves_errors_and_locations() -> None:

@@ -1,0 +1,12 @@
+{
+  "data": "synthetic fixture only",
+  "model": "deterministic fixture",
+  "published_pages": 6,
+  "note_state": "draft",
+  "execution_approved_by": "supervisor",
+  "note_reviewer": null,
+  "answer": "The synthetic record states: transferred",
+  "cited_page": "page:1",
+  "cited_version": 1,
+  "span_verified": true
+}

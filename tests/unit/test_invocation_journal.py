@@ -248,7 +248,7 @@ async def test_cancellation_stops_the_run_and_leaves_started_call_for_recovery(
         (InvocationState.STARTED, ToolEffectClass.IDEMPOTENT, "replay_idempotent"),
     ],
 )
-async def test_unsupported_recovery_outcomes_fail_without_advancing(
+async def test_generation_three_safe_recovery_outcomes(
     tmp_path: Path,
     journalled_state: InvocationState | None,
     effect_class: ToolEffectClass,
@@ -311,11 +311,15 @@ async def test_unsupported_recovery_outcomes_fail_without_advancing(
     )
     resumed = await runtime.resume_running(previous=interrupted, workspace=tmp_path)
 
-    assert resumed.status is RunStatus.FAILED
-    assert "recovery_unsupported" in (resumed.error or "")
-    assert expected_reason in (resumed.error or "")
-    assert model.calls == 0
-    assert tool.executions == 0
+    if journalled_state is None:
+        assert resumed.status is RunStatus.FAILED
+        assert "recovery_unsupported" in (resumed.error or "")
+        assert model.calls == 0
+        assert tool.executions == 0
+    else:
+        assert resumed.status is RunStatus.SUCCEEDED, expected_reason
+        assert model.calls == 1
+        assert tool.executions == 1
 
 
 async def test_completed_call_is_reused_when_the_checkpoint_was_lost(tmp_path: Path) -> None:
@@ -947,8 +951,9 @@ async def test_completed_row_without_a_result_is_refused(tmp_path: Path) -> None
     interrupted = checkpoints.save(interrupted)
     runtime = _build(tmp_path, tool, journal=journal, checkpoints=checkpoints, actions=[])
 
-    with pytest.raises(JournalError, match="completed but has no result"):
-        await runtime.resume_running(previous=interrupted, workspace=tmp_path)
+    result = await runtime.resume_running(previous=interrupted, workspace=tmp_path)
+    assert result.status is RunStatus.FAILED
+    assert "completed invocation has no result" in (result.error or "")
     assert tool.executions == 0
 
 
@@ -1086,3 +1091,130 @@ async def test_run_without_a_journal_is_stamped_version_zero(tmp_path: Path) -> 
     )
     result = await runtime.run(task_id="task", task="do it", workspace=tmp_path)
     assert result.recovery_semantics_version == 0
+
+
+@pytest.mark.parametrize("corruption", ["result", "version", "arguments", "effect"])
+async def test_recovery_rejects_corrupt_or_changed_journal_binding(
+    tmp_path: Path, corruption: str
+) -> None:
+    from forgeharness.domain.models import Message, MessageRole
+
+    journal, checkpoints = _stores(tmp_path)
+    tool = CountingTool(tmp_path / "effects.txt", ToolEffectClass.IDEMPOTENT)
+    call = ToolCall(id="c1", name="effect", arguments={"value": "x"})
+    runtime = _build(
+        tmp_path,
+        tool,
+        journal=journal,
+        checkpoints=checkpoints,
+        actions=[ToolAction(call=call), FinalAction(content="done")],
+    )
+    completed = await runtime.run(task_id="task", task="do it", workspace=tmp_path)
+    before_result = completed.model_copy(
+        update={
+            "status": RunStatus.RUNNING,
+            "final_output": None,
+            "tool_evidence": (),
+            "messages": (
+                Message(role=MessageRole.USER, content="do it"),
+                Message(role=MessageRole.ASSISTANT, tool_calls=(call,)),
+            ),
+        }
+    )
+    before_result = checkpoints.save(before_result)
+    with journal._connect() as connection:
+        if corruption == "result":
+            connection.execute(
+                "UPDATE tool_invocations SET result=?", ('{"ok":true,"content":"forged"}',)
+            )
+        elif corruption == "version":
+            connection.execute("UPDATE tool_invocations SET journal_version=999")
+        elif corruption == "arguments":
+            connection.execute("UPDATE tool_invocations SET args_digest=?", ("0" * 64,))
+        else:
+            tool.spec = tool.spec.model_copy(
+                update={"effect_class": ToolEffectClass.NON_IDEMPOTENT}
+            )
+    model = _Scripted([FinalAction(content="must not run")])
+    registry = ToolRegistry()
+    registry.register(tool)
+    resumed = await AgentRuntime(
+        model=model,
+        registry=registry,
+        dispatcher=ToolDispatcher(registry),
+        policy=_AllowAll(),
+        trace=InMemoryTrace("task"),
+        checkpoint_store=checkpoints,
+        invocation_journal=journal,
+    ).resume_running(previous=before_result, workspace=tmp_path)
+    assert resumed.status is RunStatus.FAILED
+    assert model.calls == 0 and tool.executions == 1
+    assert any(word in resumed.error for word in ("digest", "version", "identity"))
+
+
+async def test_safe_recovery_does_not_reset_physical_attempt_budget(tmp_path: Path) -> None:
+    from datetime import UTC, datetime
+
+    from forgeharness.domain.models import Message, MessageRole
+    from forgeharness.runtime.budget import RunBudget
+    from forgeharness.state.invocation_journal import (
+        AttemptRecord,
+        InvocationRecord,
+        args_digest,
+        idempotency_key_for,
+    )
+
+    journal, checkpoints = _stores(tmp_path)
+    call = ToolCall(id="c", name="effect", arguments={"value": "x"})
+    record = InvocationRecord(
+        invocation_id="task:c",
+        run_id="task",
+        logical_call_id="c",
+        tool_name="effect",
+        effect_class=ToolEffectClass.IDEMPOTENT,
+        args_digest=args_digest(call.arguments),
+        idempotency_key=idempotency_key_for(run_id="task", logical_call_id="c"),
+        state=InvocationState.CLAIMED,
+        claimed_at=datetime.now(UTC),
+    )
+    journal.claim(record)
+    journal.mark_started(record.invocation_id, checkpoint_revision=1)
+    for number in range(1, 4):
+        journal.start_attempt(
+            AttemptRecord(
+                attempt_id=f"task:c#{number}",
+                invocation_id="task:c",
+                attempt_no=number,
+                started_at=datetime.now(UTC),
+                timeout_seconds=1,
+            )
+        )
+    previous = checkpoints.save(
+        RunResult(
+            task_id="task",
+            status=RunStatus.RUNNING,
+            usage=Usage(steps=1),
+            recovery_semantics_version=CURRENT_RECOVERY_SEMANTICS_VERSION,
+            messages=(
+                Message(role=MessageRole.USER, content="do it"),
+                Message(role=MessageRole.ASSISTANT, tool_calls=(call,)),
+            ),
+        )
+    )
+    tool = CountingTool(tmp_path / "effects.txt", ToolEffectClass.IDEMPOTENT)
+    registry = ToolRegistry()
+    registry.register(tool)
+    resumed = await AgentRuntime(
+        model=_Scripted([]),
+        registry=registry,
+        dispatcher=ToolDispatcher(registry),
+        policy=_AllowAll(),
+        trace=InMemoryTrace("task"),
+        checkpoint_store=checkpoints,
+        invocation_journal=journal,
+        budget=RunBudget(max_attempts_per_call=3),
+    ).resume_running(previous=previous, workspace=tmp_path)
+    assert resumed.status is RunStatus.FAILED
+    assert "physical attempt budget exhausted" in resumed.error
+    assert tool.executions == 0
+    assert len(journal.attempts_for("task:c")) == 3

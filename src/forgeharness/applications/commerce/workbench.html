@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>咨询与人工服务工作台</title>
+<style>
+body{max-width:1000px;margin:28px auto;padding:0 18px;font:16px/1.6 system-ui;color:#1d2939;background:#f4f6fa}
+section{background:white;border:1px solid #dce1e9;border-radius:10px;padding:18px;margin:18px 0}h1,h2{margin:0 0 12px}
+label{display:inline-block;margin:5px 12px 5px 0}input,textarea,select,button{font:inherit;padding:6px}button{cursor:pointer;margin:6px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf1f7;padding:14px}textarea{width:95%}small{color:#475467}
+</style>
+<h1>咨询与人工服务工作台</h1>
+<p>邀请制本地版本。账户采用独立身份，咨询仍使用确定性模型和已配置目录；没有连接真实商家系统。</p>
+<p id="identity" role="status">尚未登录</p>
+<section><h2>账户</h2>
+<form id="login"><label>工作空间 <input name="workspace" required autocomplete="organization"></label>
+<label>邮箱 <input name="email" type="email" required autocomplete="username"></label>
+<label>密码 <input name="password" type="password" required autocomplete="current-password"></label><button>登录</button></form>
+<button id="logout">退出登录</button>
+<details><summary>接受邀请</summary><form id="accept">
+<label>邀请凭证 <input name="token" required autocomplete="off"></label><label>姓名 <input name="name" required autocomplete="name"></label>
+<label>新密码 <input name="password" type="password" required minlength="12" autocomplete="new-password"></label><button>接受并登录</button></form></details>
+<details><summary>邀请成员（管理员）</summary><form id="invite"><label>邮箱 <input name="email" type="email" required></label>
+<label>职责 <select name="role"><option value="customer">咨询用户</option><option value="supervisor">审批人</option><option value="support">客服</option><option value="editor">知识编辑</option><option value="publisher">知识审核发布</option><option value="admin">管理员</option></select></label><button>生成邀请凭证</button></form>
+<small>通过受信任渠道交给收件人；凭证仅在本次结果中展示，请勿写入运行记录。</small><pre id="invitation"></pre></details>
+</section>
+<section><h2>咨询</h2><label>会话 <input id="session" size="38"></label><button id="new-session">新会话</button>
+<form id="consult"><label for="query">问题</label><textarea id="query" required rows="3" maxlength="200"></textarea>
+<label>商品编号（逗号分隔） <input id="skus"></label><label><input id="handoff" type="checkbox">请求人工转接</label>
+<button>提交 / 重试当前请求</button></form><button id="new-request">开始新的业务请求</button><button id="history">查看历史</button><pre id="result" aria-live="polite"></pre></section>
+<section><h2>独立审批</h2><label>待审批轮次 <input id="turn" size="45"></label>
+<form id="approve"><label>审批人邮箱 <input name="email" type="email" required autocomplete="off"></label>
+<label>审批人密码 <input name="password" type="password" required autocomplete="off"></label><button>认证、批准并继续</button></form>
+<p>审批使用该审批人独立凭证。申请人与审批人必须不同；需在当前申请人会话下操作。</p></section>
+<section><h2>处理与诊断</h2><button id="tickets">查看授权工单</button><button id="knowledge">查看授权知识</button><button id="inspect">检查当前轮次</button><button id="events">查看运行事件</button><pre id="diagnostics" aria-live="polite"></pre></section>
+<script>
+'use strict';
+const byId=id=>document.getElementById(id);let csrf='',workspace='',userId='';
+let viewVersion=0,authenticationBusy=false;const requests=new Set();
+class StaleView extends Error {}
+function guard(version){if(version!==viewVersion)throw new StaleView();}
+function invalidateView(){viewVersion++;for(const request of requests)request.abort();requests.clear();}
+function view(){const version=viewVersion;return {
+ guard:()=>guard(version),active:()=>version===viewVersion,
+ api:(path,body,extra)=>api(path,body,extra,version),
+ show:(id,value)=>{guard(version);show(id,value);}
+};}
+byId('session').value=sessionStorage.getItem('fh-workbench-session')||crypto.randomUUID();
+function sessionPath(){const id=byId('session').value;sessionStorage.setItem('fh-workbench-session',id);return '/harness/sessions/'+encodeURIComponent(id);}
+function show(id,value){byId(id).textContent=typeof value==='string'?value:JSON.stringify(value,null,2);}
+async function api(path,body,extra={},version=viewVersion){guard(version);const controller=new AbortController();requests.add(controller);
+ try{const method=body===undefined?'GET':'POST';
+ const response=await fetch(path,{method,signal:controller.signal,credentials:'same-origin',headers:{'Content-Type':'application/json','X-CSRF-Token':csrf,'X-Session-Id':byId('session').value,...extra},body:body===undefined?undefined:JSON.stringify(body)});
+ const data=response.status===204?null:await response.json();guard(version);if(!response.ok)throw new Error(response.status+' '+JSON.stringify(data));return data;
+ }catch(error){guard(version);throw error;}finally{requests.delete(controller);}}
+function clearPrivateUI(){for(const id of ['result','diagnostics','invitation'])show(id,'');byId('turn').value='';byId('query').value='';byId('skus').value='';byId('handoff').checked=false;byId('accept').reset();byId('invite').reset();byId('approve').reset();}
+function beginIdentityChange(){invalidateView();csrf='';workspace='';userId='';clearPrivateUI();
+ byId('session').value=crypto.randomUUID();sessionStorage.setItem('fh-workbench-session',byId('session').value);sessionStorage.removeItem('fh-workbench-request');show('identity','登录状态更新中');}
+async function current(active=view()){const me=await active.api('/identity/me');active.guard();if(userId!==me.user_id||workspace!==me.workspace_id)clearPrivateUI();csrf=me.csrf;workspace=me.workspace_id;userId=me.user_id;active.show('identity',me.display_name+' · '+workspace+' · '+me.roles.join(', '));}
+function form(id,action,identityChange=false){byId(id).addEventListener('submit',async event=>{
+ event.preventDefault();if(authenticationBusy)return;const form=event.currentTarget,fields=new FormData(form);
+ if(identityChange){authenticationBusy=true;beginIdentityChange();}const active=view();
+ try{await action(fields,active);}catch(error){if(active.active()&&!(error instanceof StaleView))active.show('result',error.message);}
+ finally{if(identityChange)authenticationBusy=false;if(active.active())for(const input of form.querySelectorAll('input[type="password"]'))input.value='';}});}
+form('login',async(fields,active)=>{await active.api('/identity/login',{email:fields.get('email'),password:fields.get('password'),workspace_id:fields.get('workspace')});await current(active);},true);
+form('accept',async(fields,active)=>{await active.api('/identity/invitations/'+encodeURIComponent(fields.get('token'))+'/accept',{display_name:fields.get('name'),password:fields.get('password')});active.guard();byId('accept').reset();await current(active);},true);
+form('invite',async(fields,active)=>active.show('invitation',await active.api('/identity/invitations',{email:fields.get('email'),role:fields.get('role')})));
+form('consult',async(fields,active)=>{const payload={query:byId('query').value,skus:byId('skus').value.split(',').map(s=>s.trim()).filter(Boolean),handoff:byId('handoff').checked};
+ const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify([userId,workspace,byId('session').value,payload])));active.guard();const signature=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');let pending;try{pending=JSON.parse(sessionStorage.getItem('fh-workbench-request')||'null');}catch{pending=null;}
+ if(!pending||pending.signature!==signature){pending={signature,request_id:crypto.randomUUID()};sessionStorage.setItem('fh-workbench-request',JSON.stringify(pending));}
+ const result=await active.api('/commerce/consult',{...payload,request_id:pending.request_id});active.guard();byId('turn').value=result.id;active.show('result',result);});
+form('approve',async(fields,active)=>{const path=sessionPath()+'/turns/'+encodeURIComponent(byId('turn').value);
+ const auth=await active.api('/identity/approval',{email:fields.get('email'),password:fields.get('password'),workspace_id:workspace});
+ const extra={'X-Approval-Token':auth.approval_token};const grant=await active.api(path+'/approve',{},extra);active.show('result',await active.api(path+'/resume',{grant},extra));});
+function button(id,action){byId(id).onclick=async()=>{if(authenticationBusy)return;const active=view();try{await action(active);}catch(error){if(active.active()&&!(error instanceof StaleView))active.show('diagnostics',error.message);}};}
+button('logout',async()=>{authenticationBusy=true;const oldCSRF=csrf;beginIdentityChange();const active=view();
+ try{await active.api('/identity/logout',{}, {'X-CSRF-Token':oldCSRF});active.show('identity','尚未登录');}
+ catch(error){if(active.active()){active.show('identity','退出未确认');active.show('diagnostics',error.message);}}finally{authenticationBusy=false;}});
+button('new-request',async()=>{invalidateView();sessionStorage.removeItem('fh-workbench-request');byId('turn').value='';show('result','下次提交将建立新的业务请求');});
+button('new-session',async()=>{invalidateView();clearPrivateUI();byId('session').value=crypto.randomUUID();sessionStorage.setItem('fh-workbench-session',byId('session').value);sessionStorage.removeItem('fh-workbench-request');show('result','新会话已准备');});
+byId('session').addEventListener('change',()=>{invalidateView();clearPrivateUI();sessionStorage.removeItem('fh-workbench-request');});
+button('history',async active=>active.show('result',await active.api(sessionPath()+'/history')));
+button('tickets',async active=>active.show('diagnostics',await active.api('/commerce/tickets')));
+button('knowledge',async active=>active.show('diagnostics',await active.api('/commerce/knowledge')));
+for(const name of ['inspect','events'])button(name,async active=>active.show('diagnostics',await active.api(sessionPath()+'/turns/'+encodeURIComponent(byId('turn').value)+'/'+name)));
+const initial=view();current(initial).catch(()=>{if(initial.active())initial.show('identity','尚未登录');});
+</script>
+</html>

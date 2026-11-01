@@ -1,0 +1,1027 @@
+{
+  "schema_version": 1,
+  "split": "dev",
+  "data": "synthetic contract scenarios; not independent business questions",
+  "cases": [
+    {
+      "id": "legal-case-alpha-1-page",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "page",
+      "case_id": "case-alpha",
+      "page": 1,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-1-search",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "search",
+      "case_id": "case-alpha",
+      "page": 1,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-1-withdrawn",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "withdrawn",
+      "case_id": "case-alpha",
+      "page": 1,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-1-cross_scope",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "cross_scope",
+      "case_id": "case-alpha",
+      "page": 1,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-1-missing",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "missing",
+      "case_id": "case-alpha",
+      "page": 1,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-2-page",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "page",
+      "case_id": "case-alpha",
+      "page": 2,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-2-search",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "search",
+      "case_id": "case-alpha",
+      "page": 2,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-2-withdrawn",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "withdrawn",
+      "case_id": "case-alpha",
+      "page": 2,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-2-cross_scope",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "cross_scope",
+      "case_id": "case-alpha",
+      "page": 2,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-2-missing",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "missing",
+      "case_id": "case-alpha",
+      "page": 2,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-3-page",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "page",
+      "case_id": "case-alpha",
+      "page": 3,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-3-search",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "search",
+      "case_id": "case-alpha",
+      "page": 3,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-3-withdrawn",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "withdrawn",
+      "case_id": "case-alpha",
+      "page": 3,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-3-cross_scope",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "cross_scope",
+      "case_id": "case-alpha",
+      "page": 3,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-3-missing",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "missing",
+      "case_id": "case-alpha",
+      "page": 3,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-4-page",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "page",
+      "case_id": "case-alpha",
+      "page": 4,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-4-search",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "search",
+      "case_id": "case-alpha",
+      "page": 4,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-4-withdrawn",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "withdrawn",
+      "case_id": "case-alpha",
+      "page": 4,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-4-cross_scope",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "cross_scope",
+      "case_id": "case-alpha",
+      "page": 4,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-4-missing",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "missing",
+      "case_id": "case-alpha",
+      "page": 4,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-5-page",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "page",
+      "case_id": "case-alpha",
+      "page": 5,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-5-search",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "search",
+      "case_id": "case-alpha",
+      "page": 5,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-5-withdrawn",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "withdrawn",
+      "case_id": "case-alpha",
+      "page": 5,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-5-cross_scope",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "cross_scope",
+      "case_id": "case-alpha",
+      "page": 5,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-5-missing",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "missing",
+      "case_id": "case-alpha",
+      "page": 5,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-6-page",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "page",
+      "case_id": "case-alpha",
+      "page": 6,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-6-search",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "search",
+      "case_id": "case-alpha",
+      "page": 6,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-6-withdrawn",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "withdrawn",
+      "case_id": "case-alpha",
+      "page": 6,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-6-cross_scope",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "cross_scope",
+      "case_id": "case-alpha",
+      "page": 6,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-alpha-6-missing",
+      "domain": "legal",
+      "family": "case-alpha",
+      "kind": "missing",
+      "case_id": "case-alpha",
+      "page": 6,
+      "tenant": "firm-alpha"
+    },
+    {
+      "id": "legal-case-beta-1-page",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "page",
+      "case_id": "case-beta",
+      "page": 1,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "legal-case-beta-1-search",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "search",
+      "case_id": "case-beta",
+      "page": 1,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "legal-case-beta-1-withdrawn",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "withdrawn",
+      "case_id": "case-beta",
+      "page": 1,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "legal-case-beta-1-cross_scope",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "cross_scope",
+      "case_id": "case-beta",
+      "page": 1,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "legal-case-beta-1-missing",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "missing",
+      "case_id": "case-beta",
+      "page": 1,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "legal-case-beta-2-page",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "page",
+      "case_id": "case-beta",
+      "page": 2,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "legal-case-beta-2-search",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "search",
+      "case_id": "case-beta",
+      "page": 2,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "legal-case-beta-2-withdrawn",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "withdrawn",
+      "case_id": "case-beta",
+      "page": 2,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "legal-case-beta-2-cross_scope",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "cross_scope",
+      "case_id": "case-beta",
+      "page": 2,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "legal-case-beta-2-missing",
+      "domain": "legal",
+      "family": "case-beta",
+      "kind": "missing",
+      "case_id": "case-beta",
+      "page": 2,
+      "tenant": "firm-beta"
+    },
+    {
+      "id": "commerce-shop-a-SYN-NB-001",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001"
+    },
+    {
+      "id": "commerce-shop-a-SYN-NB-002",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-002"
+    },
+    {
+      "id": "commerce-shop-a-SYN-PN-003",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-PN-003"
+    },
+    {
+      "id": "commerce-shop-a-SYN-PD-004",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-PD-004"
+    },
+    {
+      "id": "commerce-shop-a-SYN-BT-201",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-BT-201"
+    },
+    {
+      "id": "commerce-shop-a-SYN-BT-202",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-BT-202"
+    },
+    {
+      "id": "commerce-shop-a-SYN-MG-203",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-MG-203"
+    },
+    {
+      "id": "commerce-shop-a-SYN-CB-204",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-CB-204"
+    },
+    {
+      "id": "commerce-shop-a-SYN-KN-205",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-KN-205"
+    },
+    {
+      "id": "commerce-shop-a-SYN-TW-301",
+      "domain": "commerce",
+      "family": "textiles",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-TW-301"
+    },
+    {
+      "id": "commerce-shop-a-SYN-TW-302",
+      "domain": "commerce",
+      "family": "textiles",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-TW-302"
+    },
+    {
+      "id": "commerce-shop-a-SYN-SH-303",
+      "domain": "commerce",
+      "family": "textiles",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-SH-303"
+    },
+    {
+      "id": "commerce-shop-a-SYN-PL-304",
+      "domain": "commerce",
+      "family": "textiles",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-PL-304"
+    },
+    {
+      "id": "commerce-shop-a-SYN-LM-101",
+      "domain": "commerce",
+      "family": "lighting",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-LM-101"
+    },
+    {
+      "id": "commerce-shop-a-SYN-LM-102",
+      "domain": "commerce",
+      "family": "lighting",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-LM-102"
+    },
+    {
+      "id": "commerce-shop-a-SYN-LM-103",
+      "domain": "commerce",
+      "family": "lighting",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-LM-103"
+    },
+    {
+      "id": "commerce-shop-a-SYN-LM-104",
+      "domain": "commerce",
+      "family": "lighting",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-LM-104"
+    },
+    {
+      "id": "commerce-shop-a-SYN-KT-401",
+      "domain": "commerce",
+      "family": "storage",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-KT-401"
+    },
+    {
+      "id": "commerce-shop-a-SYN-KT-402",
+      "domain": "commerce",
+      "family": "storage",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-KT-402"
+    },
+    {
+      "id": "commerce-shop-a-SYN-BX-403",
+      "domain": "commerce",
+      "family": "storage",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-BX-403"
+    },
+    {
+      "id": "commerce-shop-a-SYN-RK-404",
+      "domain": "commerce",
+      "family": "storage",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-RK-404"
+    },
+    {
+      "id": "commerce-shop-a-SYN-HK-405",
+      "domain": "commerce",
+      "family": "storage",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-HK-405"
+    },
+    {
+      "id": "commerce-shop-a-SYN-SP-501",
+      "domain": "commerce",
+      "family": "care",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-SP-501"
+    },
+    {
+      "id": "commerce-shop-a-SYN-LN-502",
+      "domain": "commerce",
+      "family": "care",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-LN-502"
+    },
+    {
+      "id": "commerce-shop-a-SYN-TB-503",
+      "domain": "commerce",
+      "family": "care",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-TB-503"
+    },
+    {
+      "id": "commerce-shop-a-SYN-CC-504",
+      "domain": "commerce",
+      "family": "care",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-CC-504"
+    },
+    {
+      "id": "commerce-shop-a-SYN-CH-601",
+      "domain": "commerce",
+      "family": "office",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-CH-601"
+    },
+    {
+      "id": "commerce-shop-a-SYN-DS-602",
+      "domain": "commerce",
+      "family": "office",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-DS-602"
+    },
+    {
+      "id": "commerce-shop-a-SYN-PT-701",
+      "domain": "commerce",
+      "family": "garden",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-PT-701"
+    },
+    {
+      "id": "commerce-shop-a-SYN-TR-702",
+      "domain": "commerce",
+      "family": "garden",
+      "kind": "product",
+      "tenant": "shop-a",
+      "sku": "SYN-TR-702"
+    },
+    {
+      "id": "commerce-shop-b-SYN-NB-001",
+      "domain": "commerce",
+      "family": "hardware",
+      "kind": "product",
+      "tenant": "shop-b",
+      "sku": "SYN-NB-001"
+    },
+    {
+      "id": "commerce-shop-b-SYN-HW-002",
+      "domain": "commerce",
+      "family": "hardware",
+      "kind": "product",
+      "tenant": "shop-b",
+      "sku": "SYN-HW-002"
+    },
+    {
+      "id": "commerce-shop-b-SYN-HW-003",
+      "domain": "commerce",
+      "family": "hardware",
+      "kind": "product",
+      "tenant": "shop-b",
+      "sku": "SYN-HW-003"
+    },
+    {
+      "id": "commerce-shop-b-SYN-HW-004",
+      "domain": "commerce",
+      "family": "hardware",
+      "kind": "product",
+      "tenant": "shop-b",
+      "sku": "SYN-HW-004"
+    },
+    {
+      "id": "commerce-shop-b-SYN-HW-005",
+      "domain": "commerce",
+      "family": "hardware",
+      "kind": "product",
+      "tenant": "shop-b",
+      "sku": "SYN-HW-005"
+    },
+    {
+      "id": "commerce-shop-b-SYN-HW-006",
+      "domain": "commerce",
+      "family": "hardware",
+      "kind": "product",
+      "tenant": "shop-b",
+      "sku": "SYN-HW-006"
+    },
+    {
+      "id": "commerce-faq-01",
+      "domain": "commerce",
+      "family": "faq-01",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-01"
+    },
+    {
+      "id": "commerce-faq-02",
+      "domain": "commerce",
+      "family": "faq-02",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-02"
+    },
+    {
+      "id": "commerce-faq-03",
+      "domain": "commerce",
+      "family": "faq-03",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-03"
+    },
+    {
+      "id": "commerce-faq-04",
+      "domain": "commerce",
+      "family": "faq-04",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-04"
+    },
+    {
+      "id": "commerce-faq-05",
+      "domain": "commerce",
+      "family": "faq-05",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-05"
+    },
+    {
+      "id": "commerce-faq-06",
+      "domain": "commerce",
+      "family": "faq-06",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-06"
+    },
+    {
+      "id": "commerce-faq-07",
+      "domain": "commerce",
+      "family": "faq-07",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-07"
+    },
+    {
+      "id": "commerce-faq-08",
+      "domain": "commerce",
+      "family": "faq-08",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-08"
+    },
+    {
+      "id": "commerce-faq-09",
+      "domain": "commerce",
+      "family": "faq-09",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-09"
+    },
+    {
+      "id": "commerce-faq-10",
+      "domain": "commerce",
+      "family": "faq-10",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-10"
+    },
+    {
+      "id": "commerce-faq-11",
+      "domain": "commerce",
+      "family": "faq-11",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-11"
+    },
+    {
+      "id": "commerce-faq-12",
+      "domain": "commerce",
+      "family": "faq-12",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-12"
+    },
+    {
+      "id": "commerce-faq-13",
+      "domain": "commerce",
+      "family": "faq-13",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-13"
+    },
+    {
+      "id": "commerce-faq-14",
+      "domain": "commerce",
+      "family": "faq-14",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-14"
+    },
+    {
+      "id": "commerce-faq-15",
+      "domain": "commerce",
+      "family": "faq-15",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-15"
+    },
+    {
+      "id": "commerce-faq-16",
+      "domain": "commerce",
+      "family": "faq-16",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-16"
+    },
+    {
+      "id": "commerce-faq-17",
+      "domain": "commerce",
+      "family": "faq-17",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-17"
+    },
+    {
+      "id": "commerce-faq-18",
+      "domain": "commerce",
+      "family": "faq-18",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-18"
+    },
+    {
+      "id": "commerce-faq-19",
+      "domain": "commerce",
+      "family": "faq-19",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-19"
+    },
+    {
+      "id": "commerce-faq-20",
+      "domain": "commerce",
+      "family": "faq-20",
+      "kind": "faq",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001",
+      "faq_id": "faq-20"
+    },
+    {
+      "id": "commerce-handoff-SYN-NB-001",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001"
+    },
+    {
+      "id": "commerce-handoff-SYN-NB-002",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-002"
+    },
+    {
+      "id": "commerce-handoff-SYN-PN-003",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-PN-003"
+    },
+    {
+      "id": "commerce-handoff-SYN-PD-004",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-PD-004"
+    },
+    {
+      "id": "commerce-handoff-SYN-BT-201",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-BT-201"
+    },
+    {
+      "id": "commerce-handoff-SYN-BT-202",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-BT-202"
+    },
+    {
+      "id": "commerce-handoff-SYN-MG-203",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-MG-203"
+    },
+    {
+      "id": "commerce-handoff-SYN-CB-204",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-CB-204"
+    },
+    {
+      "id": "commerce-handoff-SYN-KN-205",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-KN-205"
+    },
+    {
+      "id": "commerce-handoff-SYN-TW-301",
+      "domain": "commerce",
+      "family": "textiles",
+      "kind": "handoff",
+      "tenant": "shop-a",
+      "sku": "SYN-TW-301"
+    },
+    {
+      "id": "commerce-follow_up-SYN-NB-001",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-001"
+    },
+    {
+      "id": "commerce-follow_up-SYN-NB-002",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-NB-002"
+    },
+    {
+      "id": "commerce-follow_up-SYN-PN-003",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-PN-003"
+    },
+    {
+      "id": "commerce-follow_up-SYN-PD-004",
+      "domain": "commerce",
+      "family": "stationery",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-PD-004"
+    },
+    {
+      "id": "commerce-follow_up-SYN-BT-201",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-BT-201"
+    },
+    {
+      "id": "commerce-follow_up-SYN-BT-202",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-BT-202"
+    },
+    {
+      "id": "commerce-follow_up-SYN-MG-203",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-MG-203"
+    },
+    {
+      "id": "commerce-follow_up-SYN-CB-204",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-CB-204"
+    },
+    {
+      "id": "commerce-follow_up-SYN-KN-205",
+      "domain": "commerce",
+      "family": "kitchen",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-KN-205"
+    },
+    {
+      "id": "commerce-follow_up-SYN-TW-301",
+      "domain": "commerce",
+      "family": "textiles",
+      "kind": "follow_up",
+      "tenant": "shop-a",
+      "sku": "SYN-TW-301"
+    },
+    {
+      "id": "commerce-no-evidence-0",
+      "domain": "commerce",
+      "family": "unknown",
+      "kind": "missing",
+      "tenant": "shop-a",
+      "query": "notavailableexample0"
+    },
+    {
+      "id": "commerce-no-evidence-1",
+      "domain": "commerce",
+      "family": "unknown",
+      "kind": "missing",
+      "tenant": "shop-a",
+      "query": "notavailableexample1"
+    },
+    {
+      "id": "commerce-no-evidence-2",
+      "domain": "commerce",
+      "family": "unknown",
+      "kind": "missing",
+      "tenant": "shop-a",
+      "query": "notavailableexample2"
+    },
+    {
+      "id": "commerce-no-evidence-3",
+      "domain": "commerce",
+      "family": "unknown",
+      "kind": "missing",
+      "tenant": "shop-a",
+      "query": "notavailableexample3"
+    }
+  ]
+}
