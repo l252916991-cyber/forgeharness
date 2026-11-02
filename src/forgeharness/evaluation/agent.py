@@ -116,13 +116,15 @@ PLANNER_STEPS = 1
 #
 # - OBSERVATION_CONTRACT_VERSION: the shape of what the model receives on failure.
 #   Bumped when tool failures became structured JSON instead of raw exception text,
-#   because that alone changed a case from 4 steps to 11.
+#   because that alone changed a case from 4 steps to 11. Bumped to 2 when schema
+#   violations began naming the failing field and constraint: against the generic
+#   message DeepSeek resent one over-long rationale twenty times.
 # - RECOVERY_SEMANTICS_VERSION: retry/recovery behaviour. See the generation list in
 #   `domain/models.py`; the current freeze is 2 (journal + retry/attempts + soft
 #   deadline). A run using the journal has different side-effect semantics from one
 #   that does not, so the two must never be compared as if only the agent had
 #   changed.
-OBSERVATION_CONTRACT_VERSION = 1
+OBSERVATION_CONTRACT_VERSION = 2
 RECOVERY_SEMANTICS_VERSION = CURRENT_RECOVERY_SEMANTICS_VERSION
 BENCHMARK_VERSION = 1
 # The budget profile definitions (equal vs natural ceilings) are versioned so a

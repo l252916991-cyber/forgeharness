@@ -120,8 +120,13 @@ async def test_dispatcher_returns_validation_error_as_observation(tmp_path: Path
     assert result.output.error is not None
     assert result.output.error.code is ToolErrorCode.INVALID_ARGUMENTS
     assert result.output.error.recoverable is True
-    # The validator's prose never reaches the model.
-    assert "unexpected" not in result.output.content
+    # Observation contract 2: the model learns which of its own fields failed and
+    # the constraint from the schema, but never the submitted value.
+    assert result.output.error.details == {
+        "text": "Field required",
+        "unexpected": "Extra inputs are not permitted",
+    }
+    assert "true" not in result.output.content.replace('"recoverable":true', "")
 
 
 async def test_dispatcher_reports_unknown_tool(tmp_path: Path) -> None:

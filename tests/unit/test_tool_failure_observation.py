@@ -265,3 +265,84 @@ async def test_exception_taxonomy(
     )
     assert result.output.error is not None
     assert result.output.error.code is expected
+
+
+class _BoundedInput(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    note: str
+    status: str = "pending"
+
+
+class _BoundedTool:
+    """A tool whose schema has the constraints a model can trip over."""
+
+    def __init__(self) -> None:
+        from pydantic import Field, create_model
+
+        self.input_model = create_model(
+            "BoundedArgs",
+            __config__=ConfigDict(extra="forbid"),
+            note=(str, Field(max_length=10)),
+            status=(str, Field(default="pending", pattern="^(pending|completed)$")),
+        )
+        self.spec = ToolSpec(
+            name="bounded",
+            description="Accepts a short note.",
+            input_schema=self.input_model.model_json_schema(),
+            risk=RiskLevel.READ,
+        )
+
+    async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
+        del arguments, context
+        return ToolOutput(ok=True, content="ok")
+
+
+async def test_schema_violation_names_the_field_and_constraint_without_the_value() -> None:
+    """Regression: a bare "does not match the schema" was resent unchanged 20 times."""
+    registry = ToolRegistry()
+    registry.register(_BoundedTool())
+    secret_value = "this note is far too long and must never be echoed back"
+    result = await ToolDispatcher(registry).dispatch(
+        ToolCall(
+            id="c1",
+            name="bounded",
+            arguments={"note": secret_value, "status": "zz-dropped", "colour": "qq-red"},
+        ),
+        ToolContext(task_id="t"),
+    )
+    failure = result.output.error
+    assert failure is not None
+    assert failure.code is ToolErrorCode.INVALID_ARGUMENTS
+    assert failure.details == {
+        "note": "String should have at most 10 characters",
+        "status": "String should match pattern '^(pending|completed)$'",
+        "colour": "Extra inputs are not permitted",
+    }
+    assert failure.suggestion == "Fix the fields listed in details and send the call again."
+    observation = result.output.content
+    assert secret_value not in observation
+    assert "zz-dropped" not in observation and "qq-red" not in observation
+
+
+async def test_external_json_schema_violation_is_described_from_the_keyword() -> None:
+    from jsonschema import Draft202012Validator
+    from jsonschema.exceptions import ValidationError as JSONSchemaValidationError
+
+    from forgeharness.tools.dispatcher import schema_violations
+
+    schema = {
+        "type": "object",
+        "properties": {"query": {"type": "string", "maxLength": 5}},
+        "required": ["query"],
+        "additionalProperties": False,
+    }
+    cases = (
+        ({"query": "much too long"}, {"query": "must have at most 5 characters"}),
+        ({}, {"arguments": "missing required field(s): query"}),
+        ({"query": "ok", "extra": "x"}, {"arguments": "unexpected field(s): extra"}),
+    )
+    for arguments, expected in cases:
+        with pytest.raises(JSONSchemaValidationError) as raised:
+            Draft202012Validator(schema).validate(arguments)
+        assert schema_violations(raised.value) == expected

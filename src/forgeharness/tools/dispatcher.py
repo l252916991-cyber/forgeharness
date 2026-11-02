@@ -105,7 +105,9 @@ class ToolDispatcher:
                 Draft202012Validator(tool.spec.input_schema).validate(call.arguments)
             arguments = tool.input_model.model_validate(call.arguments)
         except (ValidationError, JSONSchemaValidationError) as exc:
-            return self._invalid_arguments(started, call, type(exc).__name__)
+            return self._invalid_arguments(
+                started, call, type(exc).__name__, violations=schema_violations(exc)
+            )
         effective_timeout = self._effective_timeout(tool)
         try:
             async with asyncio.timeout(effective_timeout):
@@ -137,16 +139,30 @@ class ToolDispatcher:
         )
 
     def _invalid_arguments(
-        self, started: float, call: ToolCall, exception_class: str
+        self,
+        started: float,
+        call: ToolCall,
+        exception_class: str,
+        *,
+        violations: dict[str, str] | None = None,
     ) -> DispatchResult:
-        """Report a schema violation without echoing the validator's prose."""
+        """Report a schema violation, naming each failing field and its constraint.
+
+        The details never echo the submitted value: only the argument location the
+        model itself used and a constraint taken from the tool's declared schema.
+        """
         return self._failure(
             started,
             ToolFailure(
                 code=ToolErrorCode.INVALID_ARGUMENTS,
                 message="The arguments do not match the tool's required schema.",
                 recoverable=True,
-                suggestion="Send arguments that satisfy the tool's input schema.",
+                details=violations or {},
+                suggestion=(
+                    "Fix the fields listed in details and send the call again."
+                    if violations
+                    else "Send arguments that satisfy the tool's input schema."
+                ),
             ),
             exception_class=exception_class,
             extra_metadata={"tool": call.name},
@@ -232,6 +248,105 @@ class ToolDispatcher:
             ),
             elapsed_ms=cls._elapsed_ms(started),
         )
+
+
+# Pydantic error types whose message is built only from the schema constraint (a
+# length, pattern, enum or type), never from the submitted value. Anything else,
+# notably custom ``value_error`` text a tool author wrote, is reported generically.
+_CONSTRAINT_ONLY_ERRORS = frozenset(
+    {
+        "bool_parsing",
+        "bool_type",
+        "dict_type",
+        "enum",
+        "extra_forbidden",
+        "float_parsing",
+        "float_type",
+        "greater_than",
+        "greater_than_equal",
+        "int_from_float",
+        "int_parsing",
+        "int_type",
+        "less_than",
+        "less_than_equal",
+        "list_type",
+        "literal_error",
+        "missing",
+        "model_type",
+        "multiple_of",
+        "string_pattern_mismatch",
+        "string_too_long",
+        "string_too_short",
+        "string_type",
+        "too_long",
+        "too_short",
+    }
+)
+_MAX_VIOLATIONS = 5
+_MAX_DETAIL_CHARS = 200
+_GENERIC_VIOLATION = "does not satisfy the input schema"
+
+
+def schema_violations(exc: ValidationError | JSONSchemaValidationError) -> dict[str, str]:
+    """Map a schema failure to ``{argument location: violated constraint}``.
+
+    A bare "does not match the schema" left DeepSeek resending one over-long
+    ``rationale`` twenty times until the step budget ran out; naming the field and
+    the limit is what makes the error recoverable.
+    """
+    if isinstance(exc, ValidationError):
+        violations: dict[str, str] = {}
+        for error in exc.errors(include_url=False, include_input=False):
+            message = error["msg"] if error["type"] in _CONSTRAINT_ONLY_ERRORS else None
+            violations.setdefault(_location(error["loc"]), _bounded(message))
+            if len(violations) == _MAX_VIOLATIONS:
+                break
+        return violations
+    return {_location(tuple(exc.absolute_path)): _bounded(_json_schema_constraint(exc))}
+
+
+def _location(parts: tuple[Any, ...]) -> str:
+    rendered = ""
+    for part in parts:
+        rendered += (
+            f"[{part}]" if isinstance(part, int) else (f".{part}" if rendered else str(part))
+        )
+    return (rendered or "arguments")[:100]
+
+
+def _bounded(message: str | None) -> str:
+    return (message or _GENERIC_VIOLATION)[:_MAX_DETAIL_CHARS]
+
+
+def _json_schema_constraint(exc: JSONSchemaValidationError) -> str | None:
+    """Describe a JSON Schema failure from the schema keyword, not from ``exc.message``.
+
+    ``jsonschema`` messages quote the offending instance, so they are not used.
+    """
+    keyword, expected = exc.validator, exc.validator_value
+    simple = {
+        "maxLength": "must have at most {} characters",
+        "minLength": "must have at least {} characters",
+        "maximum": "must be at most {}",
+        "minimum": "must be at least {}",
+        "maxItems": "must have at most {} items",
+        "minItems": "must have at least {} items",
+        "pattern": "must match pattern {}",
+        "type": "must be of type {}",
+        "enum": "must be one of {}",
+        "const": "must equal {}",
+    }
+    if keyword in simple:
+        return simple[str(keyword)].format(expected)
+    instance = exc.instance if isinstance(exc.instance, dict) else {}
+    if keyword == "required" and isinstance(expected, list):
+        missing = [name for name in expected if name not in instance]
+        return "missing required field(s): " + ", ".join(map(str, missing))
+    if keyword == "additionalProperties" and expected is False:
+        declared = exc.schema.get("properties", {}) if isinstance(exc.schema, dict) else {}
+        extra = sorted(str(name) for name in instance if name not in declared)
+        return "unexpected field(s): " + ", ".join(extra)
+    return None
 
 
 def _declared_details(call: ToolCall) -> dict[str, str]:
