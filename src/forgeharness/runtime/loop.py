@@ -67,6 +67,14 @@ from forgeharness.tools.dispatcher import DispatchResult, ToolDispatcher
 from forgeharness.tools.policy import PolicyDecisionType, ToolPolicy
 from forgeharness.tools.registry import ToolRegistry
 
+#: The execution contract every tool-using request carries. It states only rules the
+#: runtime enforces, and names no tool or task, so it cannot steer a decision.
+PROTOCOL_NOTICE = (
+    "Harness protocol: send at most one tool call per response, then wait for its "
+    "result before choosing the next step. A response containing several tool calls "
+    "is rejected and none of them runs."
+)
+
 
 class AgentRuntime:
     """Execute validated model decisions under deterministic Harness controls."""
@@ -93,6 +101,7 @@ class AgentRuntime:
         todos: TodoBoard | None = None,
         max_todo_rejections: int = 3,
         message_spill: bool = False,
+        protocol_notice: bool = True,
     ) -> None:
         if execution_backend is not None and any(
             store is not None for store in (checkpoint_store, approval_ledger, invocation_journal)
@@ -122,6 +131,11 @@ class AgentRuntime:
         # long-horizon run -- exactly the case where the objective must not be
         # eligible for compaction.
         self._todos = todos
+        # The one-call-per-step rule is enforced by the harness, so the harness also
+        # states it. ``parallel_tool_calls: false`` is only a request parameter, and
+        # some providers (DeepSeek among them) ignore it; a model that is never told
+        # the rule can only learn it by having a whole response rejected.
+        self._protocol_notice = protocol_notice
         self._max_todo_rejections = max_todo_rejections
         self._todo_rejections = 0
         self._context_assembler = context_assembler or ContextAssembler(
@@ -1121,13 +1135,19 @@ class AgentRuntime:
         )
 
     def _pinned_messages(self) -> tuple[Message, ...]:
-        """Render the current todo board as the block pinned into every request."""
-        if self._todos is None:
-            return ()
-        rendered = todo_pinned_message(self._todos.snapshot())
-        if rendered is None:
-            return ()
-        return (Message(role=MessageRole.SYSTEM, content=rendered),)
+        """Harness-owned blocks pinned into every request: the protocol, then the board.
+
+        Pinned blocks are part of each traced request but never of the transcript,
+        so they cannot drift, be summarized away, or change a resumed history.
+        """
+        pinned: list[Message] = []
+        if self._protocol_notice and self._registry.specs():
+            pinned.append(Message(role=MessageRole.SYSTEM, content=PROTOCOL_NOTICE))
+        if self._todos is not None:
+            rendered = todo_pinned_message(self._todos.snapshot())
+            if rendered is not None:
+                pinned.append(Message(role=MessageRole.SYSTEM, content=rendered))
+        return tuple(pinned)
 
     def _open_todos(self) -> TodoSnapshot | None:
         """Return the snapshot blocking a finish, or ``None`` when the board is clear."""

@@ -22,6 +22,12 @@ All notable changes to ForgeHarness are documented here. The format follows
   no-follow file backend rejects, so every file tool failed and a first DeepSeek
   baseline (ReAct 12/36, Plan-Execute 5/36) measured a broken environment. The root is
   now created at its real path; Linux CI could not observe the failure.
+- `forge eval-agent --keep-all-failures` also writes Bad Case traces for plain
+  model-quality failures, for analysing a new model.
+- Invalid tool arguments now report `{argument location: violated constraint}` without
+  echoing the submitted value (ADR 047); `OBSERVATION_CONTRACT_VERSION` is 2.
+- `AgentRuntime` pins a harness protocol block stating the one-call-per-step rule into
+  every tool request, outside the transcript (ADR 048); `protocol_notice=False` opts out.
 
 ## 0.13.0 engineering candidate (qualification recorded separately; not published)
 

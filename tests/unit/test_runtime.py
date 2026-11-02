@@ -19,7 +19,7 @@ from forgeharness.domain.models import (
 from forgeharness.models.scripted import ScriptedModel
 from forgeharness.observability.trace import InMemoryTrace
 from forgeharness.runtime.budget import RunBudget
-from forgeharness.runtime.loop import AgentRuntime
+from forgeharness.runtime.loop import PROTOCOL_NOTICE, AgentRuntime
 from forgeharness.runtime.verification import (
     ToolEvidence,
     VerificationRequest,
@@ -424,9 +424,11 @@ async def test_runtime_compacts_history_to_the_context_window(tmp_path: Path) ->
     assert len(result.messages) == 8
     assert len(model.requests[-1].messages) < len(result.messages)
     sent = model.requests[-1].messages
-    assert sent[0].role == MessageRole.SYSTEM
-    assert sent[0].content is not None
-    assert sent[0].content.startswith("[compacted context:")
+    # The harness protocol block is pinned first; the folded history follows it.
+    assert sent[0].content == PROTOCOL_NOTICE
+    assert sent[1].role == MessageRole.SYSTEM
+    assert sent[1].content is not None
+    assert sent[1].content.startswith("[compacted context:")
     assert sent[-1] == result.messages[-2]
 
 
@@ -561,3 +563,39 @@ async def test_runtime_fails_the_run_when_verifier_raises(tmp_path: Path) -> Non
     assert result.error is not None
     assert result.error.startswith("verification failed: RuntimeError: verifier is broken")
     assert "verification.failed" in [event.type for event in trace.events]
+
+
+async def test_tool_requests_carry_the_protocol_notice_outside_the_transcript(
+    tmp_path: Path,
+) -> None:
+    """The one-call rule is stated in every tool request but never stored as history."""
+    model = ScriptedModel(
+        [
+            ModelResult(
+                action=ToolAction(call=ToolCall(id="c1", name="echo", arguments={"text": "a"}))
+            ),
+            ModelResult(action=FinalAction(content="done")),
+        ]
+    )
+    result = await build_runtime(model, InMemoryTrace("task-1")).run(
+        task_id="task-1", task="echo once", workspace=tmp_path
+    )
+    assert result.status == RunStatus.SUCCEEDED
+    assert all(request.messages[0].content == PROTOCOL_NOTICE for request in model.requests)
+    assert all(message.content != PROTOCOL_NOTICE for message in result.messages)
+
+
+async def test_protocol_notice_can_be_disabled(tmp_path: Path) -> None:
+    model = ScriptedModel([ModelResult(action=FinalAction(content="done"))])
+    registry = ToolRegistry()
+    registry.register(EchoTool())
+    runtime = AgentRuntime(
+        model=model,
+        registry=registry,
+        dispatcher=ToolDispatcher(registry),
+        policy=RiskBasedPolicy(),
+        trace=InMemoryTrace("task-1"),
+        protocol_notice=False,
+    )
+    await runtime.run(task_id="task-1", task="answer", workspace=tmp_path)
+    assert all(message.content != PROTOCOL_NOTICE for message in model.requests[0].messages)
