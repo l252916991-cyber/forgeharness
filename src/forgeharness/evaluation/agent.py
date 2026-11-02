@@ -505,6 +505,9 @@ class AgentEvaluationReport(FrozenModel):
     # model at a different temperature or output ceiling is a different experiment.
     # Named `model_parameters` because pydantic reserves `model_config`.
     model_parameters: dict[str, Any] = Field(default_factory=dict)
+    # Runtime switches that change what the model sees; part of the experiment's
+    # identity, so an ablation can never be mistaken for the default configuration.
+    protocol_notice: bool = True
     split: Literal["dev", "holdout"]
     # Experiment identity. See the version constants for why these are recorded.
     observation_contract_version: int = OBSERVATION_CONTRACT_VERSION
@@ -764,6 +767,7 @@ def _build_runtime(
     *,
     profile: Profile = Profile.KEYLESS,
     model_factory: ModelFactory | None = None,
+    protocol_notice: bool = True,
 ) -> AgentRuntime | PlanExecuteRuntime:
     """Compose one arm for one case under the requested profile."""
     # One board instance per arm: the tool writes it and the runtime reads it, and two
@@ -794,6 +798,7 @@ def _build_runtime(
         trace=trace,
         budget=budget,
         todos=todos if "write_todos" in case.tools else None,
+        protocol_notice=protocol_notice,
     )
     if strategy is Strategy.REACT:
         return executor
@@ -1021,6 +1026,7 @@ async def run_case(
     *,
     profile: Profile = Profile.KEYLESS,
     model_factory: ModelFactory | None = None,
+    protocol_notice: bool = True,
 ) -> tuple[ObservedRun, CaseJudgement, tuple[ContractCheck, ...], tuple[TraceEvent, ...]]:
     """Execute one case in an isolated workspace and judge the result.
 
@@ -1033,7 +1039,14 @@ async def run_case(
         await asyncio.to_thread(target.parent.mkdir, parents=True, exist_ok=True)
         await asyncio.to_thread(target.write_text, content, encoding="utf-8")
     trace = InMemoryTrace(case.id)
-    runtime = _build_runtime(case, strategy, trace, profile=profile, model_factory=model_factory)
+    runtime = _build_runtime(
+        case,
+        strategy,
+        trace,
+        profile=profile,
+        model_factory=model_factory,
+        protocol_notice=protocol_notice,
+    )
     live = model_factory is not None
     # A case's step ceiling describes the *executor phase*. Planning is a fixed
     # structural cost of the strategy, so the planner decision is offset in every
@@ -1240,6 +1253,7 @@ async def _run_one_case(
     samples: int,
     work_root: Path,
     model_factory: ModelFactory | None,
+    protocol_notice: bool = True,
 ) -> tuple[CaseOutcome, tuple[ContractCheck, ...], CaseFailureEvidence | None]:
     """Run one case ``samples`` times and reduce the samples to one outcome.
 
@@ -1260,7 +1274,12 @@ async def _run_one_case(
         # neither arms nor repeats may share a fixture.
         workspace = work_root / f"{strategy.value}-{case.id}-{sample}"
         observed, judgement, sample_checks, events = await run_case(
-            case, strategy, workspace, profile=profile, model_factory=model_factory
+            case,
+            strategy,
+            workspace,
+            profile=profile,
+            model_factory=model_factory,
+            protocol_notice=protocol_notice,
         )
         samples_seen.append((observed, judgement))
         checks.extend(sample_checks)
@@ -1537,8 +1556,13 @@ async def run_agent_evaluation(
     only_cases: tuple[str, ...] = (),
     model_config: dict[str, Any] | None = None,
     keep_model_quality_failures: bool = False,
+    protocol_notice: bool = True,
 ) -> AgentEvaluationReport:
     """Run one split across the requested runtimes and persist one JSON report.
+
+    ``protocol_notice=False`` removes the runtime's pinned one-call-per-step block
+    (ADR 048) so its contribution can be measured by ablation; the setting is
+    recorded in the report.
 
     ``keep_model_quality_failures`` also persists failures classified as plain model
     quality. They are skipped by default to keep the Bad Case list actionable, but a
@@ -1617,6 +1641,7 @@ async def run_agent_evaluation(
                     samples=samples,
                     work_root=work_root,
                     model_factory=model_factory,
+                    protocol_notice=protocol_notice,
                 )
                 collected.append((outcome, strategy, checks))
                 # A scorer probe is *designed* to fail: it validates the evaluator
@@ -1727,6 +1752,7 @@ async def run_agent_evaluation(
         budgets=budget_record,
         samples_per_case=samples,
         model_parameters=model_config or {},
+        protocol_notice=protocol_notice,
         constraint_effective=constraint_effective,
         constrained_run_share=constrained_run_share,
         complete_split=complete_split,
@@ -1858,6 +1884,7 @@ async def run_live_agent_evaluation(
     limit: int | None = None,
     only_cases: tuple[str, ...] = (),
     keep_model_quality_failures: bool = False,
+    protocol_notice: bool = True,
 ) -> AgentEvaluationReport:
     """Run a live profile, owning the shared HTTP client for its whole duration.
 
@@ -1884,6 +1911,7 @@ async def run_live_agent_evaluation(
             limit=limit,
             only_cases=only_cases,
             keep_model_quality_failures=keep_model_quality_failures,
+            protocol_notice=protocol_notice,
         )
 
 

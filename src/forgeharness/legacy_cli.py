@@ -182,6 +182,14 @@ def evaluate_agent(
             "marked incomplete; use them to reproduce one failure cheaply."
         ),
     ),
+    protocol_notice: bool = typer.Option(
+        True,
+        "--protocol-notice/--no-protocol-notice",
+        help=(
+            "Pin the runtime's one-call-per-step block into each tool request (ADR 048). "
+            "Turn it off only to measure its effect; the report records the setting."
+        ),
+    ),
     keep_all_failures: bool = typer.Option(
         False,
         "--keep-all-failures",
@@ -238,6 +246,7 @@ def evaluate_agent(
                 project_root=Path.cwd(),
                 split=selected_split,
                 strategies=strategies,
+                protocol_notice=protocol_notice,
             )
         )
     else:
@@ -256,9 +265,12 @@ def evaluate_agent(
                 limit=limit,
                 only_cases=_case_ids(only_cases),
                 keep_model_quality_failures=keep_all_failures,
+                protocol_notice=protocol_notice,
             )
         )
     typer.echo(f"split={report.split} profile={report.profile.value} model={report.model_name}")
+    if not report.protocol_notice:
+        typer.echo("protocol_notice=false (ablation)")
     typer.echo(f"samples_per_case={report.samples_per_case}")
     typer.echo(f"benchmark_cases={report.benchmark_cases}")
     typer.echo(f"scorer_probes={report.scorer_probes}")

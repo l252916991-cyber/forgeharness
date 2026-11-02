@@ -1240,3 +1240,36 @@ async def test_keep_model_quality_failures_persists_their_traces(tmp_path: Path)
     kept = await run(tmp_path / "kept", keep=True)
     assert [case["failure_class"] for case in kept] == ["model_quality"]
     assert (tmp_path / "kept" / "bad-cases" / str(kept[0]["trace_path"])).is_file()
+
+
+@pytest.mark.parametrize("notice", [True, False])
+async def test_protocol_notice_ablation_is_applied_and_recorded(
+    tmp_path: Path, notice: bool
+) -> None:
+    """The ablation switch must change what the model sees and say so in the report."""
+    from forgeharness.runtime.loop import PROTOCOL_NOTICE
+
+    seen: list[ModelRequest] = []
+
+    class _Recording:
+        async def decide(self, request: ModelRequest) -> ModelResult:
+            seen.append(request)
+            return ModelResult(action=FinalAction(content="done"), model_name="recording")
+
+    report = await run_agent_evaluation(
+        manifest_path=MANIFEST_PATH,
+        output_path=tmp_path / "report.json",
+        project_root=PROJECT_ROOT,
+        split="dev",
+        profile=Profile.NATURAL,
+        model_factory=_Recording,
+        samples=2,
+        strategies=(Strategy.REACT,),
+        only_cases=("single-echo-ask",),
+        protocol_notice=notice,
+    )
+    pinned = [m for request in seen for m in request.messages if m.content == PROTOCOL_NOTICE]
+    assert bool(pinned) is notice
+    assert report.protocol_notice is notice
+    written = json.loads((tmp_path / "report.json").read_text())
+    assert written["protocol_notice"] is notice
