@@ -17,6 +17,11 @@ All notable changes to ForgeHarness are documented here. The format follows
   reports.
 - `OpenAICompatibleConfig.thinking_control` expresses disabled thinking as DeepSeek's
   top-level `thinking` object; live evaluation selects it for `*.deepseek.com`.
+- Fix: the Agent Benchmark created its scratch workspaces with `tempfile.mkdtemp`
+  unresolved. On macOS that path crosses the `/var -> /private/var` link, which the
+  no-follow file backend rejects, so every file tool failed and a first DeepSeek
+  baseline (ReAct 12/36, Plan-Execute 5/36) measured a broken environment. The root is
+  now created at its real path; Linux CI could not observe the failure.
 
 ## 0.13.0 engineering candidate (qualification recorded separately; not published)
 

@@ -1173,3 +1173,45 @@ async def test_live_report_on_disk_does_not_contain_the_api_key(
     written = output.read_text(encoding="utf-8")
     assert secret not in written
     assert json.loads(written)["model_parameters"]["thinking_control"] == "thinking_object"
+
+
+async def test_benchmark_workspaces_never_sit_behind_a_symlinked_ancestor(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Regression: on macOS ``tempfile.mkdtemp`` returns a path under the ``/var`` link.
+
+    The no-follow file backend rejects any symlink on the workspace path, so every
+    file tool failed for every case and the live baseline scored a model on a broken
+    environment. The scratch root must be created at its real path.
+    """
+    import tempfile as tempfile_module
+
+    import forgeharness.evaluation.agent as agent_module
+
+    real = tmp_path / "private-tmp"
+    real.mkdir()
+    (tmp_path / "tmp-link").symlink_to(real, target_is_directory=True)
+    created = iter(("run-1",))
+
+    def linked_mkdtemp(prefix: str = "") -> str:
+        name = next(created)
+        (real / name).mkdir()
+        return str(tmp_path / "tmp-link" / name)
+
+    seen: list[Path] = []
+
+    async def stop_after_first_case(*args: object, **kwargs: object) -> None:
+        seen.append(kwargs["work_root"])  # type: ignore[arg-type]
+        raise RuntimeError("captured")
+
+    monkeypatch.setattr(tempfile_module, "mkdtemp", linked_mkdtemp)
+    monkeypatch.setattr(agent_module, "_run_one_case", stop_after_first_case)
+    with pytest.raises(RuntimeError, match="captured"):
+        await run_agent_evaluation(
+            manifest_path=MANIFEST_PATH,
+            output_path=tmp_path / "report.json",
+            project_root=PROJECT_ROOT,
+            split="dev",
+            limit=1,
+        )
+    assert seen == [real / "run-1"]

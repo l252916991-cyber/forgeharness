@@ -22,6 +22,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import json
+import os
 import shutil
 import tempfile
 from collections.abc import Callable
@@ -1590,7 +1591,7 @@ async def run_agent_evaluation(
         cases = tuple(case for case in cases if case.id in set(only_cases))
         if not cases:
             raise ValueError("only_cases selected no runnable case")
-    work_root = Path(await asyncio.to_thread(tempfile.mkdtemp, prefix="forgeharness-agent-"))
+    work_root = await asyncio.to_thread(_canonical_work_root)
     collected: list[tuple[CaseOutcome, Strategy, tuple[ContractCheck, ...]]] = []
     bad_cases: list[BadCase] = []
     # Trace evidence is written against the revision the run is bound to, so a
@@ -1879,6 +1880,17 @@ def _is_loopback_url(base_url: str) -> bool:
     from urllib.parse import urlparse
 
     return urlparse(base_url).hostname in {"127.0.0.1", "localhost", "::1"}
+
+
+def _canonical_work_root() -> Path:
+    """Create the per-run scratch root at its real, symlink-free path.
+
+    File tools refuse a workspace whose path crosses any symlink, ancestors included.
+    macOS puts temporary directories under ``/var``, itself a link to ``/private/var``,
+    so an unresolved root made every file tool fail there while Linux CI, whose
+    ``/tmp`` is a real directory, never noticed.
+    """
+    return Path(os.path.realpath(tempfile.mkdtemp(prefix="forgeharness-agent-")))
 
 
 async def _revision(project_root: Path) -> str:
