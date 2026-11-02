@@ -1,26 +1,31 @@
 # Quickstart
 
 Ten lines to a governed run, no API key, no Docker, no config file. This page
-describes the 0.12.0 candidate on Python 3.12. Its installed-wheel qualification is
-recorded in the [candidate report](../reports/saas/20261030-hosted/REPORT.md);
-historical 0.11.0 evidence does not certify these additions.
+describes ForgeHarness 0.13.0 (SDK API v1) on Python 3.12.
 
 ## 1. Install
 
-For this development candidate, install the exact wheel identified in its
-qualification report. The package-name form below applies after publication;
-this task has not published a distribution.
+The package is not published to PyPI yet. Install from source with
+[uv](https://docs.astral.sh/uv/):
 
 ```bash
-pip install "forgeharness[cli]"   # core SDK + the interactive `forge` CLI
-# pip install forgeharness        # core only: SDK is usable, `forge` prints help
+git clone https://github.com/l252916991-cyber/forgeharness.git
+cd forgeharness
+uv sync --extra dev --extra cli --frozen
+```
+
+To use it from another project, build a wheel and install that file:
+
+```bash
+uv build                                       # writes dist/forgeharness-0.13.0-*.whl
+pip install "dist/forgeharness-0.13.0-py3-none-any.whl[cli]"
 ```
 
 Verify:
 
 ```bash
-forge --version
-python -c "import forgeharness; print(forgeharness.__version__)"
+uv run --no-sync forge --help
+uv run --no-sync python -c "import forgeharness; print(forgeharness.__version__)"  # 0.13.0
 ```
 
 ## 2. A run in ten lines

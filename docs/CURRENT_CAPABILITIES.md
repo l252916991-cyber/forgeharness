@@ -1,32 +1,17 @@
 # 当前能力、证据与宿主兼容矩阵
 
-2026-11-01；0.13.0 新增[通用邀请制内部 Alpha 控制面](guides/CLOUD_CONTROL_PLANE.md)：
-PG 账户及组织/工作空间/部署授权、受理及发送前重验、异步 HTTP、独立串行 worker、
-持久审批批准/拒绝和基础浏览器工作台。工程资格只读取[本轮冻结报告](../reports/saas/20261101-control-plane/REPORT.md)。
-生产 IdP/MFA、人民币月额度、多 worker 容量、公网部署、备份/SLO 与真实业务仍待独立验收。
+适用版本：0.13.0（2026-11-02）。本页列出每项能力的实现位置、已有验证证据，以及尚未证明的范围。
+各轮候选的完整资格以对应报告为准；下文「版本历史」保留每轮的原始说明。
 
-0.12.0 历史候选已实现[PG 托管串行执行](guides/CLOUD_HOSTED_EXECUTION.md)，原工程资格读取[历史报告](../reports/saas/20261030-hosted/REPORT.md)。
+当前版本概况：
 
-2026-10-29；最近已验收冻结 0.11.0 / API v1，新增独立 [PG 状态首切片](guides/CLOUD_STATE.md)。
-资格见 `reports/saas/20261029-state/REPORT.md`；SDK 接线、通用平台控制面及生产运营尚未完成。
-
-2026-10-28；历史源码候选 0.10.0 / API v1，新增邀请制本地工作台与当前账户授权复核；
-执行和资格见 `reports/saas/20261028-batch1/REPORT.md`，使用见[工作台指南](guides/COMMERCE_WORKBENCH.md)。
-PG SDK 后端、集群调度、SaaS 收费和真实业务仍未验收。下述证据保留各自版本身份。
-
-2026-10-27；历史 SDK 源码候选 0.9.2 / API v1。新增电商参考应用通用人工转接、
-本地备份恢复与运维边界，执行状态见
-`reports/productization-20261027/REPORT.md`；真实宿主与业务资格仍未验收。0.9.1 的有界模型并行接入见
-[并行说明](guides/PARALLEL_EXECUTION.md)，其历史候选资格与性能证据见
-`reports/parallel-execution-20261027/REPORT.md`。0.8.6 固定专家交付的历史证据保留在
-`reports/multi-agent-20261026/REPORT.md`，接入见 [协作说明](guides/COLLABORATION.md)。
-下述 0.8.5 与 0.8.3 数字保留各自历史身份，不认证新候选。
-
-0.8.5 显式图能力沿用 0.8.3，新增每次 kernel 模型调用的工具目录控制、实验/演练工具、
-文档与依赖安全刷新，并单独标版本防止不同 wheel 混用。这里区分实现、已有候选证明和本轮新增验证。
-历史来源为 [0.8.3 候选](../reports/release-0.8.3-r1/verification/summary.json)：
-源码及干净副本各 1178 tests，92 工程门禁。该数字不直接覆盖本轮新工具和文档。
-本轮最终结果读取 [执行报告](../reports/improvement-20261026/REPORT.md) 与其中的新候选摘要。
+- **执行内核**：ReAct 与 Plan-Execute 运行时、精确审批、预算、调用日志与对账、checkpoint 恢复、哈希链 trace；
+  每个带工具的请求都会写明「一步一个工具调用」（[ADR 048](adr/048-pinned-protocol-notice.md)），参数格式错误会指出字段和约束（[ADR 047](adr/047-field-level-schema-feedback.md)）。
+- **编排与多 Agent**：R2 持久图、固定专家协作、有界模型并行（见下表）。
+- **托管执行**：PostgreSQL 状态层、托管串行执行，以及邀请制内部 Alpha 控制面（[报告](../reports/saas/20261101-control-plane/REPORT.md)）。
+  生产 IdP/MFA、人民币额度、多 worker 容量、公网部署、备份/SLO 与真实业务仍未验收。
+- **真实模型评测**：DeepSeek `deepseek-flash` 的基线、失败分析与改进前后对比见 [实测报告](../reports/deepseek-flash/REPORT.md)；
+  评测数据是合成的，不代表真实业务质量。
 
 | 能力 | 当前实现 | 已有验证定位 | 未证明的范围 |
 |---|---|---|---|
@@ -66,3 +51,33 @@ one-shot 路径；R2 后续实现不应据此重复开发。`docs/guides/CONFORM
 
 工程边界仍为 Python 3.12、单机 POSIX/SQLite。现有 package 元数据允许 3.13 不等于本轮
 完整验收该版本。框架优势、业务合格、生产 SLO、专业法律正确性继续不从工程门禁推出。
+
+## 版本历史
+
+2026-11-01；0.13.0 新增[通用邀请制内部 Alpha 控制面](guides/CLOUD_CONTROL_PLANE.md)：
+PG 账户及组织/工作空间/部署授权、受理及发送前重验、异步 HTTP、独立串行 worker、
+持久审批批准/拒绝和基础浏览器工作台。工程资格只读取[本轮冻结报告](../reports/saas/20261101-control-plane/REPORT.md)。
+生产 IdP/MFA、人民币月额度、多 worker 容量、公网部署、备份/SLO 与真实业务仍待独立验收。
+
+0.12.0 历史候选已实现[PG 托管串行执行](guides/CLOUD_HOSTED_EXECUTION.md)，原工程资格读取[历史报告](../reports/saas/20261030-hosted/REPORT.md)。
+
+2026-10-29；最近已验收冻结 0.11.0 / API v1，新增独立 [PG 状态首切片](guides/CLOUD_STATE.md)。
+资格见 `reports/saas/20261029-state/REPORT.md`；SDK 接线、通用平台控制面及生产运营尚未完成。
+
+2026-10-28；历史源码候选 0.10.0 / API v1，新增邀请制本地工作台与当前账户授权复核；
+执行和资格见 `reports/saas/20261028-batch1/REPORT.md`，使用见[工作台指南](guides/COMMERCE_WORKBENCH.md)。
+PG SDK 后端、集群调度、SaaS 收费和真实业务仍未验收。下述证据保留各自版本身份。
+
+2026-10-27；历史 SDK 源码候选 0.9.2 / API v1。新增电商参考应用通用人工转接、
+本地备份恢复与运维边界，执行状态见
+`reports/productization-20261027/REPORT.md`；真实宿主与业务资格仍未验收。0.9.1 的有界模型并行接入见
+[并行说明](guides/PARALLEL_EXECUTION.md)，其历史候选资格与性能证据见
+`reports/parallel-execution-20261027/REPORT.md`。0.8.6 固定专家交付的历史证据保留在
+`reports/multi-agent-20261026/REPORT.md`，接入见 [协作说明](guides/COLLABORATION.md)。
+下述 0.8.5 与 0.8.3 数字保留各自历史身份，不认证新候选。
+
+0.8.5 显式图能力沿用 0.8.3，新增每次 kernel 模型调用的工具目录控制、实验/演练工具、
+文档与依赖安全刷新，并单独标版本防止不同 wheel 混用。这里区分实现、已有候选证明和本轮新增验证。
+历史来源为 [0.8.3 候选](../reports/release-0.8.3-r1/verification/summary.json)：
+源码及干净副本各 1178 tests，92 工程门禁。该数字不直接覆盖本轮新工具和文档。
+本轮最终结果读取 [执行报告](../reports/improvement-20261026/REPORT.md) 与其中的新候选摘要。

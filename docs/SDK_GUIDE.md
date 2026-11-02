@@ -1,12 +1,11 @@
 # ForgeHarness SDK v1 使用说明
 
-当前 0.8.6 的新增入口见 [固定专家协作](guides/COLLABORATION.md)；工程资格以
-`reports/multi-agent-20261026/REPORT.md` 的独立候选为准。下文 0.6.0 接口指南保留历史版本定位。
+适用版本：0.13.0，SDK API v1；Python 3.12。SDK 的本地持久状态是单机 POSIX + SQLite；
+PostgreSQL 托管执行见 [托管串行执行](guides/CLOUD_HOSTED_EXECUTION.md) 和 [控制面](guides/CLOUD_CONTROL_PLANE.md)。
 
-适用源码：0.6.0（原 0.5.0 + Unreleased 框架化改动已全部并入），SDK API v1；Python 3.12；当前持久配置为单机 POSIX + SQLite。
-历史 0.3.0/0.4.0/0.5.0 报告仅覆盖各自冻结源码；当前源码是否通过，以本轮独立验证报告为准。
-冻结与验证命令见 [当前候选验证](archive/BASELINE_VERIFICATION.md)。
-工作流、资料版本、人工业务审核和引用模块的接口、示例与限制见 [BUSINESS_MODULES](guides/BUSINESS_MODULES.md)。
+相关专题：工作流、资料版本、人工业务审核和引用模块见 [BUSINESS_MODULES](guides/BUSINESS_MODULES.md)；
+固定专家协作见 [COLLABORATION](guides/COLLABORATION.md)；有界模型并行见 [PARALLEL_EXECUTION](guides/PARALLEL_EXECUTION.md)；
+持久会话见 [SESSIONS](guides/SESSIONS.md)。各能力的验证证据见 [当前能力矩阵](CURRENT_CAPABILITIES.md)。
 
 ## 安装与运行
 
@@ -30,15 +29,14 @@ uv pip install --python /tmp/forge-consumer/bin/python "$WHEEL"
 /tmp/forge-consumer/bin/python examples/business_modules_demo.py
 ```
 
-候选 wheel 的路径和摘要必须取自相同源码身份的验证报告。当前候选构建产物由
-`reports/framework-next/verification/runs/<attempt>/` 记录；目录存在不代表验证通过。
-`dist/` 与旧 modular/session/business 目录中的产物不能自动替代本轮候选。
+`$WHEEL` 指 `uv build` 生成的 `dist/forgeharness-<版本>-py3-none-any.whl`。正式发行时，wheel 必须取自
+通过完整门禁的同一源码版本，`release.yml` 会冻结源码、在干净副本上复验后再发布同一份构建产物。
 
 示例在临时目录演示两个应用，使用确定性模型，无需模型密钥。Coding 示例的
 固定 `true` 命令仅验证执行链路；真实项目应配置自己的测试命令。文件工具约束路径，但固定测试命令不是 OS 沙箱；
 运行不可信仓库或插件代码前，宿主必须提供系统级沙箱。当前 Coding 参考应用只覆盖
 操作者信任的本地仓库/测试代码，不声称对恶意本地进程或并发文件替换提供隔离。完整电商业务
-继续按 `ECOMMERCE_AGENT_PLATFORM_PLAN.md` 开发。
+平台计划见 [ECOMMERCE_AGENT_PLATFORM_PLAN](archive/ECOMMERCE_AGENT_PLATFORM_PLAN.md)，目前未开发。
 
 ## 接入步骤
 
