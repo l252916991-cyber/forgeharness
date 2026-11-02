@@ -182,6 +182,14 @@ def evaluate_agent(
             "marked incomplete; use them to reproduce one failure cheaply."
         ),
     ),
+    keep_all_failures: bool = typer.Option(
+        False,
+        "--keep-all-failures",
+        help=(
+            "Also write Bad Case traces for failures classified as plain model quality; "
+            "use it when analysing a new model's failures."
+        ),
+    ),
 ) -> None:
     """Run the Agent Benchmark for one split and profile, writing a JSON report.
 
@@ -247,6 +255,7 @@ def evaluate_agent(
                 strategies=strategies,
                 limit=limit,
                 only_cases=_case_ids(only_cases),
+                keep_model_quality_failures=keep_all_failures,
             )
         )
     typer.echo(f"split={report.split} profile={report.profile.value} model={report.model_name}")

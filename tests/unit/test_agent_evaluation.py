@@ -1215,3 +1215,28 @@ async def test_benchmark_workspaces_never_sit_behind_a_symlinked_ancestor(
             limit=1,
         )
     assert seen == [real / "run-1"]
+
+
+async def test_keep_model_quality_failures_persists_their_traces(tmp_path: Path) -> None:
+    """Plain model-quality failures are skipped by default but kept on request."""
+
+    async def run(directory: Path, keep: bool) -> list[dict[str, object]]:
+        await run_agent_evaluation(
+            manifest_path=MANIFEST_PATH,
+            output_path=directory / "report.json",
+            project_root=PROJECT_ROOT,
+            split="dev",
+            profile=Profile.EQUAL,
+            model_factory=_FinalOnlyModel,
+            samples=2,
+            strategies=(Strategy.REACT,),
+            only_cases=("multi-list-read-write",),
+            keep_model_quality_failures=keep,
+        )
+        root = directory / "bad-cases"
+        return [json.loads(p.read_text()) for p in sorted(root.glob("*.json"))]
+
+    assert await run(tmp_path / "default", keep=False) == []
+    kept = await run(tmp_path / "kept", keep=True)
+    assert [case["failure_class"] for case in kept] == ["model_quality"]
+    assert (tmp_path / "kept" / "bad-cases" / str(kept[0]["trace_path"])).is_file()

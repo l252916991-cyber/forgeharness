@@ -1385,6 +1385,7 @@ async def _capture_bad_case(
     revision: str,
     failure: CaseFailureEvidence,
     bad_case_root: Path,
+    keep_model_quality: bool = False,
 ) -> BadCase | None:
     """Persist one failing sample as a Bad Case bound to its trace evidence.
 
@@ -1424,7 +1425,8 @@ async def _capture_bad_case(
         )
     case_design_note = fixture_gap_note(tuple(case.workspace), list(failure.events))
     if (
-        failure_class is FailureClass.MODEL_QUALITY
+        not keep_model_quality
+        and failure_class is FailureClass.MODEL_QUALITY
         and harness_gap is None
         and case_design_note is None
     ):
@@ -1532,8 +1534,13 @@ async def run_agent_evaluation(
     limit: int | None = None,
     only_cases: tuple[str, ...] = (),
     model_config: dict[str, Any] | None = None,
+    keep_model_quality_failures: bool = False,
 ) -> AgentEvaluationReport:
     """Run one split across the requested runtimes and persist one JSON report.
+
+    ``keep_model_quality_failures`` also persists failures classified as plain model
+    quality. They are skipped by default to keep the Bad Case list actionable, but a
+    failure analysis of a new model needs their traces.
 
     ``KEYLESS`` validates the grading contract, the metric pipeline, and the
     wiring of both runtimes; it cannot compare strategies, because a scripted
@@ -1623,6 +1630,7 @@ async def run_agent_evaluation(
                         revision=revision,
                         failure=failure,
                         bad_case_root=output_path.parent / "bad-cases",
+                        keep_model_quality=keep_model_quality_failures,
                     )
                     # `None` means the failure needs no intervention, so no
                     # artifact is written for it.
@@ -1847,6 +1855,7 @@ async def run_live_agent_evaluation(
     strategies: tuple[Strategy, ...] = (Strategy.REACT, Strategy.PLAN_EXECUTE),
     limit: int | None = None,
     only_cases: tuple[str, ...] = (),
+    keep_model_quality_failures: bool = False,
 ) -> AgentEvaluationReport:
     """Run a live profile, owning the shared HTTP client for its whole duration.
 
@@ -1872,6 +1881,7 @@ async def run_live_agent_evaluation(
             samples=samples,
             limit=limit,
             only_cases=only_cases,
+            keep_model_quality_failures=keep_model_quality_failures,
         )
 
 
