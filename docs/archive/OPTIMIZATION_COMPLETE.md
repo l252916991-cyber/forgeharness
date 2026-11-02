@@ -286,7 +286,7 @@ Benchmark:     5,000 chunks 性能测试
 
 ### 1. 生成测试用例
 ```bash
-cd /Users/xiaoy/forgeharness
+cd ~/forgeharness
 python3 evals/test_cases.py
 ```
 **输出**: `evals/rag_test_cases.json`, `evals/agent_test_cases.json`

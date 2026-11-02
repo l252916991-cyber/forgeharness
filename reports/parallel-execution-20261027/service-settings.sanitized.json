@@ -12,7 +12,7 @@
         "server_aliases": [
           "localhost",
           "127.0.0.1",
-          "xiaoydeMac-mini.local",
+          "localhost",
           "10.0.147.184"
         ],
         "sse_keepalive_mode": "chunk",
@@ -28,9 +28,9 @@
       },
       "model": {
         "model_dirs": [
-          "/Users/xiaoy/.omlx/models"
+          "~/.omlx/models"
         ],
-        "model_dir": "/Users/xiaoy/.omlx/models",
+        "model_dir": "~/.omlx/models",
         "model_fallback": false,
         "hide_helper_models": false
       },
@@ -155,7 +155,7 @@
         "server_aliases": [
           "localhost",
           "127.0.0.1",
-          "xiaoydeMac-mini.local",
+          "localhost",
           "10.0.147.184"
         ],
         "sse_keepalive_mode": "chunk",
@@ -171,9 +171,9 @@
       },
       "model": {
         "model_dirs": [
-          "/Users/xiaoy/.omlx/models"
+          "~/.omlx/models"
         ],
-        "model_dir": "/Users/xiaoy/.omlx/models",
+        "model_dir": "~/.omlx/models",
         "model_fallback": false,
         "hide_helper_models": false
       },
@@ -298,7 +298,7 @@
         "server_aliases": [
           "localhost",
           "127.0.0.1",
-          "xiaoydeMac-mini.local",
+          "localhost",
           "10.0.147.184"
         ],
         "sse_keepalive_mode": "chunk",
@@ -314,9 +314,9 @@
       },
       "model": {
         "model_dirs": [
-          "/Users/xiaoy/.omlx/models"
+          "~/.omlx/models"
         ],
-        "model_dir": "/Users/xiaoy/.omlx/models",
+        "model_dir": "~/.omlx/models",
         "model_fallback": false,
         "hide_helper_models": false
       },

@@ -6,7 +6,7 @@
   "model_steps": 3,
   "executed_tool_calls": 1,
   "error": "model reused a prior tool call id",
-  "trace": "/Users/xiaoy/Documents/多agent协作/reports/request-preflight-2026-10-17/fixed-duplicate-id-probe-756cc5fe/state/aee57878bca6b3c81e90def8.3316348dbadfb7b11c7c2ea235949419e23f9fa898ad2c198f999617912a9925.jsonl",
+  "trace": "~/Documents/多agent协作/reports/request-preflight-2026-10-17/fixed-duplicate-id-probe-756cc5fe/state/aee57878bca6b3c81e90def8.3316348dbadfb7b11c7c2ea235949419e23f9fa898ad2c198f999617912a9925.jsonl",
   "previous_observation": "legacy-duplicate-id-observation.json",
   "regression": "tests/unit/test_commerce_readonly.py::test_repeated_model_call_id_finishes_failed_instead_of_leaving_running"
 }

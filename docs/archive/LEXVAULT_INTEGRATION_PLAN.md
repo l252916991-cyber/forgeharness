@@ -1,7 +1,7 @@
 # LexVault × ForgeHarness 改进计划
 
 > 状态：v0.1 草案（2026-10-18），**未执行、未提交**。
-> 范围：LexVault 0.3.0（`/Users/xiaoy/Documents/本地律所`）与 ForgeHarness 0.5.0（`/Users/xiaoy/Documents/多agent协作`）。
+> 范围：LexVault 0.3.0（`~/Documents/本地律所`）与 ForgeHarness 0.5.0（`~/Documents/多agent协作`）。
 > 定位：这不是“把 LexVault 换成 ForgeHarness”的迁移计划，而是“先证明值不值得换，再把确定有价值的部分吸收进来”的证据计划。
 > 2026-10-18 补充：如果目标是“把 ForgeHarness 做成承载律所/电商的框架”，本文件应降级为 F2 的 host 验证子计划；框架化路线见 [FRAMEWORK_STRATEGY.md](FRAMEWORK_STRATEGY.md)。
 

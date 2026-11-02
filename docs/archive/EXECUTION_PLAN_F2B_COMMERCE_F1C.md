@@ -113,7 +113,7 @@ uv run --locked mypy
 
 ### 真实 LexVault 数据验证
 
-在 `/Users/xiaoy/Documents/本地律所/data/law_review.db` 上做了一次只读导出与 4 题运行：
+在 `~/Documents/本地律所/data/law_review.db` 上做了一次只读导出与 4 题运行：
 
 - case `1`：14 页、5 份文档；`synthetic=false`。
 - 4 个只读问题全部 `succeeded`，每次 `usage.steps=1`。

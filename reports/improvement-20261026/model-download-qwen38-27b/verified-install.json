@@ -2,7 +2,7 @@
   "complete": true,
   "repository": "Jundot/Qwen3.8-27B-oQ4e-mtp",
   "revision": "b47cb89d5da40c67a334403330a826c7591fbc09",
-  "installed_directory": "/Users/xiaoy/.omlx/models/Qwen3.8-27B-oQ4e-mtp",
+  "installed_directory": "~/.omlx/models/Qwen3.8-27B-oQ4e-mtp",
   "files": [
     {
       "file": ".gitattributes",

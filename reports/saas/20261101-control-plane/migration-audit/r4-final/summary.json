@@ -40,16 +40,16 @@
   "logical_denial_and_physical_result_facts_present": true,
   "model": "deterministic in-process synthetic model; no model service calls",
   "module_paths": {
-    "forgeharness": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/__init__.py",
-    "forgeharness.cloud.calls": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/calls.py",
-    "forgeharness.cloud.evidence": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/evidence.py",
-    "forgeharness.cloud.execution": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/execution.py",
-    "forgeharness.cloud.execution_calls": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/execution_calls.py",
-    "forgeharness.cloud.execution_state": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/execution_state.py",
-    "forgeharness.cloud.hosted": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/hosted.py",
-    "forgeharness.cloud.provision": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/provision.py",
-    "forgeharness.cloud.runtime": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/runtime.py",
-    "forgeharness.cloud.store": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/store.py"
+    "forgeharness": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/__init__.py",
+    "forgeharness.cloud.calls": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/calls.py",
+    "forgeharness.cloud.evidence": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/evidence.py",
+    "forgeharness.cloud.execution": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/execution.py",
+    "forgeharness.cloud.execution_calls": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/execution_calls.py",
+    "forgeharness.cloud.execution_state": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/execution_state.py",
+    "forgeharness.cloud.hosted": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/hosted.py",
+    "forgeharness.cloud.provision": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/provision.py",
+    "forgeharness.cloud.runtime": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/runtime.py",
+    "forgeharness.cloud.store": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/store.py"
   },
   "network": "private PostgreSQL Unix socket only",
   "no_automatic_account_or_run_adoption": true,
@@ -92,6 +92,6 @@
   "server_stopped": true,
   "unknown_reservation_preserved_without_redispatch": true,
   "unknown_reserved_units_before": 9,
-  "wheel_path": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/runs/20261101T165326Z-e2129352/dist/forgeharness-0.13.0-py3-none-any.whl",
+  "wheel_path": "~/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/runs/20261101T165326Z-e2129352/dist/forgeharness-0.13.0-py3-none-any.whl",
   "wheel_sha256": "31017b4afde8c1c547bd62129d5019d054101cdc54f70f0990534ca1bdb434a7"
 }

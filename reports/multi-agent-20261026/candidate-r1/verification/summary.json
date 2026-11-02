@@ -135,7 +135,7 @@
         "--extra",
         "frameworks"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/sync.log"
     },
     "source/format": {
@@ -152,7 +152,7 @@
         "--extend-exclude",
         "reports"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/format.log"
     },
     "source/lint": {
@@ -168,7 +168,7 @@
         "--extend-exclude",
         "reports"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/lint.log"
     },
     "source/types": {
@@ -180,7 +180,7 @@
         "--no-sync",
         "mypy"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/types.log"
     },
     "source/framework-types": {
@@ -197,7 +197,7 @@
         "src/forgeharness/langchain_impl/coding_agent.py",
         "src/forgeharness/langchain_impl/rag_chain.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/framework-types.log"
     },
     "source/tests": {
@@ -210,10 +210,10 @@
         "pytest",
         "--cov=forgeharness",
         "--cov-branch",
-        "--cov-report=json:/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/coverage.json",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/tests.xml"
+        "--cov-report=json:~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/coverage.json",
+        "--junitxml=~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/tests.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/tests.log"
     },
     "source/control": {
@@ -226,9 +226,9 @@
         "forge",
         "eval-control",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/control.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/control.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/control.log"
     },
     "source/agent-dev": {
@@ -243,9 +243,9 @@
         "--split",
         "dev",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/agent-dev.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/agent-dev.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/agent-dev.log"
     },
     "source/cli": {
@@ -258,7 +258,7 @@
         "forge",
         "--help"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/cli.log"
     },
     "source/comparison-cli": {
@@ -272,7 +272,7 @@
         "framework-compare",
         "--help"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/comparison-cli.log"
     },
     "source/lock": {
@@ -284,7 +284,7 @@
         "--check",
         "--offline"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/lock.log"
     },
     "source/pip-check": {
@@ -295,9 +295,9 @@
         "pip",
         "check",
         "--python",
-        "/Users/xiaoy/Documents/多agent协作/.venv/bin/python"
+        "~/Documents/多agent协作/.venv/bin/python"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/pip-check.log"
     },
     "source/sdk_demo": {
@@ -310,7 +310,7 @@
         "python",
         "examples/sdk_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/sdk_demo.log"
     },
     "source/business_modules_demo": {
@@ -323,7 +323,7 @@
         "python",
         "examples/business_modules_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/business_modules_demo.log"
     },
     "source/session_demo": {
@@ -336,7 +336,7 @@
         "python",
         "examples/session_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/session_demo.log"
     },
     "source/import_tasks_demo": {
@@ -349,7 +349,7 @@
         "python",
         "examples/import_tasks_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/import_tasks_demo.log"
     },
     "source/legal_pilot_demo": {
@@ -362,7 +362,7 @@
         "python",
         "examples/legal_pilot_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/legal_pilot_demo.log"
     },
     "source/commerce_demo": {
@@ -375,7 +375,7 @@
         "python",
         "examples/commerce_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/commerce_demo.log"
     },
     "source/commerce_readonly_demo": {
@@ -388,7 +388,7 @@
         "python",
         "examples/commerce_readonly_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/commerce_readonly_demo.log"
     },
     "source/durable_demo": {
@@ -401,7 +401,7 @@
         "python",
         "examples/durable_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/durable_demo.log"
     },
     "source/collaboration_demo": {
@@ -414,7 +414,7 @@
         "python",
         "examples/collaboration_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/collaboration_demo.log"
     },
     "source/pure-branches": {
@@ -440,10 +440,10 @@
         "--format",
         "requirements-txt",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/core-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/core-requirements.txt",
         "--no-dev"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/export-core.log"
     },
     "source/audit-core": {
@@ -457,15 +457,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/core-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/core-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/core-dependencies.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/core-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/audit-core.log"
     },
     "source/export-all": {
@@ -479,10 +479,10 @@
         "--format",
         "requirements-txt",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/all-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/all-requirements.txt",
         "--all-extras"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/export-all.log"
     },
     "source/audit-all": {
@@ -496,17 +496,17 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/all-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/all-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/all-dependencies.json",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/all-dependencies.json",
         "--ignore-vuln",
         "PYSEC-2026-3740"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/audit-all.log"
     },
     "source/business-dev": {
@@ -520,9 +520,9 @@
         "-m",
         "benchmarks.business_evaluation",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/business-dev.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/business-dev.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/business-dev.log"
     },
     "source/business-contracts": {
@@ -603,7 +603,7 @@
         "tests/unit/test_session_control.py::test_http_self_approval_requires_current_approver_role",
         "tests/unit/test_control_evaluation.py::test_control_evaluation_writes_passing_report"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/business-safety.log"
     },
     "source/r2-faults": {
@@ -615,9 +615,9 @@
         "--no-sync",
         "pytest",
         "tests/unit/test_durable_orchestration.py",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/r2-faults.xml"
+        "--junitxml=~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/r2-faults.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/r2-faults.log"
     },
     "source/framework-integration": {
@@ -632,9 +632,9 @@
         "benchmarks.comparison.run",
         "--prepare",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/framework-comparison"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/framework-comparison"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/framework-integration.log"
     },
     "source/comparison-evidence": {
@@ -647,14 +647,14 @@
         "uv",
         "export",
         "--project",
-        "/Users/xiaoy/Documents/多agent协作/evals/comparison/environments/deepagents",
+        "~/Documents/多agent协作/evals/comparison/environments/deepagents",
         "--frozen",
         "--no-emit-project",
         "--no-dev",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/deepagents-requirements.txt"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/deepagents-requirements.txt"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/comparison-export-deepagents.log"
     },
     "source/comparison-audit-deepagents": {
@@ -668,15 +668,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/deepagents-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/deepagents-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/deepagents-dependencies.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/deepagents-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/comparison-audit-deepagents.log"
     },
     "source/comparison-export-pydantic": {
@@ -686,14 +686,14 @@
         "uv",
         "export",
         "--project",
-        "/Users/xiaoy/Documents/多agent协作/evals/comparison/environments/pydantic",
+        "~/Documents/多agent协作/evals/comparison/environments/pydantic",
         "--frozen",
         "--no-emit-project",
         "--no-dev",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/pydantic-requirements.txt"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/pydantic-requirements.txt"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/comparison-export-pydantic.log"
     },
     "source/comparison-audit-pydantic": {
@@ -707,15 +707,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/pydantic-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/pydantic-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/pydantic-dependencies.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/pydantic-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/source/comparison-audit-pydantic.log"
     },
     "clean/source-identity": {
@@ -742,7 +742,7 @@
         "--extra",
         "frameworks"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/sync.log"
     },
     "clean/format": {
@@ -759,7 +759,7 @@
         "--extend-exclude",
         "reports"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/format.log"
     },
     "clean/lint": {
@@ -775,7 +775,7 @@
         "--extend-exclude",
         "reports"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/lint.log"
     },
     "clean/types": {
@@ -787,7 +787,7 @@
         "--no-sync",
         "mypy"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/types.log"
     },
     "clean/framework-types": {
@@ -804,7 +804,7 @@
         "src/forgeharness/langchain_impl/coding_agent.py",
         "src/forgeharness/langchain_impl/rag_chain.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/framework-types.log"
     },
     "clean/tests": {
@@ -817,10 +817,10 @@
         "pytest",
         "--cov=forgeharness",
         "--cov-branch",
-        "--cov-report=json:/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/coverage.json",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/tests.xml"
+        "--cov-report=json:~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/coverage.json",
+        "--junitxml=~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/tests.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/tests.log"
     },
     "clean/control": {
@@ -833,9 +833,9 @@
         "forge",
         "eval-control",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/control.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/control.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/control.log"
     },
     "clean/agent-dev": {
@@ -850,9 +850,9 @@
         "--split",
         "dev",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/agent-dev.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/agent-dev.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/agent-dev.log"
     },
     "clean/cli": {
@@ -865,7 +865,7 @@
         "forge",
         "--help"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/cli.log"
     },
     "clean/comparison-cli": {
@@ -879,7 +879,7 @@
         "framework-compare",
         "--help"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/comparison-cli.log"
     },
     "clean/lock": {
@@ -891,7 +891,7 @@
         "--check",
         "--offline"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/lock.log"
     },
     "clean/pip-check": {
@@ -902,9 +902,9 @@
         "pip",
         "check",
         "--python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/.venv/bin/python"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/.venv/bin/python"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/pip-check.log"
     },
     "clean/sdk_demo": {
@@ -917,7 +917,7 @@
         "python",
         "examples/sdk_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/sdk_demo.log"
     },
     "clean/business_modules_demo": {
@@ -930,7 +930,7 @@
         "python",
         "examples/business_modules_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/business_modules_demo.log"
     },
     "clean/session_demo": {
@@ -943,7 +943,7 @@
         "python",
         "examples/session_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/session_demo.log"
     },
     "clean/import_tasks_demo": {
@@ -956,7 +956,7 @@
         "python",
         "examples/import_tasks_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/import_tasks_demo.log"
     },
     "clean/legal_pilot_demo": {
@@ -969,7 +969,7 @@
         "python",
         "examples/legal_pilot_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/legal_pilot_demo.log"
     },
     "clean/commerce_demo": {
@@ -982,7 +982,7 @@
         "python",
         "examples/commerce_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/commerce_demo.log"
     },
     "clean/commerce_readonly_demo": {
@@ -995,7 +995,7 @@
         "python",
         "examples/commerce_readonly_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/commerce_readonly_demo.log"
     },
     "clean/durable_demo": {
@@ -1008,7 +1008,7 @@
         "python",
         "examples/durable_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/durable_demo.log"
     },
     "clean/collaboration_demo": {
@@ -1021,7 +1021,7 @@
         "python",
         "examples/collaboration_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/collaboration_demo.log"
     },
     "clean/pure-branches": {
@@ -1047,10 +1047,10 @@
         "--format",
         "requirements-txt",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/core-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/core-requirements.txt",
         "--no-dev"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/export-core.log"
     },
     "clean/audit-core": {
@@ -1064,15 +1064,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/core-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/core-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/core-dependencies.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/core-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/audit-core.log"
     },
     "clean/export-all": {
@@ -1086,10 +1086,10 @@
         "--format",
         "requirements-txt",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/all-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/all-requirements.txt",
         "--all-extras"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/export-all.log"
     },
     "clean/audit-all": {
@@ -1103,17 +1103,17 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/all-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/all-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/all-dependencies.json",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/all-dependencies.json",
         "--ignore-vuln",
         "PYSEC-2026-3740"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/audit-all.log"
     },
     "clean/business-dev": {
@@ -1127,9 +1127,9 @@
         "-m",
         "benchmarks.business_evaluation",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/business-dev.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/business-dev.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/business-dev.log"
     },
     "clean/business-contracts": {
@@ -1210,7 +1210,7 @@
         "tests/unit/test_session_control.py::test_http_self_approval_requires_current_approver_role",
         "tests/unit/test_control_evaluation.py::test_control_evaluation_writes_passing_report"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/business-safety.log"
     },
     "clean/r2-faults": {
@@ -1222,9 +1222,9 @@
         "--no-sync",
         "pytest",
         "tests/unit/test_durable_orchestration.py",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/r2-faults.xml"
+        "--junitxml=~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/r2-faults.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/r2-faults.log"
     },
     "clean/framework-integration": {
@@ -1239,9 +1239,9 @@
         "benchmarks.comparison.run",
         "--prepare",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/framework-comparison"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/framework-comparison"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/framework-integration.log"
     },
     "clean/comparison-evidence": {
@@ -1254,14 +1254,14 @@
         "uv",
         "export",
         "--project",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/evals/comparison/environments/deepagents",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/evals/comparison/environments/deepagents",
         "--frozen",
         "--no-emit-project",
         "--no-dev",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/deepagents-requirements.txt"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/deepagents-requirements.txt"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/comparison-export-deepagents.log"
     },
     "clean/comparison-audit-deepagents": {
@@ -1275,15 +1275,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/deepagents-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/deepagents-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/deepagents-dependencies.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/deepagents-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/comparison-audit-deepagents.log"
     },
     "clean/comparison-export-pydantic": {
@@ -1293,14 +1293,14 @@
         "uv",
         "export",
         "--project",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/evals/comparison/environments/pydantic",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/evals/comparison/environments/pydantic",
         "--frozen",
         "--no-emit-project",
         "--no-dev",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/pydantic-requirements.txt"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/pydantic-requirements.txt"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/comparison-export-pydantic.log"
     },
     "clean/comparison-audit-pydantic": {
@@ -1314,15 +1314,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/pydantic-requirements.txt",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/pydantic-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/pydantic-dependencies.json"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/pydantic-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/clean/comparison-audit-pydantic.log"
     },
     "build": {
@@ -1332,9 +1332,9 @@
         "uv",
         "build",
         "--out-dir",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/dist"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/dist"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/build.log"
     },
     "build/wheel-source": {
@@ -1353,9 +1353,9 @@
         "venv",
         "--python",
         "3.12",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/venv.log"
     },
     "minimal/install": {
@@ -1366,111 +1366,111 @@
         "pip",
         "install",
         "--python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/dist/forgeharness-0.8.6-py3-none-any.whl"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/dist/forgeharness-0.8.6-py3-none-any.whl"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/install.log"
     },
     "minimal/import": {
       "exit_code": 0,
       "elapsed_seconds": 1.15,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
         "-c",
         "import importlib.util, forgeharness; assert forgeharness.__version__ == '0.8.6'; assert importlib.util.find_spec('fastapi') is None; assert importlib.util.find_spec('langgraph') is None; print(forgeharness.__file__)"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/import.log"
     },
     "minimal/sdk_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.29,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/sdk_demo.py"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/sdk_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/sdk_demo.py.log"
     },
     "minimal/business_modules_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.34,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/business_modules_demo.py"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/business_modules_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/business_modules_demo.py.log"
     },
     "minimal/session_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.35,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/session_demo.py"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/session_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/session_demo.py.log"
     },
     "minimal/import_tasks_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.18,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/import_tasks_demo.py"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/import_tasks_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/import_tasks_demo.py.log"
     },
     "minimal/legal_pilot_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.3,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/legal_pilot_demo.py"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/legal_pilot_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/legal_pilot_demo.py.log"
     },
     "minimal/commerce_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.34,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/commerce_demo.py"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/commerce_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/commerce_demo.py.log"
     },
     "minimal/commerce_readonly_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.19,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/commerce_readonly_demo.py"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/commerce_readonly_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/commerce_readonly_demo.py.log"
     },
     "minimal/durable_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.67,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/durable_demo.py"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/durable_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/durable_demo.py.log"
     },
     "minimal/collaboration_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.82,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/collaboration_demo.py"
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/candidate/examples/collaboration_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
+      "cwd": "~/Documents/多agent协作/reports/multi-agent-20261026/candidate-r1/verification/work/20261026T112014Z-8e4c5d29/consumer",
       "log": "reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/minimal/collaboration_demo.py.log"
     },
     "clean/source-unchanged": {

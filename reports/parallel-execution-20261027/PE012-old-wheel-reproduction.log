@@ -2,7 +2,7 @@ F                                                                        [100%]
 =================================== FAILURES ===================================
 ____ test_same_public_id_in_two_stores_cannot_release_another_run_capacity _____
 
-tmp_path = PosixPath('/private/var/folders/_f/628zxrj52vx286zc67v1899w0000gn/T/pytest-of-xiaoy/pytest-779/test_same_public_id_in_two_sto0')
+tmp_path = PosixPath('/private/var/folders/_f/628zxrj52vx286zc67v1899w0000gn/T/pytest-of-user/pytest-779/test_same_public_id_in_two_sto0')
 
     async def test_same_public_id_in_two_stores_cannot_release_another_run_capacity(tmp_path):
         with ModelDispatcher(state_dir=tmp_path / "capacity", provider_id="test") as dispatcher:

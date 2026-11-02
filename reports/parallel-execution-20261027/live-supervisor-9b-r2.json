@@ -1,12 +1,12 @@
 {
   "started_at": "2026-10-27T06:47:43.889047+00:00",
   "command": [
-    "/Users/xiaoy/.local/bin/omlx",
+    "~/.local/bin/omlx",
     "serve",
     "--base-path",
-    "/Users/xiaoy/Documents/\u591aagent\u534f\u4f5c/reports/parallel-execution-20261027/private-service-9b-r2",
+    "~/Documents/\u591aagent\u534f\u4f5c/reports/parallel-execution-20261027/private-service-9b-r2",
     "--model-dir",
-    "/Users/xiaoy/.omlx/models",
+    "~/.omlx/models",
     "--host",
     "127.0.0.1",
     "--port",

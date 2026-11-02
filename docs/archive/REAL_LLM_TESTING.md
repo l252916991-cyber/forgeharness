@@ -82,7 +82,7 @@ omlx download Qwythos-9B-v2-4bit-mlx
 ### 步骤 3: 运行真实测试
 
 ```bash
-cd /Users/xiaoy/forgeharness
+cd ~/forgeharness
 
 # 运行 50 个测试样本
 python3 benchmarks/run_real_llm_eval.py

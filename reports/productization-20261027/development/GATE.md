@@ -1,6 +1,6 @@
 # 开发门禁记录
 
-执行日期：2026-10-27；工作区：`/Users/xiaoy/Documents/多agent协作`。
+执行日期：2026-10-27；工作区：`~/Documents/多agent协作`。
 
 本记录对应尚未冻结的产品化工作树，不替代 checkout-equivalent 候选资格报告。
 

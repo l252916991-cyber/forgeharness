@@ -4,7 +4,7 @@
   "model_calls": 3,
   "raised_type": "JournalError",
   "persisted_status": "running",
-  "trace": "/Users/xiaoy/Documents/多agent协作/reports/request-preflight-2026-10-17/legacy-duplicate-id-probe-4b9323b3/state/aee57878bca6b3c81e90def8.454349e422f05297191ead13e21d3db520e5abef52055e4964b82fb213f593a1.jsonl",
+  "trace": "~/Documents/多agent协作/reports/request-preflight-2026-10-17/legacy-duplicate-id-probe-4b9323b3/state/aee57878bca6b3c81e90def8.454349e422f05297191ead13e21d3db520e5abef52055e4964b82fb213f593a1.jsonl",
   "ticket_count": 0,
   "classification": "existing medium availability/protocol limitation; journal refuses reused logical id before duplicate execution",
   "accepted_for_this_slice": true

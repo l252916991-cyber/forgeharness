@@ -137,7 +137,7 @@
         "--extra",
         "postgres-test"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/sync.log"
     },
     "source/format": {
@@ -154,7 +154,7 @@
         "--extend-exclude",
         "reports"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/format.log"
     },
     "source/lint": {
@@ -170,7 +170,7 @@
         "--extend-exclude",
         "reports"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/lint.log"
     },
     "source/types": {
@@ -182,7 +182,7 @@
         "--no-sync",
         "mypy"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/types.log"
     },
     "source/framework-types": {
@@ -199,7 +199,7 @@
         "src/forgeharness/langchain_impl/coding_agent.py",
         "src/forgeharness/langchain_impl/rag_chain.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/framework-types.log"
     },
     "source/tests": {
@@ -213,10 +213,10 @@
         "--cov=forgeharness",
         "--cov-branch",
         "--cov-fail-under=0",
-        "--cov-report=json:/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/coverage.json",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/tests.xml"
+        "--cov-report=json:~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/coverage.json",
+        "--junitxml=~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/tests.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/tests.log"
     },
     "source/control": {
@@ -229,9 +229,9 @@
         "forge",
         "eval-control",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/control.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/control.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/control.log"
     },
     "source/agent-dev": {
@@ -246,9 +246,9 @@
         "--split",
         "dev",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/agent-dev.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/agent-dev.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/agent-dev.log"
     },
     "source/cli": {
@@ -261,7 +261,7 @@
         "forge",
         "--help"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/cli.log"
     },
     "source/comparison-cli": {
@@ -275,7 +275,7 @@
         "framework-compare",
         "--help"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/comparison-cli.log"
     },
     "source/lock": {
@@ -287,7 +287,7 @@
         "--check",
         "--offline"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/lock.log"
     },
     "source/pip-check": {
@@ -298,9 +298,9 @@
         "pip",
         "check",
         "--python",
-        "/Users/xiaoy/Documents/多agent协作/.venv/bin/python"
+        "~/Documents/多agent协作/.venv/bin/python"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/pip-check.log"
     },
     "source/sdk_demo": {
@@ -313,7 +313,7 @@
         "python",
         "examples/sdk_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/sdk_demo.log"
     },
     "source/business_modules_demo": {
@@ -326,7 +326,7 @@
         "python",
         "examples/business_modules_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/business_modules_demo.log"
     },
     "source/session_demo": {
@@ -339,7 +339,7 @@
         "python",
         "examples/session_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/session_demo.log"
     },
     "source/import_tasks_demo": {
@@ -352,7 +352,7 @@
         "python",
         "examples/import_tasks_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/import_tasks_demo.log"
     },
     "source/legal_pilot_demo": {
@@ -365,7 +365,7 @@
         "python",
         "examples/legal_pilot_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/legal_pilot_demo.log"
     },
     "source/commerce_demo": {
@@ -378,7 +378,7 @@
         "python",
         "examples/commerce_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/commerce_demo.log"
     },
     "source/commerce_readonly_demo": {
@@ -391,7 +391,7 @@
         "python",
         "examples/commerce_readonly_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/commerce_readonly_demo.log"
     },
     "source/durable_demo": {
@@ -404,7 +404,7 @@
         "python",
         "examples/durable_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/durable_demo.log"
     },
     "source/collaboration_demo": {
@@ -417,7 +417,7 @@
         "python",
         "examples/collaboration_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/collaboration_demo.log"
     },
     "source/parallel_demo": {
@@ -430,7 +430,7 @@
         "python",
         "examples/parallel_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/parallel_demo.log"
     },
     "source/postgres-state-contract": {
@@ -444,11 +444,11 @@
         "-m",
         "benchmarks.saas_postgres",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/postgres-20261028T181544Z-51e1ce1d",
+        "~/Documents/多agent协作/reports/postgres-20261028T181544Z-51e1ce1d",
         "--coverage-output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/coverage.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/coverage.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/postgres-state-contract.log"
     },
     "source/postgres-evidence": {
@@ -482,10 +482,10 @@
         "--format",
         "requirements-txt",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/core-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/core-requirements.txt",
         "--no-dev"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/export-core.log"
     },
     "source/audit-core": {
@@ -499,15 +499,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/core-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/core-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/core-dependencies.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/core-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/audit-core.log"
     },
     "source/export-all": {
@@ -521,10 +521,10 @@
         "--format",
         "requirements-txt",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/all-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/all-requirements.txt",
         "--all-extras"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/export-all.log"
     },
     "source/audit-all": {
@@ -538,17 +538,17 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/all-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/all-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/all-dependencies.json",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/all-dependencies.json",
         "--ignore-vuln",
         "PYSEC-2026-3740"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/audit-all.log"
     },
     "source/business-dev": {
@@ -562,9 +562,9 @@
         "-m",
         "benchmarks.business_evaluation",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/business-dev.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/business-dev.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/business-dev.log"
     },
     "source/business-contracts": {
@@ -660,7 +660,7 @@
         "tests/unit/test_commerce_workbench.py::test_public_role_demo_cannot_reopen_private_workbench_state",
         "tests/unit/test_control_evaluation.py::test_control_evaluation_writes_passing_report"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/business-safety.log"
     },
     "source/account-workbench": {
@@ -673,7 +673,7 @@
         "python",
         "examples/workbench_smoke.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/account-workbench.log"
     },
     "source/workbench-browser-races": {
@@ -683,7 +683,7 @@
         "node",
         "tests/browser/workbench_races.cjs"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/workbench-browser-races.log"
     },
     "source/r2-faults": {
@@ -695,9 +695,9 @@
         "--no-sync",
         "pytest",
         "tests/unit/test_durable_orchestration.py",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/r2-faults.xml"
+        "--junitxml=~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/r2-faults.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/r2-faults.log"
     },
     "source/parallel-faults": {
@@ -710,9 +710,9 @@
         "pytest",
         "tests/unit/test_parallel_execution.py",
         "tests/unit/test_parallel_recovery.py",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/parallel-faults.xml"
+        "--junitxml=~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/parallel-faults.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/parallel-faults.log"
     },
     "source/parallel-contract": {
@@ -728,9 +728,9 @@
         "--mode",
         "contract",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/parallel-contract-20261028T181544Z-51e1ce1d"
+        "~/Documents/多agent协作/reports/parallel-contract-20261028T181544Z-51e1ce1d"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/parallel-contract.log"
     },
     "source/parallel-evidence": {
@@ -748,9 +748,9 @@
         "benchmarks.comparison.run",
         "--prepare",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/framework-comparison"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/framework-comparison"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/framework-integration.log"
     },
     "source/comparison-evidence": {
@@ -763,14 +763,14 @@
         "uv",
         "export",
         "--project",
-        "/Users/xiaoy/Documents/多agent协作/evals/comparison/environments/deepagents",
+        "~/Documents/多agent协作/evals/comparison/environments/deepagents",
         "--frozen",
         "--no-emit-project",
         "--no-dev",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/deepagents-requirements.txt"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/deepagents-requirements.txt"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/comparison-export-deepagents.log"
     },
     "source/comparison-audit-deepagents": {
@@ -784,15 +784,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/deepagents-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/deepagents-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/deepagents-dependencies.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/deepagents-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/comparison-audit-deepagents.log"
     },
     "source/comparison-export-pydantic": {
@@ -802,14 +802,14 @@
         "uv",
         "export",
         "--project",
-        "/Users/xiaoy/Documents/多agent协作/evals/comparison/environments/pydantic",
+        "~/Documents/多agent协作/evals/comparison/environments/pydantic",
         "--frozen",
         "--no-emit-project",
         "--no-dev",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/pydantic-requirements.txt"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/pydantic-requirements.txt"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/comparison-export-pydantic.log"
     },
     "source/comparison-audit-pydantic": {
@@ -823,15 +823,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/pydantic-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/pydantic-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/pydantic-dependencies.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/pydantic-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作",
+      "cwd": "~/Documents/多agent协作",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/source/comparison-audit-pydantic.log"
     },
     "clean/source-identity": {
@@ -860,7 +860,7 @@
         "--extra",
         "postgres-test"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/sync.log"
     },
     "clean/format": {
@@ -877,7 +877,7 @@
         "--extend-exclude",
         "reports"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/format.log"
     },
     "clean/lint": {
@@ -893,7 +893,7 @@
         "--extend-exclude",
         "reports"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/lint.log"
     },
     "clean/types": {
@@ -905,7 +905,7 @@
         "--no-sync",
         "mypy"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/types.log"
     },
     "clean/framework-types": {
@@ -922,7 +922,7 @@
         "src/forgeharness/langchain_impl/coding_agent.py",
         "src/forgeharness/langchain_impl/rag_chain.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/framework-types.log"
     },
     "clean/tests": {
@@ -936,10 +936,10 @@
         "--cov=forgeharness",
         "--cov-branch",
         "--cov-fail-under=0",
-        "--cov-report=json:/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/coverage.json",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/tests.xml"
+        "--cov-report=json:~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/coverage.json",
+        "--junitxml=~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/tests.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/tests.log"
     },
     "clean/control": {
@@ -952,9 +952,9 @@
         "forge",
         "eval-control",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/control.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/control.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/control.log"
     },
     "clean/agent-dev": {
@@ -969,9 +969,9 @@
         "--split",
         "dev",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/agent-dev.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/agent-dev.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/agent-dev.log"
     },
     "clean/cli": {
@@ -984,7 +984,7 @@
         "forge",
         "--help"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/cli.log"
     },
     "clean/comparison-cli": {
@@ -998,7 +998,7 @@
         "framework-compare",
         "--help"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/comparison-cli.log"
     },
     "clean/lock": {
@@ -1010,7 +1010,7 @@
         "--check",
         "--offline"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/lock.log"
     },
     "clean/pip-check": {
@@ -1021,9 +1021,9 @@
         "pip",
         "check",
         "--python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/.venv/bin/python"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/.venv/bin/python"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/pip-check.log"
     },
     "clean/sdk_demo": {
@@ -1036,7 +1036,7 @@
         "python",
         "examples/sdk_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/sdk_demo.log"
     },
     "clean/business_modules_demo": {
@@ -1049,7 +1049,7 @@
         "python",
         "examples/business_modules_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/business_modules_demo.log"
     },
     "clean/session_demo": {
@@ -1062,7 +1062,7 @@
         "python",
         "examples/session_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/session_demo.log"
     },
     "clean/import_tasks_demo": {
@@ -1075,7 +1075,7 @@
         "python",
         "examples/import_tasks_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/import_tasks_demo.log"
     },
     "clean/legal_pilot_demo": {
@@ -1088,7 +1088,7 @@
         "python",
         "examples/legal_pilot_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/legal_pilot_demo.log"
     },
     "clean/commerce_demo": {
@@ -1101,7 +1101,7 @@
         "python",
         "examples/commerce_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/commerce_demo.log"
     },
     "clean/commerce_readonly_demo": {
@@ -1114,7 +1114,7 @@
         "python",
         "examples/commerce_readonly_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/commerce_readonly_demo.log"
     },
     "clean/durable_demo": {
@@ -1127,7 +1127,7 @@
         "python",
         "examples/durable_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/durable_demo.log"
     },
     "clean/collaboration_demo": {
@@ -1140,7 +1140,7 @@
         "python",
         "examples/collaboration_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/collaboration_demo.log"
     },
     "clean/parallel_demo": {
@@ -1153,7 +1153,7 @@
         "python",
         "examples/parallel_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/parallel_demo.log"
     },
     "clean/postgres-state-contract": {
@@ -1167,11 +1167,11 @@
         "-m",
         "benchmarks.saas_postgres",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/reports/postgres-20261028T181544Z-51e1ce1d",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/reports/postgres-20261028T181544Z-51e1ce1d",
         "--coverage-output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/coverage.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/coverage.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/postgres-state-contract.log"
     },
     "clean/postgres-evidence": {
@@ -1205,10 +1205,10 @@
         "--format",
         "requirements-txt",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/core-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/core-requirements.txt",
         "--no-dev"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/export-core.log"
     },
     "clean/audit-core": {
@@ -1222,15 +1222,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/core-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/core-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/core-dependencies.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/core-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/audit-core.log"
     },
     "clean/export-all": {
@@ -1244,10 +1244,10 @@
         "--format",
         "requirements-txt",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/all-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/all-requirements.txt",
         "--all-extras"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/export-all.log"
     },
     "clean/audit-all": {
@@ -1261,17 +1261,17 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/all-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/all-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/all-dependencies.json",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/all-dependencies.json",
         "--ignore-vuln",
         "PYSEC-2026-3740"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/audit-all.log"
     },
     "clean/business-dev": {
@@ -1285,9 +1285,9 @@
         "-m",
         "benchmarks.business_evaluation",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/business-dev.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/business-dev.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/business-dev.log"
     },
     "clean/business-contracts": {
@@ -1383,7 +1383,7 @@
         "tests/unit/test_commerce_workbench.py::test_public_role_demo_cannot_reopen_private_workbench_state",
         "tests/unit/test_control_evaluation.py::test_control_evaluation_writes_passing_report"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/business-safety.log"
     },
     "clean/account-workbench": {
@@ -1396,7 +1396,7 @@
         "python",
         "examples/workbench_smoke.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/account-workbench.log"
     },
     "clean/workbench-browser-races": {
@@ -1406,7 +1406,7 @@
         "node",
         "tests/browser/workbench_races.cjs"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/workbench-browser-races.log"
     },
     "clean/r2-faults": {
@@ -1418,9 +1418,9 @@
         "--no-sync",
         "pytest",
         "tests/unit/test_durable_orchestration.py",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/r2-faults.xml"
+        "--junitxml=~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/r2-faults.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/r2-faults.log"
     },
     "clean/parallel-faults": {
@@ -1433,9 +1433,9 @@
         "pytest",
         "tests/unit/test_parallel_execution.py",
         "tests/unit/test_parallel_recovery.py",
-        "--junitxml=/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/parallel-faults.xml"
+        "--junitxml=~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/parallel-faults.xml"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/parallel-faults.log"
     },
     "clean/parallel-contract": {
@@ -1451,9 +1451,9 @@
         "--mode",
         "contract",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/reports/parallel-contract-20261028T181544Z-51e1ce1d"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/reports/parallel-contract-20261028T181544Z-51e1ce1d"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/parallel-contract.log"
     },
     "clean/parallel-evidence": {
@@ -1471,9 +1471,9 @@
         "benchmarks.comparison.run",
         "--prepare",
         "--output",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/framework-comparison"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/framework-comparison"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/framework-integration.log"
     },
     "clean/comparison-evidence": {
@@ -1486,14 +1486,14 @@
         "uv",
         "export",
         "--project",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/evals/comparison/environments/deepagents",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/evals/comparison/environments/deepagents",
         "--frozen",
         "--no-emit-project",
         "--no-dev",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/deepagents-requirements.txt"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/deepagents-requirements.txt"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/comparison-export-deepagents.log"
     },
     "clean/comparison-audit-deepagents": {
@@ -1507,15 +1507,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/deepagents-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/deepagents-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/deepagents-dependencies.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/deepagents-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/comparison-audit-deepagents.log"
     },
     "clean/comparison-export-pydantic": {
@@ -1525,14 +1525,14 @@
         "uv",
         "export",
         "--project",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/evals/comparison/environments/pydantic",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/evals/comparison/environments/pydantic",
         "--frozen",
         "--no-emit-project",
         "--no-dev",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/pydantic-requirements.txt"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/pydantic-requirements.txt"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/comparison-export-pydantic.log"
     },
     "clean/comparison-audit-pydantic": {
@@ -1546,15 +1546,15 @@
         "pip-audit",
         "pip-audit",
         "-r",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/pydantic-requirements.txt",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/pydantic-requirements.txt",
         "--no-deps",
         "--disable-pip",
         "-f",
         "json",
         "-o",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/pydantic-dependencies.json"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/pydantic-dependencies.json"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/clean/comparison-audit-pydantic.log"
     },
     "build": {
@@ -1564,9 +1564,9 @@
         "uv",
         "build",
         "--out-dir",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/dist"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/dist"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/build.log"
     },
     "build/wheel-source": {
@@ -1585,9 +1585,9 @@
         "venv",
         "--python",
         "3.12",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/venv.log"
     },
     "minimal/install": {
@@ -1598,121 +1598,121 @@
         "pip",
         "install",
         "--python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/dist/forgeharness-0.11.0-py3-none-any.whl"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/dist/forgeharness-0.11.0-py3-none-any.whl"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/install.log"
     },
     "minimal/import": {
       "exit_code": 0,
       "elapsed_seconds": 0.88,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
         "-c",
         "import importlib.util, forgeharness; assert forgeharness.__version__ == '0.11.0'; assert importlib.util.find_spec('fastapi') is None; assert importlib.util.find_spec('langgraph') is None; import forgeharness.cloud.store; assert importlib.util.find_spec('asyncpg') is None; print(forgeharness.__file__)"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/import.log"
     },
     "minimal/sdk_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.29,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/sdk_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/sdk_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/sdk_demo.py.log"
     },
     "minimal/business_modules_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.4,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/business_modules_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/business_modules_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/business_modules_demo.py.log"
     },
     "minimal/session_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.35,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/session_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/session_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/session_demo.py.log"
     },
     "minimal/import_tasks_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.24,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/import_tasks_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/import_tasks_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/import_tasks_demo.py.log"
     },
     "minimal/legal_pilot_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.29,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/legal_pilot_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/legal_pilot_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/legal_pilot_demo.py.log"
     },
     "minimal/commerce_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.4,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/commerce_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/commerce_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/commerce_demo.py.log"
     },
     "minimal/commerce_readonly_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.18,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/commerce_readonly_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/commerce_readonly_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/commerce_readonly_demo.py.log"
     },
     "minimal/durable_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.67,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/durable_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/durable_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/durable_demo.py.log"
     },
     "minimal/collaboration_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.83,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/collaboration_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/collaboration_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/collaboration_demo.py.log"
     },
     "minimal/parallel_demo.py": {
       "exit_code": 0,
       "elapsed_seconds": 0.93,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/parallel_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/parallel_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/minimal/parallel_demo.py.log"
     },
     "web-consumer/venv": {
@@ -1723,9 +1723,9 @@
         "venv",
         "--python",
         "3.12",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer/.venv"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer/.venv"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/web-consumer/venv.log"
     },
     "web-consumer/install": {
@@ -1736,31 +1736,31 @@
         "pip",
         "install",
         "--python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/dist/forgeharness-0.11.0-py3-none-any.whl[web,models]"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/dist/forgeharness-0.11.0-py3-none-any.whl[web,models]"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/web-consumer/install.log"
     },
     "web-consumer/workbench": {
       "exit_code": 0,
       "elapsed_seconds": 1.57,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/workbench_smoke.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/workbench_smoke.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/web-consumer/workbench.log"
     },
     "web-consumer/cli": {
       "exit_code": 0,
       "elapsed_seconds": 0.23,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/commerce_workbench.py",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/commerce_workbench.py",
         "--help"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/web-consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/web-consumer/cli.log"
     },
     "cloud-consumer/venv": {
@@ -1771,9 +1771,9 @@
         "venv",
         "--python",
         "3.12",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer/.venv"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer/.venv"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/cloud-consumer/venv.log"
     },
     "cloud-consumer/install": {
@@ -1784,20 +1784,20 @@
         "pip",
         "install",
         "--python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/dist/forgeharness-0.11.0-py3-none-any.whl[cloud,postgres-test]"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/dist/forgeharness-0.11.0-py3-none-any.whl[cloud,postgres-test]"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/cloud-consumer/install.log"
     },
     "cloud-consumer/state": {
       "exit_code": 0,
       "elapsed_seconds": 4.37,
       "command": [
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer/.venv/bin/python",
-        "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/cloud_state_demo.py"
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer/.venv/bin/python",
+        "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/candidate/examples/cloud_state_demo.py"
       ],
-      "cwd": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer",
+      "cwd": "~/Documents/多agent协作/reports/saas/20261029-state/candidate-r1/verification/work/20261028T181544Z-51e1ce1d/cloud-consumer",
       "log": "reports/saas/20261029-state/candidate-r1/verification/runs/20261028T181544Z-51e1ce1d/cloud-consumer/state.log"
     },
     "clean/source-unchanged": {

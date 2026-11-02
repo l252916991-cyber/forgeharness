@@ -91,4 +91,4 @@ clean/source-unchanged PASS
 source/source-unchanged PASS
 source/manifest-unchanged PASS
 qualified True
-{"engineering_qualified": true, "business_qualified": false, "summary": "/Users/xiaoy/Documents/\u591aagent\u534f\u4f5c/reports/improvement-20261026/candidate-r3/verification/summary.json"}
+{"engineering_qualified": true, "business_qualified": false, "summary": "~/Documents/\u591aagent\u534f\u4f5c/reports/improvement-20261026/candidate-r3/verification/summary.json"}

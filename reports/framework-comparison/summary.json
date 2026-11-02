@@ -165,7 +165,7 @@
         "langchain-openai": "1.6.0",
         "Werkzeug": "3.1.9"
       },
-      "python": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/work/20261016T044046Z-4690d1cf/candidate/.venv/bin/python3"
+      "python": "~/Documents/多agent协作/reports/next-candidate/verification/work/20261016T044046Z-4690d1cf/candidate/.venv/bin/python3"
     },
     "deepagents": {
       "packages": {
@@ -229,7 +229,7 @@
         "sqlite-vec": "0.1.9",
         "idna": "3.20"
       },
-      "python": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/environments/deepagents/bin/python",
+      "python": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/environments/deepagents/bin/python",
       "lock_sha256": "eff9be14c4bfaa834aa023a1d7e18272abe27f3262464b180e13d813c68ad3d2"
     },
     "pydantic": {
@@ -257,7 +257,7 @@
         "idna": "3.20",
         "json_repair": "0.64.0"
       },
-      "python": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/environments/pydantic/bin/python",
+      "python": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/environments/pydantic/bin/python",
       "lock_sha256": "6294573e366483988d5c6f0b1694a692e0d070030a77b8287d02e20abe6e483c"
     }
   },
@@ -278,7 +278,7 @@
             "result": "Synthetic price is 1299 cents.",
             "worker_pid": 66071
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/minimal/read_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/minimal/read_control/action-0.log"
         }
       ],
       "evidence": {
@@ -331,7 +331,7 @@
             "result": null,
             "worker_pid": 66072
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/minimal/approval_restart_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/minimal/approval_restart_control/action-0.log"
         },
         {
           "request": {
@@ -343,7 +343,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66073
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/minimal/approval_restart_control/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/minimal/approval_restart_control/action-1.log"
         }
       ],
       "evidence": {
@@ -413,7 +413,7 @@
             "result": "Synthetic price is 1299 cents.",
             "worker_pid": 66074
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/read_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/read_control/action-0.log"
         }
       ],
       "evidence": {
@@ -466,7 +466,7 @@
             "result": null,
             "worker_pid": 66075
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_restart_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_restart_control/action-0.log"
         },
         {
           "request": {
@@ -478,7 +478,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66076
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_restart_control/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_restart_control/action-1.log"
         }
       ],
       "evidence": {
@@ -548,7 +548,7 @@
             "result": null,
             "worker_pid": 66077
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/permission_revocation/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/permission_revocation/action-0.log"
         }
       ],
       "evidence": {
@@ -582,7 +582,7 @@
             "result": "Synthetic price is 1299 cents.",
             "worker_pid": 66078
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/source_withdrawal/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/source_withdrawal/action-0.log"
         },
         {
           "request": {
@@ -596,7 +596,7 @@
             "result": null,
             "worker_pid": 66079
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/source_withdrawal/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/source_withdrawal/action-1.log"
         }
       ],
       "evidence": {
@@ -649,7 +649,7 @@
             "result": null,
             "worker_pid": 66080
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_mutation/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_mutation/action-0.log"
         },
         {
           "request": {
@@ -662,7 +662,7 @@
             "result": null,
             "worker_pid": 66081
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_mutation/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_mutation/action-1.log"
         },
         {
           "request": {
@@ -675,7 +675,7 @@
             "result": null,
             "worker_pid": 66082
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_mutation/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_mutation/action-2.log"
         },
         {
           "request": {
@@ -687,7 +687,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66083
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_mutation/action-3.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/approval_mutation/action-3.log"
         }
       ],
       "evidence": {
@@ -755,7 +755,7 @@
             "result": null,
             "worker_pid": 66084
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/lost_receipt/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/lost_receipt/action-0.log"
         },
         {
           "request": {
@@ -765,7 +765,7 @@
           "result": {
             "state": "worker_crash"
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/lost_receipt/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/lost_receipt/action-1.log"
         },
         {
           "request": {
@@ -777,7 +777,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66086
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/lost_receipt/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/lost_receipt/action-2.log"
         }
       ],
       "evidence": {
@@ -845,7 +845,7 @@
             "result": null,
             "worker_pid": 66087
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/duplicate_request/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/duplicate_request/action-0.log"
         },
         {
           "request": {
@@ -857,7 +857,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66088
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/duplicate_request/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/duplicate_request/action-1.log"
         },
         {
           "request": {
@@ -870,7 +870,7 @@
             "replayed": true,
             "worker_pid": 66091
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/duplicate_request/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/duplicate_request/action-2.log"
         },
         {
           "request": {
@@ -883,7 +883,7 @@
             "result": null,
             "worker_pid": 66092
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/duplicate_request/action-3.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/duplicate_request/action-3.log"
         }
       ],
       "evidence": {
@@ -951,7 +951,7 @@
             "result": null,
             "worker_pid": 66093
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_before_write/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_before_write/action-0.log"
         },
         {
           "request": {
@@ -963,7 +963,7 @@
             "result": null,
             "worker_pid": 66094
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_before_write/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_before_write/action-1.log"
         }
       ],
       "evidence": {
@@ -1021,7 +1021,7 @@
             "result": null,
             "worker_pid": 66095
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_after_write/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_after_write/action-0.log"
         },
         {
           "request": {
@@ -1033,7 +1033,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66096
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_after_write/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_after_write/action-1.log"
         },
         {
           "request": {
@@ -1046,7 +1046,7 @@
             "replayed": true,
             "worker_pid": 66097
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_after_write/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/forge/equivalent/cancel_after_write/action-2.log"
         }
       ],
       "evidence": {
@@ -1116,7 +1116,7 @@
             "result": "Synthetic price is 1299 cents.",
             "worker_pid": 66108
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/minimal/read_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/minimal/read_control/action-0.log"
         }
       ],
       "evidence": {
@@ -1169,7 +1169,7 @@
             "result": null,
             "worker_pid": 66119
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/minimal/approval_restart_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/minimal/approval_restart_control/action-0.log"
         },
         {
           "request": {
@@ -1181,7 +1181,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66120
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/minimal/approval_restart_control/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/minimal/approval_restart_control/action-1.log"
         }
       ],
       "evidence": {
@@ -1251,7 +1251,7 @@
             "result": "Synthetic price is 1299 cents.",
             "worker_pid": 66121
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/read_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/read_control/action-0.log"
         }
       ],
       "evidence": {
@@ -1304,7 +1304,7 @@
             "result": null,
             "worker_pid": 66122
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_restart_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_restart_control/action-0.log"
         },
         {
           "request": {
@@ -1316,7 +1316,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66123
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_restart_control/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_restart_control/action-1.log"
         }
       ],
       "evidence": {
@@ -1386,7 +1386,7 @@
             "result": null,
             "worker_pid": 66124
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/permission_revocation/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/permission_revocation/action-0.log"
         }
       ],
       "evidence": {
@@ -1420,7 +1420,7 @@
             "result": "Synthetic price is 1299 cents.",
             "worker_pid": 66125
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/source_withdrawal/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/source_withdrawal/action-0.log"
         },
         {
           "request": {
@@ -1434,7 +1434,7 @@
             "result": null,
             "worker_pid": 66126
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/source_withdrawal/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/source_withdrawal/action-1.log"
         }
       ],
       "evidence": {
@@ -1487,7 +1487,7 @@
             "result": null,
             "worker_pid": 66127
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_mutation/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_mutation/action-0.log"
         },
         {
           "request": {
@@ -1500,7 +1500,7 @@
             "result": null,
             "worker_pid": 66128
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_mutation/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_mutation/action-1.log"
         },
         {
           "request": {
@@ -1513,7 +1513,7 @@
             "result": null,
             "worker_pid": 66129
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_mutation/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_mutation/action-2.log"
         },
         {
           "request": {
@@ -1525,7 +1525,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66130
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_mutation/action-3.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/approval_mutation/action-3.log"
         }
       ],
       "evidence": {
@@ -1593,7 +1593,7 @@
             "result": null,
             "worker_pid": 66131
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/lost_receipt/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/lost_receipt/action-0.log"
         },
         {
           "request": {
@@ -1603,7 +1603,7 @@
           "result": {
             "state": "worker_crash"
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/lost_receipt/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/lost_receipt/action-1.log"
         },
         {
           "request": {
@@ -1615,7 +1615,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66134
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/lost_receipt/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/lost_receipt/action-2.log"
         }
       ],
       "evidence": {
@@ -1683,7 +1683,7 @@
             "result": null,
             "worker_pid": 66135
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/duplicate_request/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/duplicate_request/action-0.log"
         },
         {
           "request": {
@@ -1695,7 +1695,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66136
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/duplicate_request/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/duplicate_request/action-1.log"
         },
         {
           "request": {
@@ -1708,7 +1708,7 @@
             "replayed": true,
             "worker_pid": 66137
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/duplicate_request/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/duplicate_request/action-2.log"
         },
         {
           "request": {
@@ -1721,7 +1721,7 @@
             "result": null,
             "worker_pid": 66138
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/duplicate_request/action-3.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/duplicate_request/action-3.log"
         }
       ],
       "evidence": {
@@ -1789,7 +1789,7 @@
             "result": null,
             "worker_pid": 66139
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_before_write/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_before_write/action-0.log"
         },
         {
           "request": {
@@ -1801,7 +1801,7 @@
             "result": null,
             "worker_pid": 66140
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_before_write/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_before_write/action-1.log"
         }
       ],
       "evidence": {
@@ -1859,7 +1859,7 @@
             "result": null,
             "worker_pid": 66141
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_after_write/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_after_write/action-0.log"
         },
         {
           "request": {
@@ -1871,7 +1871,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66142
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_after_write/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_after_write/action-1.log"
         },
         {
           "request": {
@@ -1884,7 +1884,7 @@
             "replayed": true,
             "worker_pid": 66143
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_after_write/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/deepagents/equivalent/cancel_after_write/action-2.log"
         }
       ],
       "evidence": {
@@ -1954,7 +1954,7 @@
             "result": "Synthetic price is 1299 cents.",
             "worker_pid": 66146
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/minimal/read_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/minimal/read_control/action-0.log"
         }
       ],
       "evidence": {
@@ -2007,7 +2007,7 @@
             "result": null,
             "worker_pid": 66148
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/minimal/approval_restart_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/minimal/approval_restart_control/action-0.log"
         },
         {
           "request": {
@@ -2019,7 +2019,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66149
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/minimal/approval_restart_control/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/minimal/approval_restart_control/action-1.log"
         }
       ],
       "evidence": {
@@ -2089,7 +2089,7 @@
             "result": "Synthetic price is 1299 cents.",
             "worker_pid": 66150
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/read_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/read_control/action-0.log"
         }
       ],
       "evidence": {
@@ -2142,7 +2142,7 @@
             "result": null,
             "worker_pid": 66151
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_restart_control/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_restart_control/action-0.log"
         },
         {
           "request": {
@@ -2154,7 +2154,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66152
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_restart_control/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_restart_control/action-1.log"
         }
       ],
       "evidence": {
@@ -2224,7 +2224,7 @@
             "result": null,
             "worker_pid": 66153
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/permission_revocation/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/permission_revocation/action-0.log"
         }
       ],
       "evidence": {
@@ -2258,7 +2258,7 @@
             "result": "Synthetic price is 1299 cents.",
             "worker_pid": 66154
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/source_withdrawal/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/source_withdrawal/action-0.log"
         },
         {
           "request": {
@@ -2272,7 +2272,7 @@
             "result": null,
             "worker_pid": 66155
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/source_withdrawal/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/source_withdrawal/action-1.log"
         }
       ],
       "evidence": {
@@ -2325,7 +2325,7 @@
             "result": null,
             "worker_pid": 66156
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_mutation/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_mutation/action-0.log"
         },
         {
           "request": {
@@ -2338,7 +2338,7 @@
             "result": null,
             "worker_pid": 66157
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_mutation/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_mutation/action-1.log"
         },
         {
           "request": {
@@ -2351,7 +2351,7 @@
             "result": null,
             "worker_pid": 66158
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_mutation/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_mutation/action-2.log"
         },
         {
           "request": {
@@ -2363,7 +2363,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66159
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_mutation/action-3.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/approval_mutation/action-3.log"
         }
       ],
       "evidence": {
@@ -2431,7 +2431,7 @@
             "result": null,
             "worker_pid": 66160
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/lost_receipt/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/lost_receipt/action-0.log"
         },
         {
           "request": {
@@ -2441,7 +2441,7 @@
           "result": {
             "state": "worker_crash"
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/lost_receipt/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/lost_receipt/action-1.log"
         },
         {
           "request": {
@@ -2453,7 +2453,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66162
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/lost_receipt/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/lost_receipt/action-2.log"
         }
       ],
       "evidence": {
@@ -2521,7 +2521,7 @@
             "result": null,
             "worker_pid": 66163
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/duplicate_request/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/duplicate_request/action-0.log"
         },
         {
           "request": {
@@ -2533,7 +2533,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66164
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/duplicate_request/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/duplicate_request/action-1.log"
         },
         {
           "request": {
@@ -2546,7 +2546,7 @@
             "replayed": true,
             "worker_pid": 66165
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/duplicate_request/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/duplicate_request/action-2.log"
         },
         {
           "request": {
@@ -2559,7 +2559,7 @@
             "result": null,
             "worker_pid": 66166
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/duplicate_request/action-3.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/duplicate_request/action-3.log"
         }
       ],
       "evidence": {
@@ -2627,7 +2627,7 @@
             "result": null,
             "worker_pid": 66167
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_before_write/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_before_write/action-0.log"
         },
         {
           "request": {
@@ -2639,7 +2639,7 @@
             "result": null,
             "worker_pid": 66168
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_before_write/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_before_write/action-1.log"
         }
       ],
       "evidence": {
@@ -2697,7 +2697,7 @@
             "result": null,
             "worker_pid": 66169
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_after_write/action-0.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_after_write/action-0.log"
         },
         {
           "request": {
@@ -2709,7 +2709,7 @@
             "result": "ticket:request-1",
             "worker_pid": 66170
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_after_write/action-1.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_after_write/action-1.log"
         },
         {
           "request": {
@@ -2722,7 +2722,7 @@
             "replayed": true,
             "worker_pid": 66171
           },
-          "log": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_after_write/action-2.log"
+          "log": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2/pydantic/equivalent/cancel_after_write/action-2.log"
         }
       ],
       "evidence": {
@@ -2799,7 +2799,7 @@
     "Host result reconciliation does not repair the native checkpoint",
     "Cancellation is injected at tool boundaries; distributed workers were not measured"
   ],
-  "run_directory": "/Users/xiaoy/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2",
+  "run_directory": "~/Documents/多agent协作/reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/runs/20261016T044453Z-080ef4a2",
   "forgeharness_distribution_version": "0.5.0",
   "model_input_evidence_complete": true,
   "integration_gate_passed": true
