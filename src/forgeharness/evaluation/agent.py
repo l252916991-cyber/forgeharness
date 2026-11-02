@@ -1112,9 +1112,11 @@ async def build_freeze_manifest(
         created_at=datetime.now(UTC),
         git_revision=await _revision(project_root),
         model_name=model_name,
-        model_parameters=live_eval_config(
-            base_url="http://127.0.0.1:8000/v1", api_key="omlx-local", model=model_name
-        ).model_dump(mode="json"),
+        model_parameters=public_model_parameters(
+            live_eval_config(
+                base_url="http://127.0.0.1:8000/v1", api_key="omlx-local", model=model_name
+            )
+        ),
         benchmark_version=BENCHMARK_VERSION,
         observation_contract_version=OBSERVATION_CONTRACT_VERSION,
         recovery_semantics_version=RECOVERY_SEMANTICS_VERSION,
@@ -1809,7 +1811,27 @@ def live_eval_config(
         temperature=0.0,
         max_tokens=max_tokens,
         enable_thinking=False,
+        thinking_control=_thinking_control(base_url),
     )
+
+
+def _thinking_control(base_url: str) -> Literal["chat_template_kwargs", "thinking_object"]:
+    """Pick the wire form that actually turns thinking off for this endpoint."""
+    from urllib.parse import urlparse
+
+    host = urlparse(base_url).hostname or ""
+    if host == "api.deepseek.com" or host.endswith(".deepseek.com"):
+        return "thinking_object"
+    return "chat_template_kwargs"
+
+
+def public_model_parameters(config: OpenAICompatibleConfig) -> dict[str, Any]:
+    """Model parameters safe to write into a report: everything except the credential.
+
+    Reports and freeze manifests are committed evidence, so a hosted provider key
+    passed on the command line must never be serialized into them.
+    """
+    return config.model_dump(mode="json", exclude={"api_key"})
 
 
 async def run_live_agent_evaluation(
@@ -1845,7 +1867,7 @@ async def run_live_agent_evaluation(
             model_name=config.model,
             # Pinned because the same model at a different temperature or output
             # ceiling is a different experiment.
-            model_config=config.model_dump(mode="json"),
+            model_config=public_model_parameters(config),
             samples=samples,
             limit=limit,
             only_cases=only_cases,

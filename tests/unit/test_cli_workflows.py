@@ -159,3 +159,31 @@ async def test_cli_repair_requires_confirmation_before_each_write(
     assert result.status == (
         RunStatus.SUCCEEDED if approve_all or confirmation else RunStatus.AWAITING_APPROVAL
     )
+
+
+@pytest.mark.parametrize(
+    ("base_url", "model", "report"),
+    [
+        ("https://api.deepseek.com", "deepseek-flash", "agent-eval-dev-equal-deepseek-flash.json"),
+        ("http://127.0.0.1:8000/v1", "Qwythos-9B", "agent-eval-dev-equal-omlx.json"),
+    ],
+)
+def test_live_eval_reads_key_from_environment_and_names_report_by_model(
+    base_url: str, model: str, report: str, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The key stays out of shell history, and a hosted run never overwrites OMLX reports."""
+    captured: list[dict[str, Any]] = []
+
+    async def evaluate(**kwargs: Any) -> None:
+        captured.append(kwargs)
+        raise RuntimeError("stop after capturing the configuration")
+
+    monkeypatch.setattr(cli, "run_live_agent_evaluation", evaluate)
+    result = CliRunner().invoke(
+        cli.app,
+        ["eval-agent", "--profile", "equal", "--model", model, "--base-url", base_url],
+        env={"FORGE_API_KEY": "sk-from-environment"},
+    )
+    assert isinstance(result.exception, RuntimeError)
+    assert captured[0]["config"].api_key == "sk-from-environment"
+    assert captured[0]["output_path"].name == report

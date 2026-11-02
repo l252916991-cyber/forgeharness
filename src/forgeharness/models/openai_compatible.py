@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
-from typing import Any
+from typing import Any, Literal
 from urllib.parse import urlparse
 
 import httpx
@@ -63,6 +63,11 @@ class OpenAICompatibleConfig(BaseModel):
     temperature: float = Field(default=0.0, ge=0, le=2)
     max_tokens: int | None = Field(default=None, ge=1, le=32_768)
     enable_thinking: bool | None = None
+    #: How ``enable_thinking`` is expressed on the wire. Local Qwen-style servers read
+    #: ``chat_template_kwargs``; DeepSeek's hosted API reads a top-level ``thinking``
+    #: object and, with thinking on, requires reasoning to be echoed back on every tool
+    #: turn, which this adapter does not do.
+    thinking_control: Literal["chat_template_kwargs", "thinking_object"] = "chat_template_kwargs"
     context_window_tokens: int | None = Field(default=None, ge=1)
     provider_overhead_tokens: int | None = Field(default=None, ge=0)
     #: How this endpoint wants a cacheable prefix expressed. Defaults to OFF because
@@ -313,7 +318,11 @@ class OpenAICompatibleModel:
         if self._config.max_tokens is not None:
             body["max_tokens"] = self._config.max_tokens
         if self._config.enable_thinking is not None:
-            body["chat_template_kwargs"] = {"enable_thinking": self._config.enable_thinking}
+            if self._config.thinking_control == "thinking_object":
+                mode = "enabled" if self._config.enable_thinking else "disabled"
+                body["thinking"] = {"type": mode}
+            else:
+                body["chat_template_kwargs"] = {"enable_thinking": self._config.enable_thinking}
         return body
 
     @staticmethod

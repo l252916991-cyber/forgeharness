@@ -43,7 +43,9 @@ from forgeharness.evaluation.agent import (
     live_budget,
     live_eval_config,
     natural_cost_budget,
+    public_model_parameters,
     run_agent_evaluation,
+    run_live_agent_evaluation,
     whole_run_budget,
 )
 from forgeharness.evaluation.bad_case import (
@@ -1123,3 +1125,51 @@ async def test_report_pins_experiment_identity(tmp_path: Path) -> None:
     # rather than a misleading False.
     assert report.constraint_effective is None
     assert report.constrained_run_share is None
+
+
+def test_hosted_deepseek_endpoint_turns_thinking_off_with_its_own_parameter() -> None:
+    """DeepSeek ignores chat_template_kwargs; thinking left on breaks multi-turn tool use."""
+    hosted = live_eval_config(
+        base_url="https://api.deepseek.com", api_key="k", model="deepseek-flash"
+    )
+    local = live_eval_config(base_url="http://127.0.0.1:8000/v1", api_key="k", model="m")
+    assert hosted.enable_thinking is False
+    assert hosted.thinking_control == "thinking_object"
+    assert local.thinking_control == "chat_template_kwargs"
+
+
+def test_public_model_parameters_never_contain_the_credential() -> None:
+    config = live_eval_config(
+        base_url="https://api.deepseek.com", api_key="sk-must-not-leak", model="deepseek-flash"
+    )
+    parameters = public_model_parameters(config)
+    assert "api_key" not in parameters
+    assert parameters["model"] == "deepseek-flash"
+    assert "sk-must-not-leak" not in json.dumps(parameters)
+
+
+async def test_live_report_on_disk_does_not_contain_the_api_key(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Regression: the live report used to serialize the full config, key included."""
+    import forgeharness.evaluation.agent as agent_module
+
+    monkeypatch.setattr(agent_module, "omlx_model_factory", lambda config, client: _FinalOnlyModel)
+    secret = "sk-live-report-regression-0123456789"
+    output = tmp_path / "live.json"
+    await run_live_agent_evaluation(
+        config=live_eval_config(
+            base_url="https://api.deepseek.com", api_key=secret, model="deepseek-flash"
+        ),
+        manifest_path=MANIFEST_PATH,
+        output_path=output,
+        project_root=PROJECT_ROOT,
+        split="dev",
+        profile=Profile.EQUAL,
+        samples=2,
+        strategies=(Strategy.REACT,),
+        limit=1,
+    )
+    written = output.read_text(encoding="utf-8")
+    assert secret not in written
+    assert json.loads(written)["model_parameters"]["thinking_control"] == "thinking_object"

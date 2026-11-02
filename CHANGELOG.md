@@ -5,6 +5,19 @@ All notable changes to ForgeHarness are documented here. The format follows
 [SemVer](https://semver.org/). The current implemented/planned boundary is
 `docs/CURRENT_CAPABILITIES.md`; `docs/archive/STATUS.md` keeps the history.
 
+## Unreleased
+
+- Security: live Agent Benchmark reports and freeze manifests no longer serialize the
+  provider API key into `model_parameters`. Earlier reports only ever contained the
+  local placeholder `omlx-local`, but a hosted key passed on the command line would
+  have been written into a tracked report.
+- `forge eval-agent` reads the key from `FORGE_API_KEY`, so it stays out of shell
+  history, and names hosted live reports after the model (for example
+  `agent-eval-dev-natural-deepseek-flash.json`) instead of overwriting the `-omlx`
+  reports.
+- `OpenAICompatibleConfig.thinking_control` expresses disabled thinking as DeepSeek's
+  top-level `thinking` object; live evaluation selects it for `*.deepseek.com`.
+
 ## 0.13.0 engineering candidate (qualification recorded separately; not published)
 
 - Add an invitation-only internal Alpha control plane over the PostgreSQL hosted

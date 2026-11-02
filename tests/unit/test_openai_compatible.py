@@ -204,3 +204,27 @@ async def test_adapter_rejects_multiple_choices() -> None:
 
     with pytest.raises(ModelProtocolError, match="exactly one"):
         await model.decide(request())
+
+
+async def test_adapter_can_express_disabled_thinking_as_a_thinking_object() -> None:
+    captured: list[httpx.Request] = []
+
+    async def handler(request: httpx.Request) -> httpx.Response:
+        captured.append(request)
+        return httpx.Response(200, json={"choices": [{"message": {"content": "done"}}]})
+
+    model = OpenAICompatibleModel(
+        OpenAICompatibleConfig(
+            base_url="https://api.deepseek.com",
+            api_key="secret",
+            model="deepseek-flash",
+            enable_thinking=False,
+            thinking_control="thinking_object",
+        ),
+        client=httpx.AsyncClient(transport=httpx.MockTransport(handler)),
+    )
+    await model.decide(request())
+    sent = json.loads(captured[0].content)
+    assert sent["thinking"] == {"type": "disabled"}
+    assert "chat_template_kwargs" not in sent
+    assert "secret" not in captured[0].content.decode()

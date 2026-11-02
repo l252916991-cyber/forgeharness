@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 import shlex
 from pathlib import Path
+from urllib.parse import urlparse
 from uuid import uuid4
 
 import httpx
@@ -112,6 +114,14 @@ def evaluate_control(
         raise typer.Exit(code=1)
 
 
+def _endpoint_label(base_url: str, model: str) -> str:
+    """Name live reports after the model so one provider never overwrites another's."""
+    host = urlparse(base_url).hostname or ""
+    if host in {"127.0.0.1", "localhost", "::1"}:
+        return "omlx"
+    return re.sub(r"[^a-z0-9]+", "-", model.lower()).strip("-") or "live"
+
+
 def _case_ids(raw: str) -> tuple[str, ...]:
     """Parse the comma-separated --only-cases option into unique case ids."""
     ids = [item.strip() for item in raw.split(",") if item.strip()]
@@ -136,7 +146,12 @@ def evaluate_agent(
     base_url: str = typer.Option(
         "http://127.0.0.1:8000/v1", help="OpenAI-compatible base URL for live profiles."
     ),
-    api_key: str = typer.Option("omlx-local", help="API key for live profiles."),
+    api_key: str = typer.Option(
+        "omlx-local",
+        envvar="FORGE_API_KEY",
+        show_default=False,
+        help="API key for live profiles; prefer the FORGE_API_KEY environment variable.",
+    ),
     max_tokens: int = typer.Option(
         1024,
         min=1,
@@ -186,7 +201,11 @@ def evaluate_agent(
     if selected_profile is not Profile.KEYLESS and not model:
         raise typer.BadParameter("--model is required for a live profile", param_hint="--model")
     selected_split: Split = "holdout" if split == "holdout" else "dev"
-    suffix = "keyless" if selected_profile is Profile.KEYLESS else f"{selected_profile.value}-omlx"
+    suffix = (
+        "keyless"
+        if selected_profile is Profile.KEYLESS
+        else f"{selected_profile.value}-{_endpoint_label(base_url, model)}"
+    )
     target = Path(output) if output else Path(f"reports/agent-eval-{selected_split}-{suffix}.json")
     strategies = (Strategy.REACT,) if react_only else (Strategy.REACT, Strategy.PLAN_EXECUTE)
     if selected_profile is Profile.KEYLESS:
