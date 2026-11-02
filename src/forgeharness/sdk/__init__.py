@@ -196,6 +196,7 @@ from forgeharness.tools.base import (
     ToolFailure,
     ToolOutput,
     ToolSpec,
+    TransientToolError,
 )
 from forgeharness.tools.dispatcher import ToolDispatcher
 from forgeharness.tools.paths import WorkspacePathError, resolve_workspace_path
@@ -448,6 +449,7 @@ __all__ = [
     "ToolRegistry",
     "ToolSpec",
     "TraceRecorder",
+    "TransientToolError",
     "Usage",
     "ValidationOutcome",
     "VerificationRequest",

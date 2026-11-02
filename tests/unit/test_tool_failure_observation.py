@@ -346,3 +346,75 @@ async def test_external_json_schema_violation_is_described_from_the_keyword() ->
         with pytest.raises(JSONSchemaValidationError) as raised:
             Draft202012Validator(schema).validate(arguments)
         assert schema_violations(raised.value) == expected
+
+
+class _FlakyBackendTool:
+    """A tool whose backend fails once with a temporary error."""
+
+    def __init__(self, effect_class: object, error: BaseException) -> None:
+        from forgeharness.tools.base import ToolEffectClass
+
+        assert isinstance(effect_class, ToolEffectClass)
+        self._error = error
+        self.input_model = _NoArgs
+        self.spec = ToolSpec(
+            name="flaky",
+            description="Calls a backend that may fail temporarily.",
+            input_schema=_NoArgs.model_json_schema(),
+            risk=RiskLevel.READ,
+            effect_class=effect_class,
+        )
+
+    async def execute(self, arguments: BaseModel, context: ToolContext) -> ToolOutput:
+        del arguments, context
+        raise self._error
+
+
+@pytest.mark.parametrize("error", [ConnectionResetError("peer reset"), "transient"])
+@pytest.mark.parametrize(
+    ("effect", "recoverable"),
+    [("read_only", True), ("idempotent", True), ("non_idempotent", False)],
+)
+async def test_transient_failure_is_repeatable_only_when_the_effect_is(
+    error: object, effect: str, recoverable: bool
+) -> None:
+    """Regression: a "transient" failure was unclassified and always non-recoverable.
+
+    The same backend fault must not tell the model to retry a write that may already
+    have happened, so recoverability follows the declared effect class.
+    """
+    from forgeharness.tools.base import ToolEffectClass, TransientToolError
+
+    raised = TransientToolError("backend 503") if error == "transient" else error
+    assert isinstance(raised, BaseException)
+    registry = ToolRegistry()
+    registry.register(_FlakyBackendTool(ToolEffectClass(effect), raised))
+    result = await ToolDispatcher(registry).dispatch(
+        ToolCall(id="c1", name="flaky", arguments={}), ToolContext(task_id="t")
+    )
+    failure = result.output.error
+    assert failure is not None
+    assert failure.code is ToolErrorCode.TRANSIENT
+    assert failure.recoverable is recoverable
+    assert "503" not in result.output.content and "peer reset" not in result.output.content
+
+
+def test_transient_error_on_a_write_settles_as_indeterminate() -> None:
+    """The journal must never record a possibly-applied write as "did not happen"."""
+    from forgeharness.runtime.retry import RetryDecision, decide_retry
+    from forgeharness.tools.base import ToolEffectClass
+
+    write = decide_retry(
+        effect_class=ToolEffectClass.NON_IDEMPOTENT,
+        error_code=ToolErrorCode.TRANSIENT,
+        attempt_no=1,
+        max_attempts=3,
+    )
+    read = decide_retry(
+        effect_class=ToolEffectClass.READ_ONLY,
+        error_code=ToolErrorCode.TRANSIENT,
+        attempt_no=1,
+        max_attempts=3,
+    )
+    assert write is RetryDecision.INDETERMINATE
+    assert read is RetryDecision.FAIL  # reported to the agent; not auto-retried yet

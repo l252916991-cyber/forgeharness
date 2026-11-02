@@ -79,9 +79,22 @@ class ToolErrorCode(StrEnum):
     PATH_NOT_FOUND = "path_not_found"
     INVALID_ARGUMENTS = "invalid_arguments"
     TIMEOUT = "timeout"
+    # The tool's backend reported a temporary failure (connection reset, rate limit,
+    # a 5xx). Added for a real Bad Case: an unclassified "transient" error was
+    # reported as non-recoverable, and a compliant model correctly refused to retry.
+    TRANSIENT = "transient_error"
     # The fallback for anything unclassified. Explicit so "unknown" is a recorded
     # fact rather than an absence of data.
     TOOL_EXECUTION_ERROR = "tool_execution_error"
+
+
+class TransientToolError(RuntimeError):
+    """Raised by a tool whose backend failed in a way that may succeed on repetition.
+
+    Raising it is a claim about the *backend*, not about safety: whether repeating
+    the call is safe is decided from the tool's declared effect class, so a
+    non-idempotent tool raising this is still reported as having an unknown outcome.
+    """
 
 
 class ToolFailure(FrozenModel):

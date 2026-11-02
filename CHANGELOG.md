@@ -28,6 +28,14 @@ All notable changes to ForgeHarness are documented here. The format follows
   echoing the submitted value (ADR 047); `OBSERVATION_CONTRACT_VERSION` is 2.
 - `AgentRuntime` pins a harness protocol block stating the one-call-per-step rule into
   every tool request, outside the transcript (ADR 048); `protocol_notice=False` opts out.
+- `forge eval-agent --no-protocol-notice` removes that block for ablation; reports record
+  `protocol_notice`.
+- New `transient_error` code and `TransientToolError` (also `ConnectionError`): repeatable
+  for read-only and idempotent tools, `recoverable: false` and journal-`indeterminate` for
+  non-idempotent ones (ADR 049). The benchmark's `error` injection raises it;
+  `BENCHMARK_VERSION` is 2 and `OBSERVATION_CONTRACT_VERSION` is 3.
+- QUICKSTART, SDK_GUIDE and CURRENT_CAPABILITIES describe 0.13.0; QUICKSTART no longer uses
+  the non-existent `forge --version`.
 
 ## 0.13.0 engineering candidate (qualification recorded separately; not published)
 

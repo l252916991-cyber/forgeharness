@@ -78,7 +78,7 @@ from forgeharness.runtime.budget import RunBudget
 from forgeharness.runtime.loop import AgentRuntime
 from forgeharness.runtime.plan_execute import PlanExecuteRuntime
 from forgeharness.runtime.todos import TodoBoard, WriteTodosTool
-from forgeharness.tools.base import Tool, ToolContext, ToolOutput, ToolSpec
+from forgeharness.tools.base import Tool, ToolContext, ToolOutput, ToolSpec, TransientToolError
 from forgeharness.tools.builtin import EchoTool
 from forgeharness.tools.dispatcher import ToolDispatcher
 from forgeharness.tools.policy import PolicyDecision, PolicyDecisionType
@@ -118,15 +118,16 @@ PLANNER_STEPS = 1
 #   Bumped when tool failures became structured JSON instead of raw exception text,
 #   because that alone changed a case from 4 steps to 11. Bumped to 2 when schema
 #   violations began naming the failing field and constraint: against the generic
-#   message DeepSeek resent one over-long rationale twenty times.
+#   message DeepSeek resent one over-long rationale twenty times. Bumped to 3 when
+#   temporary backend failures got their own `transient_error` code.
 # - RECOVERY_SEMANTICS_VERSION: retry/recovery behaviour. See the generation list in
 #   `domain/models.py`; the current freeze is 2 (journal + retry/attempts + soft
 #   deadline). A run using the journal has different side-effect semantics from one
 #   that does not, so the two must never be compared as if only the agent had
 #   changed.
-OBSERVATION_CONTRACT_VERSION = 2
+OBSERVATION_CONTRACT_VERSION = 3
 RECOVERY_SEMANTICS_VERSION = CURRENT_RECOVERY_SEMANTICS_VERSION
-BENCHMARK_VERSION = 1
+BENCHMARK_VERSION = 2
 # The budget profile definitions (equal vs natural ceilings) are versioned so a
 # later recalibration is recorded rather than silently replacing the old rules.
 # 1 = the hand-written equal step cap of 12, which never bound (0% of runs) and made
@@ -593,7 +594,11 @@ class _InjectedFailureTool:
                 raise TimeoutError("injected transport timeout")
             if self._mode is InjectionMode.NOT_FOUND:
                 return ToolOutput(ok=False, content="injected: requested resource not found")
-            raise RuntimeError("injected transient backend failure")
+            # The mode is documented as a *transient* failure, so it is raised as one.
+            # It used to be a bare RuntimeError, which the harness rightly could not
+            # call retryable, and a model that obeyed `recoverable: false` was graded
+            # as failing a "retry once" case (BENCHMARK_VERSION 2).
+            raise TransientToolError("injected transient backend failure")
         return await self._inner.execute(arguments, context)
 
 

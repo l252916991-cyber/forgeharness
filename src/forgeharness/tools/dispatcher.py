@@ -15,9 +15,11 @@ from forgeharness.tools.base import (
     SchemaSource,
     Tool,
     ToolContext,
+    ToolEffectClass,
     ToolErrorCode,
     ToolFailure,
     ToolOutput,
+    TransientToolError,
 )
 from forgeharness.tools.paths import WorkspacePathError
 from forgeharness.tools.registry import ToolRegistry
@@ -124,6 +126,8 @@ class ToolDispatcher:
                 exception_class=type(exc).__name__,
                 extra_metadata={"timeout_seconds": effective_timeout},
             )
+        except (TransientToolError, ConnectionError) as exc:
+            return self._transient(started, call, tool, exc)
         except Exception as exc:
             return self._classify_exception(started, call, exc)
         return DispatchResult(
@@ -166,6 +170,46 @@ class ToolDispatcher:
             ),
             exception_class=exception_class,
             extra_metadata={"tool": call.name},
+        )
+
+    def _transient(
+        self, started: float, call: ToolCall, tool: Tool, exc: BaseException
+    ) -> DispatchResult:
+        """Report a temporary backend failure, safe to repeat only if the effect is.
+
+        The same backend fault means opposite things for different tools: repeating a
+        read is harmless, while a non-idempotent write that failed mid-flight may
+        already have taken effect, so telling the model to retry could do it twice.
+        """
+        repeatable = tool.spec.effect_class in (
+            ToolEffectClass.READ_ONLY,
+            ToolEffectClass.IDEMPOTENT,
+        )
+        failure = (
+            ToolFailure(
+                code=ToolErrorCode.TRANSIENT,
+                message="The tool's backend reported a temporary failure.",
+                recoverable=True,
+                details=_declared_details(call),
+                suggestion="Repeating the same call is safe for this tool; retry it once.",
+            )
+            if repeatable
+            else ToolFailure(
+                code=ToolErrorCode.TRANSIENT,
+                message=(
+                    "The tool's backend reported a temporary failure after the call may "
+                    "have started; whether it took effect is unknown."
+                ),
+                recoverable=False,
+                details=_declared_details(call),
+                suggestion="Do not repeat the call; report that its outcome must be checked.",
+            )
+        )
+        return self._failure(
+            started,
+            failure,
+            exception_class=type(exc).__name__,
+            extra_metadata={"effect_class": tool.spec.effect_class.value},
         )
 
     def _classify_exception(

@@ -1273,3 +1273,22 @@ async def test_protocol_notice_ablation_is_applied_and_recorded(
     assert report.protocol_notice is notice
     written = json.loads((tmp_path / "report.json").read_text())
     assert written["protocol_notice"] is notice
+
+
+async def test_injected_error_mode_is_reported_as_a_repeatable_transient_failure(
+    tmp_path: Path,
+) -> None:
+    """The fixture documents `error` as transient, so the model must be told so."""
+    from forgeharness.evaluation.agent import BENCHMARK_VERSION, run_case
+
+    manifest = AgentCaseManifest.model_validate_json(MANIFEST_PATH.read_text())
+    case = next(c for c in manifest.cases if c.id == "recover-error-retry")
+    _, _, _, events = await run_case(case, Strategy.REACT, tmp_path / "ws")
+    failures = [
+        json.loads(e.payload["observation"])["error"]
+        for e in events
+        if e.type == "tool.completed" and e.payload.get("ok") is False
+    ]
+    assert failures and failures[0]["code"] == "transient_error"
+    assert failures[0]["recoverable"] is True
+    assert BENCHMARK_VERSION == 2

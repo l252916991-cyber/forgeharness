@@ -43,6 +43,11 @@ class RetryDecision(StrEnum):
 # short: only a failure we positively know is transient qualifies. An unclassified
 # `tool_execution_error` is not known to be transient, so it does not.
 _TRANSIENT_CODES = frozenset({ToolErrorCode.TIMEOUT})
+# `transient_error` is reported to the *agent* as repeatable for read-only and
+# idempotent tools, but the runtime does not yet retry it on its own: doing so would
+# change which attempts a journalled run makes, which is a new recovery-semantics
+# generation. Until then it settles exactly as the unclassified error it replaced
+# (failed for safe tools, indeterminate for non-idempotent ones).
 
 
 def decide_retry(
@@ -63,7 +68,7 @@ def decide_retry(
     # Both codes below come from the execution path (a rejection raised before
     # dispatch is reported as `invalid_arguments` instead).
     outcome_unknown = effect_class is ToolEffectClass.NON_IDEMPOTENT and error_code in (
-        _TRANSIENT_CODES | {ToolErrorCode.TOOL_EXECUTION_ERROR}
+        _TRANSIENT_CODES | {ToolErrorCode.TOOL_EXECUTION_ERROR, ToolErrorCode.TRANSIENT}
     )
     if outcome_unknown:
         return RetryDecision.INDETERMINATE
