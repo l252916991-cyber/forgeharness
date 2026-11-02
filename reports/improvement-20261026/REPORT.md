@@ -25,9 +25,9 @@
 
 候选发行物未发布、未替换业务宿主依赖：
 
-- [forgeharness-0.8.5-py3-none-any.whl](candidate-r3/verification/runs/20261026T093827Z-1d23a686/dist/forgeharness-0.8.5-py3-none-any.whl)，SHA-256 `a1a98496dc9afcc727dac94d6e988fe06ffdc66c92b5a8558c88f5c1e4aca2af`。
+- `reports/improvement-20261026/candidate-r3/verification/runs/20261026T093827Z-1d23a686/dist/forgeharness-0.8.5-py3-none-any.whl`，SHA-256 `a1a98496dc9afcc727dac94d6e988fe06ffdc66c92b5a8558c88f5c1e4aca2af`。
 
-- [forgeharness-0.8.5.tar.gz](candidate-r3/verification/runs/20261026T093827Z-1d23a686/dist/forgeharness-0.8.5.tar.gz)，SHA-256 `4dd005c9a6bc25cb98391f30adc072dcb583445a23823e0264defbfe7f713440`。
+- `reports/improvement-20261026/candidate-r3/verification/runs/20261026T093827Z-1d23a686/dist/forgeharness-0.8.5.tar.gz`，SHA-256 `4dd005c9a6bc25cb98391f30adc072dcb583445a23823e0264defbfe7f713440`。
 
 本次新增 `RunKernel.call_model(include_tools=False)`：在规范模型请求准备之前省略本次
 工具目录，registry、权限、预算、trace 与共享计费路径保持原边界。默认行为未改变。

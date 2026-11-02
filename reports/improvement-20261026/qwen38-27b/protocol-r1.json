@@ -1,0 +1,506 @@
+{
+  "schema_version": 1,
+  "identity": {
+    "runner_sha256": "879d5061e56685126b04606c0abb8ba8611e0efdfb165c093996c7a6d6448fab",
+    "cases_sha256": "bebc59c44ec989f496aa303e17e5e2c323b13afbd26a086e00315c2c066772b9",
+    "budget": {
+      "max_steps": 12,
+      "max_tool_calls": 8,
+      "max_input_tokens": 24000,
+      "max_output_tokens": 3072,
+      "max_context_tokens": 8192,
+      "reserve_output_tokens": 256,
+      "request_overhead_tokens": 0,
+      "max_protocol_violations": 3,
+      "max_attempts_per_call": 1,
+      "initial_backoff_ms": 100,
+      "backoff_multiplier": 2.0,
+      "max_backoff_ms": 1000,
+      "max_wall_seconds": 120.0,
+      "tool_timeout_seconds": 30.0,
+      "max_planner_retries": 1
+    }
+  },
+  "model": "Qwen3.8-27B-oQ4e-mtp",
+  "dev_report_sha256": "a2d2a5635fc63b48118dd9094afa9b9bee7cbe818feeb9ebd620ddf5f4f50fac",
+  "dev_manifest_sha256": "63bf5e7ef93a324ad9e89c9020077f229c2ae90d49fbf5bbd85381ec9e678b78",
+  "samples": 3,
+  "evaluation_tasks": 30,
+  "planned_runs": 270,
+  "task_family_counts": {
+    "parallel": 10,
+    "chain": 10,
+    "error": 10
+  },
+  "decision_rule": {
+    "quality_gain": "paired task-cluster 95% lower bound > 0 against BOTH single and fixed",
+    "latency_exception": "family paired quality lower bound >= -0.05 and p50 latency <= 0.80 of both baselines",
+    "cost_guard": "multi tokens per successful task <= 1.20 of each baseline, all usage known",
+    "default": "single or fixed when quality gain unclear and cost rises",
+    "scope": "exploratory only; 10 tasks/family and no multiplicity correction"
+  },
+  "source_identity": "828b20be6e7a2ba0dda9122ad4bfe310c0a64744857aaf4ec7b0914c0c4f1c46",
+  "model_artifacts": {
+    "config.json": "7a063b70e128d238784dce2c594cb7e0f714f44c4387975c99acc8fcf6511eb5",
+    "generation_config.json": "e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e",
+    "model-00001-of-00004.safetensors": "a52b4d90bdd3ac6faaa1b5e2dbd392476ff4a89f612d58f2cdf5da3e600505b6",
+    "model-00002-of-00004.safetensors": "da76b97546d3d6115539f7c3f56cb69a3eebd6b29d45f3f3e31223f993e5643a",
+    "model-00003-of-00004.safetensors": "22b410fbeb6bd93cd226fbf3d035744d70adf137ad4be9ba7ff4560fc38b3616",
+    "model-00004-of-00004.safetensors": "0e513a47300167766fe294ad9c9b8583853debc18dfb05ebadb018bffc97fa7a",
+    "model.safetensors.index.json": "7f3e6f1baba9bec91b20f25a9a505a6e268377012d038f36febc3af6c478f625",
+    "oq_imatrix_report.json": "24ae495e41cdf6a900a9c272560f21e1dcbb6390a99db93dde6745e5a9ed779e",
+    "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+    "tokenizer.json": "0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3",
+    "tokenizer_config.json": "b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27",
+    "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+  },
+  "upstream_model_revision_verified": false,
+  "corpus": {
+    "dev": [
+      {
+        "id": "dev-p1",
+        "family": "parallel",
+        "question": "Return the failing modules, alphabetically, comma-separated.",
+        "materials": [
+          "auth: permission checked after write; invariant: check before write.",
+          "billing: amount is integer cents as required.",
+          "trace: saves raw api_key; invariant: never persist credentials."
+        ],
+        "answer": "auth,trace"
+      },
+      {
+        "id": "dev-p2",
+        "family": "parallel",
+        "question": "Which checks pass? Return sorted IDs comma-separated.",
+        "materials": [
+          "a: expected HTTP 403, actual 403.",
+          "b: expected one receipt, actual two.",
+          "c: expected terminal succeeded, actual succeeded."
+        ],
+        "answer": "a,c"
+      },
+      {
+        "id": "dev-p3",
+        "family": "parallel",
+        "question": "Find the highest severity module: p0 is higher than p1 or p2.",
+        "materials": [
+          "cache is p2.",
+          "router is p1.",
+          "ledger is p0."
+        ],
+        "answer": "ledger"
+      },
+      {
+        "id": "dev-p4",
+        "family": "parallel",
+        "question": "Return modules requiring a database migration, sorted.",
+        "materials": [
+          "alpha only changes documentation.",
+          "beta adds a durable table.",
+          "gamma adds a nullable stored column."
+        ],
+        "answer": "beta,gamma"
+      },
+      {
+        "id": "dev-c1",
+        "family": "chain",
+        "question": "Return the final state after the events.",
+        "materials": [
+          "Start queued. start: queued -> running. finish: running -> succeeded.",
+          "Events in order: start, finish."
+        ],
+        "answer": "succeeded"
+      },
+      {
+        "id": "dev-c2",
+        "family": "chain",
+        "question": "Return remaining budget as a decimal integer.",
+        "materials": [
+          "Initial budget 20. Reserve 8. Settlement releases reservation then charges actual 5.",
+          "After settlement charge a further 4."
+        ],
+        "answer": "11"
+      },
+      {
+        "id": "dev-c3",
+        "family": "chain",
+        "question": "Return the final artifact version.",
+        "materials": [
+          "Input source is v2. Build maps v2 -> artifact b7.",
+          "Review of b7 produces release r9."
+        ],
+        "answer": "r9"
+      },
+      {
+        "id": "dev-c4",
+        "family": "chain",
+        "question": "Return the admitted node IDs in execution order.",
+        "materials": [
+          "a has no dependencies. b depends on a. c depends on b.",
+          "All nodes succeed; scheduler runs only nodes with completed dependencies."
+        ],
+        "answer": "a,b,c"
+      },
+      {
+        "id": "dev-e1",
+        "family": "error",
+        "question": "Choose retry, reconcile, or fail.",
+        "materials": [
+          "A non-idempotent payment was dispatched. Response was lost.",
+          "No authoritative receipt is currently available."
+        ],
+        "answer": "reconcile"
+      },
+      {
+        "id": "dev-e2",
+        "family": "error",
+        "question": "Choose execute or request_approval.",
+        "materials": [
+          "Approval binds content digest x. Current content digest is y.",
+          "An approval may authorize only its exact approved digest."
+        ],
+        "answer": "request_approval"
+      },
+      {
+        "id": "dev-e3",
+        "family": "error",
+        "question": "Choose execute or deny.",
+        "materials": [
+          "Caller was authorized at submission; caller is revoked before tool admission.",
+          "Policy requires current authorization at each admission."
+        ],
+        "answer": "deny"
+      },
+      {
+        "id": "dev-e4",
+        "family": "error",
+        "question": "Choose answer or clarify.",
+        "materials": [
+          "Request: delete the old record. There are two equally old records.",
+          "Deletion requires one unambiguous record ID."
+        ],
+        "answer": "clarify"
+      }
+    ],
+    "evaluation": [
+      {
+        "id": "eval-p01",
+        "family": "parallel",
+        "question": "Return the module whose license blocks the release.",
+        "materials": [
+          "Module prism: MIT. Allowed licenses: MIT, Apache-2.0.",
+          "Module quartz: GPL-3.0-only. Allowed licenses: MIT, Apache-2.0.",
+          "Module river: Apache-2.0. Allowed licenses: MIT, Apache-2.0."
+        ],
+        "answer": "quartz"
+      },
+      {
+        "id": "eval-p02",
+        "family": "parallel",
+        "question": "Return the endpoint leaking another tenant's resource.",
+        "materials": [
+          "/orders checks owner tenant == actor tenant.",
+          "/files looks up by global ID without a tenant predicate.",
+          "/notes queries WHERE tenant_id = actor.tenant_id."
+        ],
+        "answer": "/files"
+      },
+      {
+        "id": "eval-p03",
+        "family": "parallel",
+        "question": "Return the test that detects a genuine boundary defect.",
+        "materials": [
+          "test_a: limit 5 accepts consumption 5, as specified.",
+          "test_b: limit 5 accepts consumption 6, but maximum is inclusive 5.",
+          "test_c: limit 5 rejects consumption 7, as specified."
+        ],
+        "answer": "test_b"
+      },
+      {
+        "id": "eval-p04",
+        "family": "parallel",
+        "question": "Return the service eligible for cache reuse.",
+        "materials": [
+          "oak: cached revision v1, current revision v2.",
+          "pine: cached revision v3, current revision v3, permission valid.",
+          "elm: cached revision v4, current revision v4, permission revoked."
+        ],
+        "answer": "pine"
+      },
+      {
+        "id": "eval-p05",
+        "family": "parallel",
+        "question": "Return sorted modules violating the no-core-to-domain-import rule.",
+        "materials": [
+          "api/core.py imports domain.legal.",
+          "sdk/core.py imports json.",
+          "runtime/core.py imports domain.commerce."
+        ],
+        "answer": "api,runtime"
+      },
+      {
+        "id": "eval-p06",
+        "family": "parallel",
+        "question": "Return the schema change compatible with an old required-field reader.",
+        "materials": [
+          "change_a removes the required status field.",
+          "change_b adds an optional note field; preserves all old fields and meanings.",
+          "change_c changes required integer counter to an object."
+        ],
+        "answer": "change_b"
+      },
+      {
+        "id": "eval-p07",
+        "family": "parallel",
+        "question": "Which implementation preserves sorted unique IDs? Return its ID.",
+        "materials": [
+          "impl_a: list(set(ids)); order is unspecified.",
+          "impl_b: sorted(set(ids)).",
+          "impl_c: sorted(ids); duplicates remain."
+        ],
+        "answer": "impl_b"
+      },
+      {
+        "id": "eval-p08",
+        "family": "parallel",
+        "question": "Return the log entry permitted by the privacy policy.",
+        "materials": [
+          "entry_a stores the bearer token verbatim; forbidden.",
+          "entry_b stores a credential-free request digest; allowed.",
+          "entry_c stores the database password verbatim; forbidden."
+        ],
+        "answer": "entry_b"
+      },
+      {
+        "id": "eval-p09",
+        "family": "parallel",
+        "question": "Return the worker configuration that prevents duplicate row claims.",
+        "materials": [
+          "config_a selects then updates in separate unguarded transactions.",
+          "config_b reads rows without claiming them.",
+          "config_c uses an atomic conditional UPDATE and checks affected-row count."
+        ],
+        "answer": "config_c"
+      },
+      {
+        "id": "eval-p10",
+        "family": "parallel",
+        "question": "Return the function that checks a Python list for emptiness correctly.",
+        "materials": [
+          "f_a: len(items) < 0.",
+          "f_b: not items.",
+          "f_c: items is []."
+        ],
+        "answer": "f_b"
+      },
+      {
+        "id": "eval-c01",
+        "family": "chain",
+        "question": "Return the total physical invocation count.",
+        "materials": [
+          "Logical call x has attempts x1 failed, x2 failed, x3 succeeded.",
+          "Logical call y has attempt y1 succeeded. Count attempts, not logical calls."
+        ],
+        "answer": "4"
+      },
+      {
+        "id": "eval-c02",
+        "family": "chain",
+        "question": "Return the final HTTP status.",
+        "materials": [
+          "Domain exception SourceGone maps to ResourceUnavailable.",
+          "ResourceUnavailable maps to HTTP 410. Other exceptions map to 500."
+        ],
+        "answer": "410"
+      },
+      {
+        "id": "eval-c03",
+        "family": "chain",
+        "question": "Return the earliest node whose output becomes invalid.",
+        "materials": [
+          "graph: retrieve -> summarize -> publish. retrieve depends on source rev 4.",
+          "Source changes to rev 5. Invalidate directly affected outputs before descendants."
+        ],
+        "answer": "retrieve"
+      },
+      {
+        "id": "eval-c04",
+        "family": "chain",
+        "question": "Return the surviving committed rows after recovery.",
+        "materials": [
+          "Transaction T inserts draft and receipt, then crashes before COMMIT.",
+          "Before T there were 2 drafts and 2 receipts. SQLite rolls back uncommitted changes.",
+          "Format: drafts,receipts."
+        ],
+        "answer": "2,2"
+      },
+      {
+        "id": "eval-c05",
+        "family": "chain",
+        "question": "Return the final outbox consumer balance.",
+        "materials": [
+          "Start balance 0. Event e1 adds 7. Event e2 subtracts 2.",
+          "Delivery: e1,e2,e1. Consumer deduplicates by event ID."
+        ],
+        "answer": "5"
+      },
+      {
+        "id": "eval-c06",
+        "family": "chain",
+        "question": "Return the critical path duration in seconds.",
+        "materials": [
+          "A takes 2 seconds. B and C start after A, taking 5 and 3 seconds in parallel.",
+          "D starts after both B and C and takes 4 seconds. No overhead."
+        ],
+        "answer": "11"
+      },
+      {
+        "id": "eval-c07",
+        "family": "chain",
+        "question": "Return the authorization result: allow or deny.",
+        "materials": [
+          "Access requires active user AND tenant match AND resource grant.",
+          "User active=true; tenant matches=true; resource grant=false."
+        ],
+        "answer": "deny"
+      },
+      {
+        "id": "eval-c08",
+        "family": "chain",
+        "question": "Return the final stock count.",
+        "materials": [
+          "Stock starts 10. Request k1 reserves 3; request k2 reserves 2.",
+          "Request k1 repeats; idempotency prevents a second reservation. Then k2 is refunded."
+        ],
+        "answer": "7"
+      },
+      {
+        "id": "eval-c09",
+        "family": "chain",
+        "question": "Return the number of records after the specified pipeline.",
+        "materials": [
+          "Inputs: [a(active), b(deleted), a(active), c(active)]. First remove deleted.",
+          "Then deduplicate by ID. Then keep the first two records."
+        ],
+        "answer": "2"
+      },
+      {
+        "id": "eval-c10",
+        "family": "chain",
+        "question": "Return when the next retry is admitted, in milliseconds after start.",
+        "materials": [
+          "Attempt 1 fails at t=10ms; backoff before attempt 2 is 100ms.",
+          "Attempt 2 runs 20ms and fails. Backoff before attempt 3 doubles to 200ms."
+        ],
+        "answer": "330"
+      },
+      {
+        "id": "eval-e01",
+        "family": "error",
+        "question": "Choose reuse or reject.",
+        "materials": [
+          "An idempotency key already binds payload hash a. New request uses hash b.",
+          "The contract forbids reusing a key with different content."
+        ],
+        "answer": "reject"
+      },
+      {
+        "id": "eval-e02",
+        "family": "error",
+        "question": "Choose estimate_zero or retain_reservation.",
+        "materials": [
+          "Provider accepted a model request but the response contains no usage.",
+          "The budget contract requires authoritative actual usage for settlement."
+        ],
+        "answer": "retain_reservation"
+      },
+      {
+        "id": "eval-e03",
+        "family": "error",
+        "question": "Choose publish or wait.",
+        "materials": [
+          "Join requires all dependencies completed. Left branch completed. Right branch failed.",
+          "There is no configured partial-result publication mode."
+        ],
+        "answer": "wait"
+      },
+      {
+        "id": "eval-e04",
+        "family": "error",
+        "question": "Choose retry_read or reconcile_write.",
+        "materials": [
+          "A read-only lookup timed out, with no side effects and known zero cost.",
+          "One safe retry remains under the attempt and wall-clock budgets."
+        ],
+        "answer": "retry_read"
+      },
+      {
+        "id": "eval-e05",
+        "family": "error",
+        "question": "Choose continue or stop.",
+        "materials": [
+          "A run's persisted deadline is 12:00 UTC. Current time is 12:01 UTC.",
+          "Restarting a process must not renew the deadline. The next node has not started."
+        ],
+        "answer": "stop"
+      },
+      {
+        "id": "eval-e06",
+        "family": "error",
+        "question": "Choose discard_receipt or preserve_receipt.",
+        "materials": [
+          "Cancellation arrived while an admitted external write was executing.",
+          "The external system confirms the write committed. Cancellation cannot undo it."
+        ],
+        "answer": "preserve_receipt"
+      },
+      {
+        "id": "eval-e07",
+        "family": "error",
+        "question": "Choose loop or fail_bounded.",
+        "materials": [
+          "The model returned an illegal tool-call structure on all 3 permitted attempts.",
+          "The violation retry allowance is now exhausted."
+        ],
+        "answer": "fail_bounded"
+      },
+      {
+        "id": "eval-e08",
+        "family": "error",
+        "question": "Choose accept or reject.",
+        "materials": [
+          "A page's stored SHA-256 describes text A, but current page text is B.",
+          "A citation refers to the page. Verification requires a matching content digest."
+        ],
+        "answer": "reject"
+      },
+      {
+        "id": "eval-e09",
+        "family": "error",
+        "question": "Choose steal_owner or refuse_takeover.",
+        "materials": [
+          "Another live process holds the local flock and is blocked on a tool.",
+          "The single-machine runtime cannot steal an active owner's lock."
+        ],
+        "answer": "refuse_takeover"
+      },
+      {
+        "id": "eval-e10",
+        "family": "error",
+        "question": "Choose migrate_implicitly or reject_version.",
+        "materials": [
+          "Stored checkpoint schema is v99; installed runtime understands only v1 and v2.",
+          "No explicit migration exists. Unknown future schemas must fail closed."
+        ],
+        "answer": "reject_version"
+      }
+    ]
+  },
+  "fee_budget": "existing local service only; no paid API",
+  "tool_visibility": {
+    "single": "registered material tool schemas; ReAct controls calls",
+    "fixed": "deterministic material reads; final model call has no tool schemas",
+    "multi": "deterministic material reads; planner/worker/reviewer have no tool schemas",
+    "authority": "same registered tool and policy; schema omission grants no authority"
+  }
+}

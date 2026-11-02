@@ -1,0 +1,191 @@
+{
+  "research_date": "2026-10-16",
+  "method": "GitHub connector; HEAD pinned before source reads; static source analysis only; no upstream code executed",
+  "repositories": [
+    {
+      "repo": "langchain-ai/deepagents",
+      "sha": "c5313d7005534c8f8514004890c6f6d5174c6e2f",
+      "commit_date": "2026-10-16T08:32:43Z",
+      "url": "https://github.com/langchain-ai/deepagents/commit/c5313d7005534c8f8514004890c6f6d5174c6e2f",
+      "files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/langchain-ai/deepagents/blob/c5313d7005534c8f8514004890c6f6d5174c6e2f/LICENSE",
+          "local": "deepagents/source/LICENSE",
+          "sha256": "4ec67e4ca6e6721dba849b2ca82261597c86a61ee214bbf21416006b7b2d0478",
+          "bytes": 1067,
+          "git_blob_sha": "3957738673765912ca83a0048f833e095d61e087",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "libs/deepagents/deepagents/graph.py",
+          "url": "https://github.com/langchain-ai/deepagents/blob/c5313d7005534c8f8514004890c6f6d5174c6e2f/libs/deepagents/deepagents/graph.py",
+          "local": "deepagents/source/libs/deepagents/deepagents/graph.py",
+          "sha256": "3826c92c9613a30d898d3fb4fb76ab49a6af0537b5ef74ec9e7340673f7f2261",
+          "bytes": 50022,
+          "git_blob_sha": "5e08084b17ccbfc051ab891e35508f884813d4f7",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "libs/deepagents/deepagents/middleware/summarization.py",
+          "url": "https://github.com/langchain-ai/deepagents/blob/c5313d7005534c8f8514004890c6f6d5174c6e2f/libs/deepagents/deepagents/middleware/summarization.py",
+          "local": "deepagents/source/libs/deepagents/deepagents/middleware/summarization.py",
+          "sha256": "976c2d1b1e604802a2f05046f188b6b0509be06ba2f14013d9d21b3ad29f7c7f",
+          "bytes": 99479,
+          "git_blob_sha": "273b43ac77ae9453cd6a700464db9f09bf4e2e09",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "libs/deepagents/deepagents/backends/protocol.py",
+          "url": "https://github.com/langchain-ai/deepagents/blob/c5313d7005534c8f8514004890c6f6d5174c6e2f/libs/deepagents/deepagents/backends/protocol.py",
+          "local": "deepagents/source/libs/deepagents/deepagents/backends/protocol.py",
+          "sha256": "467cafdc2e18a628cc09a4cee8318b875201935a804147f947c446a3eea2f018",
+          "bytes": 36796,
+          "git_blob_sha": "619f7c0aa6c0f74a916c0a3f2e0ec4c210cf3a3c",
+          "blob_hash_matches": true
+        }
+      ]
+    },
+    {
+      "repo": "pydantic/pydantic-ai",
+      "sha": "2c23dd01b804dd238e52f70754cdbdb7b8ace70d",
+      "commit_date": "2026-10-16T09:51:07Z",
+      "url": "https://github.com/pydantic/pydantic-ai/commit/2c23dd01b804dd238e52f70754cdbdb7b8ace70d",
+      "files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/pydantic/pydantic-ai/blob/2c23dd01b804dd238e52f70754cdbdb7b8ace70d/LICENSE",
+          "local": "pydantic-ai/source/LICENSE",
+          "sha256": "bc0e89738f36944c8106e1947c3d69631f9c33b8f1bcb60ec4f89d677d2dfcf4",
+          "bytes": 1100,
+          "git_blob_sha": "1bf1f55e6d1736b499ded961ec6b94bfebb17aec",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "pydantic_ai_slim/pydantic_ai/usage.py",
+          "url": "https://github.com/pydantic/pydantic-ai/blob/2c23dd01b804dd238e52f70754cdbdb7b8ace70d/pydantic_ai_slim/pydantic_ai/usage.py",
+          "local": "pydantic-ai/source/pydantic_ai_slim/pydantic_ai/usage.py",
+          "sha256": "25600cce6cd140fd073c618bb214ebaea00f9fea986813f236f3497556fab19e",
+          "bytes": 30305,
+          "git_blob_sha": "6626476ffcdf1a7d2657c76301a350f2fa885e1e",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "pydantic_ai_slim/pydantic_ai/tool_manager.py",
+          "url": "https://github.com/pydantic/pydantic-ai/blob/2c23dd01b804dd238e52f70754cdbdb7b8ace70d/pydantic_ai_slim/pydantic_ai/tool_manager.py",
+          "local": "pydantic-ai/source/pydantic_ai_slim/pydantic_ai/tool_manager.py",
+          "sha256": "d86fef5d2e7891be84cc6b7c0430a8ac2cb2d619729df6a727ec66afc5d4f5f2",
+          "bytes": 66251,
+          "git_blob_sha": "8b03bc1b7c4686af46740ca430a5bec7bbb7af86",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "src/pydantic_ai_harness/pydantic_ai_harness/compaction/_context_window.py",
+          "url": "https://github.com/pydantic/pydantic-ai/blob/2c23dd01b804dd238e52f70754cdbdb7b8ace70d/src/pydantic_ai_harness/pydantic_ai_harness/compaction/_context_window.py",
+          "local": "pydantic-ai/source/src/pydantic_ai_harness/pydantic_ai_harness/compaction/_context_window.py",
+          "sha256": "fe4f18e395d2d38f50f98718ddc94320002fe483870ea95f380227ad8197bebf",
+          "bytes": 3310,
+          "git_blob_sha": "5e93d0390b0b24d6f4d31b9c7443ed6b6883ec7b",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "tests/harness/compaction/test_context_budget.py",
+          "url": "https://github.com/pydantic/pydantic-ai/blob/2c23dd01b804dd238e52f70754cdbdb7b8ace70d/tests/harness/compaction/test_context_budget.py",
+          "local": "pydantic-ai/source/tests/harness/compaction/test_context_budget.py",
+          "sha256": "cae6ac859b108804ff3b8698c55bf3b5420f2fdac31fa6543b5e2fdf097db332",
+          "bytes": 77930,
+          "git_blob_sha": "67178c9777a9c7cceed1849923ea1fa79a0b3e99",
+          "blob_hash_matches": true
+        }
+      ]
+    },
+    {
+      "repo": "OpenHands/software-agent-sdk",
+      "sha": "12e967664c2353f4cb85dd27da04ade035ff078c",
+      "commit_date": "2026-10-16T07:13:44Z",
+      "url": "https://github.com/OpenHands/software-agent-sdk/commit/12e967664c2353f4cb85dd27da04ade035ff078c",
+      "files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/OpenHands/software-agent-sdk/blob/12e967664c2353f4cb85dd27da04ade035ff078c/LICENSE",
+          "local": "software-agent-sdk/source/LICENSE",
+          "sha256": "14a9b631c658eee682c6c2973525fbdf808c3457176bc47513052c559cc5ce86",
+          "bytes": 1079,
+          "git_blob_sha": "b0bd86a6335a564bd3766666bebbf014fd6a8013",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "openhands-sdk/openhands/sdk/workspace/base.py",
+          "url": "https://github.com/OpenHands/software-agent-sdk/blob/12e967664c2353f4cb85dd27da04ade035ff078c/openhands-sdk/openhands/sdk/workspace/base.py",
+          "local": "software-agent-sdk/source/openhands-sdk/openhands/sdk/workspace/base.py",
+          "sha256": "0c41c50b4542af180c930c89c451189196993af09fbfdd9c74c3519136291602",
+          "bytes": 9537,
+          "git_blob_sha": "d0c95ad30d5b0ef8207aac3cb40f7372e4280cea",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py",
+          "url": "https://github.com/OpenHands/software-agent-sdk/blob/12e967664c2353f4cb85dd27da04ade035ff078c/openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py",
+          "local": "software-agent-sdk/source/openhands-sdk/openhands/sdk/conversation/impl/local_conversation.py",
+          "sha256": "b09c3a59ea5e2ecd651f6bbc36464ad769182243d2f470844bd0f4872a5d3bea",
+          "bytes": 146347,
+          "git_blob_sha": "8019000853101a7eaf6744bad47eb7e7d6cd77a9",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "openhands-workspace/openhands/workspace/docker/workspace.py",
+          "url": "https://github.com/OpenHands/software-agent-sdk/blob/12e967664c2353f4cb85dd27da04ade035ff078c/openhands-workspace/openhands/workspace/docker/workspace.py",
+          "local": "software-agent-sdk/source/openhands-workspace/openhands/workspace/docker/workspace.py",
+          "sha256": "8cacdc46b43f846f4f4acafdf3950f02feb764000e96a9cd380ee40c3524da4a",
+          "bytes": 15550,
+          "git_blob_sha": "64ea81d2d4d7dfedcd8c6fea6081e75049edf782",
+          "blob_hash_matches": true
+        }
+      ]
+    },
+    {
+      "repo": "huggingface/smolagents",
+      "sha": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "commit_date": "2026-10-06T09:38:53Z",
+      "url": "https://github.com/huggingface/smolagents/commit/96f33faaf028479119ec8d34507b47694cf14e34",
+      "files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/huggingface/smolagents/blob/96f33faaf028479119ec8d34507b47694cf14e34/LICENSE",
+          "local": "smolagents/source/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357,
+          "git_blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "src/smolagents/agents.py",
+          "url": "https://github.com/huggingface/smolagents/blob/96f33faaf028479119ec8d34507b47694cf14e34/src/smolagents/agents.py",
+          "local": "smolagents/source/src/smolagents/agents.py",
+          "sha256": "da0da2e258c346e28d97b3584dfe58dcd203fc20fbde6c6533e333f9b1a06352",
+          "bytes": 80780,
+          "git_blob_sha": "a8f6e52de0361a6c23c0aa5d5907180969f259b7",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "src/smolagents/memory.py",
+          "url": "https://github.com/huggingface/smolagents/blob/96f33faaf028479119ec8d34507b47694cf14e34/src/smolagents/memory.py",
+          "local": "smolagents/source/src/smolagents/memory.py",
+          "sha256": "8089d5162069158bd548673b52fc4c2d15b91146ae29d503903cfde8f913418a",
+          "bytes": 12341,
+          "git_blob_sha": "3ce42b280c0aa1caee44189210719c0e18833719",
+          "blob_hash_matches": true
+        },
+        {
+          "path": "src/smolagents/local_python_executor.py",
+          "url": "https://github.com/huggingface/smolagents/blob/96f33faaf028479119ec8d34507b47694cf14e34/src/smolagents/local_python_executor.py",
+          "local": "smolagents/source/src/smolagents/local_python_executor.py",
+          "sha256": "41859e622bae8ad85ed861b7abef12b02f9106133a273c2f4d8a1e37a743d1ca",
+          "bytes": 68159,
+          "git_blob_sha": "8e150cd5cac433ed315bff1f8f5470149da68dd6",
+          "blob_hash_matches": true
+        }
+      ]
+    }
+  ]
+}

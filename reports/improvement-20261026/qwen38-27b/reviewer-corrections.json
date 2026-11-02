@@ -1,0 +1,24 @@
+{
+  "post_hoc_descriptive": true,
+  "primary_scores_changed": false,
+  "corrections": [
+    {
+      "case": "eval-c03",
+      "sample": "multi-2",
+      "worker": "```json\n{\"answer\": \"retrieve\"}\n```",
+      "reviewer": "{\"answer\": \"retrieve\"}"
+    },
+    {
+      "case": "eval-c03",
+      "sample": "multi-0",
+      "worker": "```json\n{\"answer\": \"retrieve\"}\n```",
+      "reviewer": "{\"answer\": \"retrieve\"}"
+    },
+    {
+      "case": "eval-c03",
+      "sample": "multi-1",
+      "worker": "```json\n{\"answer\": \"retrieve\"}\n```",
+      "reviewer": "{\"answer\": \"retrieve\"}"
+    }
+  ]
+}

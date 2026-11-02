@@ -86,8 +86,8 @@ CP-12有真实PG锁等待回归；CP-15有[原始证明](cp15-nojs-probe/result.
 
 | 发行物 | SHA-256 |
 | --- | --- |
-| [wheel](release-0.13.0/forgeharness-0.13.0-py3-none-any.whl) | `31017b4afde8c1c547bd62129d5019d054101cdc54f70f0990534ca1bdb434a7` |
-| [sdist](release-0.13.0/forgeharness-0.13.0.tar.gz) | `11deabd0f92721c19db2dbe2cdde5eefb928f232f656ba4b0f5acfcab690dacc` |
+| wheel（`reports/saas/20261101-control-plane/release-0.13.0/forgeharness-0.13.0-py3-none-any.whl`） | `31017b4afde8c1c547bd62129d5019d054101cdc54f70f0990534ca1bdb434a7` |
+| sdist（`reports/saas/20261101-control-plane/release-0.13.0/forgeharness-0.13.0.tar.gz`） | `11deabd0f92721c19db2dbe2cdde5eefb928f232f656ba4b0f5acfcab690dacc` |
 
 ## 接受的残余边界
 

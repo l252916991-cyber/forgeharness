@@ -1,0 +1,40 @@
+{
+  "source_matches_freeze": true,
+  "protocol_manifest_match": true,
+  "protocol_canonical_sha256": "633e83dc43e9d61d3268218c6605ae71979965114b6fc65b0c76ecf7000c5903",
+  "protocol_file_sha256": "affaed52447b086bfe8309361ce509ffac256eb921847467fc441ce9a58fc24c",
+  "traces_verified": 208,
+  "all_traces_valid": true,
+  "formal_rows": 180,
+  "arms": {
+    "1": {
+      "runs": 90,
+      "successes": 57,
+      "provider_calls": 269,
+      "input_tokens": 85080,
+      "output_tokens": 5199
+    },
+    "2": {
+      "runs": 90,
+      "successes": 57,
+      "provider_calls": 270,
+      "input_tokens": 85080,
+      "output_tokens": 5199
+    }
+  },
+  "failure_classification": {
+    "limit1:summary:schema_echo": 21,
+    "limit2:summary:schema_echo": 21
+  },
+  "capacity_ledgers": {
+    "local-dev-9b-r2": {
+      "ended": 78
+    },
+    "local-evaluation-9b-r2": {
+      "ended": 546
+    }
+  },
+  "owned_process_exited": true,
+  "port_released": true,
+  "candidate_identity": "2adfdc8937a15e91026238a1b8bc836cadf0a2341a2dd313c3cc3f7c46879ad8"
+}

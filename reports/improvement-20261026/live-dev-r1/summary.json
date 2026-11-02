@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "mode": "local",
+  "expected_runs": 36,
+  "actual_runs": 36,
+  "complete": true,
+  "strategy_measurement": true,
+  "arms": {
+    "single": {
+      "runs": 12,
+      "successes": 0,
+      "success_rate": 0.0,
+      "task_cluster_success_95_interval": [
+        0.0,
+        0.0
+      ],
+      "families": {
+        "chain": {
+          "runs": 4,
+          "successes": 0
+        },
+        "error": {
+          "runs": 4,
+          "successes": 0
+        },
+        "parallel": {
+          "runs": 4,
+          "successes": 0
+        }
+      },
+      "latency_p50_seconds": 1.0204284159699455,
+      "latency_p95_seconds": 1.06577462493442,
+      "input_tokens": null,
+      "output_tokens": null,
+      "tokens_per_success_including_failures": null,
+      "duplicate_tool_calls": 0,
+      "human_intervention_rate": 0.0,
+      "usage_known": false
+    },
+    "fixed": {
+      "runs": 12,
+      "successes": 0,
+      "success_rate": 0.0,
+      "task_cluster_success_95_interval": [
+        0.0,
+        0.0
+      ],
+      "families": {
+        "chain": {
+          "runs": 4,
+          "successes": 0
+        },
+        "error": {
+          "runs": 4,
+          "successes": 0
+        },
+        "parallel": {
+          "runs": 4,
+          "successes": 0
+        }
+      },
+      "latency_p50_seconds": 1.0221065420191735,
+      "latency_p95_seconds": 1.0276522500207648,
+      "input_tokens": null,
+      "output_tokens": null,
+      "tokens_per_success_including_failures": null,
+      "duplicate_tool_calls": 0,
+      "human_intervention_rate": 0.0,
+      "usage_known": false
+    },
+    "multi": {
+      "runs": 12,
+      "successes": 0,
+      "success_rate": 0.0,
+      "task_cluster_success_95_interval": [
+        0.0,
+        0.0
+      ],
+      "families": {
+        "chain": {
+          "runs": 4,
+          "successes": 0
+        },
+        "error": {
+          "runs": 4,
+          "successes": 0
+        },
+        "parallel": {
+          "runs": 4,
+          "successes": 0
+        }
+      },
+      "latency_p50_seconds": 1.0196282080141827,
+      "latency_p95_seconds": 1.0243191251065582,
+      "input_tokens": null,
+      "output_tokens": null,
+      "tokens_per_success_including_failures": null,
+      "duplicate_tool_calls": 0,
+      "human_intervention_rate": 0.0,
+      "usage_known": false
+    }
+  },
+  "paired_multi_minus_single_success_95_interval": [
+    0.0,
+    0.0
+  ],
+  "paired_multi_minus_fixed_success_95_interval": [
+    0.0,
+    0.0
+  ],
+  "cost_unit": "provider-reported tokens; no API fee; energy and hardware cost unmeasured",
+  "core_advantage_proven": false,
+  "business_qualified": false,
+  "limits": [
+    "author-generated short synthetic diagnosis tasks, not repository repair",
+    "no human quality rating or independent unseen task set",
+    "kernel serializes calls; no parallel throughput claim",
+    "one local model; model ID is not proof of upstream revision"
+  ],
+  "source_unchanged": true,
+  "manifest_sha256": "e6af121165a73671b156202c91cfbdf97edeefa2eb45b730b91ffb44f9a4fd52"
+}

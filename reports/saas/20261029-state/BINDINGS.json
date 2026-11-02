@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-29",
+  "distribution": "forgeharness",
+  "version": "0.11.0",
+  "api_version": 1,
+  "cloud_state_schema": 1,
+  "candidate": "reports/saas/20261029-state/candidate-r1",
+  "tree_digest": "dc9ef875b25c814e11cd01b0b25d01fc0a057098243823213c7a0959dd15c213",
+  "schema_sha256": "c8589445b9d841ce43e8e14fc8cec343c28454fed08dbab0ae46d90984ef8ac0",
+  "wheel_sha256": "e9af9f896c7e1b9a88374c6e7ade5d4b4a6e7518099ccf86b2bfe6cb8bec71d6",
+  "sdist_sha256": "32bf96daa775ac5d226d97adbf199d953a4de9040a8077c4661d6db456e3491c",
+  "execution_profile": "Python3.12; existing local POSIX/SQLite SDK; separate optional Cloud PostgreSQL operation state slice",
+  "postgres_verification": "real18.6; private Unix socket; independent runtime role; disposable synthetic database; no production server selection",
+  "trusted_host": "authenticates TenantContext; can_execute belongs only to execution services; independently verifies provider receipts",
+  "engineering_qualified": true,
+  "business_qualified": false,
+  "saas_qualified": false,
+  "unsupported": [
+    "automatic adoption of historical SDK state",
+    "Cloud persistence as a complete SDK/Harness backend",
+    "untrusted clients with runtime SQL credentials",
+    "arbitrary user receipt submission",
+    "provider physical capacity or automatic unknown-call resend",
+    "generic organization/identity/publishing/tenant UI control plane",
+    "complete trace/evidence/deletion lifecycle",
+    "production multi-node failover or database switch",
+    "CNY1000 monthly budget enforcement or commercial billing",
+    "real model/business quality or SaaS GA"
+  ]
+}

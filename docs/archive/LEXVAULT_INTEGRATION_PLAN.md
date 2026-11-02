@@ -68,17 +68,17 @@
 
 | 事实 | 证据 | 对计划的影响 |
 |---|---|---|
-| LexVault 的专家节点基本是确定性代码，DAG 内只有 Critic 调一次本地 LLM | [app/agents.py](/Users/xiaoy/Documents/本地律所/app/agents.py#L569)、[app/agents.py](/Users/xiaoy/Documents/本地律所/app/agents.py#L818) | 把专家改成 LLM 子 Agent 会增加成本/方差，能力未必增加；优先保留确定性 |
-| 引用校验只查编号、页存在、quote 非空；明确不查语义和金额 | [app/agents.py](/Users/xiaoy/Documents/本地律所/app/agents.py#L53-L72) | 这是可移植的起点，但不能把 ForgeHarness 的校验说成“法律正确性” |
-| `best_quote` 会归一化空白、截断并加省略号 `…` | [app/services.py](/Users/xiaoy/Documents/本地律所/app/services.py#L589-L598) | **现有 `contexts[].quote` 不是精确原文片段**，不能直接喂给 ForgeHarness 的 `CitationVerifier`；A1 必须先产出原始偏移 |
-| `pages` 只有 `(document_id, page_no)`，没有版本/摘要列 | [app/db.py](/Users/xiaoy/Documents/本地律所/app/db.py#L149-L156) | 需要 `snapshot_id + text_sha256` 才能表达“当前发布版本”；否则只能校验“当前内容”，不能证明版本未变 |
-| 原生 DAG 显式并行 fan-out Facts/Evidence 等，测试也断言并行 | [app/agents.py](/Users/xiaoy/Documents/本地律所/app/agents.py#L777-L816)、[tests/test_04_langgraph_runtime.py](/Users/xiaoy/Documents/本地律所/tests/test_04_langgraph_runtime.py#L78) | ForgeHarness `WorkflowRunner` 是顺序执行，不能作为 drop-in DAG 替代 |
-| ForgeHarness 的 `WorkflowRunner` 顺序遍历 `ordered_steps()` | [sdk/workflows.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/sdk/workflows.py#L330-L449) | 只适合顺序审批/笔记流，不适合替换并行专家图 |
-| ForgeHarness 法律适配器的 `search` 是字面匹配，且是合成样例 | [adapter.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/applications/legal/adapter.py#L165-L218) | 不能拿它当 LexVault 的检索层；对照必须用“证据包回放”隔离检索差异 |
-| ForgeHarness 的 `CitationVerifier` 只接受当前发布版本 + 精确字符区间 | [sdk/evidence.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/sdk/evidence.py#L32-L63) | 这是最值得吸收的能力；但它不判断语义支持，也不判断法律推理 |
-| 两边 Python 要求冲突：LexVault `>=3.11,<3.15`，ForgeHarness `>=3.12,<3.14` | [本地律所/pyproject.toml](/Users/xiaoy/Documents/本地律所/pyproject.toml#L6)、[ForgeHarness/pyproject.toml](/Users/xiaoy/Documents/多agent协作/pyproject.toml#L16) | sidecar 必须独立进程/独立 venv；不能把 ForgeHarness 变成 LexVault 依赖 |
+| LexVault 的专家节点基本是确定性代码，DAG 内只有 Critic 调一次本地 LLM | app/agents.py（`本地律所/app/agents.py#L569`）、app/agents.py（`本地律所/app/agents.py#L818`） | 把专家改成 LLM 子 Agent 会增加成本/方差，能力未必增加；优先保留确定性 |
+| 引用校验只查编号、页存在、quote 非空；明确不查语义和金额 | app/agents.py（`本地律所/app/agents.py#L53-L72`） | 这是可移植的起点，但不能把 ForgeHarness 的校验说成“法律正确性” |
+| `best_quote` 会归一化空白、截断并加省略号 `…` | app/services.py（`本地律所/app/services.py#L589-L598`） | **现有 `contexts[].quote` 不是精确原文片段**，不能直接喂给 ForgeHarness 的 `CitationVerifier`；A1 必须先产出原始偏移 |
+| `pages` 只有 `(document_id, page_no)`，没有版本/摘要列 | app/db.py（`本地律所/app/db.py#L149-L156`） | 需要 `snapshot_id + text_sha256` 才能表达“当前发布版本”；否则只能校验“当前内容”，不能证明版本未变 |
+| 原生 DAG 显式并行 fan-out Facts/Evidence 等，测试也断言并行 | app/agents.py（`本地律所/app/agents.py#L777-L816`）、tests/test_04_langgraph_runtime.py（`本地律所/tests/test_04_langgraph_runtime.py#L78`） | ForgeHarness `WorkflowRunner` 是顺序执行，不能作为 drop-in DAG 替代 |
+| ForgeHarness 的 `WorkflowRunner` 顺序遍历 `ordered_steps()` | [sdk/workflows.py](../../src/forgeharness/sdk/workflows.py#L330-L449) | 只适合顺序审批/笔记流，不适合替换并行专家图 |
+| ForgeHarness 法律适配器的 `search` 是字面匹配，且是合成样例 | [adapter.py](../../src/forgeharness/applications/legal/adapter.py#L165-L218) | 不能拿它当 LexVault 的检索层；对照必须用“证据包回放”隔离检索差异 |
+| ForgeHarness 的 `CitationVerifier` 只接受当前发布版本 + 精确字符区间 | [sdk/evidence.py](../../src/forgeharness/sdk/evidence.py#L32-L63) | 这是最值得吸收的能力；但它不判断语义支持，也不判断法律推理 |
+| 两边 Python 要求冲突：LexVault `>=3.11,<3.15`，ForgeHarness `>=3.12,<3.14` | `本地律所/pyproject.toml#L6`、[ForgeHarness/pyproject.toml](../../pyproject.toml#L16) | sidecar 必须独立进程/独立 venv；不能把 ForgeHarness 变成 LexVault 依赖 |
 | 两个工作副本都没有 Git 元数据 | 本次检查 `git status` 均返回 not a git repository | 先做本地快照/哈希清单；否则改动不可审、不可回滚、不可复现 |
-| ForgeHarness 的业务/生产资格均为 false，尽管工程门禁通过 | [business-release-audit.json](/Users/xiaoy/Documents/多agent协作/reports/business-release-audit.json)（`business_qualified=false`、`production_qualified=false`、`gate_count=72`） | 工程门禁 ≠ 业务资格；不能拿“测试多”当迁移理由 |
+| ForgeHarness 的业务/生产资格均为 false，尽管工程门禁通过 | [business-release-audit.json](../../reports/business-release-audit.json)（`business_qualified=false`、`production_qualified=false`、`gate_count=72`） | 工程门禁 ≠ 业务资格；不能拿“测试多”当迁移理由 |
 
 ### 2.1 三个直接结论
 

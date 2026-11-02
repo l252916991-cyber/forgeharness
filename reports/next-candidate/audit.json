@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "candidate_kind": "P0/P1 local comparison first iteration",
+  "engineering_qualified": true,
+  "project_complete": false,
+  "business_qualified": false,
+  "production_qualified": false,
+  "core_advantage_proven": false,
+  "decision": "insufficient_evidence_for_native_core_advantage",
+  "distribution_version": "0.5.0",
+  "source_identity": "e6d4eb244eb86dcaa214e38f8783612be4b07e996394cf593d510b7f8b5fa00e",
+  "source_kind": "archive checkout equivalent; no Git metadata",
+  "source_files": 366,
+  "git_revision": null,
+  "manifest": "reports/next-candidate/source.json",
+  "verification_summary": "reports/next-candidate/verification/summary.json",
+  "immutable_attempt_summary": "reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/summary.json",
+  "gate_count": 84,
+  "all_gates_passed": true,
+  "source": {
+    "coverage": {
+      "covered_lines": 10127,
+      "num_statements": 10813,
+      "percent_covered": 92.32939778718348,
+      "percent_covered_display": "92",
+      "missing_lines": 686,
+      "excluded_lines": 288,
+      "percent_statements_covered": 93.65578470359752,
+      "percent_statements_covered_display": "94",
+      "num_branches": 2654,
+      "num_partial_branches": 245,
+      "covered_branches": 2307,
+      "missing_branches": 347,
+      "percent_branches_covered": 86.92539562923888,
+      "percent_branches_covered_display": "87"
+    },
+    "pure_branch_percent": 86.92539562923888,
+    "tests": {
+      "tests": 1011,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_contracts": {
+      "case_count": 120,
+      "families": {
+        "legal": 2,
+        "commerce": 30
+      },
+      "passed": true,
+      "measurement_valid": false,
+      "business_qualified": false
+    },
+    "framework_comparison": {
+      "passed": 33,
+      "failed": 0,
+      "not_measured": 0,
+      "expected_results": 33,
+      "decision": "insufficient_evidence_for_native_core_advantage",
+      "core_advantage_proven": false,
+      "native_full_fault_comparison_complete": false
+    }
+  },
+  "clean": {
+    "coverage": {
+      "covered_lines": 10123,
+      "num_statements": 10813,
+      "percent_covered": 92.29226999331699,
+      "percent_covered_display": "92",
+      "missing_lines": 690,
+      "excluded_lines": 288,
+      "percent_statements_covered": 93.61879219458059,
+      "percent_statements_covered_display": "94",
+      "num_branches": 2654,
+      "num_partial_branches": 244,
+      "covered_branches": 2306,
+      "missing_branches": 348,
+      "percent_branches_covered": 86.88771665410701,
+      "percent_branches_covered_display": "87"
+    },
+    "pure_branch_percent": 86.88771665410701,
+    "tests": {
+      "tests": 1011,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_contracts": {
+      "case_count": 120,
+      "families": {
+        "legal": 2,
+        "commerce": 30
+      },
+      "passed": true,
+      "measurement_valid": false,
+      "business_qualified": false
+    },
+    "framework_comparison": {
+      "passed": 33,
+      "failed": 0,
+      "not_measured": 0,
+      "expected_results": 33,
+      "decision": "insufficient_evidence_for_native_core_advantage",
+      "core_advantage_proven": false,
+      "native_full_fault_comparison_complete": false
+    }
+  },
+  "artifacts": {
+    "forgeharness-0.5.0-py3-none-any.whl": {
+      "path": "reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/dist/forgeharness-0.5.0-py3-none-any.whl",
+      "sha256": "bbff680ea31e91144356dd34b89522b3a52420cc740eb41f7f7ad35f55a9942d"
+    },
+    "forgeharness-0.5.0.tar.gz": {
+      "path": "reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/dist/forgeharness-0.5.0.tar.gz",
+      "sha256": "e0a4753001e11ab87b66d7c5b8eac083ee7fd59a7c4579795d1218fd37dfe117"
+    }
+  },
+  "comparison_summary": "reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/clean/framework-comparison/summary.json",
+  "protocol": "evals/comparison/protocol.json",
+  "protocol_sha256": "8bf9754be490aa1646d1ad89f178734eb9898e636bf47c4b515398a4afb96522",
+  "comparison": {
+    "passed": 33,
+    "failed": 0,
+    "not_measured": 0,
+    "expected_results": 33,
+    "integration_gate_passed": true,
+    "model_input_evidence_complete": true,
+    "native_full_fault_comparison_complete": false,
+    "independent_onboarding_measured": false,
+    "core_advantage_proven": false,
+    "attribution": {
+      "minimal": "native agent loop + native approval/persistence, with shared business tool",
+      "equivalent": "shared host authorization, source invalidation, exact payload, request key and reconciliation around native engines"
+    },
+    "limits": [
+      "No independent onboarding participant",
+      "Native-only full six-fault matrix is not measured; equivalent profile measures shared-host composition",
+      "No real model, real commerce data or professional review available (user confirmed none)",
+      "Source withdrawal covers host cached-result replay; native history was not measured",
+      "Duplicates are sequential across processes; concurrent admission was not measured",
+      "Host result reconciliation does not repair the native checkpoint",
+      "Cancellation is injected at tool boundaries; distributed workers were not measured"
+    ]
+  },
+  "findings": [
+    {
+      "id": "CMP-001",
+      "title": "旧对照表混淆本地适配与上游能力",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "重写为三列口径，引用官方中断/子图/权限文档，撤去通用性能胜负推论"
+    },
+    {
+      "id": "CMP-002",
+      "title": "取消包装异常未被宿主识别",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "resolution": "Deep Agents 适配器只将 NodeCancelledError 转为取消；取消前/后提交两条实际 worker 回归，初次失败报告保留"
+    },
+    {
+      "id": "CMP-003",
+      "title": "ADR 将来源兼容默认误称为自动 fail-closed",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "resolution": "明确未声明工具不会自动纳入来源治理，与现有源码和当前残余风险保持一致"
+    },
+    {
+      "id": "CMP-004",
+      "title": "测试 worker 环境继承无关 provider 凭据",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "resolution": "环境改为必要键白名单并关闭 tracing/OTEL；新增未知 provider key、Logfire token 等排除回归"
+    },
+    {
+      "id": "CMP-005",
+      "title": "路由范围测试依赖框架内部懒加载结构",
+      "severity": "low",
+      "status": "fixed_with_regression",
+      "resolution": "通过实际 OpenAPI 与 HTTP 验证新试点无旧聊天入口，保留 legacy finding 开放状态"
+    },
+    {
+      "id": "CMP-006",
+      "title": "模型输入记录缺少工具定义和部分消息字段",
+      "severity": "high",
+      "status": "fixed_with_regression",
+      "resolution": "记录完整结构化消息、工具 schema 及模型接收参数；判分拒绝旧的纯文本记录；三方实际运行与缺证据负例回归。中断的旧候选清单与日志归档，不作为通过证据"
+    },
+    {
+      "id": "CMP-007",
+      "title": "嵌套对照项目配置进入源码包",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "resolution": "Hatch 的 basename include 匹配嵌套 pyproject；显式排除开发目录，增加包范围/拒绝嵌套配置回归，并检查真实 wheel/sdist；失败候选和打包日志保留"
+    }
+  ],
+  "open_blocker_or_high_in_declared_engineering_scope": [],
+  "legacy_findings_still_open": [
+    "FH-015",
+    "FH-016",
+    "FH-017",
+    "FH-018"
+  ],
+  "scope_report": "reports/next-phase-scope.md",
+  "review": "docs/review/COMPARISON_AUDIT.md",
+  "review_method": "Local source review, actual subprocess experiments, negative scoring controls, full frozen gates, clean copy and package install; no independent professional review.",
+  "external_conditions": {
+    "source": "User answered none for real pilot prerequisites",
+    "real_data_and_interfaces": "not_available",
+    "model_and_call_budget": "not_available",
+    "independent_reviewer": "not_available",
+    "independent_onboarding_or_pilot_users": "not_available"
+  },
+  "phases": {
+    "P0": "scope/protocol/limitations registered; real prerequisites pending",
+    "P1": "first integration iteration qualified; native full fault matrix and independent onboarding incomplete",
+    "P2": "not_started",
+    "P3": "pending_real_pilot_prerequisites",
+    "P4": "engineering_slice_qualified; business_final_evaluation_not_run"
+  },
+  "original_baseline_preserved": "reports/business-candidate-source.json",
+  "old_attempts": "reports/framework-comparison/attempt-index.json",
+  "sealed_evaluation_opened": false,
+  "residual_risks": [
+    "Fixed synthetic tenant/request host is an experiment, not a production IAM service",
+    "Shared host guarantees cannot establish native engine superiority",
+    "Source withdrawal tests cached-result replay, not native multi-turn history",
+    "Duplicate requests are sequential across processes; concurrent admission is not measured",
+    "Host reconciliation can finish while the native checkpoint still needs reconciliation",
+    "Task cancellation and process exit probes do not establish distributed lease/outbox recovery",
+    "No real-model quality, token cost, service latency, independent onboarding time or professional business result",
+    "Registry package bytes and transitive versions are lock-pinned; release Git commits were not separately verified",
+    "Original all-extras NLTK advisory PYSEC-2026-3740 retains its prior exception; no exception was applied to new comparison environments"
+  ]
+}

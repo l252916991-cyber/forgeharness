@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-01",
+  "review_type": "implementation-team cross-agent review; not third-party certification",
+  "candidate": "reports/saas/20261030-hosted/candidate-r2",
+  "tree_digest": "22bec79d6b7f187bb5798bc59e18690ba9e03add729921163cedad8cb42cac24",
+  "findings": [
+    {
+      "id": "H-01",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "模型/工具未知响应可与消息游标、费用分离，错误恢复可能重复发送或遗漏收费",
+      "fix": "PG 完整调用事实、可信核验/恢复、epoch fence；`test_execution_calls.py`、`test_hosted_execution.py`、`test_hosted_http.py`",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-02",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "policy-denied/unknown-tool 递增 runtime tool_calls，没有物理调用，物理账本一致性检查拒绝保存",
+      "fix": "独立 `execution_logical_usage`，新鲜 proposal/observation/trace 绑定和防重放；`test_execution_logical_usage.py`",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-03",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "外部 schema 无效但策略允许时，准入重新校验抛错，authorized checkpoint 恢复继续失败",
+      "fix": "hosted 确定性 INVALID_ARGUMENTS 拒绝，计逻辑用量；BoundPolicy 原生验证拒绝用 typed rule 区分；runtime 与真实 PG 回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-04",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "已证明未执行或旧 admitted 调用每次恢复都挂起，没有可重用输出且无法退出",
+      "fix": "fenced `retire_admission`、零费用证明、当前租约内结算，控制器明确失败；`test_execution_retirement.py` 5 个真实 PG 回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-05",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "backend 构造时重新执行 owner 授权，撤权可能阻断已发生费用的核账",
+      "fix": "结构绑定校验与新发送授权分离，当前执行服务可核账，物理发送仍重新授权；backend/revocation 回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-06",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "`SkillInstaller` 默认 LocalBackend，下载包的 smoke_command 直接在主机执行",
+      "fix": "不配置 backend 即拒绝 smoke；显式 LocalBackend 才是宿主的可信代码选择；`test_skill_install.py`",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-07",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "urllib 自动重定向绕过初始 HTTPS/host allowlist",
+      "fix": "每跳重新检查 scheme、host、无凭据 authority 和总 hop 上限；真实回环 HTTP 测试确认被禁目标未被请求",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-08",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "技能升级先删除旧目录，新 rename 失败丢失完整旧包；并发 writer 和目标 symlink 破坏边界",
+      "fix": "per-skill flock、no-follow dirfd、随机备份、失败恢复、隐藏 staging/backup 不加载；失败/并发/5 类 symlink 回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-09",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "技能来源 query/userinfo 的秘密可进入普通 trace recorder",
+      "fix": "日志去 query/fragment/userinfo，完整来源 SHA-256 保留身份，全部 payload 强制 CredentialMask；trace 回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-10",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "spill 目录/临时文件 symlink 或硬链接把自动 compaction 写向工作区外",
+      "fix": "no-follow 目录链、独占随机临时文件、single-link regular 读取、内容与字节上限核对；spill 安全回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-11",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "container stdout 使用 communicate，无界主机内存；pool 无 idle 时无限创建容器",
+      "fix": "有界持续 drain、timeout/cancel 清理、live+starting 容量约束，失败清理不释放未知容量；`test_container_resources.py`",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-12",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "todo replay 把被拒绝/尚未执行的 completed proposal 当成功状态，恢复可清空 finish gate",
+      "fix": "按成功且相关联的 TOOL/ToolEvidence 事实恢复，严格 revision/metadata；`test_todo_recovery.py`",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-13",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "EXPLICIT cache 在发送时改写已准入 payload，PG/trace/预算与实际 wire 不同",
+      "fix": "marker 在 prepare 阶段冻结，专用格式严格验证，ModelBridge 透传 telemetry；prepared/cache/真实 HTTP 回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-14",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "LocalBackend 先 resolve 再以父路径读写，目录 swap→outside symlink 可重定向；同工作区 secret symlink alias 绕过 lexical deny",
+      "fix": "全 component no-follow dirfd，regular/single-link 读取与哈希，parent-relative atomic write；真实目录交换及 alias 回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "H-15",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "ContainerBackend.search 接受绝对路径/`..`，可搜索镜像根目录；旧 RepositoryMap 父目录 race 读取外部 Python",
+      "fix": "container search 复用 safe bind-mount scanner；map 复用 safe walk/read；绝对/parent/alias 与 map race 回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "D-01",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "SDK eager Skills import 让 base/cloud consumer 隐式要求 yaml",
+      "fix": "Skills public exports lazy 导入；禁 yaml 的 fresh process 验证 base SDK/cloud contracts 可导入；实际 wheel 仍须完整 consumer 门禁",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "R-01",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "新 release workflow 独立重建后可绕过完整候选门禁发布；手动 input 曾直接插入 shell",
+      "fix": "workflow 先 source+clean qualification，仅 stage 该次 SHA 核对的 wheel/sdist；inputs 通过 env；release-artifact 定向回归",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "R-02",
+      "severity": "Medium",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "新增功能误放在 0.11 packaging note，并称 First published；Quickstart 误援旧 wheel 验证",
+      "fix": "新增内容归 Unreleased 0.12，去无证据发布/签收措辞；保留历史 0.11 原冻结证据",
+      "evidence": "AUDIT_REVIEW.md"
+    },
+    {
+      "id": "P-01",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Owner could call advance on a terminal run without execute permission",
+      "fix": "Worker inspection requires execute even for terminal returns",
+      "evidence": "evals/saas_postgres/tests/test_hosted_execution.py"
+    },
+    {
+      "id": "P-02",
+      "severity": "Medium",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Missing or foreign hosted approval caused TypeError instead of uniform denial",
+      "fix": "Deny unavailable run before record conversion",
+      "evidence": "evals/saas_postgres/tests/test_hosted_execution.py"
+    },
+    {
+      "id": "P-03",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Revoked owner without grant could remain waiting; suspended organization blocked settlement",
+      "fix": "Stop waiting on revoked/cancelled/expired owner and permit worker-only reconciliation reads",
+      "evidence": "evals/saas_postgres/tests/test_hosted_execution.py"
+    },
+    {
+      "id": "P-04",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Checkpoint projection validation summed usage without rechecking complete result/receipt semantics",
+      "fix": "Revalidate typed result, receipt, kind, usage, units, digest and logical denial facts",
+      "evidence": "evals/saas_postgres/tests/test_execution_logical_usage.py"
+    },
+    {
+      "id": "P-05",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Budget rejection could persist staged admission or approval-consumption intents as facts",
+      "fix": "Restore committed checkpoint/trace before budget-exhausted terminal save",
+      "evidence": "evals/saas_postgres/tests/test_hosted_budget.py"
+    },
+    {
+      "id": "P-06",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Settled actual scalar overspend caused a repeated success-save conflict and no terminal convergence",
+      "fix": "Classify actual success budget violation as CloudBudgetExceeded and retain costs in EXHAUSTED",
+      "evidence": "evals/saas_postgres/tests/test_hosted_budget.py"
+    },
+    {
+      "id": "P-07",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Model HTTP response buffering and per-read deadlines allowed unbounded body or slow response lifetime",
+      "fix": "Bound raw identity response bytes before parsing and enforce whole-request timeout; retain unknown usage",
+      "evidence": "tests/unit/test_model_response_bounds.py; evals/saas_postgres/tests/test_hosted_http.py"
+    },
+    {
+      "id": "P-08",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Release staging could write through substituted output links or read unbounded/nonregular artifacts",
+      "fix": "Descriptor-relative no-follow bounded regular reads, private complete staging, exclusive writes and rollback",
+      "evidence": "tests/unit/test_release_artifacts.py"
+    },
+    {
+      "id": "P-09",
+      "severity": "Medium",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Concurrent identical spill replacements could unlink a safely opened inode and trigger a false corruption error",
+      "fix": "Allow zero-link open inode with digest verification; still reject multiple links",
+      "evidence": "tests/unit/test_spill_security.py"
+    },
+    {
+      "id": "P-10",
+      "severity": "High",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Lease could expire during expensive result canonicalization before the final checkpoint update",
+      "fix": "Serialize before the final lease recheck and reject expiry with full transaction rollback",
+      "evidence": "evals/saas_postgres/tests/test_execution_logical_usage.py"
+    },
+    {
+      "id": "R1-A01",
+      "severity": "Medium",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Repository map imported backend internals instead of the public SDK contract",
+      "fix": "Add public safe file iterator and consume it through SDK facade; do not relax architecture allowlist",
+      "evidence": "candidate-r1/source/tests.log; R1_ARCHITECTURE.patch"
+    },
+    {
+      "id": "R1-A02",
+      "severity": "Low",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Explicit sdist membership test omitted the audited hosted consumer example",
+      "fix": "Add exactly cloud_hosted_demo.py to expected public sdist inputs",
+      "evidence": "candidate-r1/source/tests.log"
+    },
+    {
+      "id": "R1-S01",
+      "severity": "Release blocker; upstream moderate",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Optional root langgraph-sdk 0.4.4 affected by CVE-2026-118667",
+      "fix": "Require langgraph>=1.2.14 and lock compatible patched langgraph-sdk",
+      "source": "https://github.com/langchain-ai/langgraph/security/advisories/GHSA-3fx2-cqw9-xr3c",
+      "resolved_versions": {
+        "langgraph": "1.2.15",
+        "langgraph-sdk": "0.4.7",
+        "langgraph-checkpoint": "4.3.1"
+      }
+    },
+    {
+      "id": "R1-S02",
+      "severity": "Release blocker; resource exhaustion",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "pypdf 6.21.2 has seven audited resource-exhaustion advisories",
+      "fix": "Require and lock pypdf>=6.21.4 in all relevant extras",
+      "source": "https://github.com/py-pdf/pypdf/releases/tag/6.21.4",
+      "resolved_versions": {
+        "pypdf": "6.21.4"
+      }
+    },
+    {
+      "id": "R1-S03",
+      "severity": "Release blocker; upstream high",
+      "status": "fixed_with_regression_and_candidate-r2_full_verification",
+      "description": "Isolated deepagents comparison environment pyasn1 0.6.4 has four audited decoder advisories",
+      "fix": "Constrain isolated environment to pyasn1>=0.6.5 and regenerate its lock without changing declared top-level engine",
+      "source": "https://github.com/pyasn1/pyasn1/releases/tag/v0.6.5",
+      "resolved_versions": {
+        "pyasn1": "0.6.5"
+      }
+    }
+  ],
+  "open_confirmed_blocker_or_high_defects": 0,
+  "verification_state": "candidate-r2 qualified; candidate-r1 failure preserved unchanged",
+  "accepted_residual_risks": "AUDIT_REVIEW.md; SECONDARY_REVIEW.md; final AUDIT.md",
+  "business_qualified": false,
+  "saas_qualified": false,
+  "open_release_blocking_findings": 0,
+  "verification_summary": "candidate-r2/verification/summary.json"
+}

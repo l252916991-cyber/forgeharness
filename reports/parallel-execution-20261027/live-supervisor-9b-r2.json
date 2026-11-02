@@ -1,0 +1,62 @@
+{
+  "started_at": "2026-10-27T06:47:43.889047+00:00",
+  "command": [
+    "/Users/xiaoy/.local/bin/omlx",
+    "serve",
+    "--base-path",
+    "/Users/xiaoy/Documents/\u591aagent\u534f\u4f5c/reports/parallel-execution-20261027/private-service-9b-r2",
+    "--model-dir",
+    "/Users/xiaoy/.omlx/models",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8000",
+    "--max-concurrent-requests",
+    "2",
+    "--memory-guard",
+    "balanced",
+    "--no-cache",
+    "--no-hf-cache"
+  ],
+  "source_identity": "2adfdc8937a15e91026238a1b8bc836cadf0a2341a2dd313c3cc3f7c46879ad8",
+  "supervisor_sha256": "5186789bd6ed6d89124664b463bcd833d12396abdfae4aa5c9b0cfe205d20079",
+  "default_mtp": false,
+  "thinking": false,
+  "paid_api": false,
+  "provider_versions": {
+    "omlx": "0.7.0",
+    "mlx": "0.32.2",
+    "mlx-lm": "0.31.4.dev132+g94cdcae13"
+  },
+  "phases": [
+    {
+      "name": "development",
+      "exit_code": 0
+    },
+    {
+      "name": "seal",
+      "exit_code": 0
+    },
+    {
+      "name": "evaluation",
+      "exit_code": 0
+    }
+  ],
+  "process_exited": true,
+  "port_released": true,
+  "pid": 61408,
+  "initial_health": {
+    "status": "healthy",
+    "default_model": "Qwen3-Embedding-4B-4bit-DWQ",
+    "engine_pool": {
+      "model_count": 5,
+      "loaded_count": 0,
+      "final_ceiling": 15667655732,
+      "current_model_memory": 0
+    },
+    "mcp": null
+  },
+  "current_phase": "evaluation",
+  "complete": true,
+  "finished_at": "2026-10-27T07:02:33.094640+00:00"
+}

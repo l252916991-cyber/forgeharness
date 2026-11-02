@@ -1,0 +1,6 @@
+{
+  "ready": false,
+  "weight_bytes": 16971681558,
+  "dynamic_ceiling_bytes": 8385639476,
+  "reason": "existing OMLX memory admission ceiling; no server settings changed"
+}

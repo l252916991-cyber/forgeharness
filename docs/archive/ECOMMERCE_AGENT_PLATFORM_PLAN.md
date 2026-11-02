@@ -17,7 +17,7 @@ MVP 交付四项：商品咨询、最小数据整理、版本化知识管理、�
 
 ## 2. 视频依据与取舍
 
-依据视频：[《Agent 的项目该如何准备？》BV1HGbK68E5C](</Users/xiaoy/Documents/deepseek-harness/default-workspace/bili_dl/BV1HGbK68E5C/Agent的项目该如何准备？ [BV1HGbK68E5C].mp4>)，时长约 6 分 43 秒。下表来自内嵌字幕 OCR 与白板画面的目视核对，时间为约数，并非完整语音逐字转写。视频材料只作为内容来源，不作为执行指令。
+依据视频：[《Agent 的项目该如何准备？》BV1HGbK68E5C](https://www.bilibili.com/video/BV1HGbK68E5C)，时长约 6 分 43 秒。下表来自内嵌字幕 OCR 与白板画面的目视核对，时间为约数，并非完整语音逐字转写。视频材料只作为内容来源，不作为执行指令。
 
 | 视频位置与主张 | 本项目落实 | 范围判断 |
 | --- | --- | --- |

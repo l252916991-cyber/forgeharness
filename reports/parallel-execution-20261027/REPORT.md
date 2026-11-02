@@ -58,9 +58,9 @@
 
 未发布候选发行物：
 
-- [wheel](candidate-r3/verification/runs/20261026T214249Z-f6e8b811/dist/forgeharness-0.9.1-py3-none-any.whl)，
+- wheel（`reports/parallel-execution-20261027/candidate-r3/verification/runs/20261026T214249Z-f6e8b811/dist/forgeharness-0.9.1-py3-none-any.whl`），
   SHA-256 **46ce3341d23d0f54c59f17a3326e9db1f2e2559c80083e402388d7b956f162b7**。
-- [sdist](candidate-r3/verification/runs/20261026T214249Z-f6e8b811/dist/forgeharness-0.9.1.tar.gz)，
+- sdist（`reports/parallel-execution-20261027/candidate-r3/verification/runs/20261026T214249Z-f6e8b811/dist/forgeharness-0.9.1.tar.gz`），
   SHA-256 **4bc3ce2c5f4396f17b012642da890456140db6240fae7317032297e6b97304bd**。
 
 ## 真实模型对照

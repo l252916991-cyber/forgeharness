@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "comparison_kind": "content-addressed source manifests; no Git metadata",
+  "baseline": {
+    "manifest": "reports/saas/20261030-hosted/candidate-r2/source.json",
+    "manifest_sha256": "0754cbf1112664a55a215262b84b3664d9e8670f40ae9cb34844b0d4d2326df6",
+    "tree_digest": "22bec79d6b7f187bb5798bc59e18690ba9e03add729921163cedad8cb42cac24",
+    "file_count": 584
+  },
+  "candidate": {
+    "manifest": "reports/saas/20261101-control-plane/candidate-r3/source.json",
+    "manifest_sha256": "2b41a92e32f25fdd00f16c9592758ecc88b1558d4c1afe4d2246d6f926c13f01",
+    "tree_digest": "cf7794669877a45e69925f1f3d3365cebb9e47a81adebfd160a13664d0c18a7e",
+    "file_count": 609
+  },
+  "counts": {
+    "added": 25,
+    "modified": 16,
+    "deleted": 0,
+    "unchanged": 568
+  },
+  "added": [
+    {
+      "path": "benchmarks/control_plane_postgres.py",
+      "old_sha256": null,
+      "new_sha256": "7f2eabe03cb70dcb01251ca5e2361541a0cd8a691a52ed570941d41aa7c8b4f8"
+    },
+    {
+      "path": "benchmarks/control_plane_verification.py",
+      "old_sha256": null,
+      "new_sha256": "d32e990d778e4cb9c62f0f325b4104127f2d65649494a5232acc49f5ae7dbe0e"
+    },
+    {
+      "path": "docs/CLOUD_CONTROL_PLANE.md",
+      "old_sha256": null,
+      "new_sha256": "eb27548461540a8f25ab7f8cec0aac1c87dbac87c6d3ebd635258fe3d313ffea"
+    },
+    {
+      "path": "docs/adr/046-invitation-control-plane.md",
+      "old_sha256": null,
+      "new_sha256": "898d02f5bcd6fe7a05203abad3a03b7d7b0fb163e4f43d72617cccffbb4c9d4e"
+    },
+    {
+      "path": "evals/comparison/protocol-sdk0130-r1.json",
+      "old_sha256": null,
+      "new_sha256": "2f45a83dd6cab8856d1f103ff9ef1806ffe0debfa916670d17fb4b977ba0db55"
+    },
+    {
+      "path": "evals/comparison/protocol-sdk0130-r1.sha256",
+      "old_sha256": null,
+      "new_sha256": "aa46fa68e80a9df75486069495003ca1b452d97a4b559715960f39cad9384c5b"
+    },
+    {
+      "path": "evals/saas_control_plane/browser.cjs",
+      "old_sha256": null,
+      "new_sha256": "4a17dd39975731796a67580ee820dd0adbcb8b460c124db4840ccce5120cbca4"
+    },
+    {
+      "path": "evals/saas_control_plane/consumer.py",
+      "old_sha256": null,
+      "new_sha256": "c7aa55fa9cb4acfc8dcb16f9425de02196cfb74299c638ae8cce0bfa76944fbb"
+    },
+    {
+      "path": "evals/saas_control_plane/tests/conftest.py",
+      "old_sha256": null,
+      "new_sha256": "52e0ee79b0767bc76081b398c53b7d75812fce377e8f2baef932f24785b96d86"
+    },
+    {
+      "path": "evals/saas_control_plane/tests/test_http.py",
+      "old_sha256": null,
+      "new_sha256": "dd447b363ef672a50da98936ac94d0b795d8bfd11f63f692191815e737c36ffc"
+    },
+    {
+      "path": "evals/saas_postgres/tests/test_control_identity.py",
+      "old_sha256": null,
+      "new_sha256": "b16be49e88461f36a3542ece1a6d98f82c36f41fe1ca05487455f63755ec840c"
+    },
+    {
+      "path": "evals/saas_postgres/tests/test_control_runtime.py",
+      "old_sha256": null,
+      "new_sha256": "3a067d90ecb0b89ddd77934d505da43d021844514e36f361fde43bcda8afe973"
+    },
+    {
+      "path": "evals/saas_postgres/tests/test_control_snapshot.py",
+      "old_sha256": null,
+      "new_sha256": "50d4ba238b12251b7d94dc740dc4863f8eecef93a55d26bfc2d4d7667a5de2b1"
+    },
+    {
+      "path": "src/forgeharness/cloud/assets/workbench.css",
+      "old_sha256": null,
+      "new_sha256": "5ad05f0c62adaa6c9ff7cf6158374107e9f5288f2466d354e08a6440acc6dfd5"
+    },
+    {
+      "path": "src/forgeharness/cloud/assets/workbench.html",
+      "old_sha256": null,
+      "new_sha256": "18e3dfdbb2ccd38b62dfb756bde19e4fd2a46d4e7e0ad2a4d9d0870a69e26916"
+    },
+    {
+      "path": "src/forgeharness/cloud/assets/workbench.js",
+      "old_sha256": null,
+      "new_sha256": "56031714ed490293ec9cba467cab8aaa2a2bb435cca26bcf773940e651c9c409"
+    },
+    {
+      "path": "src/forgeharness/cloud/control.py",
+      "old_sha256": null,
+      "new_sha256": "1543c5d124aeac8df7a7753f0a617452ba3851d232f1731f6f488b6b973e5363"
+    },
+    {
+      "path": "src/forgeharness/cloud/control_api.py",
+      "old_sha256": null,
+      "new_sha256": "a53ac0af006e501bc9abb92f1fe9fcccc8b8aee884542113486ea4bcb38cbecb"
+    },
+    {
+      "path": "src/forgeharness/cloud/identity.py",
+      "old_sha256": null,
+      "new_sha256": "a40a8765e08fe42d8ee96db1d85b9d7f77f9451ade33db12241af4495a423685"
+    },
+    {
+      "path": "src/forgeharness/cloud/identity_models.py",
+      "old_sha256": null,
+      "new_sha256": "19bd76c0abce14d618d0568303bda88cb63b15089d1cb23d3f7bb0ecd8df21ef"
+    },
+    {
+      "path": "src/forgeharness/cloud/migrations/003-control-plane.sql",
+      "old_sha256": null,
+      "new_sha256": "d70fba33475093b183ed0d123e5b071b5a5060a5e5bf4b42ada297b899875277"
+    },
+    {
+      "path": "src/forgeharness/cloud/workbench.py",
+      "old_sha256": null,
+      "new_sha256": "cb43e5330e0a049ce59776796a0e69d22ab51b1709b15095f787dab87c3e78b9"
+    },
+    {
+      "path": "src/forgeharness/cloud/worker.py",
+      "old_sha256": null,
+      "new_sha256": "e6d60b7029601d88c5c3140dbc756841d7badd5f4cfed71afaa397364c534608"
+    },
+    {
+      "path": "tests/unit/test_control_api.py",
+      "old_sha256": null,
+      "new_sha256": "1331606007393c1a59e0070cc37a50a6585d6f6e6a65bbae3441dc6479b701b3"
+    },
+    {
+      "path": "tests/unit/test_control_plane_verification.py",
+      "old_sha256": null,
+      "new_sha256": "8e9b44df7c6a92d697132a8b298890a8e13c0d7b596251b09a58bdfdd5212c43"
+    }
+  ],
+  "modified": [
+    {
+      "path": "Makefile",
+      "old_sha256": "cf9c7da4757bf7c8b8f6bcf91e6f31c668d9b350bc3120643e06430e105daa19",
+      "new_sha256": "9333dbcf1059b0240c6cfc05be377f910b6f8044a309cea260185399ff05678e"
+    },
+    {
+      "path": "README.md",
+      "old_sha256": "af3d09dac51a1b51392bd0bab82236cbc311d0f1bf5b38e4380faf031a3e83cc",
+      "new_sha256": "b841e0c05cf9ae89daa5b0203a9f0aafa5aedb27bb3dd70b604b47ae69a318c0"
+    },
+    {
+      "path": "benchmarks/comparison/run.py",
+      "old_sha256": "01a55a9c9f9a72ba0a23d0d55a20307fbaecfabd087e99ab7ade109323495c39",
+      "new_sha256": "8d1b1c83ffd56e0295a20d58386543e25f2bd024c563bc65a583b4fd95b4f5e1"
+    },
+    {
+      "path": "benchmarks/comparison/verify.py",
+      "old_sha256": "d1302d0eae87b61d9d5e049baab822cbaaa87409383f1563d361f4702d30cfd0",
+      "new_sha256": "19bcf8052303eb201cccd0407bc4c036bcdebcc2a98e2fe37cc4d4adefc76cfe"
+    },
+    {
+      "path": "benchmarks/saas_postgres.py",
+      "old_sha256": "1dd3d61695130a349459fd9f69d5ec9f6e94ae4e839fd205b9d90bccfd17ff5e",
+      "new_sha256": "15d7c9048210421c5abaa8a86e9940017db9fdf318dacf70990b9f6c6e8b174d"
+    },
+    {
+      "path": "docs/CURRENT_CAPABILITIES.md",
+      "old_sha256": "3e5e7364b0e373aa80b036d725d9c1fcd1eb98c44c382c3cd77bcff0ccdddc6a",
+      "new_sha256": "5feae13fe35ae438795ee7c32842d3a0c734db46a1fc79ed2ee6bf45cbb634f4"
+    },
+    {
+      "path": "docs/STATUS.md",
+      "old_sha256": "386825b5a005ffbed7bac1ae8dfbed5d12fcf265a5a9947189edba0cb9282f9c",
+      "new_sha256": "adf13459205b0d685ce88e712a6438c55180c55cbb1e6d25a5727bdb7588abaa"
+    },
+    {
+      "path": "evals/saas_postgres/tests/test_execution_migration.py",
+      "old_sha256": "cdabb44de0cdd6d4ba9cb2ca59319a3bd2eab2f78d44d1eb01dcc07eb66defe4",
+      "new_sha256": "71df217475c20c6bfd5f0466ab54289ee9858515f2395e6ac3c14a3fefa41992"
+    },
+    {
+      "path": "pyproject.toml",
+      "old_sha256": "596f24d369b5151fae5c3b340033354663290db8112eff4a1d6a1cd511733202",
+      "new_sha256": "ba8178b2d22a0e6b6cacbf1bd57cfcd566969a5a798d9744eec4937b5e449e3d"
+    },
+    {
+      "path": "src/forgeharness/cloud/calls.py",
+      "old_sha256": "8a2753f94f49c98722321fa3ae4ef04b6a334d41a81b08d95e627315976516d3",
+      "new_sha256": "f8ed407984839cc50c806f0a08b52904af3affaec8aa6cd93be7d392a5c589ca"
+    },
+    {
+      "path": "src/forgeharness/cloud/execution_calls.py",
+      "old_sha256": "6b38eda6dd1df6261530d325f693f0bf3f627bb66650692a0acb3b0432a20d0c",
+      "new_sha256": "ba27f64d8ab3916e425721f2427d5497950f574e7d29b95a9dcd393abc0849ff"
+    },
+    {
+      "path": "src/forgeharness/cloud/execution_state.py",
+      "old_sha256": "6a5baccef2a5a9263d0f911c2f9eb5c13b8cd92cbd568871b8b527c44ac0fcd0",
+      "new_sha256": "49e4519ddff4cfa0d64ce9fdf7241b915e9f6cdf4c98fc81c275e9d9167bdc2a"
+    },
+    {
+      "path": "src/forgeharness/cloud/provision.py",
+      "old_sha256": "b51066c7a42cf842e70d021dd0cdce763ac6dfc4f827e049a649f60c5d0d151e",
+      "new_sha256": "22e127ab1a6a7c1839345e8f9ac4ed27de7e6dfb888f96954c9863f35dfadabe"
+    },
+    {
+      "path": "src/forgeharness/cloud/runtime.py",
+      "old_sha256": "7bab0c2c81c84f374df0bc6daa6db62e7f7b52b425da2914a5209f7c9415fe01",
+      "new_sha256": "9006b521c0527444228ff80c4c8e0a7466e249be364dcf6469c3405a1adea958"
+    },
+    {
+      "path": "src/forgeharness/cloud/store.py",
+      "old_sha256": "f437df9c9c354406d13df8d8cf82f812217826cec76311032b556ed5c5ff9fc8",
+      "new_sha256": "b42ea06e74a3f6b174c927dbfb361c403885fec57ece8fa2acfbee088b2450ce"
+    },
+    {
+      "path": "uv.lock",
+      "old_sha256": "eac40fb42a52ea80ef3935405ff0be540094412088f7c5e2f5b9fe5d774f12a4",
+      "new_sha256": "38de168915d3bde69e0bfa84203994077b340713f7b7f0df49557cc721b7f125"
+    }
+  ],
+  "deleted": [],
+  "verification": {
+    "baseline_tree_matches_preexisting_freeze": true,
+    "baseline_manifest_bytes_match_historical_qualification": true,
+    "baseline_manifest_historical_sha256": "0754cbf1112664a55a215262b84b3664d9e8670f40ae9cb34844b0d4d2326df6",
+    "candidate_manifest_integrity": true,
+    "current_source_matches_candidate_manifest": true,
+    "protected_schema_files": [
+      {
+        "path": "src/forgeharness/cloud/schema.sql",
+        "baseline_sha256": "c8589445b9d841ce43e8e14fc8cec343c28454fed08dbab0ae46d90984ef8ac0",
+        "candidate_sha256": "c8589445b9d841ce43e8e14fc8cec343c28454fed08dbab0ae46d90984ef8ac0",
+        "current_sha256": "c8589445b9d841ce43e8e14fc8cec343c28454fed08dbab0ae46d90984ef8ac0",
+        "unchanged": true
+      },
+      {
+        "path": "src/forgeharness/cloud/migrations/002-execution-evidence.sql",
+        "baseline_sha256": "0b1ad7d6157c46ac778768eb735fd23401a797080d59396cdece9463a0123b13",
+        "candidate_sha256": "0b1ad7d6157c46ac778768eb735fd23401a797080d59396cdece9463a0123b13",
+        "current_sha256": "0b1ad7d6157c46ac778768eb735fd23401a797080d59396cdece9463a0123b13",
+        "unchanged": true
+      }
+    ]
+  }
+}

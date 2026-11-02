@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "identity": {
+    "runner_sha256": "217800e83d9ad2c693979d5daa848967cbaa7d7871b6a9fcde9e23675bd57e4d",
+    "corpus_sha256": "8ad3caa4a037714927d24a405f829645f82fb6bcb3bc74d7a34dda79d944ad87",
+    "budget": {
+      "max_steps": 3,
+      "max_tool_calls": 0,
+      "max_input_tokens": 18000,
+      "max_output_tokens": 768,
+      "max_context_tokens": 6000,
+      "reserve_output_tokens": 256,
+      "request_overhead_tokens": 0,
+      "max_protocol_violations": 3,
+      "max_attempts_per_call": 3,
+      "initial_backoff_ms": 100,
+      "backoff_multiplier": 2.0,
+      "max_backoff_ms": 1000,
+      "max_wall_seconds": 120.0,
+      "tool_timeout_seconds": 30.0,
+      "max_planner_retries": 1
+    },
+    "rules": {
+      "p50_ratio_max": 0.8,
+      "p95_ratio_max": 1.1,
+      "quality_lower_min": -0.05,
+      "tokens_per_success_ratio_max": 1.1,
+      "cluster_seed": 20261027,
+      "bootstrap_samples": 4000,
+      "scope": "exploratory author-generated synthetic tasks only"
+    }
+  },
+  "source_identity": "2adfdc8937a15e91026238a1b8bc836cadf0a2341a2dd313c3cc3f7c46879ad8",
+  "model": "Qwythos-9B-v2-OptiQ-4bit",
+  "model_artifacts": {
+    "config.json": "13ddf631842848ef19ca18756f57d6d303e8483b125cda7f03989b1fa2800e05",
+    "generation_config.json": "6a391fdcafb170d69b8c5f7f2b131f8210c2fd7f6fa241862f664166bdc32d92",
+    "kv_config.json": "049474dc1d43800fbd9545de4af84d127b95ff6ba313f462acd10b426726f6ff",
+    "lexvault-model-source.json": "757fef92e2c13a807736d14e8e9baad85bdb9b57d593688bb347405f795138a0",
+    "model-00001-of-00002.safetensors": "c2497600b2d92b80e329ca67fddd2d864761e931afcd8d27fd75b34e4700a762",
+    "model-00002-of-00002.safetensors": "95566add2fd391f5ff919345f46b8382dcf09ffe5b8064c808ec7137e61f2641",
+    "model.safetensors.index.json": "efc84e747421e6107c50a1e5e6af613acce824edc592c87000fa410f8a63c89f",
+    "optiq_metadata.json": "de001cf0211523c2bf1ebd3e02f9b8e89c7c91e00add058d6eae599c4d4aac76",
+    "tokenizer.json": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4",
+    "tokenizer_config.json": "5329d02a1dac4ac77f2d182ede6d6aedd16b8b341cb3b2e10fe7038859141921"
+  },
+  "samples": 3,
+  "planned_runs": 180,
+  "evaluation_cases": [
+    {
+      "id": "evaluation-fork-00",
+      "family": "fork",
+      "available": [
+        134,
+        150
+      ],
+      "blocked": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "evaluation-fork-01",
+      "family": "fork",
+      "available": [
+        141,
+        163
+      ],
+      "blocked": [
+        3,
+        7
+      ]
+    },
+    {
+      "id": "evaluation-fork-02",
+      "family": "fork",
+      "available": [
+        148,
+        176
+      ],
+      "blocked": [
+        4,
+        10
+      ]
+    },
+    {
+      "id": "evaluation-fork-03",
+      "family": "fork",
+      "available": [
+        155,
+        189
+      ],
+      "blocked": [
+        5,
+        13
+      ]
+    },
+    {
+      "id": "evaluation-fork-04",
+      "family": "fork",
+      "available": [
+        162,
+        202
+      ],
+      "blocked": [
+        6,
+        16
+      ]
+    },
+    {
+      "id": "evaluation-fork-05",
+      "family": "fork",
+      "available": [
+        169,
+        215
+      ],
+      "blocked": [
+        7,
+        19
+      ]
+    },
+    {
+      "id": "evaluation-fork-06",
+      "family": "fork",
+      "available": [
+        176,
+        228
+      ],
+      "blocked": [
+        8,
+        22
+      ]
+    },
+    {
+      "id": "evaluation-fork-07",
+      "family": "fork",
+      "available": [
+        183,
+        241
+      ],
+      "blocked": [
+        9,
+        25
+      ]
+    },
+    {
+      "id": "evaluation-fork-08",
+      "family": "fork",
+      "available": [
+        190,
+        254
+      ],
+      "blocked": [
+        10,
+        28
+      ]
+    },
+    {
+      "id": "evaluation-fork-09",
+      "family": "fork",
+      "available": [
+        197,
+        267
+      ],
+      "blocked": [
+        11,
+        31
+      ]
+    },
+    {
+      "id": "evaluation-chain-00",
+      "family": "chain",
+      "available": [
+        134,
+        150
+      ],
+      "blocked": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "evaluation-chain-01",
+      "family": "chain",
+      "available": [
+        141,
+        163
+      ],
+      "blocked": [
+        3,
+        7
+      ]
+    },
+    {
+      "id": "evaluation-chain-02",
+      "family": "chain",
+      "available": [
+        148,
+        176
+      ],
+      "blocked": [
+        4,
+        10
+      ]
+    },
+    {
+      "id": "evaluation-chain-03",
+      "family": "chain",
+      "available": [
+        155,
+        189
+      ],
+      "blocked": [
+        5,
+        13
+      ]
+    },
+    {
+      "id": "evaluation-chain-04",
+      "family": "chain",
+      "available": [
+        162,
+        202
+      ],
+      "blocked": [
+        6,
+        16
+      ]
+    },
+    {
+      "id": "evaluation-chain-05",
+      "family": "chain",
+      "available": [
+        169,
+        215
+      ],
+      "blocked": [
+        7,
+        19
+      ]
+    },
+    {
+      "id": "evaluation-chain-06",
+      "family": "chain",
+      "available": [
+        176,
+        228
+      ],
+      "blocked": [
+        8,
+        22
+      ]
+    },
+    {
+      "id": "evaluation-chain-07",
+      "family": "chain",
+      "available": [
+        183,
+        241
+      ],
+      "blocked": [
+        9,
+        25
+      ]
+    },
+    {
+      "id": "evaluation-chain-08",
+      "family": "chain",
+      "available": [
+        190,
+        254
+      ],
+      "blocked": [
+        10,
+        28
+      ]
+    },
+    {
+      "id": "evaluation-chain-09",
+      "family": "chain",
+      "available": [
+        197,
+        267
+      ],
+      "blocked": [
+        11,
+        31
+      ]
+    },
+    {
+      "id": "evaluation-uneven-00",
+      "family": "uneven",
+      "available": [
+        134,
+        150
+      ],
+      "blocked": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "evaluation-uneven-01",
+      "family": "uneven",
+      "available": [
+        141,
+        163
+      ],
+      "blocked": [
+        3,
+        7
+      ]
+    },
+    {
+      "id": "evaluation-uneven-02",
+      "family": "uneven",
+      "available": [
+        148,
+        176
+      ],
+      "blocked": [
+        4,
+        10
+      ]
+    },
+    {
+      "id": "evaluation-uneven-03",
+      "family": "uneven",
+      "available": [
+        155,
+        189
+      ],
+      "blocked": [
+        5,
+        13
+      ]
+    },
+    {
+      "id": "evaluation-uneven-04",
+      "family": "uneven",
+      "available": [
+        162,
+        202
+      ],
+      "blocked": [
+        6,
+        16
+      ]
+    },
+    {
+      "id": "evaluation-uneven-05",
+      "family": "uneven",
+      "available": [
+        169,
+        215
+      ],
+      "blocked": [
+        7,
+        19
+      ]
+    },
+    {
+      "id": "evaluation-uneven-06",
+      "family": "uneven",
+      "available": [
+        176,
+        228
+      ],
+      "blocked": [
+        8,
+        22
+      ]
+    },
+    {
+      "id": "evaluation-uneven-07",
+      "family": "uneven",
+      "available": [
+        183,
+        241
+      ],
+      "blocked": [
+        9,
+        25
+      ]
+    },
+    {
+      "id": "evaluation-uneven-08",
+      "family": "uneven",
+      "available": [
+        190,
+        254
+      ],
+      "blocked": [
+        10,
+        28
+      ]
+    },
+    {
+      "id": "evaluation-uneven-09",
+      "family": "uneven",
+      "available": [
+        197,
+        267
+      ],
+      "blocked": [
+        11,
+        31
+      ]
+    }
+  ],
+  "dev_manifest_sha256": "4b350b49a7f18af7390f350ad6a45ef3fd4412c53500419375efa293e0b68944",
+  "dev_summary_sha256": "72eefdb2e3caa956db76d0c94ffb80f673870d8f7d131908eb4861b094a45bbd",
+  "rules": {
+    "p50_ratio_max": 0.8,
+    "p95_ratio_max": 1.1,
+    "quality_lower_min": -0.05,
+    "tokens_per_success_ratio_max": 1.1,
+    "cluster_seed": 20261027,
+    "bootstrap_samples": 4000,
+    "scope": "exploratory author-generated synthetic tasks only"
+  },
+  "sampling_scope": "author-generated synthetic inventory tasks; exploratory, no business qualification"
+}

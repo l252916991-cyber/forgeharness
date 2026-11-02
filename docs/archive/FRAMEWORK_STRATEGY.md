@@ -79,7 +79,7 @@ forgeharness/
 ### 3.1 已经很好的部分
 
 - 公开 SDK v1：`sdk/__init__.py` 明确“Business apps import contracts from here”，`ApplicationSpec` 是组合根。
-- 运行时治理完整：`Harness` 默认路径构造带 policy、budget、trace、approval、checkpoint、verifier 的 `AgentRuntime`（[sdk/harness.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/sdk/harness.py#L161-L178)）。
+- 运行时治理完整：`Harness` 默认路径构造带 policy、budget、trace、approval、checkpoint、verifier 的 `AgentRuntime`（[sdk/harness.py](../../src/forgeharness/sdk/harness.py#L161-L178)）。
 - 业务原语完整：`RevisionStore`、`CitationVerifier`、`SessionService`、`TaskRunner`、`InvocationJournal`、hash-chain trace。
 - 已有两个参考应用：legal（只读问答 + 待审笔记）和 commerce（商品咨询 + 工单）；不是空框架。
 - 已有 ADR/审计/评测体系；工程纪律比多数“框架”项目强。
@@ -90,9 +90,9 @@ forgeharness/
 
 - **2026-10-18 已实现** `Orchestrator` + `RunKernel`（[ADR 023](../adr/023-orchestrator-run-kernel.md)）：应用可以自定义控制流，通过 kernel 调 model、只读工具、budget、trace、checkpoint、verifier；不传 orchestrator 时原 ReAct 路径不变。
 - **仍未解决：** 写工具/审批/调用日志/恢复仍只能走 ReAct。LexVault 的只读 DAG 可以接；写路径要等 F1c。
-- 历史证据：`ApplicationSpec` 字段包括 model/tools/policy/verifier/budget/instructions/context_providers/authorize_run，**没有 runner/orchestrator**（[sdk/spec.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/sdk/spec.py#L44-L66)）。
-- 历史证据：`Harness._runtime` 曾固定 `AgentRuntime`（[sdk/harness.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/sdk/harness.py#L161-L178)），而 `AgentRuntime.run` 是 ReAct 主循环。
-- 历史证据：`WorkflowRunner` 是顺序执行（[sdk/workflows.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/sdk/workflows.py#L364-L449)），不能表达 LexVault 的并行 fan-out（[本地律所/app/agents.py](/Users/xiaoy/Documents/本地律所/app/agents.py#L777-L816)）。
+- 历史证据：`ApplicationSpec` 字段包括 model/tools/policy/verifier/budget/instructions/context_providers/authorize_run，**没有 runner/orchestrator**（[sdk/spec.py](../../src/forgeharness/sdk/spec.py#L44-L66)）。
+- 历史证据：`Harness._runtime` 曾固定 `AgentRuntime`（[sdk/harness.py](../../src/forgeharness/sdk/harness.py#L161-L178)），而 `AgentRuntime.run` 是 ReAct 主循环。
+- 历史证据：`WorkflowRunner` 是顺序执行（[sdk/workflows.py](../../src/forgeharness/sdk/workflows.py#L364-L449)），不能表达 LexVault 的并行 fan-out（`本地律所/app/agents.py#L777-L816`）。
 - 原缺口下的两条坏路——把 DAG 改写成 ReAct/顺序 Workflow，或在框架外自己跑 DAG——现在有第三条路：实现 `Orchestrator`，通过 `RunKernel` 治理调用。
 
 ### 3.2b 缺口一之二：`ApplicationSpec` 会变成 god object
@@ -104,22 +104,22 @@ forgeharness/
 ### 3.3 缺口二（已收口为显式兼容层）：核心曾有 Coding 垂直耦合
 
 - **2026-10-18 已处理：** ADR 024 + `tests/unit/test_import_boundaries.py` 把依赖方向变成可执行规则；核心不 import `forgeharness.applications`，新增 core→coding import 会失败。
-- 三个 Coding API-v1 兼容 shim 仍存在，被测试显式冻结，API v2 移除；其中 `context/repository.py` 为转发入口，其余为：`runtime/verification.py` 懒加载 `CodingVerifier`（[runtime/verification.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/runtime/verification.py#L55-L61)）、`context/__init__.py` 懒加载 `PythonRepositoryMap`（[context/__init__.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/context/__init__.py#L16-L21)）。
-- `ARCHITECTURE.md` 已改为“SDK 组合根 + 两条执行路径”，Coding 只是参考应用，不再是系统图收尾（[ARCHITECTURE.md](/Users/xiaoy/Documents/多agent协作/docs/ARCHITECTURE.md#L5-L35)）。
-- Legal 的 `case_qa_application` 已用 `Capability` + `compose_application`（[applications/legal/pilot.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/applications/legal/pilot.py#L290-L315)），成为第一个迁移的参考应用。
+- 三个 Coding API-v1 兼容 shim 仍存在，被测试显式冻结，API v2 移除；其中 `context/repository.py` 为转发入口，其余为：`runtime/verification.py` 懒加载 `CodingVerifier`（[runtime/verification.py](../../src/forgeharness/runtime/verification.py#L55-L61)）、`context/__init__.py` 懒加载 `PythonRepositoryMap`（[context/__init__.py](../../src/forgeharness/context/__init__.py#L16-L21)）。
+- `ARCHITECTURE.md` 已改为“SDK 组合根 + 两条执行路径”，Coding 只是参考应用，不再是系统图收尾（[ARCHITECTURE.md](../ARCHITECTURE.md#L5-L35)）。
+- Legal 的 `case_qa_application` 已用 `Capability` + `compose_application`（[applications/legal/pilot.py](../../src/forgeharness/applications/legal/pilot.py#L290-L315)），成为第一个迁移的参考应用。
 
 ### 3.4 缺口三（F2a/F2b-1 已完成）：完整真实 host 验证未完成
 
 - **2026-10-20 基线：** F2b-1 已有 SQLite 只读导出器，并用本地 14 页/5 文档运行 4 题脚本模型；不代表 live 授权、真实模型或律师验收。
-- **2026-10-18 F2a：** 新增 LexVault 形状的只读 `CaseBundle` + `BundleCaseAdapter` + 并行 DAG + `[page:N]` verifier（[applications/legal/lexvault/](/Users/xiaoy/Documents/多agent协作/src/forgeharness/applications/legal/lexvault)、[ADR 025](../adr/025-lexvault-readonly-bundle.md)）。它验证了控制流，但仍是 bundle 合成数据，不是 live LexVault。
-- legal 的 `case_qa_application` 面向 `CaseAdapter`，合成样例、只读（[applications/legal/pilot.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/applications/legal/pilot.py#L290-L315)）。
-- commerce 的 `commerce_application` 面向合成 `CommerceStore`（[applications/commerce/application.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/applications/commerce/application.py#L697-L735)）。
+- **2026-10-18 F2a：** 新增 LexVault 形状的只读 `CaseBundle` + `BundleCaseAdapter` + 并行 DAG + `[page:N]` verifier（[applications/legal/lexvault/](../../src/forgeharness/applications/legal/lexvault)、[ADR 025](../adr/025-lexvault-readonly-bundle.md)）。它验证了控制流，但仍是 bundle 合成数据，不是 live LexVault。
+- legal 的 `case_qa_application` 面向 `CaseAdapter`，合成样例、只读（[applications/legal/pilot.py](../../src/forgeharness/applications/legal/pilot.py#L290-L315)）。
+- commerce 的 `commerce_application` 面向合成 `CommerceStore`（[applications/commerce/application.py](../../src/forgeharness/applications/commerce/application.py#L697-L735)）。
 - LexVault 有真实 DB、FTS5+向量+RRF、页级引用、案件权限、UI、ARQ 后台任务；F2b 才通过 host port 接进来。
 - 结果：现在的“两个应用”证明的是“框架能跑两个样例 + 一个法律形状的 DAG”，还不是“框架能承载两个真实应用”。
 
 ### 3.5 缺口四：打包/版本/运行环境
 
-- ForgeHarness 要求 Python `>=3.12,<3.14`（[pyproject.toml](/Users/xiaoy/Documents/多agent协作/pyproject.toml#L16)），LexVault 支持 3.11–3.14。
+- ForgeHarness 要求 Python `>=3.12,<3.14`（[pyproject.toml](../../pyproject.toml#L16)），LexVault 支持 3.11–3.14。
 - 这不是框架设计问题，但决定第一个 host 是“独立进程/独立 venv”还是“同进程库”。框架化阶段建议先独立进程，避免把 LexVault 的运行时约束带进核心。
 - SDK API v1 已存在，但需要明确弃用策略和 v2 的触发条件；否则框架会在应用压力下随意变形。
 

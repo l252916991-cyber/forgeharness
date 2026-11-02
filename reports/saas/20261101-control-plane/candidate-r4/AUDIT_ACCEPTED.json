@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-11-02",
+  "decision": "accepted",
+  "qualification_scope": "invitation-only internal Alpha control plane",
+  "production_saas_qualified": false,
+  "real_business_qualified": false,
+  "candidate": "candidate-r4",
+  "source_sha256": "05bf6eaa6817100d22e1ddac760a05547a78c693a09fb1ceeb1eac7d69e6b984",
+  "source_manifest_sha256": "4f3b07877252c09e28f3384d00f1e9ba8c0618d5f6a8534dd3001bb8697770f7",
+  "verification_summary_sha256": "b521977d3acdf31ab44a29dad86a25a9587b3bcade89dfd77c7db008cc111bf9",
+  "gates_passed": 130,
+  "gates_failed": 0,
+  "known_open_blocker_or_high": 0,
+  "wheel_sha256": "31017b4afde8c1c547bd62129d5019d054101cdc54f70f0990534ca1bdb434a7",
+  "sdist_sha256": "11deabd0f92721c19db2dbe2cdde5eefb928f232f656ba4b0f5acfcab690dacc",
+  "independent_same_wheel_migration_audit_passed": true,
+  "migration_script_sha256": "e5c0ae922b5a89aa878a5e14498d03db5a9e822228d888e833e1cef4487effd0",
+  "migration_protocol_sha256": "358f0f30af3be20646aac8d5a4f620e8cedb68295f062c2de030c35d7aaa046d",
+  "staged_artifacts_match_qualified_build": true,
+  "accepted_residual_risks": [
+    "CP-R1",
+    "CP-R2",
+    "CP-R3",
+    "FH-019"
+  ],
+  "evidence": [
+    "REPORT.md",
+    "AUDIT.md",
+    "QUALIFICATION_REVIEW.md",
+    "candidate-r4/verification/summary.json",
+    "migration-audit/r4-final/summary.json",
+    "REJECTION_GUARD.json"
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "synthetic": true,
+  "real_customer_write": false,
+  "effects": 1,
+  "stages": [
+    {
+      "process_exit": 91
+    },
+    {
+      "task_id": "6b7d254d8bc38a73ea4fd2df.4e65d3fbe8ad6535681b021b30785b12b6c0e3f8878859a4148b3f58b8835db0",
+      "status": "running",
+      "messages": [
+        {
+          "role": "user",
+          "content": "synthetic task",
+          "tool_calls": [],
+          "tool_call_id": null,
+          "tool_name": null
+        }
+      ],
+      "usage": {
+        "steps": 0,
+        "tool_calls": 1,
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "checkpoint_revision": 4,
+      "final_output": null,
+      "error": "needs_reconciliation:write",
+      "pending_approval": null,
+      "recovery_semantics_version": 4,
+      "state_version": 2,
+      "run_context": {
+        "application_id": "r2-fixture",
+        "application_version": "1",
+        "run_id": "6b7d254d8bc38a73ea4fd2df.4e65d3fbe8ad6535681b021b30785b12b6c0e3f8878859a4148b3f58b8835db0",
+        "session_id": "session-1",
+        "actor": {
+          "id": "owner",
+          "roles": []
+        },
+        "scope": {
+          "tenant_id": "test",
+          "resources": [
+            "synthetic"
+          ],
+          "workspace": null
+        },
+        "policy_version": "1",
+        "correlation_id": "test",
+        "contract_version": 1
+      },
+      "tool_evidence": [],
+      "authorized_call_id": null
+    },
+    {
+      "task_id": "6b7d254d8bc38a73ea4fd2df.4e65d3fbe8ad6535681b021b30785b12b6c0e3f8878859a4148b3f58b8835db0",
+      "status": "succeeded",
+      "messages": [
+        {
+          "role": "user",
+          "content": "synthetic task",
+          "tool_calls": [],
+          "tool_call_id": null,
+          "tool_name": null
+        }
+      ],
+      "usage": {
+        "steps": 0,
+        "tool_calls": 1,
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "checkpoint_revision": 6,
+      "final_output": "synthetic receipt",
+      "error": null,
+      "pending_approval": null,
+      "recovery_semantics_version": 4,
+      "state_version": 2,
+      "run_context": {
+        "application_id": "r2-fixture",
+        "application_version": "1",
+        "run_id": "6b7d254d8bc38a73ea4fd2df.4e65d3fbe8ad6535681b021b30785b12b6c0e3f8878859a4148b3f58b8835db0",
+        "session_id": "session-1",
+        "actor": {
+          "id": "owner",
+          "roles": []
+        },
+        "scope": {
+          "tenant_id": "test",
+          "resources": [
+            "synthetic"
+          ],
+          "workspace": null
+        },
+        "policy_version": "1",
+        "correlation_id": "test",
+        "contract_version": 1
+      },
+      "tool_evidence": [
+        {
+          "name": "write",
+          "ok": true,
+          "content": "synthetic receipt",
+          "metadata": {},
+          "logical_call_id": "write",
+          "receipt": {
+            "resource_id": "synthetic",
+            "status": "completed",
+            "version": "1",
+            "evidence_refs": [],
+            "schema_version": 1
+          }
+        }
+      ],
+      "authorized_call_id": null
+    },
+    {
+      "task_id": "6b7d254d8bc38a73ea4fd2df.4e65d3fbe8ad6535681b021b30785b12b6c0e3f8878859a4148b3f58b8835db0",
+      "status": "succeeded",
+      "messages": [
+        {
+          "role": "user",
+          "content": "synthetic task",
+          "tool_calls": [],
+          "tool_call_id": null,
+          "tool_name": null
+        }
+      ],
+      "usage": {
+        "steps": 0,
+        "tool_calls": 1,
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "checkpoint_revision": 6,
+      "final_output": "synthetic receipt",
+      "error": null,
+      "pending_approval": null,
+      "recovery_semantics_version": 4,
+      "state_version": 2,
+      "run_context": {
+        "application_id": "r2-fixture",
+        "application_version": "1",
+        "run_id": "6b7d254d8bc38a73ea4fd2df.4e65d3fbe8ad6535681b021b30785b12b6c0e3f8878859a4148b3f58b8835db0",
+        "session_id": "session-1",
+        "actor": {
+          "id": "owner",
+          "roles": []
+        },
+        "scope": {
+          "tenant_id": "test",
+          "resources": [
+            "synthetic"
+          ],
+          "workspace": null
+        },
+        "policy_version": "1",
+        "correlation_id": "test",
+        "contract_version": 1
+      },
+      "tool_evidence": [
+        {
+          "name": "write",
+          "ok": true,
+          "content": "synthetic receipt",
+          "metadata": {},
+          "logical_call_id": "write",
+          "receipt": {
+            "resource_id": "synthetic",
+            "status": "completed",
+            "version": "1",
+            "evidence_refs": [],
+            "schema_version": 1
+          }
+        }
+      ],
+      "authorized_call_id": null
+    }
+  ],
+  "meaning": "receipt reconciliation, not external exactly-once"
+}

@@ -39,9 +39,9 @@
 
 未发布的候选发行物：
 
-- [wheel](candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/dist/forgeharness-0.8.6-py3-none-any.whl)，
+- wheel（`reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/dist/forgeharness-0.8.6-py3-none-any.whl`），
   SHA-256 `e071fecdee4c8f6de2a5c88073ff8c5fe90282db8c8106cf9d605cbba183875c`。
-- [sdist](candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/dist/forgeharness-0.8.6.tar.gz)，
+- sdist（`reports/multi-agent-20261026/candidate-r1/verification/runs/20261026T112014Z-8e4c5d29/dist/forgeharness-0.8.6.tar.gz`），
   SHA-256 `a1cfa85716da53335ff87c6da67b83b4d7fb0fc6b541594b02dc2e87d02b2ff8`。
 
 第一轮开发源码运行 1255 tests 通过，纯分支覆盖 86.2586%；该轮发生在最后的 guard、

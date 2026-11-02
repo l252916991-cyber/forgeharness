@@ -1,0 +1,113 @@
+{
+  "model_id": "Qwen3.8-27B-oQ4e-mtp",
+  "repository": "Jundot/Qwen3.8-27B-oQ4e-mtp",
+  "revision": "b47cb89d5da40c67a334403330a826c7591fbc09",
+  "all_model_files": [
+    {
+      "file": ".gitattributes",
+      "sha256": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930"
+    },
+    {
+      "file": "LICENSE",
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a"
+    },
+    {
+      "file": "README.md",
+      "sha256": "e13ada8b0927bda5d784babfb9986395c3e2c1bcc2b85bac4d997cb49d31b10c"
+    },
+    {
+      "file": "chat_template.jinja",
+      "sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+    },
+    {
+      "file": "config.json",
+      "sha256": "7a063b70e128d238784dce2c594cb7e0f714f44c4387975c99acc8fcf6511eb5"
+    },
+    {
+      "file": "generation_config.json",
+      "sha256": "e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e"
+    },
+    {
+      "file": "merges.txt",
+      "sha256": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d"
+    },
+    {
+      "file": "model-00001-of-00004.safetensors",
+      "sha256": "a52b4d90bdd3ac6faaa1b5e2dbd392476ff4a89f612d58f2cdf5da3e600505b6"
+    },
+    {
+      "file": "model-00002-of-00004.safetensors",
+      "sha256": "da76b97546d3d6115539f7c3f56cb69a3eebd6b29d45f3f3e31223f993e5643a"
+    },
+    {
+      "file": "model-00003-of-00004.safetensors",
+      "sha256": "22b410fbeb6bd93cd226fbf3d035744d70adf137ad4be9ba7ff4560fc38b3616"
+    },
+    {
+      "file": "model-00004-of-00004.safetensors",
+      "sha256": "0e513a47300167766fe294ad9c9b8583853debc18dfb05ebadb018bffc97fa7a"
+    },
+    {
+      "file": "model.safetensors.index.json",
+      "sha256": "7f3e6f1baba9bec91b20f25a9a505a6e268377012d038f36febc3af6c478f625"
+    },
+    {
+      "file": "oq_imatrix_report.json",
+      "sha256": "24ae495e41cdf6a900a9c272560f21e1dcbb6390a99db93dde6745e5a9ed779e"
+    },
+    {
+      "file": "preprocessor_config.json",
+      "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+    },
+    {
+      "file": "tokenizer.json",
+      "sha256": "0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3"
+    },
+    {
+      "file": "tokenizer_config.json",
+      "sha256": "b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27"
+    },
+    {
+      "file": "vocab.json",
+      "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+    }
+  ],
+  "runtime_packages": {
+    "omlx": "0.7.0",
+    "mlx": "0.32.2",
+    "mlx-lm": "0.31.4.dev132+g94cdcae13",
+    "mlx-vlm": "0.7.1",
+    "transformers": "5.17.0"
+  },
+  "server_pid": 94073,
+  "server_command": [
+    "/Users/xiaoy/.local/share/uv/tools/omlx/bin/omlx",
+    "serve",
+    "--model-dir",
+    "/Users/xiaoy/.omlx/models",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8000",
+    "--log-level",
+    "info"
+  ],
+  "server_command_observed": "omlx-server",
+  "server_settings_sha256": {
+    "settings.json": "9419f2dc484637179b245a90f01ae86fb9ef11a33d716f7f878927ed0e1c584d",
+    "model_settings.json": null
+  },
+  "machine": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "python": "3.12.13"
+  },
+  "request_profile": {
+    "temperature": 0,
+    "max_tokens": 256,
+    "enable_thinking": false,
+    "parallel_tool_calls": false
+  },
+  "mtp_acceleration_configured": false,
+  "scope": "Synthetic development diagnosis mini-tasks; not repository repair or business qualification"
+}

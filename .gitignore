@@ -33,3 +33,6 @@ references/upstream/
 !/reports/*/*/*.md
 !/reports/*.json
 /reports/*coverage*.json
+
+# Pre-change snapshots of README/docs taken by improvement runs; kept locally.
+/reports/*/before/

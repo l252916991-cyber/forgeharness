@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-28",
+  "application": "commerce consultation and human handoff workbench",
+  "source_of_truth": "src/forgeharness/applications/commerce/identity.py",
+  "roles": ["admin", "customer", "editor", "publisher", "supervisor", "support"],
+  "permissions": {
+    "customer": ["consult", "ticket:read_own"],
+    "support": ["ticket:claim", "ticket:read_scope", "ticket:resolve"],
+    "supervisor": ["approval:decide", "ticket:read_scope"],
+    "editor": ["knowledge:draft", "knowledge:read"],
+    "publisher": ["knowledge:publish", "knowledge:read", "knowledge:review"],
+    "admin": ["knowledge:read", "member:manage", "quota:manage"]
+  },
+  "separation_rules": {
+    "admin_has_no_approval": "admin must not gain approval:decide through its role",
+    "admin_has_no_consult": "admin must not act as a consulting user",
+    "self_approval": "approver actor id must differ from the run owner actor id",
+    "approval_channel": "approver authenticates separately from the owner session"
+  },
+  "identity_rules": {
+    "actor_id": "stable user:<uuid>; never a role name",
+    "scope_resources": "computed server-side from workspace membership",
+    "context_sources_allowed": ["verified cookie credential", "server-side membership rows"],
+    "context_sources_forbidden": ["request body", "path parameter", "model output", "headers naming a role"],
+    "token_storage": "sha256 digest only",
+    "password_storage": "scrypt with per-user salt",
+    "session_cookie": {
+      "name": "fh_identity",
+      "http_only": true,
+      "same_site": "lax",
+      "secure": "required when the deployment serves HTTPS",
+      "ttl_hours": 8,
+      "sliding_renewal": false
+    },
+    "csrf": {
+      "header": "x-csrf-token",
+      "applies_to": ["POST", "PUT", "PATCH", "DELETE"],
+      "on_mismatch": "reject"
+    },
+    "login_throttle": {
+      "max_failures": 5,
+      "window_minutes": 15
+    }
+  },
+  "object_checks": [
+    {
+      "object": "consultation session",
+      "rule": "bound owner equals actor id; sdk re-checks session.actor_id"
+    },
+    {
+      "object": "ticket",
+      "rule": "same tenant and (requester is actor and ticket:read_own) or ticket:read_scope"
+    },
+    {
+      "object": "knowledge resource",
+      "rule": "resource present in server-side scope and role holds read/draft/publish"
+    },
+    {
+      "object": "approval",
+      "rule": "distinct actor, approval:decide, identical scope, current state"
+    }
+  ],
+  "required_negative_cases": [
+    "user A reads user B session",
+    "user A submits into user B session",
+    "customer calls approval endpoint",
+    "approver approves own run",
+    "admin approves a business operation",
+    "disabled user replays a previous cookie",
+    "revoked member continues reading",
+    "expired cookie is replayed",
+    "cross-tenant ticket or source read",
+    "body tries to assert actor, roles or tenant"
+  ]
+}

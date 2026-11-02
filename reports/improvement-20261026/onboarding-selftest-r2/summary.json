@@ -1,0 +1,21 @@
+{
+  "kind": "author automated self-test on minimal installed 0.8.4 wheel",
+  "independent_onboarding_measured": false,
+  "human_first_success_minutes": null,
+  "doc_sha256": "77c49633b3e550e7578e6efdd1d7fd105a842728bb6d01e8d7562ee9116faeef",
+  "wheel_sha256": "0bb0184df0c7af53f81f04ef8bf0203b2684a2af5fca591a96901bf14bcae2b2",
+  "source_identity": "b1ff8307efad740fd1d093905dce2683abc5dfd6f612d0977b3d608d39a839d1",
+  "runs": [
+    {
+      "exit_code": 0,
+      "seconds": 0.20478691707830876,
+      "success": true
+    },
+    {
+      "exit_code": 0,
+      "seconds": 0.1271076659904793,
+      "success": true
+    }
+  ],
+  "passed": true
+}

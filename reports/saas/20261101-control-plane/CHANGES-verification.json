@@ -1,0 +1,13 @@
+{
+  "candidate_tree_digest": "05bf6eaa6817100d22e1ddac760a05547a78c693a09fb1ceeb1eac7d69e6b984",
+  "current_source_tree_digest": "05bf6eaa6817100d22e1ddac760a05547a78c693a09fb1ceeb1eac7d69e6b984",
+  "current_source_matches_r4": true,
+  "current_source_files": 609,
+  "baseline_manifest_bytes_still_match_historical_qualification": true,
+  "r4_manifest_bytes_unchanged_during_inventory": true,
+  "r3_json_archive_preserves_original_bytes": true,
+  "r3_markdown_archive_preserves_original_bytes": true,
+  "protected_schema_files_still_unchanged": true,
+  "changed_paths": 43,
+  "release_protection_paths_included": true
+}

@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "mode": "contract",
+  "token_source": "synthetic",
+  "cost_metrics_valid": false,
+  "expected_runs": 36,
+  "actual_runs": 36,
+  "complete": true,
+  "strategy_measurement": false,
+  "infrastructure_failures": 0,
+  "arms": {
+    "single": {
+      "runs": 12,
+      "successes": 12,
+      "success_rate": 1.0,
+      "task_cluster_success_95_interval": [
+        1.0,
+        1.0
+      ],
+      "families": {
+        "chain": {
+          "runs": 4,
+          "successes": 4
+        },
+        "error": {
+          "runs": 4,
+          "successes": 4
+        },
+        "parallel": {
+          "runs": 4,
+          "successes": 4
+        }
+      },
+      "latency_p50_seconds": 0.00973383302334696,
+      "latency_p95_seconds": 0.013492375030182302,
+      "input_tokens": null,
+      "output_tokens": null,
+      "tokens_per_success_including_failures": null,
+      "duplicate_tool_calls": 0,
+      "human_intervention_rate": 0.0,
+      "usage_known": false
+    },
+    "fixed": {
+      "runs": 12,
+      "successes": 12,
+      "success_rate": 1.0,
+      "task_cluster_success_95_interval": [
+        1.0,
+        1.0
+      ],
+      "families": {
+        "chain": {
+          "runs": 4,
+          "successes": 4
+        },
+        "error": {
+          "runs": 4,
+          "successes": 4
+        },
+        "parallel": {
+          "runs": 4,
+          "successes": 4
+        }
+      },
+      "latency_p50_seconds": 0.0049717080546543,
+      "latency_p95_seconds": 0.0063260000897571445,
+      "input_tokens": null,
+      "output_tokens": null,
+      "tokens_per_success_including_failures": null,
+      "duplicate_tool_calls": 0,
+      "human_intervention_rate": 0.0,
+      "usage_known": false
+    },
+    "multi": {
+      "runs": 12,
+      "successes": 12,
+      "success_rate": 1.0,
+      "task_cluster_success_95_interval": [
+        1.0,
+        1.0
+      ],
+      "families": {
+        "chain": {
+          "runs": 4,
+          "successes": 4
+        },
+        "error": {
+          "runs": 4,
+          "successes": 4
+        },
+        "parallel": {
+          "runs": 4,
+          "successes": 4
+        }
+      },
+      "latency_p50_seconds": 0.007413749932311475,
+      "latency_p95_seconds": 0.008251708000898361,
+      "input_tokens": null,
+      "output_tokens": null,
+      "tokens_per_success_including_failures": null,
+      "duplicate_tool_calls": 0,
+      "human_intervention_rate": 0.0,
+      "usage_known": false
+    }
+  },
+  "paired_multi_minus_single_success_95_interval": [
+    0.0,
+    0.0
+  ],
+  "paired_multi_minus_fixed_success_95_interval": [
+    0.0,
+    0.0
+  ],
+  "cost_unit": "provider-reported tokens; no API fee; energy and hardware cost unmeasured",
+  "core_advantage_proven": false,
+  "business_qualified": false,
+  "limits": [
+    "author-generated short synthetic diagnosis tasks, not repository repair",
+    "no human quality rating or independent unseen task set",
+    "kernel serializes calls; no parallel throughput claim",
+    "one local model; model ID is not proof of upstream revision"
+  ],
+  "source_unchanged": true,
+  "manifest_sha256": "ec7959e1b70fe7df93ba09d392dc9f5c7f8f069dcfd9f881ede18524ad991af5",
+  "model_artifacts_unchanged": true
+}

@@ -43,13 +43,13 @@ jobs:
           enable-cache: true
       - run: sudo apt-get update && sudo apt-get install -y ripgrep
       - run: uv sync --extra dev --extra cli --extra platform --extra benchmark --extra frameworks --extra postgres-test --frozen
-      - run: uv run --no-sync python -m benchmarks.comparison.verify --candidate-dir reports/saas/20261030-hosted/candidate-r2 --freeze-only
-      - run: uv run --no-sync python -m benchmarks.comparison.verify --candidate-dir reports/saas/20261030-hosted/candidate-r2
+      - run: uv run --no-sync python -m benchmarks.comparison.verify --candidate-dir reports/ci-candidate --freeze-only
+      - run: uv run --no-sync python -m benchmarks.comparison.verify --candidate-dir reports/ci-candidate
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: framework-candidate-verification
           path: |
-            reports/saas/20261030-hosted/candidate-r2/source.json
-            reports/saas/20261030-hosted/candidate-r2/verification/summary.json
-            reports/saas/20261030-hosted/candidate-r2/verification/runs/
+            reports/ci-candidate/source.json
+            reports/ci-candidate/verification/summary.json
+            reports/ci-candidate/verification/runs/

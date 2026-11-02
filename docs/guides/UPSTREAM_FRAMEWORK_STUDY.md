@@ -21,7 +21,7 @@
 
 ## 1. 下载清单
 
-完整清单、commit、license 见 [`references/upstream/README.md`](../../references/upstream/README.md)。
+完整清单、commit、license 见 `references/upstream/README.md`。
 
 | 项目 | 固定 commit | License | 一句话定位 |
 |---|---|---|---|

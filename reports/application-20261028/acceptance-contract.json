@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-28",
+  "status": "A/B plan established; W0 scope frozen; W1 identity implemented and covered; A-level acceptance open",
+  "scope": "commerce consultation and human handoff workbench",
+  "plan": "docs/APPLICATION_PRODUCT_PLAN_2026-10-28.md",
+  "supersedes_nothing": true,
+  "continues": "reports/productization-20261027/acceptance-contract.json",
+  "hard_requirements": {
+    "cross_scope_leaks": 0,
+    "unapproved_effects": 0,
+    "duplicate_effects": 0,
+    "false_completion": 0,
+    "role_name_used_as_actor_id": 0,
+    "fabricated_citations": 0
+  },
+  "quality_thresholds_proposed": {
+    "fact_correct_rate": 0.95,
+    "exact_citation_rate": 1.0,
+    "clarify_or_handoff_rate": 0.95,
+    "latency_reporting": "p50/p95 per task family, queueing and failures included",
+    "cost_reporting": "success, failure, retry and unknown usage recorded separately"
+  },
+  "a_level_acceptance": [
+    "an invited user signs in with their own account and sees only their workspace",
+    "one consultation completes against the live product ledger with openable sources",
+    "no evidence produces a clarification or handoff suggestion, never an invented answer",
+    "user confirmation leads to awaiting-approval, then to exactly one ticket",
+    "a separate approver credential is required; self-approval is refused",
+    "support claims and resolves a ticket with operator and timestamp recorded",
+    "a duplicate click or reconnect does not create a second ticket",
+    "a disabled or revoked identity is refused on the next request",
+    "the service starts, reports readiness and restores from a stated backup procedure",
+    "one real model completes the main path within frozen budgets"
+  ],
+  "b_level_acceptance": [
+    "two or more independent accounts complete the trial path unaided",
+    "two feedback rounds are classified and the confirmed defects are closed",
+    "quality metrics carry a denominator and a retained failure set",
+    "cost, latency and retry consumption are recorded for real runs",
+    "restart, pending-approval restart, same-path restore and stale-backup restore are rehearsed",
+    "a frozen candidate reruns the required gates in a clean environment",
+    "residual risks and implemented-versus-planned boundaries are written down"
+  ],
+  "w1_evidence": {
+    "implemented": [
+      "src/forgeharness/applications/commerce/identity.py",
+      "src/forgeharness/applications/commerce/identity_http.py",
+      "docs/APPLICATION_IDENTITY.md"
+    ],
+    "tests": "tests/unit/test_commerce_identity.py",
+    "case_count": 22,
+    "permission_matrix": "reports/application-20261028/permission-matrix.json"
+  },
+  "not_yet_evidence": [
+    "synthetic catalogue and FAQ text are not authorised merchant data",
+    "the deterministic fixture model is not a real model result",
+    "a local SQLite ticket is not a merchant support-channel integration",
+    "framework test counts do not describe application business quality",
+    "no invited user has completed the path yet, so usability is unmeasured"
+  ]
+}

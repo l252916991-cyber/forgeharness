@@ -1,0 +1,31 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____ test_same_public_id_in_two_stores_cannot_release_another_run_capacity _____
+
+tmp_path = PosixPath('/private/var/folders/_f/628zxrj52vx286zc67v1899w0000gn/T/pytest-of-xiaoy/pytest-779/test_same_public_id_in_two_sto0')
+
+    async def test_same_public_id_in_two_stores_cannot_release_another_run_capacity(tmp_path):
+        with ModelDispatcher(state_dir=tmp_path / "capacity", provider_id="test") as dispatcher:
+            first_model = GateModel(fail="n1")
+            first_model.releases["n0"].set()
+            first_model.releases["n1"].set()
+            first = harness(tmp_path / "first", first_model, dispatcher)
+            assert (await first.run(context=ctx(), task="same")).status is RunStatus.RUNNING
+            first_unknown = first.inspect_orchestration(ctx()).nodes[1].invocation_id
+            dispatcher.confirm_ended(first_unknown, evidence_refs=("backend:idle-after-first",))
+            second_model = GateModel(fail="n0")
+            second_model.releases["n0"].set()
+            second_model.releases["n1"].set()
+            second = harness(tmp_path / "second", second_model, dispatcher)
+            assert (await second.run(context=ctx(), task="same")).status is RunStatus.RUNNING
+            second_unknown = second.inspect_orchestration(ctx()).nodes[0].invocation_id
+            assert second_unknown in dispatcher.unresolved
+            await first.resume(context=ctx())
+>           assert second_unknown in dispatcher.unresolved
+E           AssertionError: assert '432a4df3906bd0c635d7a69f.acba25512100f80b56fc3ccd14c65be55d94800cda77585c5f41a887e398f9be:n0' in ()
+E            +  where () = <forgeharness.sdk.parallel.ModelDispatcher object at 0x108ddf890>.unresolved
+
+tests/unit/test_parallel_execution.py:877: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_parallel_execution.py::test_same_public_id_in_two_stores_cannot_release_another_run_capacity
+1 failed in 0.20s

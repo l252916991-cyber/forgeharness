@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "finalized_date": "2026-10-17",
+  "research_date": "2026-10-16",
+  "candidate_kind": "Upstream source design review and rendered-material-budget defect fix",
+  "engineering_qualified": true,
+  "project_complete": false,
+  "business_qualified": false,
+  "production_qualified": false,
+  "core_advantage_proven": false,
+  "distribution_version": "0.5.0",
+  "source_kind": "archive checkout equivalent; no Git metadata",
+  "source_identity": "28bf1d7aa39c8b1d6b62148850b15a363848bc75fcce849fd52dc8dad2a5489a",
+  "source_files": 368,
+  "git_revision": null,
+  "manifest": "reports/upstream-design-study-2026-10-16/candidate-source.json",
+  "verification_summary": "reports/upstream-design-study-2026-10-16/verification/summary.json",
+  "immutable_attempt_summary": "reports/upstream-design-study-2026-10-16/verification/runs/20261016T113037Z-3bca08a7/summary.json",
+  "gate_count": 84,
+  "all_gates_passed": true,
+  "source": {
+    "coverage": {
+      "covered_lines": 10126,
+      "num_statements": 10816,
+      "percent_covered": 92.29398663697104,
+      "percent_covered_display": "92",
+      "missing_lines": 690,
+      "excluded_lines": 288,
+      "percent_statements_covered": 93.62056213017752,
+      "percent_statements_covered_display": "94",
+      "num_branches": 2654,
+      "num_partial_branches": 244,
+      "covered_branches": 2306,
+      "missing_branches": 348,
+      "percent_branches_covered": 86.88771665410701,
+      "percent_branches_covered_display": "87"
+    },
+    "pure_branch_percent": 86.88771665410701,
+    "tests": {
+      "tests": 1017,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_contracts": {
+      "case_count": 120,
+      "families": {
+        "legal": 2,
+        "commerce": 30
+      },
+      "passed": true,
+      "measurement_valid": false,
+      "business_qualified": false
+    },
+    "framework_comparison": {
+      "passed": 33,
+      "failed": 0,
+      "not_measured": 0,
+      "expected_results": 33,
+      "decision": "insufficient_evidence_for_native_core_advantage",
+      "core_advantage_proven": false,
+      "native_full_fault_comparison_complete": false
+    }
+  },
+  "clean": {
+    "coverage": {
+      "covered_lines": 10126,
+      "num_statements": 10816,
+      "percent_covered": 92.29398663697104,
+      "percent_covered_display": "92",
+      "missing_lines": 690,
+      "excluded_lines": 288,
+      "percent_statements_covered": 93.62056213017752,
+      "percent_statements_covered_display": "94",
+      "num_branches": 2654,
+      "num_partial_branches": 244,
+      "covered_branches": 2306,
+      "missing_branches": 348,
+      "percent_branches_covered": 86.88771665410701,
+      "percent_branches_covered_display": "87"
+    },
+    "pure_branch_percent": 86.88771665410701,
+    "tests": {
+      "tests": 1017,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_contracts": {
+      "case_count": 120,
+      "families": {
+        "legal": 2,
+        "commerce": 30
+      },
+      "passed": true,
+      "measurement_valid": false,
+      "business_qualified": false
+    },
+    "framework_comparison": {
+      "passed": 33,
+      "failed": 0,
+      "not_measured": 0,
+      "expected_results": 33,
+      "decision": "insufficient_evidence_for_native_core_advantage",
+      "core_advantage_proven": false,
+      "native_full_fault_comparison_complete": false
+    }
+  },
+  "artifacts": {
+    "forgeharness-0.5.0-py3-none-any.whl": {
+      "path": "reports/upstream-design-study-2026-10-16/verification/runs/20261016T113037Z-3bca08a7/dist/forgeharness-0.5.0-py3-none-any.whl",
+      "sha256": "ab67039b11ed931c9064d09d23d8fed655b3cd2f5cd7cb85c9687e911c265b76"
+    },
+    "forgeharness-0.5.0.tar.gz": {
+      "path": "reports/upstream-design-study-2026-10-16/verification/runs/20261016T113037Z-3bca08a7/dist/forgeharness-0.5.0.tar.gz",
+      "sha256": "8e6946d1438cb93300a12ef0167db4e1f61c7e126405ba861f719dc6fed62fe9"
+    }
+  },
+  "review": "docs/review/UPSTREAM_DESIGN_REVIEW.md",
+  "architecture_decision": "docs/adr/019-rendered-material-budget.md",
+  "review_method": "Maintainer static review, red-to-green regression, complete frozen gates, clean copy, actual locked framework integrations and package installs; no independent reviewer or real model.",
+  "upstream_source_manifest": "reports/upstream-design-study-2026-10-16/sources.json",
+  "upstream_source_manifest_sha256": "60d94228f3b8bf6c8da8fe1bd438c4b34dfeaea1136bfa13ed927531b8c46e73",
+  "upstream_files_verified": 17,
+  "upstream_source_analysis_only": true,
+  "upstream_code_copied_to_runtime": false,
+  "new_core_dependencies": [],
+  "changed_files": [
+    "README.md",
+    "docs/STATUS.md",
+    "src/forgeharness/context/compiler.py",
+    "tests/unit/test_context.py",
+    "tests/unit/test_sdk.py"
+  ],
+  "added_files": [
+    "docs/adr/019-rendered-material-budget.md",
+    "docs/review/UPSTREAM_DESIGN_REVIEW.md"
+  ],
+  "removed_files": [],
+  "findings": [
+    {
+      "id": "UDS-001",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "title": "Rendered source wrappers and joining separators were omitted from the material budget"
+    },
+    {
+      "id": "UDS-002",
+      "severity": "low",
+      "status": "fixed_documentation",
+      "title": "Character estimator incorrectly described as conservative across tokenizers"
+    }
+  ],
+  "open_blocker_or_high_in_declared_change_scope": [],
+  "legacy_findings_still_open": [
+    "FH-015",
+    "FH-016",
+    "FH-017",
+    "FH-018"
+  ],
+  "accepted_dependency_advisories": {
+    "all_extras_only": [
+      "PYSEC-2026-3740"
+    ],
+    "evidence": "docs/review/FINDINGS.json FH-019; Makefile gate"
+  },
+  "sealed_evaluation_opened": false,
+  "real_model_used": false,
+  "paid_model_used": false,
+  "residual_risks": [
+    "The default character estimator is a heuristic, not a token upper bound for real models or Chinese text",
+    "This change budgets material rendering only; full request tool schemas, provider framing and output reservation remain planned",
+    "Re-estimating each candidate projection may have quadratic cost in selected text size",
+    "Existing source governance still requires host declarations and current access validation",
+    "Local POSIX/SQLite engineering qualification does not certify production authentication, sandboxing or distributed recovery",
+    "Native full six-fault comparison and independent onboarding remain incomplete; static source study is not comparative performance evidence"
+  ],
+  "next_recommended_slice": [
+    "Complete model-request budget preflight and auditable component estimates",
+    "Simpler public SDK commerce read-only consultation example"
+  ],
+  "prior_candidate_preserved": "reports/next-candidate/source.json",
+  "qualification_utc": "2026-10-16T11:36:09.345277+00:00"
+}

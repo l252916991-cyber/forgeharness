@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "source_identity": "b1ff8307efad740fd1d093905dce2683abc5dfd6f612d0977b3d608d39a839d1",
+  "hosts": {
+    "lexvault": {
+      "version": "0.8.3",
+      "sdk_api": 1,
+      "binding_path": "vendor/FRAMEWORK_BINDING.json",
+      "binding_sha256": "ad3e66593e7aee63c9e78c4ca9f923f88802377d64f437a8601d938ae46c737e",
+      "wheel": "vendor/forgeharness-0.8.3-py3-none-any.whl",
+      "wheel_sha256": "1d5880ed2ba1cabcb20b0970a55727bcca7b68f9b4beace70ce7600d58ba7555",
+      "wheel_matches_binding": true,
+      "imports": [
+        {
+          "file": "app/forge_worker.py",
+          "line": 24,
+          "source_sha256": "98f233a4821ea36978a72734baa41b7b2eeddd64df5de6d4969d31a0038b5122",
+          "module": "forgeharness.applications.legal.lexvault",
+          "names": [
+            "BundleCitationVerifier",
+            "CaseBundle"
+          ],
+          "sdk_facade": false,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "app/forge_worker.py",
+          "line": 25,
+          "source_sha256": "98f233a4821ea36978a72734baa41b7b2eeddd64df5de6d4969d31a0038b5122",
+          "module": "forgeharness.sdk",
+          "names": [
+            "API_VERSION",
+            "Actor",
+            "AuthorizationRequest",
+            "Capability",
+            "FinalAction",
+            "Harness",
+            "PolicyDecision",
+            "PolicyDecisionType",
+            "ResourceScope",
+            "RiskLevel",
+            "RunBudget",
+            "RunContext",
+            "RunKernel",
+            "ToolCall",
+            "ToolContext",
+            "ToolEffectClass",
+            "ToolOutput",
+            "Message",
+            "MessageRole",
+            "ModelResult",
+            "ModelUsage",
+            "ToolSpec",
+            "VerificationRequest",
+            "VerificationResult",
+            "compose_application",
+            "verify_trace"
+          ],
+          "sdk_facade": true,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "app/host_integration_worker.py",
+          "line": 20,
+          "source_sha256": "16a7a4e570f0f3b336b87460701dd16c7a76766c88c70fe302bd903490c41c14",
+          "module": "forgeharness.applications.legal.lexvault",
+          "names": [
+            "BundleCitationVerifier",
+            "CaseBundle"
+          ],
+          "sdk_facade": false,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "app/host_integration_worker.py",
+          "line": 22,
+          "source_sha256": "16a7a4e570f0f3b336b87460701dd16c7a76766c88c70fe302bd903490c41c14",
+          "module": "forgeharness.tools.base",
+          "names": [
+            "ToolErrorCode",
+            "ToolFailure"
+          ],
+          "sdk_facade": false,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "app/host_integration_worker.py",
+          "line": 23,
+          "source_sha256": "16a7a4e570f0f3b336b87460701dd16c7a76766c88c70fe302bd903490c41c14",
+          "module": "forgeharness.sdk",
+          "names": [
+            "Actor",
+            "BusinessReceipt",
+            "Capability",
+            "DurableGraph",
+            "DurableNode",
+            "DurableOrchestrator",
+            "Harness",
+            "NoopVerifier",
+            "PolicyDecision",
+            "PolicyDecisionType",
+            "ReconciledNode",
+            "ResourceScope",
+            "RiskLevel",
+            "RunBudget",
+            "RunContext",
+            "ToolCall",
+            "ToolEffectClass",
+            "ToolOutput",
+            "ToolSpec",
+            "Usage",
+            "Message",
+            "MessageRole",
+            "ModelResult",
+            "ModelUsage",
+            "VerificationResult",
+            "compose_application",
+            "verify_trace"
+          ],
+          "sdk_facade": true,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "app/host_integration_worker.py",
+          "line": 29,
+          "source_sha256": "16a7a4e570f0f3b336b87460701dd16c7a76766c88c70fe302bd903490c41c14",
+          "module": "forgeharness.models.base",
+          "names": [
+            "ModelProtocolError"
+          ],
+          "sdk_facade": false,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        }
+      ],
+      "facade_imports_valid": true,
+      "module_imports_valid": true,
+      "dynamic_imports_checked": false,
+      "host_runtime_verified": false,
+      "scope": "static imports and exact wheel only; no host execution or migration"
+    },
+    "commerce": {
+      "version": "0.5.0",
+      "sdk_api": 1,
+      "binding_path": "docs/FRAMEWORK_BINDING.json",
+      "binding_sha256": "1ff1b0546da1f0336feef543d7a42392ec7c4b2a227daf164440b4cc715fd92c",
+      "wheel": "vendor/forgeharness-0.5.0-py3-none-any.whl",
+      "wheel_sha256": "58579893b83368a36d0251393ef7c2d742b947bf184c434558987972732f56fa",
+      "wheel_matches_binding": true,
+      "imports": [
+        {
+          "file": "src/forgecommerce/agent.py",
+          "line": 10,
+          "source_sha256": "66ecf0f4b9b3657e2959b603dcb938d0fb0d89f91440c08055b8d94717526db9",
+          "module": "forgeharness.models.base",
+          "names": [
+            "ModelProtocolError"
+          ],
+          "sdk_facade": false,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "src/forgecommerce/agent.py",
+          "line": 11,
+          "source_sha256": "66ecf0f4b9b3657e2959b603dcb938d0fb0d89f91440c08055b8d94717526db9",
+          "module": "forgeharness.models.openai_compatible",
+          "names": [
+            "OpenAICompatibleConfig",
+            "OpenAICompatibleModel"
+          ],
+          "sdk_facade": false,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "src/forgecommerce/agent.py",
+          "line": 12,
+          "source_sha256": "66ecf0f4b9b3657e2959b603dcb938d0fb0d89f91440c08055b8d94717526db9",
+          "module": "forgeharness.sdk",
+          "names": [
+            "ApplicationSpec",
+            "BusinessReceipt",
+            "FinalAction",
+            "ModelResult",
+            "PolicyDecision",
+            "PolicyDecisionType",
+            "PreparedModelCall",
+            "RiskLevel",
+            "RunBudget",
+            "RunStatus",
+            "SessionService",
+            "ToolAction",
+            "ToolCall",
+            "ToolEffectClass",
+            "ToolOutput",
+            "ToolSpec",
+            "VerificationResult"
+          ],
+          "sdk_facade": true,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "src/forgecommerce/agent.py",
+          "line": 31,
+          "source_sha256": "66ecf0f4b9b3657e2959b603dcb938d0fb0d89f91440c08055b8d94717526db9",
+          "module": "forgeharness.tools.base",
+          "names": [
+            "ToolErrorCode",
+            "ToolFailure"
+          ],
+          "sdk_facade": false,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "src/forgecommerce/knowledge.py",
+          "line": 7,
+          "source_sha256": "970bf309823ccceb2381e8696c84b16ead3c9aacc8a8410278095e78a16dbec9",
+          "module": "forgeharness.sdk",
+          "names": [
+            "Actor",
+            "AuthorizedIndex",
+            "RecordDependency",
+            "RecordDraft",
+            "RecordUnavailable",
+            "ResourceScope",
+            "RevisionStore",
+            "RoleRecordPolicy",
+            "RunContext",
+            "SourceAnchor"
+          ],
+          "sdk_facade": true,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "src/forgecommerce/privacy.py",
+          "line": 3,
+          "source_sha256": "6b939543cdd47dc2af620f7ec1e22826f4cf08fd2dfc6b073551d6777bff7dc9",
+          "module": "forgeharness.sdk",
+          "names": [
+            "CredentialMask"
+          ],
+          "sdk_facade": true,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        },
+        {
+          "file": "src/forgecommerce/trust/fencing.py",
+          "line": 10,
+          "source_sha256": "2c22b6807721d0dc6e7f295efd3ba2c1e82e4cdb0c637a492e2a002d24a99124",
+          "module": "forgeharness.sdk",
+          "names": [
+            "Message",
+            "ModelRequest"
+          ],
+          "sdk_facade": true,
+          "missing_module_symbols": [],
+          "missing_exports": []
+        }
+      ],
+      "facade_imports_valid": true,
+      "module_imports_valid": true,
+      "dynamic_imports_checked": false,
+      "host_runtime_verified": false,
+      "scope": "static imports and exact wheel only; no host execution or migration"
+    }
+  },
+  "independent_onboarding_measured": false
+}

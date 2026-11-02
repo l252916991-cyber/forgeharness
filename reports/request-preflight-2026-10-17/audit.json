@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "candidate_kind": "Prepared model-input budget preflight and read-only commerce onboarding",
+  "engineering_qualified": true,
+  "project_complete": false,
+  "business_qualified": false,
+  "production_qualified": false,
+  "core_advantage_proven": false,
+  "source_identity": "1312bcf11a8ad36028e718db9f4e5803af729cc26f20a70640451ca1069f3c5f",
+  "source_kind": "archive checkout equivalent; no Git metadata",
+  "source_files": 378,
+  "git_revision": null,
+  "distribution_version": "0.5.0",
+  "manifest": "reports/request-preflight-2026-10-17/candidate-source.json",
+  "verification_summary": "reports/request-preflight-2026-10-17/verification/summary.json",
+  "immutable_attempt_summary": "reports/request-preflight-2026-10-17/verification/runs/20261017T075541Z-aa788289/summary.json",
+  "gate_count": 87,
+  "all_gates_passed": true,
+  "source": {
+    "coverage": {
+      "covered_lines": 10292,
+      "num_statements": 10990,
+      "percent_covered": 92.32680502776965,
+      "percent_covered_display": "92",
+      "missing_lines": 698,
+      "excluded_lines": 298,
+      "percent_statements_covered": 93.64877161055504,
+      "percent_statements_covered_display": "94",
+      "num_branches": 2694,
+      "num_partial_branches": 248,
+      "covered_branches": 2342,
+      "missing_branches": 352,
+      "percent_branches_covered": 86.93392724573125,
+      "percent_branches_covered_display": "87"
+    },
+    "pure_branch_percent": 86.93392724573125,
+    "tests": {
+      "tests": 1044,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_contracts": {
+      "case_count": 120,
+      "families": {
+        "legal": 2,
+        "commerce": 30
+      },
+      "passed": true,
+      "measurement_valid": false,
+      "business_qualified": false
+    },
+    "framework_comparison": {
+      "passed": 33,
+      "failed": 0,
+      "not_measured": 0,
+      "expected_results": 33,
+      "decision": "insufficient_evidence_for_native_core_advantage",
+      "core_advantage_proven": false,
+      "native_full_fault_comparison_complete": false
+    }
+  },
+  "clean": {
+    "coverage": {
+      "covered_lines": 10292,
+      "num_statements": 10990,
+      "percent_covered": 92.32680502776965,
+      "percent_covered_display": "92",
+      "missing_lines": 698,
+      "excluded_lines": 298,
+      "percent_statements_covered": 93.64877161055504,
+      "percent_statements_covered_display": "94",
+      "num_branches": 2694,
+      "num_partial_branches": 248,
+      "covered_branches": 2342,
+      "missing_branches": 352,
+      "percent_branches_covered": 86.93392724573125,
+      "percent_branches_covered_display": "87"
+    },
+    "pure_branch_percent": 86.93392724573125,
+    "tests": {
+      "tests": 1044,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_contracts": {
+      "case_count": 120,
+      "families": {
+        "legal": 2,
+        "commerce": 30
+      },
+      "passed": true,
+      "measurement_valid": false,
+      "business_qualified": false
+    },
+    "framework_comparison": {
+      "passed": 33,
+      "failed": 0,
+      "not_measured": 0,
+      "expected_results": 33,
+      "decision": "insufficient_evidence_for_native_core_advantage",
+      "core_advantage_proven": false,
+      "native_full_fault_comparison_complete": false
+    }
+  },
+  "artifacts": {
+    "forgeharness-0.5.0-py3-none-any.whl": {
+      "path": "reports/request-preflight-2026-10-17/verification/runs/20261017T075541Z-aa788289/dist/forgeharness-0.5.0-py3-none-any.whl",
+      "sha256": "58579893b83368a36d0251393ef7c2d742b947bf184c434558987972732f56fa"
+    },
+    "forgeharness-0.5.0.tar.gz": {
+      "path": "reports/request-preflight-2026-10-17/verification/runs/20261017T075541Z-aa788289/dist/forgeharness-0.5.0.tar.gz",
+      "sha256": "69946569d24449709c6b8ff1936e9f6791469a0055b038fe42913356a8727d24"
+    }
+  },
+  "review": "docs/review/REQUEST_PREFLIGHT_AUDIT.md",
+  "architecture_decisions": [
+    "docs/adr/020-prepared-model-request-budget.md",
+    "docs/adr/021-readonly-commerce-host-access.md"
+  ],
+  "review_method": "Maintainer architecture/correctness/privacy/scope/package review; complete deterministic gates from source and clean copy, HTTP mock transport identity and actual locked framework integrations. Not independent professional review.",
+  "findings": [
+    {
+      "id": "RPB-001",
+      "classification": "enhancement",
+      "status": "implemented_with_regressions",
+      "title": "Complete prepared-input budget accounting"
+    },
+    {
+      "id": "RPB-002",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "title": "Prevent body reconstruction or input/output-cap drift after admission"
+    },
+    {
+      "id": "RPB-003",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "title": "Inspect decoded credential keys in serialized prepared payloads"
+    },
+    {
+      "id": "RPB-004",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "title": "Recheck host authorization before the next model call after a product read"
+    },
+    {
+      "id": "RPB-005",
+      "severity": "medium",
+      "status": "fixed_with_regression",
+      "title": "Refuse repeated model tool-call IDs with a durable failed terminal state instead of JournalError/running"
+    }
+  ],
+  "open_blocker_or_high_in_declared_change_scope": [],
+  "legacy_findings_still_open": [
+    "FH-015",
+    "FH-016",
+    "FH-017",
+    "FH-018"
+  ],
+  "accepted_dependency_advisories": {
+    "all_extras_only": [
+      "PYSEC-2026-3740"
+    ],
+    "evidence": "docs/review/FINDINGS.json FH-019; Makefile gate"
+  },
+  "new_runtime_dependencies": [],
+  "database_schema_changed": false,
+  "changed_files": [
+    "README.md",
+    "benchmarks/business_verification.py",
+    "docs/BUSINESS_PILOTS.md",
+    "docs/STATUS.md",
+    "pyproject.toml",
+    "src/forgeharness/applications/commerce/__init__.py",
+    "src/forgeharness/applications/commerce/application.py",
+    "src/forgeharness/context/assembly.py",
+    "src/forgeharness/models/openai_compatible.py",
+    "src/forgeharness/runtime/budget.py",
+    "src/forgeharness/runtime/loop.py",
+    "src/forgeharness/runtime/plan_execute.py",
+    "src/forgeharness/sdk/__init__.py",
+    "src/forgeharness/sdk/application.py",
+    "tests/unit/test_runtime.py",
+    "tests/unit/test_sdk_architecture.py"
+  ],
+  "added_files": [
+    "docs/COMMERCE_READONLY.md",
+    "docs/REQUEST_PREFLIGHT.md",
+    "docs/adr/020-prepared-model-request-budget.md",
+    "docs/adr/021-readonly-commerce-host-access.md",
+    "docs/review/REQUEST_PREFLIGHT_AUDIT.md",
+    "examples/commerce_readonly_demo.py",
+    "src/forgeharness/context/request_budget.py",
+    "src/forgeharness/models/prepared.py",
+    "tests/unit/test_commerce_readonly.py",
+    "tests/unit/test_request_preflight.py"
+  ],
+  "removed_files": [],
+  "independent_onboarding_measured": false,
+  "native_full_fault_comparison_complete": false,
+  "real_model_used": false,
+  "paid_model_used": false,
+  "real_shop_connected": false,
+  "sealed_evaluation_opened": false,
+  "prior_qualified_candidate": "archive/source-before-duplicate-id-fix.json",
+  "prior_qualified_summary": "archive/summary-before-duplicate-id-fix.json",
+  "legacy_duplicate_id_observation": "legacy-duplicate-id-observation.json",
+  "duplicate_id_fix_evidence": "duplicate-id-resolution.json",
+  "residual_risks": [
+    "Default character estimates cover the declared serialized payload, not a real tokenizer upper bound, pricing or provider-internal additions",
+    "Generic Model profiles cannot see hidden third-party provider wrapping; declared model windows/overheads are not live service measurements",
+    "Three bounded preparations may conservatively reject an otherwise packable history; added JSON copies have CPU/memory overhead",
+    "Cumulative actual-token accounting, transport retries, legacy standalone RAG/chat and provider-side generation behavior are separate contracts",
+    "authorize_run is opt-in for existing apps and does not replace tool policies, resource scopes or atomic business authorization",
+    "The new product_lookup application is single-run and not a governed-source multi-turn history; hosts must use appropriately governed tools/source validators for that separate flow",
+    "The new example uses a synthetic local ledger and structured fixture model, with no real shop authentication, natural-language quality or independent onboarding result",
+    "Local POSIX/SQLite scope does not establish distributed recovery, production sandbox isolation or superiority to upstream frameworks"
+  ],
+  "finished_at_utc": "2026-10-17T08:00:53.212941+00:00"
+}

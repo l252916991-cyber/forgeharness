@@ -1,0 +1,97 @@
+{
+  "actual_hosted_runtime_generated_state": true,
+  "after_snapshot_sha256": "8729881bfea1d27781ea51fdf0a4eed69f991a5f85a7b2ab6cee62ae7ceb0d39",
+  "all_installed_package_files_match_wheel": true,
+  "all_schema2_rows_exactly_equal": true,
+  "audit_type": "additional independent installed-artifact migration audit",
+  "before_snapshot_sha256": "8729881bfea1d27781ea51fdf0a4eed69f991a5f85a7b2ab6cee62ae7ceb0d39",
+  "checkpoint_budgets_and_usage_nonempty": true,
+  "evidence_chains": {
+    "run-16c152d5fd6c4818b20efe81ce91f3e1": {
+      "trace_events": 9,
+      "trace_head": "c68da47319088dd9b47edc5a3ca431ebde76e5996a257895b0b4d4fd54b09a56",
+      "trace_sha256": "8f9aebf83643e45693c7f500756c9536106863e6e04d90962595bb1d487fa5aa"
+    },
+    "run-9ab7fbf8c1d547d18aa52f041ad86e22": {
+      "trace_events": 20,
+      "trace_head": "24c60f04fa772030651adb9292e3db72a200dc33e803377a2d84c314c547b2e2",
+      "trace_sha256": "3cb9bdc3a587dfb95764e4817cc01852375bf9d0af1e579ee643569c993d58ab"
+    }
+  },
+  "failed_migration_ddl_and_all_legacy_facts_rolled_back": true,
+  "historical_reads_after_sha256": "570229df19e66dad73593010c33e5466cbbeef0100bd00f0f2e4f93be63338da",
+  "historical_reads_before_sha256": "570229df19e66dad73593010c33e5466cbbeef0100bd00f0f2e4f93be63338da",
+  "injected_failure_type": "DuplicateTableError",
+  "installed_version": "0.13.0",
+  "installed_wheel_files_checked": 177,
+  "inventory_after": {
+    "active_runs": 1,
+    "pending_approvals": 0,
+    "pending_outbox": 30,
+    "unknown_calls": 1
+  },
+  "inventory_before": {
+    "active_runs": 1,
+    "pending_approvals": 0,
+    "pending_outbox": 30,
+    "unknown_calls": 1
+  },
+  "loaded_from_installation": true,
+  "logical_denial_and_physical_result_facts_present": true,
+  "model": "deterministic in-process synthetic model; no model service calls",
+  "module_paths": {
+    "forgeharness": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/__init__.py",
+    "forgeharness.cloud.calls": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/calls.py",
+    "forgeharness.cloud.evidence": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/evidence.py",
+    "forgeharness.cloud.execution": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/execution.py",
+    "forgeharness.cloud.execution_calls": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/execution_calls.py",
+    "forgeharness.cloud.execution_state": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/execution_state.py",
+    "forgeharness.cloud.hosted": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/hosted.py",
+    "forgeharness.cloud.provision": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/provision.py",
+    "forgeharness.cloud.runtime": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/runtime.py",
+    "forgeharness.cloud.store": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/work/20261101T165326Z-e2129352/control-consumer/.venv/lib/python3.12/site-packages/forgeharness/cloud/store.py"
+  },
+  "network": "private PostgreSQL Unix socket only",
+  "no_automatic_account_or_run_adoption": true,
+  "old_owner_unchanged": true,
+  "passed": true,
+  "post_upgrade_trusted_host_inspect_trace_exactly_equal": true,
+  "postgres_version": "18.6",
+  "protocol_sha256": "358f0f30af3be20646aac8d5a4f620e8cedb68295f062c2de030c35d7aaa046d",
+  "protocol_version": 1,
+  "python_isolated": true,
+  "rows_per_table": {
+    "approvals": 1,
+    "execution_calls": 3,
+    "execution_checkpoints": 2,
+    "execution_evidence": 29,
+    "execution_logical_usage": 1,
+    "invocations": 4,
+    "members": 4,
+    "organizations": 2,
+    "outbox": 30,
+    "receipts": 3,
+    "runs": 3
+  },
+  "schema2_tables": [
+    "approvals",
+    "execution_calls",
+    "execution_checkpoints",
+    "execution_evidence",
+    "execution_logical_usage",
+    "invocations",
+    "members",
+    "organizations",
+    "outbox",
+    "receipts",
+    "runs"
+  ],
+  "schema3_runtime_grants_explicitly_refreshed": true,
+  "schema_version_changed_only_as_expected": true,
+  "script_sha256": "e5c0ae922b5a89aa878a5e14498d03db5a9e822228d888e833e1cef4487effd0",
+  "server_stopped": true,
+  "unknown_reservation_preserved_without_redispatch": true,
+  "unknown_reserved_units_before": 9,
+  "wheel_path": "/Users/xiaoy/Documents/多agent协作/reports/saas/20261101-control-plane/candidate-r4/verification/runs/20261101T165326Z-e2129352/dist/forgeharness-0.13.0-py3-none-any.whl",
+  "wheel_sha256": "31017b4afde8c1c547bd62129d5019d054101cdc54f70f0990534ca1bdb434a7"
+}

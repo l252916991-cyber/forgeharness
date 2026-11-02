@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-29",
+  "plan": "docs/SAAS_PRODUCTION_MASTER_PLAN_V3_2026-10-28.md",
+  "scope": "generic Cloud PostgreSQL state first slice; not full SaaS",
+  "version": "0.11.0",
+  "candidate": "reports/saas/20261029-state/candidate-r1",
+  "phases": {
+    "W0": {
+      "state": "partial",
+      "confirmed": ["mainland China", "10 users", "CNY1000/month cloud+models", "existing cloud and model service", "generic platform before choosing business"],
+      "remaining": ["deployment region/configuration", "operations owner", "production resources and responsibility freeze"]
+    },
+    "W1": {
+      "state": "local_workbench_previous_qualification; platform_incomplete",
+      "remaining": ["generic organization/workspace control plane", "identity/IdP", "machine credentials lifecycle", "tenant UI/API"]
+    },
+    "W2": {
+      "state": "first_slice_engineering_qualified; full_work_package_incomplete",
+      "delivered": ["PostgreSQL18.6 operation transactions", "RLS and live authorization", "idempotent acceptance and outbox", "epoch and DB-time leases", "exact independent approvals", "atomic reservations", "immutable receipts and actual settlement", "43 real database contracts", "5 confirmed defects fixed"],
+      "remaining": ["SDK/Harness/SessionService integration", "node/attempt/checkpoint", "provider capacity and physical-call recovery", "evidence store and deletion tombstones", "full failover/restart/commit-response-loss fault matrix"]
+    },
+    "W3_W11": {"state": "not_completed_as_SaaS_work_packages"}
+  },
+  "verification": {"state": "candidate-r1 engineering qualified", "checks_passed": 121, "checks_total": 121, "source_tests_passed": 1439, "clean_tests_passed": 1439, "source_postgres_passed": 43, "clean_postgres_passed": 43, "combined_coverage_percent": 91.7165613842351, "pure_branch_percent": 85.14957264957265, "source_unchanged": true},
+  "business_qualified": false,
+  "saas_qualified": false
+}

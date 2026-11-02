@@ -1,0 +1,74 @@
+{
+  "checks": {
+    "migration_preserves_history": true,
+    "least_privilege": true,
+    "two_organizations": true,
+    "asynchronous_acceptance": true,
+    "two_applications": true,
+    "same_role_owner_isolation": true,
+    "forged_path_denied": true,
+    "independent_approval": true,
+    "worker_process_recovery": true,
+    "independent_business_oracle": true,
+    "durable_rejection": true,
+    "revocation_prevents_send": true,
+    "real_browser_flow": true,
+    "secrets_not_exposed": true
+  },
+  "passed": true,
+  "worker_pids": [
+    54806,
+    54808,
+    54813,
+    54816,
+    54818,
+    54820
+  ],
+  "worker_recoveries": [
+    {
+      "old_pid": 54813,
+      "new_pid": 54816,
+      "old_epoch": 2,
+      "new_epoch": 3,
+      "mode": "SIGSTOP/SIGCONT"
+    },
+    {
+      "old_pid": 54818,
+      "new_pid": 54820,
+      "old_epoch": 2,
+      "new_epoch": 3,
+      "mode": "SIGKILL"
+    }
+  ],
+  "approval_evidence": {
+    "dual_role_owner_self_decisions_denied": true
+  },
+  "browser": {
+    "passed": true,
+    "engine": "Chromium",
+    "browser_version": "156.0.8078.4",
+    "invitation": true,
+    "login": true,
+    "management": true,
+    "task": true,
+    "independent_approval": true,
+    "cancel": true,
+    "revocation": true,
+    "reviewer_permissions": {
+      "can_submit": false,
+      "can_approve": true
+    },
+    "no_script_secret_protection": {
+      "disabled_js": true,
+      "blocked_script": true
+    },
+    "logout": true,
+    "external_requests": 0
+  },
+  "loaded_from_installation": true,
+  "external_requests": 0,
+  "saas_qualified": false,
+  "business_qualified": false,
+  "server_stopped": true,
+  "wheel_sha256": "31017b4afde8c1c547bd62129d5019d054101cdc54f70f0990534ca1bdb434a7"
+}

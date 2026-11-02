@@ -1,0 +1,21 @@
+{
+  "development_accepted": true,
+  "engineering_candidate": "candidate-r3",
+  "source_identity": "828b20be6e7a2ba0dda9122ad4bfe310c0a64744857aaf4ec7b0914c0c4f1c46",
+  "thresholds_reviewed_before_formal": true,
+  "thresholds_changed_after_development": false,
+  "samples_per_task_arm": 3,
+  "tasks": 30,
+  "arms": 3,
+  "planned_runs": 270,
+  "paid_api_allowed": false,
+  "model": "Qwen3.8-27B-oQ4e-mtp",
+  "mtp_enabled": false,
+  "development_seconds": 351.8481257504318,
+  "formal_linear_estimate_minutes": 43.981015718803974,
+  "timing_limit": "dev ran alongside deterministic quality gates; formal runs without those gates",
+  "scope": "author-generated synthetic diagnosis tasks; all failures retained; not unseen repository repair or business qualification",
+  "runtime_lock_sha256": "78cbde4b8dfb36527b5dc83afb951f7a2b0fb02d8a7401648676c2c17863b9bb",
+  "runtime_check_sha256": "f8827ba59150bfe5602d193e01548f2ae332c9e92a8de7e9da09ebbc489aa6b9",
+  "analysis_script_sha256": "d3384725caafeae69dd4b8f9aa4fa9d8d6809fb6d0e5738dc687d83d22a2f217"
+}

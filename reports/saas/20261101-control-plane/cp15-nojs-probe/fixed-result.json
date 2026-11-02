@@ -1,0 +1,25 @@
+{
+  "javascript_enabled": false,
+  "cases": [
+    {
+      "form": "login",
+      "method": "POST",
+      "password_in_url": false,
+      "invitation_token_in_url": false,
+      "password_in_body": true,
+      "invitation_token_in_body": false
+    },
+    {
+      "form": "accept",
+      "method": "POST",
+      "password_in_url": false,
+      "invitation_token_in_url": false,
+      "password_in_body": true,
+      "invitation_token_in_body": true
+    }
+  ],
+  "browser_exit_code": 0,
+  "source_tree_digest": "db7b18c4e3e8e8b52e14599071308f62d719dfc78073635aea5f57ecb69b2b38",
+  "baseline_r3_tree_digest": "cf7794669877a45e69925f1f3d3365cebb9e47a81adebfd160a13664d0c18a7e",
+  "source_unchanged": true
+}

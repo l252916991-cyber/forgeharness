@@ -33,8 +33,8 @@
 [发行物绑定](BINDINGS.json)、[阶段状态](EXECUTION.json)、[审查与残余边界](AUDIT.md)、
 [发现分类](FINDINGS.json)。运行明细为 `reports/saas/20261030-hosted/candidate-r2/verification/runs/20261101T052652Z-577615aa`。
 
-已验发行物：[wheel](verified-artifacts/forgeharness-0.12.0-py3-none-any.whl)、
-[源码包](verified-artifacts/forgeharness-0.12.0.tar.gz)。
+已验发行物：wheel（`reports/saas/20261030-hosted/verified-artifacts/forgeharness-0.12.0-py3-none-any.whl`）、
+源码包（`reports/saas/20261030-hosted/verified-artifacts/forgeharness-0.12.0.tar.gz`）。
 wheel SHA256：`b35126fc4fc25a0545ea6f58e992e9f91edbd4b5aef6c530c45a997d9e4f039c`。
 sdist SHA256：`b862ade8dd624994f3f0d3f3569cf2665a48bb88ee7462fbfd184a17264f644d`。
 

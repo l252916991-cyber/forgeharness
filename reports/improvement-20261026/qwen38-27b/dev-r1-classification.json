@@ -1,0 +1,10 @@
+{
+  "disposition": "aborted_development_instrumentation_diagnostic",
+  "reason": "final-output-only fixed and role phases advertised tool_choice=auto, creating unsupported tool dispatches",
+  "formal_sampling_started": false,
+  "retained_all_results_and_traces": true,
+  "in_flight_usage_may_be_unknown": true,
+  "stopped_pids": [
+    95292
+  ]
+}

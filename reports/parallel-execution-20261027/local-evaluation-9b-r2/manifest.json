@@ -1,0 +1,61 @@
+{
+  "identity": {
+    "runner_sha256": "217800e83d9ad2c693979d5daa848967cbaa7d7871b6a9fcde9e23675bd57e4d",
+    "corpus_sha256": "8ad3caa4a037714927d24a405f829645f82fb6bcb3bc74d7a34dda79d944ad87",
+    "budget": {
+      "max_steps": 3,
+      "max_tool_calls": 0,
+      "max_input_tokens": 18000,
+      "max_output_tokens": 768,
+      "max_context_tokens": 6000,
+      "reserve_output_tokens": 256,
+      "request_overhead_tokens": 0,
+      "max_protocol_violations": 3,
+      "max_attempts_per_call": 3,
+      "initial_backoff_ms": 100,
+      "backoff_multiplier": 2.0,
+      "max_backoff_ms": 1000,
+      "max_wall_seconds": 120.0,
+      "tool_timeout_seconds": 30.0,
+      "max_planner_retries": 1
+    },
+    "rules": {
+      "p50_ratio_max": 0.8,
+      "p95_ratio_max": 1.1,
+      "quality_lower_min": -0.05,
+      "tokens_per_success_ratio_max": 1.1,
+      "cluster_seed": 20261027,
+      "bootstrap_samples": 4000,
+      "scope": "exploratory author-generated synthetic tasks only"
+    }
+  },
+  "source_identity": "2adfdc8937a15e91026238a1b8bc836cadf0a2341a2dd313c3cc3f7c46879ad8",
+  "model": "Qwythos-9B-v2-OptiQ-4bit",
+  "model_artifacts": {
+    "config.json": "13ddf631842848ef19ca18756f57d6d303e8483b125cda7f03989b1fa2800e05",
+    "generation_config.json": "6a391fdcafb170d69b8c5f7f2b131f8210c2fd7f6fa241862f664166bdc32d92",
+    "kv_config.json": "049474dc1d43800fbd9545de4af84d127b95ff6ba313f462acd10b426726f6ff",
+    "lexvault-model-source.json": "757fef92e2c13a807736d14e8e9baad85bdb9b57d593688bb347405f795138a0",
+    "model-00001-of-00002.safetensors": "c2497600b2d92b80e329ca67fddd2d864761e931afcd8d27fd75b34e4700a762",
+    "model-00002-of-00002.safetensors": "95566add2fd391f5ff919345f46b8382dcf09ffe5b8064c808ec7137e61f2641",
+    "model.safetensors.index.json": "efc84e747421e6107c50a1e5e6af613acce824edc592c87000fa410f8a63c89f",
+    "optiq_metadata.json": "de001cf0211523c2bf1ebd3e02f9b8e89c7c91e00add058d6eae599c4d4aac76",
+    "tokenizer.json": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4",
+    "tokenizer_config.json": "5329d02a1dac4ac77f2d182ede6d6aedd16b8b341cb3b2e10fe7038859141921"
+  },
+  "split": "evaluation",
+  "samples": 3,
+  "mode": "local",
+  "machine": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "python": "3.12.13",
+    "machdep.cpu.brand_string": "Apple M4 Pro",
+    "hw.memsize": "51539607552",
+    "vm.swapusage": "total = 9216.00M  used = 7710.12M  free = 1505.88M  (encrypted)",
+    "vm_stat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    78954.\nPages active:                                 690774.\nPages inactive:                               688954.\nPages speculative:                               960.\nPages throttled:                                   0.\nPages wired down:                             704909.\nPages purgeable:                                8358.\n\"Translation faults\":                     4272394589.\nPages copy-on-write:                       125077551.\nPages zero filled:                        9163465754.\nPages reactivated:                         223531840.\nPages purged:                              520850456.\nFile-backed pages:                            650546.\nAnonymous pages:                              730142.\nPages stored in compressor:                  1074435.\nPages occupied by compressor:                 947354.\nDecompressions:                           2926689809.\nCompressions:                             3103372243.\nPageins:                                   244532411.\nPageouts:                                     660383.\nSwapins:                                   128499885.\nSwapouts:                                  145013478.\n"
+  },
+  "protocol_sha256": "633e83dc43e9d61d3268218c6605ae71979965114b6fc65b0c76ecf7000c5903",
+  "warmup_roots": 2,
+  "order": "alternate serial/parallel by case index plus sample; backend cache not cleared"
+}

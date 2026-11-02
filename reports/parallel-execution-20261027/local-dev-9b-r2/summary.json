@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "mode": "local",
+  "complete": true,
+  "expected_runs": 24,
+  "actual_runs": 24,
+  "measurement_valid": true,
+  "synthetic_tokens": false,
+  "families": {
+    "fork": {
+      "arms": {
+        "1": {
+          "runs": 4,
+          "successes": 1,
+          "p50_seconds": 4.389592791907489,
+          "p95_seconds": 4.396564209135249,
+          "tokens_per_success_including_failures": 2972.0,
+          "peak_client_requests": 1
+        },
+        "2": {
+          "runs": 4,
+          "successes": 1,
+          "p50_seconds": 3.937220291933045,
+          "p95_seconds": 3.9591502079274505,
+          "tokens_per_success_including_failures": 2972.0,
+          "peak_client_requests": 2
+        }
+      },
+      "paired_quality_95": [
+        0,
+        0
+      ],
+      "latency_ratios": {
+        "all_p50_ratio": 0.8969443131926899,
+        "paired_success_p50_ratio": 0.8731306861260125,
+        "all_p95_ratio": 0.9005100391121473,
+        "paired_success_p95_ratio": 0.8731306861260125
+      },
+      "tokens_per_success_ratio": 1.0,
+      "deployment_thresholds_passed": false,
+      "recommended_max_in_flight": 1
+    },
+    "chain": {
+      "arms": {
+        "1": {
+          "runs": 4,
+          "successes": 2,
+          "p50_seconds": 3.7634199580643326,
+          "p95_seconds": 4.621626749867573,
+          "tokens_per_success_including_failures": 1643.5,
+          "peak_client_requests": 1
+        },
+        "2": {
+          "runs": 4,
+          "successes": 2,
+          "p50_seconds": 3.7438873751088977,
+          "p95_seconds": 4.612030291929841,
+          "tokens_per_success_including_failures": 1643.5,
+          "peak_client_requests": 1
+        }
+      },
+      "paired_quality_95": [
+        0,
+        0
+      ],
+      "latency_ratios": {
+        "all_p50_ratio": 0.9948098848459418,
+        "paired_success_p50_ratio": 1.01060511851475,
+        "all_p95_ratio": 0.9979235757327206,
+        "paired_success_p95_ratio": 0.9948098848459418
+      },
+      "tokens_per_success_ratio": 1.0,
+      "deployment_thresholds_passed": false,
+      "recommended_max_in_flight": 1
+    },
+    "uneven": {
+      "arms": {
+        "1": {
+          "runs": 4,
+          "successes": 2,
+          "p50_seconds": 5.341700250050053,
+          "p95_seconds": 6.154920500004664,
+          "tokens_per_success_including_failures": 2907.5,
+          "peak_client_requests": 1
+        },
+        "2": {
+          "runs": 4,
+          "successes": 2,
+          "p50_seconds": 4.902664333116263,
+          "p95_seconds": 5.7538936249911785,
+          "tokens_per_success_including_failures": 2907.5,
+          "peak_client_requests": 2
+        }
+      },
+      "paired_quality_95": [
+        0,
+        0
+      ],
+      "latency_ratios": {
+        "all_p50_ratio": 0.9178097054529265,
+        "paired_success_p50_ratio": 0.915557353554496,
+        "all_p95_ratio": 0.9348445077376415,
+        "paired_success_p95_ratio": 0.9178097054529265
+      },
+      "tokens_per_success_ratio": 1.0,
+      "deployment_thresholds_passed": false,
+      "recommended_max_in_flight": 1
+    }
+  },
+  "infrastructure_failures": 0,
+  "performance_qualified": false,
+  "business_qualified": false,
+  "core_advantage_proven": false,
+  "backend_internal_scheduling": "unobserved; HTTP overlap is not proof of simultaneous GPU inference",
+  "limits": [
+    "author-generated inventory arithmetic microtasks",
+    "no external domain grading or independent user study",
+    "one local model and host; results do not generalize",
+    "hardware/energy cost unpriced"
+  ],
+  "source_unchanged": true,
+  "model_artifacts_unchanged": true
+}

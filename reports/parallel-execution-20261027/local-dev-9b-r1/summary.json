@@ -1,0 +1,118 @@
+{
+  "complete": false,
+  "measurement_valid": false,
+  "reason": "target-context calibration failed",
+  "actual_runs": 0,
+  "warmup": {
+    "case": "dev-uneven-03",
+    "family": "uneven",
+    "limit": 1,
+    "sample": 0,
+    "success": false,
+    "terminal": false,
+    "seconds": 1.0676105408929288,
+    "error": "needs_reconciliation:s0",
+    "usage": {
+      "steps": 1,
+      "tool_calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    "usage_known": false,
+    "trace_valid": true,
+    "infrastructure_error": true,
+    "provider_calls": [
+      {
+        "started": 1074409.925387791,
+        "ended": 1074410.943677791,
+        "payload_sha256": "b1d09d65e444c1a911becef25ed319696245642464e8a6f5af6d09c74c2fc2f5",
+        "status": 507,
+        "usage_complete": false
+      }
+    ],
+    "peak_client_requests": 1,
+    "resources_before": {
+      "system": "Darwin",
+      "machine": "arm64",
+      "python": "3.12.13",
+      "machdep.cpu.brand_string": "Apple M4 Pro",
+      "hw.memsize": "51539607552",
+      "vm.swapusage": "total = 14336.00M  used = 13366.12M  free = 969.88M  (encrypted)",
+      "vm_stat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                     5567.\nPages active:                                 526163.\nPages inactive:                               525063.\nPages speculative:                                35.\nPages throttled:                                   0.\nPages wired down:                             693916.\nPages purgeable:                                   2.\n\"Translation faults\":                     4228638828.\nPages copy-on-write:                       123141668.\nPages zero filled:                        9114104620.\nPages reactivated:                         222590251.\nPages purged:                              518186759.\nFile-backed pages:                            493827.\nAnonymous pages:                              557434.\nPages stored in compressor:                  1411124.\nPages occupied by compressor:                1361161.\nDecompressions:                           2921913025.\nCompressions:                             3098817353.\nPageins:                                   243473827.\nPageouts:                                     659809.\nSwapins:                                   127696995.\nSwapouts:                                  144506528.\n"
+    },
+    "resources_after": {
+      "system": "Darwin",
+      "machine": "arm64",
+      "python": "3.12.13",
+      "machdep.cpu.brand_string": "Apple M4 Pro",
+      "hw.memsize": "51539607552",
+      "vm.swapusage": "total = 14336.00M  used = 13366.12M  free = 969.88M  (encrypted)",
+      "vm_stat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                     5983.\nPages active:                                 451893.\nPages inactive:                               450987.\nPages speculative:                                47.\nPages throttled:                                   0.\nPages wired down:                            1080985.\nPages purgeable:                                   2.\n\"Translation faults\":                     4228653340.\nPages copy-on-write:                       123143741.\nPages zero filled:                        9114112423.\nPages reactivated:                         222590325.\nPages purged:                              518192192.\nFile-backed pages:                            490552.\nAnonymous pages:                              412375.\nPages stored in compressor:                  1170551.\nPages occupied by compressor:                1122010.\nDecompressions:                           2922159541.\nCompressions:                             3098822713.\nPageins:                                   243473877.\nPageouts:                                     659809.\nSwapins:                                   127697063.\nSwapouts:                                  144506528.\n"
+    },
+    "resources_samples": [
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "python": "3.12.13",
+        "machdep.cpu.brand_string": "Apple M4 Pro",
+        "hw.memsize": "51539607552",
+        "vm.swapusage": "total = 14336.00M  used = 13366.12M  free = 969.88M  (encrypted)",
+        "vm_stat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                     5936.\nPages active:                                 524924.\nPages inactive:                               523775.\nPages speculative:                                44.\nPages throttled:                                   0.\nPages wired down:                             693917.\nPages purgeable:                                   2.\n\"Translation faults\":                     4228644328.\nPages copy-on-write:                       123142449.\nPages zero filled:                        9114105194.\nPages reactivated:                         222590253.\nPages purged:                              518186773.\nFile-backed pages:                            492585.\nAnonymous pages:                              556158.\nPages stored in compressor:                  1412655.\nPages occupied by compressor:                1363309.\nDecompressions:                           2921913953.\nCompressions:                             3098819812.\nPageins:                                   243473859.\nPageouts:                                     659809.\nSwapins:                                   127696995.\nSwapouts:                                  144506528.\n"
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "python": "3.12.13",
+        "machdep.cpu.brand_string": "Apple M4 Pro",
+        "hw.memsize": "51539607552",
+        "vm.swapusage": "total = 14336.00M  used = 13366.12M  free = 969.88M  (encrypted)",
+        "vm_stat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                     5965.\nPages active:                                 526755.\nPages inactive:                               526228.\nPages speculative:                                45.\nPages throttled:                                   0.\nPages wired down:                             828994.\nPages purgeable:                                   2.\n\"Translation faults\":                     4228647614.\nPages copy-on-write:                       123143101.\nPages zero filled:                        9114105562.\nPages reactivated:                         222590253.\nPages purged:                              518187060.\nFile-backed pages:                            492512.\nAnonymous pages:                              560516.\nPages stored in compressor:                  1273339.\nPages occupied by compressor:                1223897.\nDecompressions:                           2922053759.\nCompressions:                             3098819963.\nPageins:                                   243473866.\nPageouts:                                     659809.\nSwapins:                                   127697063.\nSwapouts:                                  144506528.\n"
+      }
+    ],
+    "resource_sampling_scope": "system vm_stat/swap observations at 0.5s; no per-model GPU peak attribution",
+    "node_timings": [
+      {
+        "node_id": "s0",
+        "status": "unknown",
+        "queued_at": "2026-10-26T21:28:58.992278+00:00",
+        "sent_at": "2026-10-26T21:28:59.004172+00:00",
+        "completed_at": null,
+        "capacity_wait_seconds": 0.006252,
+        "reservation": {
+          "steps": 1,
+          "tool_calls": 0,
+          "input_tokens": 6000,
+          "output_tokens": 256
+        }
+      },
+      {
+        "node_id": "s1",
+        "status": "pending",
+        "queued_at": null,
+        "sent_at": null,
+        "completed_at": null,
+        "capacity_wait_seconds": null,
+        "reservation": {
+          "steps": 0,
+          "tool_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      {
+        "node_id": "summary",
+        "status": "pending",
+        "queued_at": null,
+        "sent_at": null,
+        "completed_at": null,
+        "capacity_wait_seconds": null,
+        "reservation": {
+          "steps": 0,
+          "tool_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    ]
+  }
+}

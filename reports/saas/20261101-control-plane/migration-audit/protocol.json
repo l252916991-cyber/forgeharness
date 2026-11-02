@@ -1,0 +1,23 @@
+{
+  "protocol_version": 1,
+  "purpose": "Additional independent qualification of the frozen r3 installed wheel's schema2-to-schema3 migration; no new product behavior or source edits",
+  "required_interpreter": "Isolated Python 3.12 virtual environment invoked with -I",
+  "required_installed_dependencies": ["the exact final r3 wheel", "asyncpg", "embedded-postgres==18.6.3"],
+  "inputs": ["--wheel absolute final wheel path", "--output a new report directory"],
+  "source_import_policy": "No repository source, test, eval or fixture imports. Validate installed module locations and every wheel package file byte-for-byte before creating the database.",
+  "database_policy": "Create and stop an owned disposable PostgreSQL 18.6 server on a private Unix socket. No supplied database URL or existing application database is accepted.",
+  "legacy_schema_setup": "Read installed schema.sql and run installed upgrade_1_to_2 with the offline migration identity; grant the separate non-owner runtime role.",
+  "legacy_facts": [
+    "Two organizations with separate identically named legacy actors",
+    "Real HostedRuntime complete run with logical unknown-tool rejection, two verified model results, used usage, budget, checkpoint, evidence chain, receipts and physical call facts",
+    "Real HostedRuntime unknown run with nonzero reserved usage and unit reservations, full admitted physical input and evidence",
+    "Legacy governance run with independent exact approval, send, receipt, settlement and outbox events"
+  ],
+  "snapshot_policy": "Enumerate every schema2 table except schema_version. All must be nonempty. For every row, persist PostgreSQL row_to_json(row)::text and compare the complete UTF-8 snapshot bytes and SHA-256, not selected columns.",
+  "failure_injection": "Precreate workspaces to fail migration after accounts/org_members DDL; assert schema2 version, version constraint, absent rolled-back new tables, every legacy row and inspect/trace results are unchanged.",
+  "successful_upgrade": "Explicit upgrade_2_to_3(writers_stopped=True), then verify schema3, exact equality of all legacy table rows, no automatic accounts or run_bindings, unchanged inventory and unknown reservation. Explicitly refresh grant_runtime using the offline migration identity before reading historical state with the schema3-aware 0.13 installed runtime.",
+  "history_compatibility": "Use the original trusted HostedRuntime to inspect and restore/verify full trace chains before and after migration. Compare complete view JSON and trace bytes and prove no read changes any legacy fact.",
+  "outputs": ["summary.json", "before.json", "after.json", "reads-before.json", "reads-after.json"],
+  "evidence_binding": ["consumer script SHA-256", "protocol SHA-256", "same final wheel SHA-256", "all installed package bytes match wheel", "module installation paths", "snapshot and trace SHA-256 values"],
+  "scope_limit": "This checks migration and historical read compatibility with deterministic synthetic state. It does not qualify a production database, real customer data, deployment availability, real model billing, or concurrent online upgrade. API writers and workers are stopped during the upgrade."
+}

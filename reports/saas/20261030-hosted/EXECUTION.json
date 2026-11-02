@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-01",
+  "plan": "docs/SAAS_PRODUCTION_MASTER_PLAN_V3_2026-10-28.md",
+  "scope": "PG-authoritative hosted serial execution and all unreleased runtime/security changes; not full SaaS",
+  "version": "0.12.0",
+  "candidate": "reports/saas/20261030-hosted/candidate-r2",
+  "tree_digest": "22bec79d6b7f187bb5798bc59e18690ba9e03add729921163cedad8cb42cac24",
+  "phases": {
+    "W0": {
+      "state": "partial",
+      "confirmed": [
+        "mainland China",
+        "10 users",
+        "CNY1000/month cloud+models",
+        "existing mainland server/model service; local configuration later",
+        "generic platform before selecting business"
+      ],
+      "remaining": [
+        "production resource/responsibility freeze",
+        "operations owner and deployment configuration"
+      ]
+    },
+    "W1": {
+      "state": "platform_incomplete",
+      "remaining": [
+        "generic organization/workspace provisioning",
+        "identity and credential lifecycle",
+        "authenticated tenant API/UI"
+      ]
+    },
+    "W2_W3": {
+      "state": "hosted_serial_engineering_qualified; full work packages incomplete",
+      "delivered": [
+        "sole PG execution state",
+        "full transcript/context/result/evidence",
+        "exact independent approval",
+        "physical/logical usage facts",
+        "verified receipts and unknown reconciliation",
+        "epoch-fenced fresh-process recovery",
+        "real loopback HTTP and independent business effect fault tests"
+      ],
+      "remaining": [
+        "PG R2/parallel/session integration",
+        "fair scheduling and queue consumers",
+        "shared provider capacity",
+        "real multi-host/production failover",
+        "evidence lifecycle and storage quotas"
+      ]
+    },
+    "W4_W6_W9": {
+      "state": "partial; not completed SaaS work packages"
+    },
+    "W7": {
+      "state": "not_completed",
+      "remaining": [
+        "CNY monthly organization limits",
+        "versioned provider pricing and bill reconciliation",
+        "subscriptions/payment/refund/invoicing"
+      ]
+    },
+    "W8_W10_W11": {
+      "state": "not_completed",
+      "remaining": [
+        "user server/model configuration and deployment",
+        "backup/restore/cloud failure drills",
+        "production telemetry/SLO/security acceptance",
+        "real business acceptance"
+      ]
+    }
+  },
+  "verification": {
+    "state": "candidate-r2 engineering qualified; not full SaaS",
+    "checks_passed": 122,
+    "checks_total": 122,
+    "source_tests_passed": 1980,
+    "clean_tests_passed": 1980,
+    "source_postgres_passed": 183,
+    "clean_postgres_passed": 183,
+    "combined_coverage_percent": 91.9485614646905,
+    "pure_branch_percent": 85.72899505766063,
+    "source_unchanged": true
+  },
+  "business_qualified": false,
+  "saas_qualified": false
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-02",
+  "state": "rejected_after_audit_despite_all_gates_passed",
+  "finding": "CP-15",
+  "severity": "high",
+  "candidate_tree_digest": "cf7794669877a45e69925f1f3d3365cebb9e47a81adebfd160a13664d0c18a7e",
+  "engineering_gates": {"passed": 130, "total": 130},
+  "reason": "Native login and invitation form submission defaults to GET when JavaScript is disabled or unavailable, placing password/invitation secrets in request URLs.",
+  "probe_evidence": "reports/saas/20261101-control-plane/cp15-nojs-probe/result.json",
+  "original_summary_preserved": true,
+  "final_engineering_qualified": false,
+  "required_resolution": "Fix native form transport and add real disabled-JavaScript/blocked-script browser regressions, then freeze a new candidate and rerun all gates and consumers from scratch."
+}

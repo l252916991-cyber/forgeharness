@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "attempt": "live-dev-r1",
+  "disposition": "invalid_infrastructure_diagnostic_only",
+  "strategy_measurement": false,
+  "cost_metrics_valid": false,
+  "observations": "36 scheduled development attempts retained; local OMLX rejected requests with HTTP 507. No successful model inference baseline was established.",
+  "original_summary_retained": true,
+  "original_summary_flag_superseded": "The initial runner incorrectly set strategy_measurement=true based only on completed row count; this flag must not be cited. The original report is preserved as failed instrumentation evidence.",
+  "fix": "Classify HTTP and transport infrastructure failures, reject measurement and sealing, check local memory admission before sampling; regression tests cover HTTP 507 and preflight failure.",
+  "formal_protocol_sealed": false,
+  "formal_sampling_started": false
+}

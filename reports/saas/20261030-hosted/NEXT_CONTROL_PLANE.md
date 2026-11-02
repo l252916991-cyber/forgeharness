@@ -32,14 +32,14 @@
 
 | 已有代码 | 可直接沿用的原则或能力 | 不能直接视作平台能力 |
 | --- | --- | --- |
-| [commerce/identity.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/applications/commerce/identity.py) | 稳定 `user:<id>`、令牌只存摘要、邀请一次消费、每次重新读取身份与成员关系、管理操作在事务内重验调用者、登录与审批共用失败计数 | 存储为同步 SQLite；角色是 customer/support 等业务角色；workspace 同时充当 tenant；没有平台组织、服务身份或外部 issuer/subject |
-| [commerce/identity_http.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/applications/commerce/identity_http.py) | 安全 Cookie、写操作 CSRF、严格请求模型、鉴权依赖、独立审批凭据、统一失败响应 | 不能把原路由原样挂到 Cloud；它产出本地 SDK `RunContext`，且依赖 commerce 权限与会话绑定 |
-| [commerce/workbench.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/applications/commerce/workbench.py) | `_CurrentAccess`、`_CurrentPolicy` 和 `authorize_run` 展示了请求之外的实时撤权检查；服务端计算资源范围 | 当前查询依赖本地身份库和 consultation/knowledge 语义，不是 PG 平台授权器 |
-| [sdk/session_control.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/sdk/session_control.py) | 可选 FastAPI adapter、可信鉴权回调、对象 ID 仅选择对象、错误分类、独立审批回调 | 底层是同步 `SessionService` 与本地会话/审批存储；路由及 resume/grant JSON 不是托管运行 HTTP 契约 |
-| [cloud/hosted.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/cloud/hosted.py) | 不可变注册部署、实现与模型绑定摘要、可信结果验证器、固定工具与预算；不能由用户上传导入路径 | 注册表目前由可信 Python 程序构造，没有组织部署目录、启停、授权或版本发布服务 |
-| [cloud/runtime.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/cloud/runtime.py) | `accept/inspect/trace/cancel/approve/advance` 已构成串行托管内部服务；原 owner、审批、恢复和预算通过 PG 接线 | 文件明确要求上下文来自已认证宿主；没有 Cloud 登录/API 路由或公共 DTO；不能接受请求 JSON 反序列化的 `TenantContext` |
-| [cloud/store.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/cloud/store.py)、[schema.sql](/Users/xiaoy/Documents/多agent协作/src/forgeharness/cloud/schema.sql) | 事务内租户设置、FORCE RLS、连接池隔离、当前组织/成员状态、执行与审批权限分离、epoch/lease、请求幂等与 outbox | `members` 仅有 active/can_execute/can_approve；账户和成员由测试或管理员 SQL 提供，没有用户认证事实或成员管理产品 |
-| [commerce/operations.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/applications/commerce/operations.py)、[sdk/harness.py](/Users/xiaoy/Documents/多agent协作/src/forgeharness/sdk/harness.py) | 旧应用状态与完整执行绑定不被其他应用接管；旧 state 不能自动认领；恢复前重验绑定 | 前者绑定本地目录，后者仍为本地 SDK 状态机制，不能拿文件 marker 代替 PG deployment/workspace 授权 |
+| [commerce/identity.py](../../../src/forgeharness/applications/commerce/identity.py) | 稳定 `user:<id>`、令牌只存摘要、邀请一次消费、每次重新读取身份与成员关系、管理操作在事务内重验调用者、登录与审批共用失败计数 | 存储为同步 SQLite；角色是 customer/support 等业务角色；workspace 同时充当 tenant；没有平台组织、服务身份或外部 issuer/subject |
+| [commerce/identity_http.py](../../../src/forgeharness/applications/commerce/identity_http.py) | 安全 Cookie、写操作 CSRF、严格请求模型、鉴权依赖、独立审批凭据、统一失败响应 | 不能把原路由原样挂到 Cloud；它产出本地 SDK `RunContext`，且依赖 commerce 权限与会话绑定 |
+| [commerce/workbench.py](../../../src/forgeharness/applications/commerce/workbench.py) | `_CurrentAccess`、`_CurrentPolicy` 和 `authorize_run` 展示了请求之外的实时撤权检查；服务端计算资源范围 | 当前查询依赖本地身份库和 consultation/knowledge 语义，不是 PG 平台授权器 |
+| [sdk/session_control.py](../../../src/forgeharness/sdk/session_control.py) | 可选 FastAPI adapter、可信鉴权回调、对象 ID 仅选择对象、错误分类、独立审批回调 | 底层是同步 `SessionService` 与本地会话/审批存储；路由及 resume/grant JSON 不是托管运行 HTTP 契约 |
+| [cloud/hosted.py](../../../src/forgeharness/cloud/hosted.py) | 不可变注册部署、实现与模型绑定摘要、可信结果验证器、固定工具与预算；不能由用户上传导入路径 | 注册表目前由可信 Python 程序构造，没有组织部署目录、启停、授权或版本发布服务 |
+| [cloud/runtime.py](../../../src/forgeharness/cloud/runtime.py) | `accept/inspect/trace/cancel/approve/advance` 已构成串行托管内部服务；原 owner、审批、恢复和预算通过 PG 接线 | 文件明确要求上下文来自已认证宿主；没有 Cloud 登录/API 路由或公共 DTO；不能接受请求 JSON 反序列化的 `TenantContext` |
+| [cloud/store.py](../../../src/forgeharness/cloud/store.py)、[schema.sql](../../../src/forgeharness/cloud/schema.sql) | 事务内租户设置、FORCE RLS、连接池隔离、当前组织/成员状态、执行与审批权限分离、epoch/lease、请求幂等与 outbox | `members` 仅有 active/can_execute/can_approve；账户和成员由测试或管理员 SQL 提供，没有用户认证事实或成员管理产品 |
+| [commerce/operations.py](../../../src/forgeharness/applications/commerce/operations.py)、[sdk/harness.py](../../../src/forgeharness/sdk/harness.py) | 旧应用状态与完整执行绑定不被其他应用接管；旧 state 不能自动认领；恢复前重验绑定 | 前者绑定本地目录，后者仍为本地 SDK 状态机制，不能拿文件 marker 代替 PG deployment/workspace 授权 |
 
 优先抽取语义与合同测试，避免 Cloud 反向依赖 `applications.commerce`。旧模块与公开导入
 保持兼容；不能为了“通用化”把旧 SQLite 状态隐式迁入新 PG，也不能同时双写两套身份事实。

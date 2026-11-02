@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-28",
+  "distribution": "forgeharness",
+  "version": "0.10.0",
+  "api_version": 1,
+  "application": {"id": "commerce-workbench", "version": "1", "policy_version": "1"},
+  "candidate": "reports/saas/20261028-batch1/candidate-r3",
+  "tree_digest": "8470f6cd90becaad8bb561ab76508ed2b8d67b30370827281e6efe1135adc194",
+  "wheel_sha256": "6c93763dcdba23b2b5b75f1c2708df1ffea8c47baafa91c23f5e04f65350cce0",
+  "sdist_sha256": "40133cedc7383b6f2cadaa5fb1a2a719269a36d70a3a5c7d79df40a39a02f35c",
+  "execution_profile": "Python 3.12; single-machine POSIX/SQLite; deterministic consultation fixture; local account identity",
+  "test_javascript_runtime": "Node.js v24.22.1; no runtime Node dependency for Python service",
+  "engineering_qualified": true,
+  "business_qualified": false,
+  "saas_qualified": false,
+  "unsupported": ["implicit adoption of legacy consultation state", "cross-version in-flight state takeover", "cross-machine or changed-path restore", "PG SDK backend", "distributed run ownership", "public production SaaS", "real business/model quality", "commercial billing"]
+}

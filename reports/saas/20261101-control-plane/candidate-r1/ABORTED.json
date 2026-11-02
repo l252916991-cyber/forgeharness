@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "state": "aborted_due_confirmed_high",
+  "finding": "CP-12",
+  "candidate_tree_digest": "c087c7aeabb3662624feb01f092f274bf98e29f7f382382b481a903a0f9349c8",
+  "attempt": "verification/runs/20261101T111755Z-f9029c15",
+  "reason": "Confirmed PostgreSQL lock-wait snapshot can combine a newly locked run with an old joined checkpoint, allowing a stale approval fingerprint.",
+  "probe_evidence": "reports/saas/20261101-bound-snapshot-probe/results/tests.log",
+  "termination": "SIGINT; driver exit 130; process inspection confirmed no driver, pytest, worker or PostgreSQL descendants remain",
+  "source_unchanged_at_stop": true,
+  "core_tests": {"tests": 2036, "failures": 0, "errors": 0, "skipped": 0},
+  "complete_verification": false,
+  "qualified": false,
+  "evidence_policy": "Original manifest, attempt outputs and generated summary retained; this interrupted run cannot qualify later fixes."
+}

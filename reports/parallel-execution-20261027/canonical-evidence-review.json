@@ -1,0 +1,39 @@
+{
+  "canonical_request_response_and_usage_verified": true,
+  "arms": {
+    "1": {
+      "runs": 90,
+      "successes": 57,
+      "canonical_model_requests": 270,
+      "canonical_model_actions": 270,
+      "input_tokens": 85080,
+      "output_tokens": 5199,
+      "aux_http_records": 269
+    },
+    "2": {
+      "runs": 90,
+      "successes": 57,
+      "canonical_model_requests": 270,
+      "canonical_model_actions": 270,
+      "input_tokens": 85080,
+      "output_tokens": 5199,
+      "aux_http_records": 270
+    }
+  },
+  "failure_classification": {
+    "limit1:summary:schema_echo": 21,
+    "limit1:external_grade_mismatch": 12,
+    "limit2:summary:schema_echo": 21,
+    "limit2:external_grade_mismatch": 12
+  },
+  "auxiliary_http_record_gaps": [
+    {
+      "case": "evaluation-chain-07",
+      "limit": 1,
+      "sample": 2,
+      "aux_http_rows": 2,
+      "canonical_actions": 3
+    }
+  ],
+  "auxiliary_issue": "id(request) may be reused after an earlier sequential HTTP object is released; canonical trace, cost and root latency remain complete; accepted low diagnostic limitation"
+}

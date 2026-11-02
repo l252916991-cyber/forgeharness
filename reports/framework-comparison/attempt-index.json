@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "note": "Earlier failures and interrupted attempts remain evidence, not qualification.",
+  "attempts": [
+    {
+      "group": "reports/framework-comparison/runs",
+      "attempt": "20261016T041838Z-c45c3970",
+      "summary": "reports/framework-comparison/runs/20261016T041838Z-c45c3970/summary.json",
+      "source_identity": "264a2ddb24200e874472c961a7c8e9ecdce7be17d97cab4372e21f4f5ca06a51",
+      "qualified": null,
+      "integration_gate_passed": false,
+      "passed": 31,
+      "failed": 2,
+      "not_measured": 0
+    },
+    {
+      "group": "reports/framework-comparison/runs",
+      "attempt": "20261016T042328Z-e2580bac",
+      "summary": "reports/framework-comparison/runs/20261016T042328Z-e2580bac/summary.json",
+      "source_identity": "fdeaf3a2708d9c5ebfbbfba9b19297a8e48cfc3c4ed3e105be2af32ac24f2fab",
+      "qualified": null,
+      "integration_gate_passed": true,
+      "passed": 33,
+      "failed": 0,
+      "not_measured": 0
+    },
+    {
+      "group": "reports/framework-comparison/runs",
+      "attempt": "20261016T043118Z-c8656938",
+      "summary": "reports/framework-comparison/runs/20261016T043118Z-c8656938/summary.json",
+      "source_identity": "666d591ad79a3a7ec7b779cdcae806a41c74cfef1f05bcdba964c02d5ef133b7",
+      "qualified": null,
+      "integration_gate_passed": false,
+      "passed": 23,
+      "failed": 10,
+      "not_measured": 0
+    },
+    {
+      "group": "reports/framework-comparison/runs",
+      "attempt": "20261016T043350Z-91d65a12",
+      "summary": "reports/framework-comparison/runs/20261016T043350Z-91d65a12/summary.json",
+      "source_identity": "871422d691f7008b21ac3483ac7484ff0bdef3052d40c7e9065630c02b98033a",
+      "qualified": null,
+      "integration_gate_passed": true,
+      "passed": 33,
+      "failed": 0,
+      "not_measured": 0
+    },
+    {
+      "group": "reports/next-candidate/verification/runs",
+      "attempt": "20261016T042520Z-530d5e71",
+      "state": "interrupted",
+      "evidence": "reports/next-candidate/verification/runs/20261016T042520Z-530d5e71/INTERRUPTED.json"
+    },
+    {
+      "group": "reports/next-candidate/verification/runs",
+      "attempt": "20261016T043508Z-bda8e373",
+      "summary": "reports/next-candidate/verification/runs/20261016T043508Z-bda8e373/summary.json",
+      "source_identity": "871422d691f7008b21ac3483ac7484ff0bdef3052d40c7e9065630c02b98033a",
+      "qualified": false,
+      "integration_gate_passed": null,
+      "passed": null,
+      "failed": null,
+      "not_measured": null
+    },
+    {
+      "group": "reports/next-candidate/verification/runs",
+      "attempt": "20261016T044046Z-4690d1cf",
+      "summary": "reports/next-candidate/verification/runs/20261016T044046Z-4690d1cf/summary.json",
+      "source_identity": "e6d4eb244eb86dcaa214e38f8783612be4b07e996394cf593d510b7f8b5fa00e",
+      "qualified": true,
+      "integration_gate_passed": null,
+      "passed": null,
+      "failed": null,
+      "not_measured": null
+    }
+  ]
+}

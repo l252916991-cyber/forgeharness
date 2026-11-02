@@ -1,0 +1,1723 @@
+{
+  "primary_scores_changed": false,
+  "analysis_type": "post-hoc descriptive, not a new decision rule or semantic rescore",
+  "counts_by_arm": {
+    "single": {
+      "budget_exhausted": 48
+    },
+    "fixed": {
+      "canonical_string_mismatch_semantics_not_independently_rated": 30,
+      "invalid_json": 18,
+      "answer_type_mismatch": 6
+    },
+    "multi": {
+      "canonical_string_mismatch_semantics_not_independently_rated": 30,
+      "invalid_json": 15,
+      "answer_type_mismatch": 6
+    }
+  },
+  "items": [
+    {
+      "case": "eval-p02",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "/files",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p02",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "/files",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p02",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "/files",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p02",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "/files",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p02",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "/files",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p02",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "/files",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p02",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "/files",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p02",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "/files",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p02",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "/files",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p03",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "test_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p03",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "test_b",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p03",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "test_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p03",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "test_b",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p03",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "test_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p03",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "test_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p03",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "test_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p03",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "test_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p03",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "test_b",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p04",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "pine",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p04",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "pine",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p04",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "pine",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p04",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "pine",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p04",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "pine",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p04",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "pine",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p04",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "pine",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p04",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "pine",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p04",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "pine",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p05",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"api/core.py, runtime/core.py\"}"
+      },
+      "expected": "api,runtime",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p05",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"api/core.py, runtime/core.py\"}",
+        "reviewer": "{\"answer\": \"api/core.py, runtime/core.py\"}"
+      },
+      "expected": "api,runtime",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p05",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {
+        "executor": "{\"answer\": \"api.core, runtime.core\"}"
+      },
+      "expected": "api,runtime",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p05",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"api/core.py, runtime/core.py\"}",
+        "reviewer": "{\"answer\": \"api/core.py, runtime/core.py\"}"
+      },
+      "expected": "api,runtime",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p05",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {
+        "executor": "{\"answer\": \"api.core, runtime.core\"}"
+      },
+      "expected": "api,runtime",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p05",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"api/core.py, runtime/core.py\"}"
+      },
+      "expected": "api,runtime",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p05",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {
+        "executor": "{\"answer\": \"api.core, runtime.core\"}"
+      },
+      "expected": "api,runtime",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p05",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"api/core.py, runtime/core.py\"}"
+      },
+      "expected": "api,runtime",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p05",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"api/core.py, runtime/core.py\"}",
+        "reviewer": "{\"answer\": \"api/core.py, runtime/core.py\"}"
+      },
+      "expected": "api,runtime",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p06",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "```json\n{\"answer\": \"1\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"1\"}\n```"
+      },
+      "expected": "change_b",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-p06",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"1\"}\n```"
+      },
+      "expected": "change_b",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-p06",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"1\"}\n```"
+      },
+      "expected": "change_b",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-p06",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "```json\n{\"answer\": \"1\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"1\"}\n```"
+      },
+      "expected": "change_b",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-p06",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"1\"}\n```"
+      },
+      "expected": "change_b",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-p06",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "```json\n{\"answer\": \"1\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"1\"}\n```"
+      },
+      "expected": "change_b",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-p07",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "impl_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p07",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "impl_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p07",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "impl_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p07",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "impl_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p07",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "impl_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p07",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "impl_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p08",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "entry_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p08",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "entry_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p08",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "entry_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p08",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "entry_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p08",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "entry_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p08",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "entry_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p09",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"2\"}",
+        "reviewer": "{\"answer\": \"2\"}"
+      },
+      "expected": "config_c",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p09",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "config_c",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p09",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"2\"}"
+      },
+      "expected": "config_c",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p09",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "config_c",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p09",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"2\"}"
+      },
+      "expected": "config_c",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p09",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"2\"}",
+        "reviewer": "{\"answer\": \"2\"}"
+      },
+      "expected": "config_c",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p09",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"2\"}"
+      },
+      "expected": "config_c",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p09",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"2\"}",
+        "reviewer": "{\"answer\": \"2\"}"
+      },
+      "expected": "config_c",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p09",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "config_c",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-p10",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "f_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p10",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "f_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p10",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "f_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p10",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "f_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p10",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\", \"2\"]}",
+        "worker": "{\"answer\": \"1\"}",
+        "reviewer": "{\"answer\": \"1\"}"
+      },
+      "expected": "f_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-p10",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": \"1\"}"
+      },
+      "expected": "f_b",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c01",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": 4}"
+      },
+      "expected": "4",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c01",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\"answer\": 4}",
+        "reviewer": "{\"answer\": 4}"
+      },
+      "expected": "4",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c01",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "4",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c01",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\"answer\": 4}",
+        "reviewer": "{\"answer\": 4}"
+      },
+      "expected": "4",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c01",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "4",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c01",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": 4}"
+      },
+      "expected": "4",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c01",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "4",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c01",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\"answer\": 4}"
+      },
+      "expected": "4",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c01",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\"answer\": 4}",
+        "reviewer": "{\"answer\": 4}"
+      },
+      "expected": "4",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c02",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "410",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c02",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "410",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c02",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "410",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c03",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"retrieve\"}\n```"
+      },
+      "expected": "retrieve",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-c03",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"retrieve\"}\n```"
+      },
+      "expected": "retrieve",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-c03",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"retrieve\"}\n```"
+      },
+      "expected": "retrieve",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-c05",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "5",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c05",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "5",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c05",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "5",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c06",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"11\"}\n```"
+      },
+      "expected": "11",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-c06",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"11\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"11\"}\n```"
+      },
+      "expected": "11",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-c06",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"11\"}\n```"
+      },
+      "expected": "11",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-c06",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"11\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"11\"}\n```"
+      },
+      "expected": "11",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-c06",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"11\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"11\"}\n```"
+      },
+      "expected": "11",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-c06",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"11\"}\n```"
+      },
+      "expected": "11",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-c08",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\n\"answer\": \"10\"\n}",
+        "reviewer": "{\"answer\": \"10\"}"
+      },
+      "expected": "7",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c08",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "7",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c08",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\n\"answer\": \"10\"\n}"
+      },
+      "expected": "7",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c08",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "7",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c08",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\n\"answer\": \"10\"\n}"
+      },
+      "expected": "7",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c08",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\n\"answer\": \"10\"\n}",
+        "reviewer": "{\"answer\": \"10\"}"
+      },
+      "expected": "7",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c08",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\n\"answer\": \"10\"\n}"
+      },
+      "expected": "7",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c08",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\n\"answer\": \"10\"\n}",
+        "reviewer": "{\"answer\": \"10\"}"
+      },
+      "expected": "7",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c08",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "7",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c09",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "2",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c09",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\n\"answer\": 2\n}"
+      },
+      "expected": "2",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c09",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\n\"answer\": 2\n}",
+        "reviewer": "{\"answer\": 2}"
+      },
+      "expected": "2",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c09",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\n\"answer\": 2\n}"
+      },
+      "expected": "2",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c09",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\n\"answer\": 2\n}",
+        "reviewer": "{\"answer\": 2}"
+      },
+      "expected": "2",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c09",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "2",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c09",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\n\"answer\": 2\n}",
+        "reviewer": "{\"answer\": 2}"
+      },
+      "expected": "2",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c09",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "2",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c09",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\n\"answer\": 2\n}"
+      },
+      "expected": "2",
+      "descriptive_category": "answer_type_mismatch"
+    },
+    {
+      "case": "eval-c10",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\n\"answer\": \"230\"\n}"
+      },
+      "expected": "330",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c10",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\n\"answer\": \"230\"\n}",
+        "reviewer": "{\n\"answer\": \"230\"\n}"
+      },
+      "expected": "330",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c10",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "330",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c10",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\n\"answer\": \"230\"\n}",
+        "reviewer": "{\n\"answer\": \"230\"\n}"
+      },
+      "expected": "330",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c10",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "330",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c10",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\n\"answer\": \"230\"\n}"
+      },
+      "expected": "330",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c10",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "330",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-c10",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "{\n\"answer\": \"230\"\n}"
+      },
+      "expected": "330",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-c10",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "{\n\"answer\": \"230\"\n}",
+        "reviewer": "{\n\"answer\": \"230\"\n}"
+      },
+      "expected": "330",
+      "descriptive_category": "canonical_string_mismatch_semantics_not_independently_rated"
+    },
+    {
+      "case": "eval-e02",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "retain_reservation",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e02",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "retain_reservation",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e02",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "retain_reservation",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e03",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"wait\"}\n```"
+      },
+      "expected": "wait",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e03",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"wait\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"wait\"}\n```"
+      },
+      "expected": "wait",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e03",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "wait",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e03",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"wait\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"wait\"}\n```"
+      },
+      "expected": "wait",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e03",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "wait",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e03",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"wait\"}\n```"
+      },
+      "expected": "wait",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e03",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "wait",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e03",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"wait\"}\n```"
+      },
+      "expected": "wait",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e03",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"wait\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"wait\"}\n```"
+      },
+      "expected": "wait",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e04",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"retry_read\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"retry_read\"}\n```"
+      },
+      "expected": "retry_read",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e04",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"retry_read\"}\n```"
+      },
+      "expected": "retry_read",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e04",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"retry_read\"}\n```"
+      },
+      "expected": "retry_read",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e04",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"retry_read\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"retry_read\"}\n```"
+      },
+      "expected": "retry_read",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e04",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"retry_read\"}\n```"
+      },
+      "expected": "retry_read",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e04",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"retry_read\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"retry_read\"}\n```"
+      },
+      "expected": "retry_read",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e05",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "stop",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e05",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "stop",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e05",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "stop",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e07",
+      "arm": "multi",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"fail_bounded\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"fail_bounded\"}\n```"
+      },
+      "expected": "fail_bounded",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e07",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "fail_bounded",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e07",
+      "arm": "fixed",
+      "sample": 0,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"fail_bounded\"}\n```"
+      },
+      "expected": "fail_bounded",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e07",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "fail_bounded",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e07",
+      "arm": "fixed",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"fail_bounded\"}\n```"
+      },
+      "expected": "fail_bounded",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e07",
+      "arm": "multi",
+      "sample": 1,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"fail_bounded\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"fail_bounded\"}\n```"
+      },
+      "expected": "fail_bounded",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e07",
+      "arm": "fixed",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "fixed": "```json\n{\"answer\": \"fail_bounded\"}\n```"
+      },
+      "expected": "fail_bounded",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e07",
+      "arm": "multi",
+      "sample": 2,
+      "error": "verification rejected: external exact structured-answer check",
+      "final_by_phase": {
+        "planner": "{\"keys\": [\"0\", \"1\"]}",
+        "worker": "```json\n{\"answer\": \"fail_bounded\"}\n```",
+        "reviewer": "```json\n{\"answer\": \"fail_bounded\"}\n```"
+      },
+      "expected": "fail_bounded",
+      "descriptive_category": "invalid_json"
+    },
+    {
+      "case": "eval-e07",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "fail_bounded",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e08",
+      "arm": "single",
+      "sample": 0,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "reject",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e08",
+      "arm": "single",
+      "sample": 1,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "reject",
+      "descriptive_category": "budget_exhausted"
+    },
+    {
+      "case": "eval-e08",
+      "arm": "single",
+      "sample": 2,
+      "error": "tool-call budget exhausted",
+      "final_by_phase": {},
+      "expected": "reject",
+      "descriptive_category": "budget_exhausted"
+    }
+  ],
+  "semantic_ambiguity_example": {
+    "case": "eval-p05",
+    "reference": "api,runtime",
+    "observed_example": "api/core.py, runtime/core.py",
+    "interpretation": "Potential semantic equivalence but not canonical exact match; no score changed"
+  },
+  "future_work": "Freeze clearer output contracts and independent semantic ratings on new tasks, do not revise this formal score"
+}

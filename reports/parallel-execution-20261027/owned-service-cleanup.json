@@ -1,0 +1,14 @@
+{
+  "owned_private_directories_removed": [
+    "private-service",
+    "private-service-9b",
+    "private-service-9b-r2"
+  ],
+  "service_logs_redacted_lines": {
+    "service-9b.log": 1,
+    "service.log": 1,
+    "service-9b-r2.log": 1
+  },
+  "model_weights_deleted": false,
+  "runtime_hash_traces_modified": false
+}
