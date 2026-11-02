@@ -114,10 +114,13 @@ def evaluate_control(
         raise typer.Exit(code=1)
 
 
+def _is_local_endpoint(base_url: str) -> bool:
+    return (urlparse(base_url).hostname or "") in {"127.0.0.1", "localhost", "::1"}
+
+
 def _endpoint_label(base_url: str, model: str) -> str:
     """Name live reports after the model so one provider never overwrites another's."""
-    host = urlparse(base_url).hostname or ""
-    if host in {"127.0.0.1", "localhost", "::1"}:
+    if _is_local_endpoint(base_url):
         return "omlx"
     return re.sub(r"[^a-z0-9]+", "-", model.lower()).strip("-") or "live"
 
@@ -200,6 +203,17 @@ def evaluate_agent(
         ) from exc
     if selected_profile is not Profile.KEYLESS and not model:
         raise typer.BadParameter("--model is required for a live profile", param_hint="--model")
+    if (
+        selected_profile is not Profile.KEYLESS
+        and api_key == "omlx-local"
+        and not _is_local_endpoint(base_url)
+    ):
+        # Fail before any request: the local placeholder can only ever produce a 401
+        # from a hosted provider, which would otherwise look like a model failure.
+        raise typer.BadParameter(
+            "a hosted endpoint needs a real key; set the FORGE_API_KEY environment variable",
+            param_hint="--api-key",
+        )
     selected_split: Split = "holdout" if split == "holdout" else "dev"
     suffix = (
         "keyless"

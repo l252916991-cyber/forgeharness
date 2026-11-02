@@ -187,3 +187,31 @@ def test_live_eval_reads_key_from_environment_and_names_report_by_model(
     assert isinstance(result.exception, RuntimeError)
     assert captured[0]["config"].api_key == "sk-from-environment"
     assert captured[0]["output_path"].name == report
+
+
+def test_hosted_live_eval_without_a_key_fails_before_any_request(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The local placeholder key would only earn a 401 that looks like a model failure."""
+    called: list[object] = []
+
+    async def evaluate(**kwargs: Any) -> None:
+        called.append(kwargs)
+
+    monkeypatch.setattr(cli, "run_live_agent_evaluation", evaluate)
+    monkeypatch.delenv("FORGE_API_KEY", raising=False)
+    result = CliRunner().invoke(
+        cli.app,
+        [
+            "eval-agent",
+            "--profile",
+            "natural",
+            "--model",
+            "deepseek-flash",
+            "--base-url",
+            "https://api.deepseek.com",
+        ],
+    )
+    assert result.exit_code == 2
+    assert "FORGE_API_KEY" in result.output
+    assert called == []
