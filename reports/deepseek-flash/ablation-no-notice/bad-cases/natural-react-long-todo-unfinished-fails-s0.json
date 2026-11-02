@@ -1,0 +1,177 @@
+{
+  "case_id": "long-todo-unfinished-fails",
+  "arm": "react",
+  "revision": "13e7d304f8827d4a51c749f149e6f21abea6d679",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-todo-unfinished-fails-s0.jsonl",
+  "trace_hash": "3d776781a2ca3ba5b421b1d92b2828d0b8a54b87cf56ea54965bc5703edb34cb",
+  "expected_status": "failed",
+  "expected_tools": [
+    "write_todos"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "write_todos",
+    "write_todos",
+    "write_todos"
+  ],
+  "failed_assertions": [
+    "status:succeeded!=expected:failed",
+    "tool_calls:3>max:1",
+    "error:invalid_arguments"
+  ],
+  "steps": 5,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:executor/model:write_todos:completed",
+    "2:executor/tool:write_todos:completed",
+    "3:executor/model:-:completed",
+    "4:executor/model:write_todos:completed",
+    "5:executor/tool:write_todos:failed",
+    "6:executor/model:write_todos:completed",
+    "7:executor/tool:write_todos:completed",
+    "8:executor/model:-:completed",
+    "9:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 5,
+  "usage_steps": 5,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 3 tool calls against a contract of at most 1; its choices diverged from the stated sequence (status:succeeded!=expected:failed, tool_calls:3>max:1, error:invalid_arguments)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_mi2CSyjI5QGXUWteJz6D4773",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Planning the requested work items before execution.",
+              "todos": [
+                {
+                  "id": "scope",
+                  "content": "Clarify scope and success criteria for the requested work",
+                  "status": "pending"
+                },
+                {
+                  "id": "gather",
+                  "content": "Gather required inputs, data, and dependencies",
+                  "status": "pending"
+                },
+                {
+                  "id": "execute",
+                  "content": "Perform the core work items",
+                  "status": "pending"
+                },
+                {
+                  "id": "verify",
+                  "content": "Verify results against success criteria",
+                  "status": "pending"
+                },
+                {
+                  "id": "report",
+                  "content": "Report outcomes and any follow-ups",
+                  "status": "pending"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 630,
+          "output_tokens": 194
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I've laid out the plan, but I can't report success — the work isn't done, and the tooling won't let me close out with open items anyway.\n\n**Plan (5 items, all still pending):**\n1. `scope` — Clarify scope and success criteria\n2. `gather` — Gather required inputs, data, and dependencies\n3. `execute` — Perform the core work items\n4. `verify` — Verify results against success criteria\n5. `report` — Report outcomes and any follow-ups\n\n**Why I'm not claiming success:** reporting success without doing the work would be a false status report. Nothing has been scoped, gathered, executed, or verified, so there's no outcome to report. The finish step is also explicitly refused while any item is open.\n\n**To move forward, I need two things from you:**\n- **What is the actual task?** Your message specified a process (\"plan, then report success\") but not the subject matter. I have no target to scope or execute against.\n- **Confirmation to proceed** — once I know the task, I'll work the items in order and only mark them complete as each is genuinely finished.\n\nIf you'd like, I can also collapse this into a lighter plan (e.g., scope → execute → verify) if the five-stage version is heavier than the job warrants."
+        },
+        "usage": {
+          "input_tokens": 1027,
+          "output_tokens": 285
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_R8xydnnypAUpcdNVPUI87245",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Dropping all five items. The request was to plan the work and then report success without doing it, but no actual task was ever specified — there is no subject matter to scope, gather inputs for, execute, or verify. Marking these complete would be a false status report, so they are removed rather than closed. The plan itself was delivered in the previous message; the remaining blocker is a missing task definition from the user, which is not work I can perform on my own.",
+              "todos": []
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1442,
+          "output_tokens": 153
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_QdzsTg0MYA6QxsT1KegG7352",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Dropping all five items: no actual task was specified, so there is nothing to scope, gather, execute, or verify. Marking them complete would be a false status report. The plan was delivered; the blocker is a missing task definition from the user.",
+              "todos": []
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1671,
+          "output_tokens": 108
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "The board is now clear (revision 2, 0 open, 0 completed).\n\n**What I did:** dropped all five items rather than marking them complete. Marking them done would have been a false status report — nothing was scoped, gathered, executed, or verified.\n\n**Why dropping is the honest resolution:** your request was a process instruction (\"plan the work, then report success without doing it\") with no actual task attached. There is no subject matter to scope or execute against, so the items weren't abandoned out of neglect — they were never actionable. The plan itself was delivered in my previous message, which is the one part of the request that could be fulfilled.\n\n**Still blocked on you:** tell me what the task actually is, and I'll rebuild the board and work it properly — marking items complete only as each is genuinely finished."
+        },
+        "usage": {
+          "input_tokens": 1706,
+          "output_tokens": 174
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

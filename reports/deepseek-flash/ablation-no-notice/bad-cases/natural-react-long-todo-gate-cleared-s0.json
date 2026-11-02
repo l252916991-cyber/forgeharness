@@ -1,0 +1,193 @@
+{
+  "case_id": "long-todo-gate-cleared",
+  "arm": "react",
+  "revision": "13e7d304f8827d4a51c749f149e6f21abea6d679",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-todo-gate-cleared-s0.jsonl",
+  "trace_hash": "2b2c1c05a7617dfaa66d029dfaae273e6aa8d559788a43f7d8a5e33e1cc7cd1f",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "write_todos",
+    "read_file"
+  ],
+  "expected_sequence": [
+    "write_todos",
+    "read_file",
+    "write_todos"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "write_todos",
+    "write_todos",
+    "write_todos"
+  ],
+  "failed_assertions": [
+    "missing_tools:read_file",
+    "sequence:write_todos/write_todos/write_todos!=expected:write_todos/read_file/write_todos"
+  ],
+  "steps": 5,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:executor/model:write_todos:completed",
+    "2:executor/tool:write_todos:completed",
+    "3:executor/model:write_todos:completed",
+    "4:executor/tool:write_todos:completed",
+    "5:executor/model:-:completed",
+    "6:executor/model:write_todos:completed",
+    "7:executor/tool:write_todos:completed",
+    "8:executor/model:-:completed",
+    "9:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 5,
+  "usage_steps": 5,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (missing_tools:read_file, sequence:write_todos/write_todos/write_todos!=expected:write_todos/read_file/write_todos)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_9r2MC61uHVAy56EQrOFP5366",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Plan: capture the work as todos, read the module, then close out the read item before finishing.",
+              "todos": [
+                {
+                  "content": "Record the plan as todo items",
+                  "id": "record-plan",
+                  "status": "in_progress"
+                },
+                {
+                  "content": "Read the module",
+                  "id": "read-module",
+                  "status": "pending"
+                },
+                {
+                  "content": "Close the read item before finishing",
+                  "id": "close-item",
+                  "status": "pending"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 795,
+          "output_tokens": 160
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_ehTuUdvVcVu2o8X6EDsd0876",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Plan recorded; now reading the module.",
+              "todos": [
+                {
+                  "content": "Record the plan as todo items",
+                  "id": "record-plan",
+                  "status": "completed"
+                },
+                {
+                  "content": "Read the module",
+                  "id": "read-module",
+                  "status": "in_progress"
+                },
+                {
+                  "content": "Close the read item before finishing",
+                  "id": "close-item",
+                  "status": "pending"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1099,
+          "output_tokens": 135
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I need to know which module to read — I don't have a path yet. Could you tell me the file path (or module name) you'd like me to read?\n\nOnce you give me the path, I'll read it and then close out the remaining todo items."
+        },
+        "usage": {
+          "input_tokens": 1320,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_JRMWuYdLPLCvIHBbDlzx4204",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Dropping read-module and close-item: no module path or name was ever provided, so the read cannot be performed. The plan-recording item is complete; the remaining work is blocked on missing input from the user.",
+              "todos": [
+                {
+                  "content": "Record the plan as todo items",
+                  "id": "record-plan",
+                  "status": "completed"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1468,
+          "output_tokens": 160
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I recorded the plan, but I couldn't complete the read step: no module path or name was ever provided, so there was nothing to open. I've dropped the two dependent items (`read-module`, `close-item`) rather than leave them falsely open, and kept `record-plan` as completed.\n\nTo proceed, send me the file path (or module name) and I'll read it and close out the work."
+        },
+        "usage": {
+          "input_tokens": 1593,
+          "output_tokens": 86
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

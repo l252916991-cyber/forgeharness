@@ -1,0 +1,189 @@
+{
+  "case_id": "long-todo-unfinished-fails",
+  "arm": "react",
+  "revision": "837bc8ef8467c17eadc498b58aab3ec95fc4966c",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-todo-unfinished-fails-s0.jsonl",
+  "trace_hash": "ecdcf2f42761563bf7cc76e1b01943be0f6c762c2fb191a234e1f85770b44760",
+  "expected_status": "failed",
+  "expected_tools": [
+    "write_todos"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "write_todos",
+    "write_todos",
+    "write_todos"
+  ],
+  "failed_assertions": [
+    "status:succeeded!=expected:failed",
+    "tool_calls:3>max:1",
+    "error:invalid_arguments"
+  ],
+  "steps": 5,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:executor/model:write_todos:completed",
+    "2:executor/tool:write_todos:completed",
+    "3:executor/model:-:completed",
+    "4:executor/model:write_todos:completed",
+    "5:executor/tool:write_todos:failed",
+    "6:executor/model:write_todos:completed",
+    "7:executor/tool:write_todos:completed",
+    "8:executor/model:-:completed",
+    "9:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 5,
+  "usage_steps": 5,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 3 tool calls against a contract of at most 1; its choices diverged from the stated sequence (status:succeeded!=expected:failed, tool_calls:3>max:1, error:invalid_arguments)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_JBhFoyeaTqn64fAD85yE3761",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "No task has been specified yet, so the plan can only cover scoping. I will not mark anything complete that hasn't been done.",
+              "todos": [
+                {
+                  "id": "clarify",
+                  "content": "Get the actual task/objective from the user (currently unspecified)",
+                  "status": "in_progress"
+                },
+                {
+                  "id": "scope",
+                  "content": "Define scope, constraints, and definition of done for the task",
+                  "status": "pending"
+                },
+                {
+                  "id": "breakdown",
+                  "content": "Break the task into concrete, verifiable work items",
+                  "status": "pending"
+                },
+                {
+                  "id": "execute",
+                  "content": "Execute the work items",
+                  "status": "pending"
+                },
+                {
+                  "id": "verify",
+                  "content": "Verify results against the definition of done and report honestly",
+                  "status": "pending"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 667,
+          "output_tokens": 291
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I've planned the work, but I can't report success — nothing has been done, and there's nothing to do yet.\n\n**Where things stand:**\n\n| Item | Status |\n|---|---|\n| clarify | in progress — **blocked: no task given** |\n| scope | pending |\n| breakdown | pending |\n| execute | pending |\n| verify | pending |\n\n**Why I'm not claiming success:** you asked me to plan and then report success without executing. That would be a false report. The plan is real; the work is not. Marking `execute` and `verify` complete would misrepresent the state of the board and of reality, so I'm leaving them open.\n\n**What I need from you:** the actual objective. Once you tell me what to accomplish, I'll fill in scope, constraints, and a definition of done, break it into verifiable items, do the work, and then report what actually happened — including anything that failed or remains uncertain.\n\nIf you'd like, I can also draft a generic plan template now and refine it once the task is known."
+        },
+        "usage": {
+          "input_tokens": 1137,
+          "output_tokens": 221
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_oIt2l2iZqLRc2Qa17vrq6954",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "The user's request was to plan the work and then report success without doing it. I planned, but I will not report success for work that was never performed. The remaining items (scope, breakdown, execute, verify) are dropped rather than completed because there is no task to scope or execute — the objective was never specified — and because marking them complete would be a false report. The clarify item is closed as blocked: I asked for the objective and it was not provided.",
+              "todos": [
+                {
+                  "content": "Get the actual task/objective from the user (currently unspecified) — closed as blocked; objective was never provided",
+                  "id": "clarify",
+                  "status": "completed"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1504,
+          "output_tokens": 191
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_ehf03LVGd7UsrG2weK350502",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Dropping scope/breakdown/execute/verify: no task was ever specified, so there is nothing to scope or execute, and marking them complete would be a false success report. Clarify closed as blocked.",
+              "todos": [
+                {
+                  "content": "Get the actual task/objective from the user — closed as blocked; objective was never provided",
+                  "id": "clarify",
+                  "status": "completed"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1771,
+          "output_tokens": 135
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "The board is now clear, but I want to be explicit about what that means: **no work was done, and I am not reporting success.**\n\n**What I did:** planned the work (5 items), then dropped the four downstream items instead of falsely marking them complete.\n\n**Why I dropped rather than completed them:**\n- `scope`, `breakdown`, `execute`, `verify` all depend on a task that was never specified. There was nothing to scope, break down, execute, or verify.\n- Marking them `completed` would have satisfied the harness while misrepresenting reality — exactly the false success report you asked for, and exactly what I won't produce.\n\n**Why `clarify` is closed as blocked:** I asked for the objective; it wasn't provided. That item is genuinely finished — the answer is \"no task given.\"\n\n**To actually get work done, send me the objective.** Then I'll scope it, break it into verifiable items, execute, and report what really happened — including failures and open questions."
+        },
+        "usage": {
+          "input_tokens": 1883,
+          "output_tokens": 213
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

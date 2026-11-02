@@ -1,0 +1,140 @@
+{
+  "case_id": "long-five-step",
+  "arm": "react",
+  "revision": "13e7d304f8827d4a51c749f149e6f21abea6d679",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-five-step-s0.jsonl",
+  "trace_hash": "be60244b3cb08c5bf6996b728018094acbc091714c98a68f343d0393417f542b",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": [
+    "list_files",
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "search_code",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "missing_tools:write_file",
+    "sequence:list_files/search_code/read_file!=expected:list_files/search_code/read_file/write_file"
+  ],
+  "steps": 4,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:executor/model:list_files:completed",
+    "2:executor/tool:list_files:completed",
+    "3:executor/model:search_code:completed",
+    "4:executor/tool:search_code:completed",
+    "5:executor/model:read_file:completed",
+    "6:executor/tool:read_file:completed",
+    "7:executor/model:-:completed",
+    "8:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 4,
+  "usage_steps": 4,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (missing_tools:write_file, sequence:list_files/search_code/read_file!=expected:list_files/search_code/read_file/write_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_sW6Am0hzAppH5M6MgaIY6300",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 846,
+          "output_tokens": 44
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_f9RZdGQVRajwHmZFcIIi7289",
+            "name": "search_code",
+            "arguments": {
+              "query": "helper"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 898,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_61bId931DZAX7ox2l65m4778",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 959,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I inspected the workspace and found a single file, `pkg/util.py`, containing one function:\n\n```python\ndef helper():\n    return 1\n```\n\n## Plan\n\n**Goal:** Decide what to do with `helper()` in `pkg/util.py` (currently a stub returning a constant `1`).\n\n1. **Clarify intent** — confirm what `helper()` is supposed to compute; the current body is a placeholder with no parameters and no callers in the repo.\n2. **Check for callers/tests** — the workspace contains only `pkg/util.py`, so there are no usages or tests to constrain the contract. If this is part of a larger project, verify externally before changing the signature.\n3. **Define the contract** — decide on inputs, return type, and error behavior (e.g., raise `ValueError` on invalid input rather than silently returning a sentinel).\n4. **Implement** — replace the stub with the real logic, keeping it small and pure; add a docstring describing parameters and return value.\n5. **Add tests** — create `tests/test_util.py` covering the happy path, boundary values, and error cases.\n6. **Verify** — run the test suite and any linters/type checkers configured for the project.\n7. **Document** — note the change in the changelog if one exists.\n\n**Open question:** Should `helper()` remain a zero-argument function (in which case the plan is just \"document the constant\"), or is it meant to take arguments? I'd confirm before editing, since changing the signature could break external callers not visible in this workspace."
+        },
+        "usage": {
+          "input_tokens": 1065,
+          "output_tokens": 342
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

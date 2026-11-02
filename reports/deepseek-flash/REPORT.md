@@ -1,8 +1,8 @@
-# DeepSeek 实测：基线、失败分析与两项改进
+# DeepSeek 实测：基线、失败分析、改进与消融
 
 日期：2026-11-02（Asia/Shanghai）。模型：`deepseek-flash`（DeepSeek-V4.1-Flash）。
 
-结论：在合成的 Agent Benchmark 上，两项针对失败分析的改进让 **ReAct** 在 dev 集从 24/36 提升到 29/36，在从未用于调整的 holdout 集从 10/14 提升到 12/14，平均步数也下降了。**Plan-Execute 没有可测到的变化。** 样本量小，结论只适用于这个模型和这套合成任务。
+结论：在合成的 Agent Benchmark 上，根据失败分析做的两项改进（A、B）让 **ReAct** 在 dev 集从 24/36 提升到 29/36，在从未用于调整的 holdout 集从 10/14 提升到 12/14，平均步数也下降了。消融实验显示，提升几乎全部来自 A（在请求里写明「一步一个工具调用」）；B（参数报错指出字段）对通过率没有可测影响，是一项稳健性修复。之后补上「临时故障」错误类别（C），dev 达到 30/36；这一步改了评测集版本，也没有再用 holdout 验证。**Plan-Execute 没有可测到的变化。** 样本量小，结论只适用于这个模型和这套合成任务。
 
 ## 实验设置
 
@@ -25,7 +25,9 @@
 | 第 0 轮（作废） | `c5e523b` | [run0-broken-workspace](run0-broken-workspace/agent-eval-dev-natural.json) | 文件工具全部失败，见下文「顺带发现的缺陷」 |
 | 基线 | `f2028ee` | [dev](baseline/agent-eval-dev-natural.json)、[holdout](baseline/agent-eval-holdout-natural.json) | holdout 基线在 `67d8856` 上运行，评测行为与 `f2028ee` 相同 |
 | 失败诊断 | `67d8856` | [dev，仅 ReAct](diagnose/agent-eval-dev-natural.json) | 加 `--keep-all-failures`，保存全部失败 trace；同时作为第二次 ReAct 基线 |
-| 改进后 | `df4d035` | [dev](improved/agent-eval-dev-natural.json)、[holdout](improved/agent-eval-holdout-natural.json) | 参数与基线完全相同 |
+| 改进后（A+B） | `df4d035` | [dev](improved/agent-eval-dev-natural.json)、[holdout](improved/agent-eval-holdout-natural.json) | 参数与基线完全相同 |
+| 消融（只有 B） | `13e7d30` | [dev，仅 ReAct](ablation-no-notice/agent-eval-dev-natural.json) | `--no-protocol-notice` 关掉 A，报告记录 `protocol_notice: false` |
+| 临时故障（A+B+C） | `837bc8e` | [dev，仅 ReAct](transient/agent-eval-dev-natural.json) | 评测集版本 2（故障注入方式变了），没有再用 holdout |
 
 ## 结果
 
@@ -52,7 +54,7 @@
 | ③ 用例设计问题 | 约 5 | 见下文「没有调整的部分」 | 不调，如实记录 |
 | ④ 模型绕过 todo 门禁 | 1 | 本应失败的任务，模型把待办标成「已完成」，内容写「已放弃」，通过了门禁 | 不调，作为治理发现记录 |
 
-## 两项改进
+## 改进 A 与 B
 
 **A. 每次请求都写明「一步只能调一个工具」**（[ADR 048](../../docs/adr/048-pinned-protocol-notice.md)）。这条规则一直由运行时强制执行，但只通过一个请求参数传达，而 DeepSeek 不理会这个参数。现在运行时会在每个带工具的请求里固定放一段说明，内容只陈述它强制执行的规则，不提任何工具或任务。这段说明会记入每次请求的 trace，但不进入对话历史，所以 checkpoint、恢复和上下文压缩都不受影响。
 
@@ -69,17 +71,41 @@
 | --- | --- | --- |
 | `long-five-step`、`long-alternate-list-read`、`long-serial-reads` | 0–1/3 → 3/3 | 与改进 A 一致：诊断轮里这三个用例的失败样本都含被拒的多调用回复，并因此超出步数 |
 | holdout `long-holdout-four-step` | 0/3 → 3/3 | 同属长任务，但基线没有保存它的 trace（当时未加 `--keep-all-failures`），机制未核实 |
-| `multi-list-read-write`、`retr-find-then-write` | 0/3 → 3/3 | **不是针对性修改的目标**。原先模型在回复里给出报告，而没有调用 `write_file`。两次基线都是 0/3，不像随机波动；机制可能是协议说明让模型更倾向于用工具完成动作，但没有做消融，未验证 |
+| `multi-list-read-write`、`retr-find-then-write` | 0/3 → 3/3 | **不是针对性修改的目标**。原先模型在回复里给出报告，而没有调用 `write_file`。消融确认由 A 带来（见上文），机制未验证 |
 | `long-six-decisions` | 1/3 → 0/3 | 任务本身含糊（「在工作区里交替做标记和读取」），模型做了更多调用而超出上限；诊断轮也是 0/3，在这个用例的波动范围内 |
 | holdout `notool-holdout-a` | 2/3 → 3/3 | 与改进无关，可能是随机波动 |
 
 **Plan-Execute 为什么没变**：它的失败主要是重复调用，比如同一个目录列两次、同一个词搜三次，以及计划步骤带来的额外开销，两项改进都没有针对这些。用例级从 20/36 变成 16/36，但样本级保持 66/108，属于用例级判定在 3 次采样下的波动。
 
+## 消融：两项改进各贡献多少
+
+| ReAct dev | 用例通过 | 样本通过 | 平均步数 | input token |
+| --- | ---: | ---: | ---: | ---: |
+| 基线（两项都没有） | 24/36 | 74/108、76/108 | 3.64、3.28 | 146,560、83,493 |
+| 只有 B | 24/36 | 75/108 | 3.33 | 84,422 |
+| A + B | 29/36 | 87/108 | 2.89 | 74,946 |
+
+- **A 解释了几乎全部提升。** 关掉 A，分数回到基线水平，失败 trace 里一次返回多个调用的情况也重新出现（12 个失败 trace 中有 4 个）。
+- 原先不清楚原因的 `multi-list-read-write` 和 `retr-find-then-write`，在没有 A 的三轮（基线、诊断、消融）里都是 0/3，有 A 时是 3/3，可以确定是 A 带来的。但这段说明只讲调用规则，为什么会让模型改为用 `write_file` 把结果写进文件，而不是直接在回复里给出，机制没有验证。
+- **B 对通过率没有可测影响。** 它解决的是「同一个错误调用反复重发」，而触发这个问题的 `long-todo-*` 用例本身还因为用例设计失败。它的价值是让这类错误在一步内被纠正，不是提分。
+
+## 第三项改进：临时故障（C）
+
+失败分析里，`recover-error-retry` 要求「后端报临时错误时重试一次」，9 次 ReAct 采样全部失败。原因不在模型：评测的故障注入模式在代码里被注明是「临时故障」，实际抛出的却是框架无法分类的普通异常。框架按规则把它报告为 `recoverable: false`，模型照做没有重试，反而被判失败。真实工具的后端断开连接时也会这样，模型会被告知这个失败无法挽回。
+
+改进（[ADR 049](../../docs/adr/049-transient-tool-failures.md)）：
+
+- 新增 `transient_error` 类别和 `TransientToolError`，`ConnectionError` 也归入这一类。
+- 能否重试取决于工具声明的副作用类型，而不是异常本身：只读和幂等工具报告 `recoverable: true`；有副作用的工具报告 `recoverable: false`，因为写到一半失败的调用可能已经生效。调用日志会把后者记为「结果不确定」，恢复时不会重放。
+- 运行时暂不自动重试这一类错误，否则会改变调用日志里的重试行为，相当于新一代恢复语义。
+- 评测的故障注入改为抛出 `TransientToolError`，与它注明的意图一致。`BENCHMARK_VERSION` 升到 2，`OBSERVATION_CONTRACT_VERSION` 升到 3。
+
+结果：`recover-error-retry` 从 0/3 变为 3/3，其余用例没有变化。ReAct dev 达到 **30/36、样本 90/108**。由于故障注入方式变了，这个数字和 29/36 不完全同口径；holdout 已用于 A+B 的前后对比，没有再拿来验证 C。
+
 ## 没有调整的部分
 
-这些用例的失败来自用例或框架设计，针对它们修改会变成对着评测集调参，所以只记录：
+这些用例的失败来自用例设计，针对它们修改会变成对着评测集调参，所以只记录（`recover-error-retry` 暴露的是框架的分类缺陷，已作为改进 C 单独处理）：
 
-- `recover-error-retry`：注入的「临时故障」是框架无法分类的异常，被标为 `recoverable: false`。模型照这个提示没有重试，反而按用例期望判失败。这说明框架的错误分类缺少「临时故障」这一类，真实场景里的网络抖动也会被报告成不可恢复。值得后续单独设计，但不应为这个用例改。
 - `recover-second-attempt-fails`：任务只需读一次文件，用例却期望读三次。
 - `ambig-nested-path`、`long-todo-gate-cleared`：任务提到的文件名或位置与工作区不符，又没有列目录的工具，模型只能猜。
 - `long-todo-unfinished-fails`：模型改写待办状态绕过了门禁。待办门禁只能检查状态，无法判断内容是否属实，这是它的固有边界。
@@ -93,7 +119,7 @@
 ## 局限
 
 - 只测了一个模型，任务是合成的小任务，不代表真实业务效果。
-- 没有做消融，无法把提升拆分到 A 和 B 各自身上。
+- 消融只在 dev 上跑了一次；C 只在 dev 上验证，没有新的 holdout 集。
 - 每个用例只采样 3 次；holdout 只有 14 个用例。
 - 改进 B 只覆盖本地调度路径；PostgreSQL 托管路径仍返回固定报错文本，原因见 ADR 047。
 

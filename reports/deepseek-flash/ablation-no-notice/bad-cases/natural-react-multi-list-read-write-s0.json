@@ -1,0 +1,115 @@
+{
+  "case_id": "multi-list-read-write",
+  "arm": "react",
+  "revision": "13e7d304f8827d4a51c749f149e6f21abea6d679",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-multi-list-read-write-s0.jsonl",
+  "trace_hash": "3d6acdcdff5e73f7d51a21ee5b8fdb46fe8546ea289ad5a110de6e4ddf4a523d",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": [
+    "list_files",
+    "read_file",
+    "write_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "missing_tools:write_file",
+    "sequence:list_files/read_file!=expected:list_files/read_file/write_file"
+  ],
+  "steps": 3,
+  "logical_tool_calls": 2,
+  "tool_attempts": 2,
+  "projected_steps": [
+    "1:executor/model:list_files:completed",
+    "2:executor/tool:list_files:completed",
+    "3:executor/model:read_file:completed",
+    "4:executor/tool:read_file:completed",
+    "5:executor/model:-:completed",
+    "6:executor/finish:-:completed"
+  ],
+  "model_decisions": 2,
+  "model_requests": 3,
+  "usage_steps": 3,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (missing_tools:write_file, sequence:list_files/read_file!=expected:list_files/read_file/write_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_uBGTtlA2ZN4vcjv7khwk0473",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 680,
+          "output_tokens": 44
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_swGEnHUrQP9jKDj0ob8c7430",
+            "name": "read_file",
+            "arguments": {
+              "path": "app.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 730,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "## Workspace Inspection Report\n\n**Contents:** The workspace contains exactly one file: `app.py` (2 lines, ~40 bytes). No tests, config, docs, or version control metadata are present.\n\n**File contents:**\n```python\ndef add(a, b):\n    return a - b\n```\n\n**Findings:**\n\n1. **Logic bug (critical):** The function is named `add` but performs subtraction (`a - b`). Any caller expecting addition will silently get wrong results — this is a correctness defect, not a style issue, and it fails silently rather than raising.\n2. **No test coverage:** There is no test file, so nothing would catch the above. A minimal test like `assert add(2, 3) == 5` would fail immediately.\n3. **No documentation or type hints:** No docstring, no annotations, no module-level context explaining intent. It's ambiguous whether the name or the body is the mistake — though the name `add` is the far more likely intended behavior.\n4. **No packaging or entry point:** No `requirements.txt`, `pyproject.toml`, or `__main__` block, so the file isn't runnable or installable as-is.\n\n**Recommended fix:**\n```python\ndef add(a, b):\n    \"\"\"Return the sum of a and b.\"\"\"\n    return a + b\n```\n\n**Caveat:** I only inspected the file; I did not modify it. If `add` is called elsewhere in a larger system (not present here), confirm the intended semantics before changing the body — though given the name, `a + b` is almost certainly correct."
+        },
+        "usage": {
+          "input_tokens": 842,
+          "output_tokens": 343
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

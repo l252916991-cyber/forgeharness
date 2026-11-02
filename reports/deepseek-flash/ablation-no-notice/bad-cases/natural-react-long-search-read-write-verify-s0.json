@@ -1,0 +1,149 @@
+{
+  "case_id": "long-search-read-write-verify",
+  "arm": "react",
+  "revision": "13e7d304f8827d4a51c749f149e6f21abea6d679",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-search-read-write-verify-s0.jsonl",
+  "trace_hash": "b85c90610cf04972be679428aceba6dd82c299103694872b5611280348cae084",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "search_code",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "missing_tools:read_file,write_file"
+  ],
+  "steps": 5,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:executor/error:-:failed",
+    "2:executor/model:search_code:completed",
+    "3:executor/tool:search_code:completed",
+    "4:executor/model:search_code:completed",
+    "5:executor/tool:search_code:completed",
+    "6:executor/model:search_code:completed",
+    "7:executor/tool:search_code:completed",
+    "8:executor/model:-:completed",
+    "9:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 5,
+  "usage_steps": 5,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (missing_tools:read_file,write_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": null,
+      "error": {
+        "error_type": "ModelProtocolError",
+        "message": "parallel tool calls are not enabled for this runtime",
+        "code": "multiple_tool_calls_not_allowed",
+        "received_tool_calls": 2,
+        "recoverable": true,
+        "usage": {
+          "input_tokens": 730,
+          "output_tokens": 107
+        }
+      }
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_EMTcBEYYEyu1BIur1igL3415",
+            "name": "search_code",
+            "arguments": {
+              "query": "log entry"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 773,
+          "output_tokens": 47
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_OzAFRNAAccSoMeWjDEqT2585",
+            "name": "search_code",
+            "arguments": {
+              "query": "log"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 825,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_yxADZoREp4yhfNouwAxQ8642",
+            "name": "search_code",
+            "arguments": {
+              "query": ".",
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 876,
+          "output_tokens": 51
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I can't complete this task as specified — the workspace appears to be empty.\n\nWhat I did:\n1. **Search** — searched for `log entry`, then `log`, then a catch-all `.` across the workspace. All three returned no matches, so there are no files to read or append to.\n2. **Read** — nothing to read, since no files exist.\n3. **Record a log entry** — I stopped here rather than guessing. Writing a log file would mean inventing a path and format you didn't specify, and I have no read content to base an entry on.\n4. **Verify** — not applicable yet.\n\nTo proceed, I need one of:\n- The path to the log file (or confirmation that I should create one, e.g. `LOG.md`), plus the entry format you want.\n- The files you expected me to find — they may be in a different workspace or not yet mounted.\n\nIf you'd like, tell me the log path and I'll create it with a single entry and then verify with a closing search."
+        },
+        "usage": {
+          "input_tokens": 941,
+          "output_tokens": 220
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}
