@@ -1,0 +1,194 @@
+{
+  "case_id": "long-serial-reads",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 2,
+  "trace_path": "traces/natural-plan_execute-long-serial-reads-s2.jsonl",
+  "trace_hash": "15fb3273a888213c1563a0d80f261ec7ef5020003ce00567475351611c6a97c8",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "read_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "read_file",
+    "read_file",
+    "read_file",
+    "read_file",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:5>max:4",
+    "steps:7>max:6"
+  ],
+  "steps": 7,
+  "logical_tool_calls": 5,
+  "tool_attempts": 5,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:read_file:completed",
+    "3:executor/tool:read_file:failed",
+    "4:executor/model:read_file:completed",
+    "5:executor/tool:read_file:failed",
+    "6:executor/model:read_file:completed",
+    "7:executor/tool:read_file:completed",
+    "8:executor/model:read_file:completed",
+    "9:executor/tool:read_file:failed",
+    "10:executor/model:read_file:completed",
+    "11:executor/tool:read_file:failed",
+    "12:executor/model:-:completed",
+    "13:executor/finish:-:completed"
+  ],
+  "model_decisions": 5,
+  "model_requests": 7,
+  "usage_steps": 7,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 5 tool calls against a contract of at most 4; its choices diverged from the stated sequence (tool_calls:5>max:4, steps:7>max:6)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'file1.txt', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Open the first workspace file and read its full contents\", \"Open the second workspace file and read its full contents\", \"Open the third workspace file and read its full contents\", \"Open the fourth workspace file and read its full contents\", \"Confirm all four files were read in the intended sequence and summarize any issues encountered\"]}"
+        },
+        "usage": {
+          "input_tokens": 44,
+          "output_tokens": 65
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_lcbMP47wEtQUPBfpt1CV0607",
+            "name": "read_file",
+            "arguments": {
+              "path": "file1.txt"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 510,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_TjPqxmK16BmTBVpUOroF0132",
+            "name": "read_file",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 613,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_B4nv1GMZBuWpkpiRI1JR4796",
+            "name": "read_file",
+            "arguments": {
+              "path": "README.md"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 667,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_qsapgqNPXCiYTht0ARJO3118",
+            "name": "read_file",
+            "arguments": {
+              "path": "notes.txt"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 781,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_u9oaChPHbtmebU0ga6u74782",
+            "name": "read_file",
+            "arguments": {
+              "path": "runtime"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 882,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I have to stop here and report a blocker rather than claim success.\n\n**What happened**\n\nThe plan assumed four files named something like `file1.txt`–`file4.txt`. Those don't exist. My attempts, in order:\n\n1. `file1.txt` → `path_not_found`\n2. `.` (to list the workspace) → `not a regular file` — the read tool only reads regular files, so I cannot enumerate the directory\n3. `README.md` → **success**, full contents read (3 lines, sha256 `92cf7d88…`)\n4. `notes.txt` → `path_not_found`\n5. `runtime` (guessed from the README's mention of \"The retry policy lives in runtime\") → `path_not_found`\n\n**Verification evidence**\n\n- Exactly **one** of the four planned reads succeeded: `README.md`, read in full (lines 1–3, no truncation).\n- Three reads failed with `path_not_found`; one probe (`.`) failed with `not a regular file`.\n- I have **no** evidence that a second, third, or fourth file exists, and no way to discover their names with the tools available — the only tool is a bounded line-oriented file reader, which cannot list a directory.\n\n**Conclusion**\n\nThe plan's step 5 (\"confirm all four files were read\") cannot be satisfied. I read one file, not four. I deliberately did not fabricate contents or invent filenames to fill the remaining three slots.\n\n**To proceed, I need one of:**\n- the actual filenames (or paths) of the other three files, or\n- a directory-listing capability, or\n- confirmation that `README.md` is the only file and the plan should be revised to a single-file read.\n\nThe one substantive fact I did retrieve: the README states the retry policy lives in `runtime` — but no `runtime` path is readable from here, so that lead is currently unverifiable."
+        },
+        "usage": {
+          "input_tokens": 981,
+          "output_tokens": 423
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

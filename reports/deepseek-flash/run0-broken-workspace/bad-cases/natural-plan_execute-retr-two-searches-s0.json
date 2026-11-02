@@ -1,0 +1,193 @@
+{
+  "case_id": "retr-two-searches",
+  "arm": "plan_execute",
+  "revision": "c5e523b24facca74c18701ba99d83c5d5c6ba135",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-retr-two-searches-s0.jsonl",
+  "trace_hash": "c939b4b6f210e0a1794cf3ace8610b1abeb68052d0d420f94e69b98f0052f314",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code"
+  ],
+  "expected_sequence": [
+    "search_code",
+    "search_code"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "tool_calls:4>max:2",
+    "sequence:search_code/search_code/search_code/search_code!=expected:search_code/search_code",
+    "arguments:accuracy=0.500"
+  ],
+  "steps": 7,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/error:-:failed",
+    "3:executor/model:search_code:completed",
+    "4:executor/tool:search_code:failed",
+    "5:executor/model:search_code:completed",
+    "6:executor/tool:search_code:failed",
+    "7:executor/model:search_code:completed",
+    "8:executor/tool:search_code:failed",
+    "9:executor/model:search_code:completed",
+    "10:executor/tool:search_code:failed",
+    "11:executor/model:-:completed",
+    "12:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 7,
+  "usage_steps": 7,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 4 tool calls against a contract of at most 2; its choices diverged from the stated sequence (tool_calls:4>max:2, sequence:search_code/search_code/search_code/search_code!=expected:search_code/search_code, arguments:accuracy=0.500)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'src', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Search for the term \\\"helper\\\" and record the results\", \"Search for the term \\\"run\\\" and record the results\", \"Compare the two result sets to confirm both searches completed as requested\"]}"
+        },
+        "usage": {
+          "input_tokens": 47,
+          "output_tokens": 42
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": null,
+      "error": {
+        "error_type": "ModelProtocolError",
+        "message": "parallel tool calls are not enabled for this runtime",
+        "code": "multiple_tool_calls_not_allowed",
+        "received_tool_calls": 2,
+        "recoverable": true,
+        "usage": {
+          "input_tokens": 456,
+          "output_tokens": 71
+        }
+      }
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_hlMf5Jx4tvBEczIbYvmi4337",
+            "name": "search_code",
+            "arguments": {
+              "query": "helper"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 499,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_roxZWvFAOXMtGBX6FMyd9506",
+            "name": "search_code",
+            "arguments": {
+              "query": "helper",
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 600,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_LtbOVi8C4zPMDMyelRH03064",
+            "name": "search_code",
+            "arguments": {
+              "path": "./",
+              "query": "helper"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 720,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_iufcywA1r3Vy7iITwG0H7702",
+            "name": "search_code",
+            "arguments": {
+              "path": "src",
+              "query": "helper"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 842,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I'm unable to complete the searches. Every attempt to call `search_code` fails with a path validation error, even for the default and minimal relative paths:\n\n- `path` omitted → \"The path is not a valid workspace-relative path.\"\n- `path: \".\"` → same error\n- `path: \"./\"` → same error\n- `path: \"src\"` → same error\n\nThe tool's path validator appears to reject all inputs in this runtime, so neither the \"helper\" search nor the \"run\" search could be executed. No results were obtained for either term, and therefore no comparison is possible.\n\nVerification evidence: four consecutive `search_code` calls, all returning `ok: false` with `code: invalid_arguments` and the message \"The path is not a valid workspace-relative path.\" — the failure is in path resolution, not in the query, so retrying with different search terms would not help.\n\nSuggested next steps: confirm the workspace root path the tool expects (or whether a workspace is mounted at all), then re-run the two searches."
+        },
+        "usage": {
+          "input_tokens": 963,
+          "output_tokens": 224
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

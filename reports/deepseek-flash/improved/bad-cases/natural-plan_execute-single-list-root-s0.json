@@ -1,0 +1,129 @@
+{
+  "case_id": "single-list-root",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-single-list-root-s0.jsonl",
+  "trace_hash": "eb36b5cbf21216d71e912f4e28c1fd47f721354895ab1c0abc5b7bf958d4ef37",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files"
+  ],
+  "expected_sequence": [
+    "list_files"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "list_files"
+  ],
+  "failed_assertions": [
+    "tool_calls:2>max:1",
+    "sequence:list_files/list_files!=expected:list_files"
+  ],
+  "steps": 4,
+  "logical_tool_calls": 2,
+  "tool_attempts": 2,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:completed",
+    "4:executor/model:list_files:completed",
+    "5:executor/tool:list_files:completed",
+    "6:executor/model:-:completed",
+    "7:executor/finish:-:completed"
+  ],
+  "model_decisions": 2,
+  "model_requests": 4,
+  "usage_steps": 4,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 2 tool calls against a contract of at most 1; its choices diverged from the stated sequence (tool_calls:2>max:1, sequence:list_files/list_files!=expected:list_files)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the files and directories at the workspace root using a directory listing command such as ls -la or the equivalent file explorer view.\", \"Confirm the listing includes expected top-level items such as source directories, configuration files, and documentation.\", \"Report the observed root-level files and directories.\"]}"
+        },
+        "usage": {
+          "input_tokens": 45,
+          "output_tokens": 61
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_3iXjC26jsic3FEScUXBW3707",
+            "name": "list_files",
+            "arguments": {
+              "path": ".",
+              "max_results": 200
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 464,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_lA05v5ldSjDGRswlr7uy1001",
+            "name": "list_files",
+            "arguments": {
+              "max_results": 2000,
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 531,
+          "output_tokens": 81
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "The workspace root listing is complete.\n\n**Observed root-level contents:**\n- `app.py` — a single Python source file\n\n**Verification evidence:**\n- Ran `list_files` on `.` with `max_results=200` → returned `app.py`\n- Re-ran with `max_results=2000` (the maximum) to rule out truncation → identical result: `app.py`\n\n**Conclusion:** The repository root contains exactly one file, `app.py`. There are no subdirectories, configuration files, or documentation at the top level — so the plan's step 2 expectation (source dirs, config files, docs) is not met; the repo is a minimal single-file project."
+        },
+        "usage": {
+          "input_tokens": 599,
+          "output_tokens": 147
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "case_id": "recover-timeout-then-search",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 1,
+  "trace_path": "traces/natural-plan_execute-recover-timeout-then-search-s1.jsonl",
+  "trace_hash": "12935d85085d0a9c6d27879725a2fc44aaa3979ac176db7c6bb169140c0615ee",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "read_file",
+    "search_code"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "read_file",
+    "search_code",
+    "search_code",
+    "search_code",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:5>max:2"
+  ],
+  "steps": 7,
+  "logical_tool_calls": 5,
+  "tool_attempts": 5,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:read_file:completed",
+    "3:executor/tool:read_file:failed",
+    "4:executor/model:search_code:completed",
+    "5:executor/tool:search_code:completed",
+    "6:executor/model:search_code:completed",
+    "7:executor/tool:search_code:completed",
+    "8:executor/model:search_code:completed",
+    "9:executor/tool:search_code:completed",
+    "10:executor/model:read_file:completed",
+    "11:executor/tool:read_file:completed",
+    "12:executor/model:-:completed",
+    "13:executor/finish:-:completed"
+  ],
+  "model_decisions": 5,
+  "model_requests": 7,
+  "usage_steps": 7,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 5 tool calls against a contract of at most 2; its choices diverged from the stated sequence (tool_calls:5>max:2)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Read pkg/util.py to inspect its contents\", \"If the read of pkg/util.py times out, perform a search for pkg/util.py to locate it\", \"If the search finds the file, read the located pkg/util.py path\", \"Report the file contents or the search results\"]}"
+        },
+        "usage": {
+          "input_tokens": 54,
+          "output_tokens": 63
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_l4dwpwf7FWksNzuwtzBa9128",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 681,
+          "output_tokens": 47
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_65BXFHTbXSio7rnH2I7i9251",
+            "name": "search_code",
+            "arguments": {
+              "query": "pkg/util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 777,
+          "output_tokens": 58
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_F4Hb967bGU1lv8bYQypF9375",
+            "name": "search_code",
+            "arguments": {
+              "query": "util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 831,
+          "output_tokens": 75
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_52aAkQKZ4sFvOPInVUnw1065",
+            "name": "search_code",
+            "arguments": {
+              "query": "def ",
+              "path": "pkg"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 883,
+          "output_tokens": 54
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_xr6K9L4S5BaPQoGT2nSB6218",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/util.py",
+              "start_line": 1,
+              "end_line": 40
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 961,
+          "output_tokens": 74
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "Done. Here's what happened and the verification evidence:\n\n1. **Initial read of `pkg/util.py`** → timed out (`code: timeout`, recoverable), as anticipated by the plan.\n2. **Fallback search for `pkg/util.py`** → no matches (the search tool matches file *contents*, not paths).\n3. **Search for `util.py`** → no matches.\n4. **Search for `def ` under `pkg/`** → located the file: `pkg/util.py:1:1: def helper():`\n5. **Bounded re-read of the located path** (lines 1–40) → succeeded.\n\nContents of `pkg/util.py`:\n\n```python\ndef helper():\n    return 1\n```\n\nThe file is 2 lines long (sha256 `b6631639…f8a544`). The earlier timeout was likely due to the unbounded read; a bounded line range worked."
+        },
+        "usage": {
+          "input_tokens": 1101,
+          "output_tokens": 201
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

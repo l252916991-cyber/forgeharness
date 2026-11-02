@@ -1,0 +1,193 @@
+{
+  "case_id": "retr-find-then-write",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-retr-find-then-write-s0.jsonl",
+  "trace_hash": "e7c4d34b83bda8057b7a78aef128c40f481870708c832f2dddc7505b7a607a73",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "write_file"
+  ],
+  "expected_sequence": [
+    "search_code",
+    "write_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "search_code",
+    "search_code",
+    "write_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:4>max:2",
+    "sequence:search_code/search_code/search_code/write_file!=expected:search_code/write_file"
+  ],
+  "steps": 7,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:planner/error:-:failed",
+    "2:planner/model:-:completed",
+    "3:executor/model:search_code:completed",
+    "4:executor/tool:search_code:completed",
+    "5:executor/model:search_code:completed",
+    "6:executor/tool:search_code:completed",
+    "7:executor/model:search_code:completed",
+    "8:executor/tool:search_code:completed",
+    "9:executor/model:write_file:completed",
+    "10:executor/tool:write_file:completed",
+    "11:executor/model:-:completed",
+    "12:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 7,
+  "usage_steps": 7,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 4 tool calls against a contract of at most 2; its choices diverged from the stated sequence (tool_calls:4>max:2, sequence:search_code/search_code/search_code/write_file!=expected:search_code/write_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\":<|im_start|>assistant<|channel|>final<|constrain|>json<|message|>{\"steps\":[\"Search the codebase for the runtime definition or reference using the appropriate search tool.\",\"Confirm the search returned at least one matching result and identify the file and location.\",\"Record the finding by noting the runtime was found, including the file path and line number.\"]}"
+        },
+        "usage": {
+          "input_tokens": 46,
+          "output_tokens": 86
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Search the codebase for the runtime definition or reference\", \"Confirm the runtime was found and note its location\", \"Record the finding in the appropriate log or output\"]}"
+        },
+        "usage": {
+          "input_tokens": 92,
+          "output_tokens": 36
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_aFeVFBtU6nI5ItGChQHK9928",
+            "name": "search_code",
+            "arguments": {
+              "query": "runtime"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 664,
+          "output_tokens": 49
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_BimRf8qnYNGx5RwCmcln0169",
+            "name": "search_code",
+            "arguments": {
+              "query": "retry policy"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 727,
+          "output_tokens": 51
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_StZ2NqbfE41qW3w4j6M86592",
+            "name": "search_code",
+            "arguments": {
+              "query": "runtime",
+              "path": ".",
+              "max_output_bytes": 100000
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 792,
+          "output_tokens": 71
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_kj3P8LnTtiTxVqZioaaA1856",
+            "name": "write_file",
+            "arguments": {
+              "path": "runtime-finding.log",
+              "content": "Runtime search finding\n======================\n\nStatus: FOUND\n\nEvidence:\n- Search query \"runtime\" over the repository returned exactly one match:\n  README.md:3:27 — \"The retry policy lives in runtime.\"\n- Confirmation search for \"retry policy\" returned the same single line\n  (README.md:3:5), confirming the match is stable and not a transient artifact.\n\nLocation:\n- File: README.md\n- Line: 3\n- Column: 27 (start of the token \"runtime\")\n\nNotes:\n- The only reference to \"runtime\" in the codebase is this documentation line.\n- No source file, module, or directory named \"runtime\" exists in the repository;\n  the identifier appears only as a prose reference in the README.\n"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 889,
+          "output_tokens": 216
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "**Plan complete — all three steps executed with verification evidence.**\n\n1. **Search** — `search_code` for `runtime` across the repo returned exactly one match: `README.md:3:27` — *\"The retry policy lives in runtime.\"*\n2. **Confirm** — A second independent search for `retry policy` returned the same line (`README.md:3:5`), confirming the hit is stable and reproducible rather than a transient artifact.\n3. **Record** — Wrote `runtime-finding.log` (670 bytes) documenting status FOUND, the exact file/line/column, both pieces of search evidence, and the caveat that no source module or directory named `runtime` exists — the identifier appears only as prose in the README.\n\nOne thing worth flagging: the plan assumed a runtime *definition* would be found, but the evidence shows only a documentation reference. If you expected an actual runtime implementation, it isn't in this repository, and the README's claim that \"the retry policy lives in runtime\" is currently unbacked by code."
+        },
+        "usage": {
+          "input_tokens": 1127,
+          "output_tokens": 226
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

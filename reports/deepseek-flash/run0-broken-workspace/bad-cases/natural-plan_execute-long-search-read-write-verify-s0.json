@@ -1,0 +1,252 @@
+{
+  "case_id": "long-search-read-write-verify",
+  "arm": "plan_execute",
+  "revision": "c5e523b24facca74c18701ba99d83c5d5c6ba135",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-long-search-read-write-verify-s0.jsonl",
+  "trace_hash": "9333f983e33a3f9254c734f2bb332faeddda889c007a0657a6b889e61dcf7f48",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "missing_tools:write_file",
+    "tool_calls:6>max:4",
+    "steps:9>max:6"
+  ],
+  "steps": 9,
+  "logical_tool_calls": 6,
+  "tool_attempts": 6,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/error:-:failed",
+    "3:executor/model:search_code:completed",
+    "4:executor/tool:search_code:failed",
+    "5:executor/model:search_code:completed",
+    "6:executor/tool:search_code:failed",
+    "7:executor/model:search_code:completed",
+    "8:executor/tool:search_code:failed",
+    "9:executor/model:search_code:completed",
+    "10:executor/tool:search_code:failed",
+    "11:executor/model:search_code:completed",
+    "12:executor/tool:search_code:failed",
+    "13:executor/model:read_file:completed",
+    "14:executor/tool:read_file:failed",
+    "15:executor/model:-:completed",
+    "16:executor/finish:-:completed"
+  ],
+  "model_decisions": 6,
+  "model_requests": 9,
+  "usage_steps": 9,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 6 tool calls against a contract of at most 4; its choices diverged from the stated sequence (missing_tools:write_file, tool_calls:6>max:4, steps:9>max:6)",
+  "harness_gap": "the same tool error recurred 2 times and is surfaced as a raw exception string rather than an actionable observation the model could recover from",
+  "case_design_note": "the model probed 'src', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [
+    {
+      "signature": "search_code:{\"path\":\".\",\"query\":\"log\"}",
+      "repeat_count": 2,
+      "observation_hashes": [
+        "3cefd6fc906a5178553a94c23e294100a6d4ef7a3a486e00595a87cbb8997dd4",
+        "3cefd6fc906a5178553a94c23e294100a6d4ef7a3a486e00595a87cbb8997dd4"
+      ],
+      "all_observations_identical": true
+    }
+  ],
+  "repeated_call_signature": "search_code:{\"path\":\".\",\"query\":\"log\"}",
+  "repeat_count": 2,
+  "observation_hashes": [
+    "3cefd6fc906a5178553a94c23e294100a6d4ef7a3a486e00595a87cbb8997dd4",
+    "3cefd6fc906a5178553a94c23e294100a6d4ef7a3a486e00595a87cbb8997dd4"
+  ],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Run the initial search and capture the query, result count, and top results.\", \"Read the relevant result or document and record the key content retrieved.\", \"Write a log entry containing the search query, read outcome, and timestamp.\", \"Run a closing search to confirm the log entry is present and matches the recorded details.\"]}"
+        },
+        "usage": {
+          "input_tokens": 52,
+          "output_tokens": 69
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": null,
+      "error": {
+        "error_type": "ModelProtocolError",
+        "message": "parallel tool calls are not enabled for this runtime",
+        "code": "multiple_tool_calls_not_allowed",
+        "received_tool_calls": 2,
+        "recoverable": true,
+        "usage": {
+          "input_tokens": 823,
+          "output_tokens": 107
+        }
+      }
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_oKTzRSxRTHmif0vRtLB57266",
+            "name": "search_code",
+            "arguments": {
+              "query": "log",
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 866,
+          "output_tokens": 59
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_vN2WI1P4e81Du9o2wnli1820",
+            "name": "search_code",
+            "arguments": {
+              "path": ".",
+              "query": "log"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 986,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_bR7L1DvGdPxKz5K14gmM6809",
+            "name": "search_code",
+            "arguments": {
+              "query": "log"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1106,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_MKkKN76gG0EmYNAvtDfI7501",
+            "name": "search_code",
+            "arguments": {
+              "path": "./",
+              "query": "log"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1207,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_3uKSDGCKHPWAsYZAlahT0570",
+            "name": "search_code",
+            "arguments": {
+              "path": "src",
+              "query": "log"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1329,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_1B8yZi4iA3GteuOAAQRt9236",
+            "name": "read_file",
+            "arguments": {
+              "path": "README.md"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1450,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I have to stop here and report a blocker rather than fabricate results.\n\n**What happened:** Every tool call I attempted failed with the same validation error:\n\n```\ninvalid_arguments: \"The path is not a valid workspace-relative path.\"\n```\n\nI tried `search_code` with paths `.`, `./`, `src`, and with the path omitted entirely, plus `read_file` on `README.md`. All were rejected identically. This means the workspace root itself appears to be unresolvable by the runtime — not that I picked a wrong filename.\n\n**Plan status:**\n\n| Step | Status |\n|---|---|\n| 1. Initial search (capture query, result count, top results) | ❌ Blocked — no path accepted |\n| 2. Read relevant result/document | ❌ Blocked — no path accepted |\n| 3. Write log entry with query, read outcome, timestamp | ❌ Not attempted — depends on steps 1–2, and I have no verified content to log |\n| 4. Closing search to confirm log entry | ❌ Not attempted |\n\n**Why I'm not proceeding:** Steps 3 and 4 require real evidence from steps 1–2. Writing a log entry now would mean inventing a search query, a result count, and a \"read outcome\" that never existed, then \"verifying\" it with a search that also cannot run. That would produce a log that looks complete and is entirely false — worse than no log.\n\n**What I need from you to continue:**\n1. A valid workspace-relative path to search within (e.g. the actual directory name, if `.` is not accepted), or\n2. Confirmation that the workspace is mounted and non-empty, or\n3. A fix to the path validation in the runtime.\n\nOnce a single search succeeds, I'll run the remaining steps in order — one tool call per step, per the protocol — and report the actual query, result count, top hits, and the log entry's verified contents."
+        },
+        "usage": {
+          "input_tokens": 1553,
+          "output_tokens": 414
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

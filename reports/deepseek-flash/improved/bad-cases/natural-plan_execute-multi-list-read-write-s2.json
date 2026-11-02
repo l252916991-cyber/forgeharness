@@ -1,0 +1,178 @@
+{
+  "case_id": "multi-list-read-write",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 2,
+  "trace_path": "traces/natural-plan_execute-multi-list-read-write-s2.jsonl",
+  "trace_hash": "67cc2d0f059d042d915c8f1488a3f570f82a77d8444092b929ef42adc93cd33b",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": [
+    "list_files",
+    "read_file",
+    "write_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "read_file",
+    "write_file",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:4>max:3",
+    "sequence:list_files/read_file/write_file/read_file!=expected:list_files/read_file/write_file"
+  ],
+  "steps": 6,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:completed",
+    "4:executor/model:read_file:completed",
+    "5:executor/tool:read_file:completed",
+    "6:executor/model:write_file:completed",
+    "7:executor/tool:write_file:completed",
+    "8:executor/model:read_file:completed",
+    "9:executor/tool:read_file:completed",
+    "10:executor/model:-:completed",
+    "11:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 6,
+  "usage_steps": 6,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 4 tool calls against a contract of at most 3; its choices diverged from the stated sequence (tool_calls:4>max:3, sequence:list_files/read_file/write_file/read_file!=expected:list_files/read_file/write_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the workspace contents to identify files and structure\", \"Open and read app.py to understand its contents\", \"Summarize findings in a short report\"]}"
+        },
+        "usage": {
+          "input_tokens": 51,
+          "output_tokens": 33
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_2uKpoZ1UkOuJF3TfBOuA0356",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 775,
+          "output_tokens": 44
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_4FBeRxNCR0pA8Cj6NMZl0723",
+            "name": "read_file",
+            "arguments": {
+              "path": "app.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 825,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_IPhWfWscncIYQojiVskU1325",
+            "name": "write_file",
+            "arguments": {
+              "path": "REPORT.md",
+              "content": "# Workspace Inspection Report\n\n## Contents\nThe workspace contains a single file:\n\n- `app.py` (2 lines)\n\n## app.py\n```python\ndef add(a, b):\n    return a - b\n```\n\n## Findings\n- The file defines one function, `add(a, b)`, which is documented by name as an\n  addition helper.\n- **Bug:** the implementation returns `a - b` (subtraction) instead of `a + b`.\n  Any caller expecting addition will get incorrect results.\n- There are no tests, no imports, and no other modules in the workspace, so the\n  defect is currently unverified by any test suite.\n\n## Suggested fix\n```python\ndef add(a, b):\n    return a + b\n```\n"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 937,
+          "output_tokens": 212
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_JTjsDNfb3gLGVnZxSr552461",
+            "name": "read_file",
+            "arguments": {
+              "path": "REPORT.md"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1169,
+          "output_tokens": 39
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "Done. All three plan steps completed and verified.\n\n**1. Workspace contents** — a single file: `app.py`.\n\n**2. app.py** (2 lines):\n```python\ndef add(a, b):\n    return a - b\n```\n\n**3. Report** — written to `REPORT.md` and read back to confirm the contents (608 bytes, sha256 `d13c0a0b…`).\n\nKey finding: `add(a, b)` returns `a - b`, so the function is misnamed/buggy — it should return `a + b`. There are no tests or other modules in the workspace, so nothing currently catches the defect. The report includes the suggested one-line fix."
+        },
+        "usage": {
+          "input_tokens": 1504,
+          "output_tokens": 149
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

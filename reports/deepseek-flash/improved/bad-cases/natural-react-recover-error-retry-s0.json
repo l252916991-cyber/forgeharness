@@ -1,0 +1,88 @@
+{
+  "case_id": "recover-error-retry",
+  "arm": "react",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-recover-error-retry-s0.jsonl",
+  "trace_hash": "1affcaf275ab5ef651e8954c0c9ebc8569c3a3e3f3d21a01972e3dc20b7e5254",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code"
+  ],
+  "expected_sequence": [
+    "search_code",
+    "search_code"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code"
+  ],
+  "failed_assertions": [
+    "sequence:search_code!=expected:search_code/search_code"
+  ],
+  "steps": 2,
+  "logical_tool_calls": 1,
+  "tool_attempts": 1,
+  "projected_steps": [
+    "1:executor/model:search_code:completed",
+    "2:executor/tool:search_code:failed",
+    "3:executor/model:-:completed",
+    "4:executor/finish:-:completed"
+  ],
+  "model_decisions": 1,
+  "model_requests": 2,
+  "usage_steps": 2,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (sequence:search_code!=expected:search_code/search_code)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_f0MbKDdt6hFo3oZ3mSBG4903",
+            "name": "search_code",
+            "arguments": {
+              "query": "helper"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 432,
+          "output_tokens": 48
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "The search failed with a non-recoverable error (`recoverable: false`), so retrying wouldn't help — the backend explicitly flagged it as not transient. I'll stop here rather than retry.\n\nIf you'd like, I can try a narrower query (e.g. a specific function name or file path) or search a particular directory instead."
+        },
+        "usage": {
+          "input_tokens": 517,
+          "output_tokens": 73
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

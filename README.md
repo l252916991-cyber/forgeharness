@@ -92,7 +92,8 @@ uv sync --extra dev --extra cli --frozen
 - **测试与覆盖率**：0.13.0 冻结候选在源码和干净副本上各跑 2050 项核心测试，另有真实 PostgreSQL 状态与执行测试 227 项；综合覆盖率 91.8%，纯分支覆盖率 85.3%。详见[控制面报告](reports/saas/20261101-control-plane/REPORT.md)。
 - **真实进程故障注入**：业务写入之后，分别用 SIGSTOP/SIGCONT 和 SIGKILL 打断 worker。新 worker 接管后 epoch 从 2 升到 3；旧 worker 恢复后不会重复产生业务效果或费用，由独立 oracle 核对每个副作用只发生一次。
 - **缺陷是审计查出来的**：冻结候选后，在真实 PostgreSQL 中复现了一个并发缺陷：等待 run 锁之后，查询可能读到旧 checkpoint，从而接受过期的审批指纹。另一个是浏览器禁用 JavaScript 时，登录表单会把凭据放进 URL。两个都已修复并补了回归测试。这一轮共 4 个候选，前 3 个分别因为并发缺陷、测试脚本错误和安全审查未通过被拒绝，记录都保留着。
-- **真实模型对照**：在本地 9B 模型上比较 ReAct 和 Plan-Execute（34 个任务、每个采样 3 次）。两者成功率相同（19/34），但 Plan-Execute 多用约 27% 的 input token。结论只适用于这个模型和任务集，详见[实测报告](docs/archive/M8B_LIVE_COMPARISON.md)。
+- **真实模型评测与改进**：接入 DeepSeek（`deepseek-flash`）跑基线，按失败 trace 分类后做了两项改进：在每个请求里写明「一步只能调一个工具」，参数报错时指出字段和约束。ReAct 在 dev 集从 24/36 提升到 29/36；在改进前后各只跑一次的 holdout 集从 10/14 提升到 12/14；Plan-Execute 没有变化。过程中还修了两个缺陷：评测报告会写入 API key，macOS 上文件工具全部失败。详见[实测报告](reports/deepseek-flash/REPORT.md)。
+- **本地模型对照**：更早在本地 9B 模型上比较 ReAct 和 Plan-Execute，两者成功率相同（19/34），但 Plan-Execute 多用约 27% 的 input token，详见[实测报告](docs/archive/M8B_LIVE_COMPARISON.md)。
 - **CI**：每次推送都跑 lint、类型检查、全量测试、评测门禁和依赖漏洞审计，并冻结当前源码，在干净副本上完整复验一遍。
 
 ## 代码结构

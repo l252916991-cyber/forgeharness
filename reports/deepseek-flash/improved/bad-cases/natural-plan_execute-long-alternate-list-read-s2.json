@@ -1,0 +1,240 @@
+{
+  "case_id": "long-alternate-list-read",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 2,
+  "trace_path": "traces/natural-plan_execute-long-alternate-list-read-s2.jsonl",
+  "trace_hash": "6605b05134e3a7a74eeb56ac6cbc749747399b965038167871a5fff6188d1227",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "read_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "list_files",
+    "read_file",
+    "read_file",
+    "read_file",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:6>max:4",
+    "steps:8>max:6"
+  ],
+  "steps": 8,
+  "logical_tool_calls": 6,
+  "tool_attempts": 6,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:completed",
+    "4:executor/model:list_files:completed",
+    "5:executor/tool:list_files:completed",
+    "6:executor/model:read_file:completed",
+    "7:executor/tool:read_file:completed",
+    "8:executor/model:read_file:completed",
+    "9:executor/tool:read_file:completed",
+    "10:executor/model:read_file:completed",
+    "11:executor/tool:read_file:completed",
+    "12:executor/model:read_file:completed",
+    "13:executor/tool:read_file:completed",
+    "14:executor/model:-:completed",
+    "15:executor/finish:-:completed"
+  ],
+  "model_decisions": 6,
+  "model_requests": 8,
+  "usage_steps": 8,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 6 tool calls against a contract of at most 4; its choices diverged from the stated sequence (tool_calls:6>max:4, steps:8>max:6)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [
+    {
+      "signature": "read_file:{\"path\":\"pkg/main.py\"}",
+      "repeat_count": 2,
+      "observation_hashes": [
+        "f22518f34f8305642df4944bd24997b3ac7868cce08a9bba545051ef2d3d0f0b",
+        "f22518f34f8305642df4944bd24997b3ac7868cce08a9bba545051ef2d3d0f0b"
+      ],
+      "all_observations_identical": true
+    },
+    {
+      "signature": "read_file:{\"path\":\"pkg/util.py\"}",
+      "repeat_count": 2,
+      "observation_hashes": [
+        "8f0aa5a0573b1d4b8028705b8d26f77b922e5c0dcd2a5136c4724aa89e58bef6",
+        "8f0aa5a0573b1d4b8028705b8d26f77b922e5c0dcd2a5136c4724aa89e58bef6"
+      ],
+      "all_observations_identical": true
+    }
+  ],
+  "repeated_call_signature": "read_file:{\"path\":\"pkg/main.py\"}",
+  "repeat_count": 2,
+  "observation_hashes": [
+    "f22518f34f8305642df4944bd24997b3ac7868cce08a9bba545051ef2d3d0f0b",
+    "f22518f34f8305642df4944bd24997b3ac7868cce08a9bba545051ef2d3d0f0b"
+  ],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the entries of the first directory and store them as list A.\", \"List the entries of the second directory and store them as list B.\", \"Read the first entry of list A, then the first entry of list B, then the second entry of list A, then the second entry of list B, continuing to alternate until both lists are exhausted.\", \"If one list is longer, read its remaining entries after the other list is exhausted.\", \"Verify the total number of read entries equals the sum of the lengths of list A and list B, and that the read order strictly alternates between the two directories.\"]}"
+        },
+        "usage": {
+          "input_tokens": 46,
+          "output_tokens": 128
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_t2vxErOxkVZCPW0ulQg86197",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 690,
+          "output_tokens": 44
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_sP7gAN7ECyxbzClhr71V7893",
+            "name": "list_files",
+            "arguments": {
+              "path": "pkg"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 747,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_pWRuhW5KC0F9dovM80HQ6832",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/main.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 806,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_2raG2PqWUAIr2GFfBlfh7443",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/main.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 936,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_ZRGNZacwlLJVd8DknkYu7351",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1066,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_TcJUPlKw8I3MhQ4jcZJM6385",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1172,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I completed the alternating walk, but the plan's premise doesn't hold for this workspace: both \"directories\" resolve to the same file set.\n\n**Observations**\n\n1. `list_files(\".\")` → list A = `[pkg/main.py, pkg/util.py]`\n2. `list_files(\"pkg\")` → list B = `[pkg/main.py, pkg/util.py]` (identical — the root contains only `pkg/`, so listing `pkg` yields the same two files)\n3. Read A[0] = `pkg/main.py` (5 lines, sha256 `4f5031d1…`)\n4. Read B[0] = `pkg/main.py` (same content, same hash)\n5. Read A[1] = `pkg/util.py` (2 lines, sha256 `b6631639…`)\n6. Read B[1] = `pkg/util.py` (same content, same hash)\n\n**Verification**\n\n- Total reads = 4 = |A| + |B| = 2 + 2 ✓\n- Order strictly alternated A, B, A, B ✓\n- Neither list was longer, so no tail phase was needed ✓\n- Content check: each B entry is byte-identical to its A counterpart (matching sha256), confirming the two listings describe the same files rather than two distinct directories.\n\n**Conclusion:** the walk is complete and verified, but it produced no new information beyond the first directory — the second listing was a duplicate view of `pkg/`. If the intent was to walk two genuinely distinct directories, the second path needs to be a real sibling of `pkg/` (none exists in this workspace)."
+        },
+        "usage": {
+          "input_tokens": 1278,
+          "output_tokens": 364
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

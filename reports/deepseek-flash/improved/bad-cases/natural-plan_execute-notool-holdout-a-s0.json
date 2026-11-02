@@ -1,0 +1,101 @@
+{
+  "case_id": "notool-holdout-a",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-notool-holdout-a-s0.jsonl",
+  "trace_hash": "3572cdc6e54fccc7a1d47eb3456eb884dec454d34befa1acd21bfec220097e94",
+  "expected_status": "succeeded",
+  "expected_tools": [],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "echo"
+  ],
+  "failed_assertions": [
+    "tool_calls:1>max:0",
+    "unexpected_tools:echo",
+    "steps:3>max:2"
+  ],
+  "steps": 3,
+  "logical_tool_calls": 1,
+  "tool_attempts": 1,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:echo:completed",
+    "3:executor/tool:echo:completed",
+    "4:executor/model:-:completed",
+    "5:executor/finish:-:completed"
+  ],
+  "model_decisions": 1,
+  "model_requests": 3,
+  "usage_steps": 3,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 1 tool calls against a contract of at most 0; its choices diverged from the stated sequence (tool_calls:1>max:0, unexpected_tools:echo, steps:3>max:2)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"State that the request is understood: confirm understanding without reading any file\", \"Do not call any file-reading tools or access filesystem contents\", \"Respond with a brief confirmation message only\"]}"
+        },
+        "usage": {
+          "input_tokens": 46,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_GiveaBUxhwFmlXCWOhnI3427",
+            "name": "echo",
+            "arguments": {
+              "text": "Request understood: confirm understanding only, with no file reads or filesystem access."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 414,
+          "output_tokens": 60
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "Confirmed — I understand the request: acknowledge it without reading any file or accessing filesystem contents. No file-reading tools were called; the only action taken was an echo of the confirmation text."
+        },
+        "usage": {
+          "input_tokens": 491,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

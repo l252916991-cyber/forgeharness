@@ -1,0 +1,179 @@
+{
+  "case_id": "retr-find-then-write",
+  "arm": "plan_execute",
+  "revision": "c5e523b24facca74c18701ba99d83c5d5c6ba135",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-retr-find-then-write-s0.jsonl",
+  "trace_hash": "f78250a1bb539211ac347d205c57f084724e4159d6bd692c283d213a7102cbf9",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "write_file"
+  ],
+  "expected_sequence": [
+    "search_code",
+    "write_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "missing_tools:write_file",
+    "tool_calls:4>max:2",
+    "sequence:search_code/search_code/search_code/search_code!=expected:search_code/write_file"
+  ],
+  "steps": 6,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:search_code:completed",
+    "3:executor/tool:search_code:failed",
+    "4:executor/model:search_code:completed",
+    "5:executor/tool:search_code:failed",
+    "6:executor/model:search_code:completed",
+    "7:executor/tool:search_code:failed",
+    "8:executor/model:search_code:completed",
+    "9:executor/tool:search_code:failed",
+    "10:executor/model:-:completed",
+    "11:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 6,
+  "usage_steps": 6,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 4 tool calls against a contract of at most 2; its choices diverged from the stated sequence (missing_tools:write_file, tool_calls:4>max:2, sequence:search_code/search_code/search_code/search_code!=expected:search_code/write_file)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'src', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Search the codebase for the runtime definition or reference\", \"Confirm the search returns at least one matching result\", \"Record the found runtime location in the task notes or output\"]}"
+        },
+        "usage": {
+          "input_tokens": 46,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_NZWbidkr7zDLvqROxJNV1942",
+            "name": "search_code",
+            "arguments": {
+              "query": "runtime"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 627,
+          "output_tokens": 48
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_fcfPObgG3RT9aCvNOYaJ5102",
+            "name": "search_code",
+            "arguments": {
+              "query": "runtime",
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 728,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_ad8jwXOpLGWrEgku9bTP3458",
+            "name": "search_code",
+            "arguments": {
+              "path": "./",
+              "query": "runtime"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 848,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_BuFKl7LOb1Gt1ZnNTbaf5735",
+            "name": "search_code",
+            "arguments": {
+              "path": "src",
+              "query": "runtime"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 970,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I need to stop here and report a blocker rather than claim success.\n\n**Status: blocked — no verification evidence obtained.**\n\nWhat I attempted (4 calls, all failed with the same error class):\n\n| Attempt | `path` value | Result |\n|---|---|---|\n| 1 | *(omitted)* | `invalid_arguments`: \"The path is not a valid workspace-relative path.\" |\n| 2 | `.` | same error |\n| 3 | `./` | same error |\n| 4 | `src` | same error |\n\n**Diagnosis:** The `search_code` tool rejects every path I supply, including the documented default (omitted) and the canonical relative forms `.` and `./`. The error is raised during argument validation, before any filesystem access, so it is not evidence that the string `runtime` is absent from the codebase — it is evidence that I cannot reach the codebase at all. I also have no tool available to list the workspace root or discover a valid path, so I cannot self-correct by probing further; additional guesses would just be noise.\n\n**Plan step status:**\n1. Search the codebase for the runtime definition or reference — **not completed** (tool unusable).\n2. Confirm the search returns at least one matching result — **not reached**.\n3. Record the found runtime location — **deliberately not done.** Recording a location would require inventing one, and the plan's own finish condition is verification evidence, which I do not have.\n\n**What I need to proceed (any one of these):**\n- A known-good workspace-relative path to search, e.g. the actual repo subdirectory name.\n- Confirmation of the workspace root name, so I can pass a path like `myproject/src`.\n- A fix to the tool's path validation, or a variant that accepts an absolute path or defaults correctly.\n\nOnce I have a working path, the remaining work is quick: one search for `runtime`, then I'll report the file/line/column hits as the recorded location."
+        },
+        "usage": {
+          "input_tokens": 1091,
+          "output_tokens": 423
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

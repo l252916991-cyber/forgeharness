@@ -1,0 +1,156 @@
+{
+  "case_id": "retr-holdout-search-write",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-retr-holdout-search-write-s0.jsonl",
+  "trace_hash": "909e4e3ac543c228f39b9b01530ff69f7d21bd733c78c2e2a137e264269ad856",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "write_file"
+  ],
+  "expected_sequence": [
+    "search_code",
+    "write_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "write_file",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "tool_calls:3>max:2",
+    "sequence:search_code/write_file/search_code!=expected:search_code/write_file"
+  ],
+  "steps": 5,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:search_code:completed",
+    "3:executor/tool:search_code:completed",
+    "4:executor/model:write_file:completed",
+    "5:executor/tool:write_file:completed",
+    "6:executor/model:search_code:completed",
+    "7:executor/tool:search_code:completed",
+    "8:executor/model:-:completed",
+    "9:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 5,
+  "usage_steps": 5,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 3 tool calls against a contract of at most 2; its choices diverged from the stated sequence (tool_calls:3>max:2, sequence:search_code/write_file/search_code!=expected:search_code/write_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Open the search interface and enter the query 'add'\", \"Submit the search and capture the result (e.g., result count, top match, or status)\", \"Open the note creation/persistence interface\", \"Create a new note containing the captured search result details\", \"Save the note and confirm it appears in the persisted notes list\"]}"
+        },
+        "usage": {
+          "input_tokens": 48,
+          "output_tokens": 70
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_5UsCFe643EWkVbXO1DP68635",
+            "name": "search_code",
+            "arguments": {
+              "query": "add",
+              "max_output_bytes": 30000
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 700,
+          "output_tokens": 69
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_saAoSB0uMc8qEpGAubpD4793",
+            "name": "write_file",
+            "arguments": {
+              "path": "note.md",
+              "content": "# Note: search result for \"add\"\n\nQuery: `add`\nMatches: 1\n\n- `app.py:1:5` — `def add(a, b):`\n"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 781,
+          "output_tokens": 90
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_zqI6G37p0oc11G09MuzE4720",
+            "name": "search_code",
+            "arguments": {
+              "max_output_bytes": 30000,
+              "path": "note.md",
+              "query": "app.py:1:5"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 891,
+          "output_tokens": 78
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "Done — both steps verified.\n\n**1. Search for \"add\"** — 1 match:\n- `app.py:1:5` — `def add(a, b):`\n\n**2. Note persisted** — wrote `note.md` (94 bytes) containing the query, match count, and the matching line. Verified by re-reading the file: `note.md:6:4` contains `- \\`app.py:1:5\\` — \\`def add(a, b):\\``, confirming the note is on disk with the captured result."
+        },
+        "usage": {
+          "input_tokens": 1005,
+          "output_tokens": 117
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

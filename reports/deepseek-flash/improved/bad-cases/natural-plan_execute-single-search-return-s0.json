@@ -1,0 +1,169 @@
+{
+  "case_id": "single-search-return",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-single-search-return-s0.jsonl",
+  "trace_hash": "60aa7435365eb57cc52ba35041858f380752fcaa5d4d99fcc56aa8c08bc93f2e",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code"
+  ],
+  "expected_sequence": [
+    "search_code"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "search_code",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "tool_calls:3>max:1",
+    "sequence:search_code/search_code/search_code!=expected:search_code"
+  ],
+  "steps": 5,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:search_code:completed",
+    "3:executor/tool:search_code:completed",
+    "4:executor/model:search_code:completed",
+    "5:executor/tool:search_code:completed",
+    "6:executor/model:search_code:completed",
+    "7:executor/tool:search_code:completed",
+    "8:executor/model:-:completed",
+    "9:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 5,
+  "usage_steps": 5,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 3 tool calls against a contract of at most 1; its choices diverged from the stated sequence (tool_calls:3>max:1, sequence:search_code/search_code/search_code!=expected:search_code)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [
+    {
+      "signature": "search_code:{\"max_output_bytes\":30000,\"path\":\".\",\"query\":\"return\"}",
+      "repeat_count": 2,
+      "observation_hashes": [
+        "812daaac6d53a88604dd4be0b79d6ffa65d7ca995798cc9258c122d11c22c813",
+        "812daaac6d53a88604dd4be0b79d6ffa65d7ca995798cc9258c122d11c22c813"
+      ],
+      "all_observations_identical": true
+    }
+  ],
+  "repeated_call_signature": "search_code:{\"max_output_bytes\":30000,\"path\":\".\",\"query\":\"return\"}",
+  "repeat_count": 2,
+  "observation_hashes": [
+    "812daaac6d53a88604dd4be0b79d6ffa65d7ca995798cc9258c122d11c22c813",
+    "812daaac6d53a88604dd4be0b79d6ffa65d7ca995798cc9258c122d11c22c813"
+  ],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Search the workspace for the literal string \\\"return\\\" using a text search tool (e.g., ripgrep with fixed-string matching: rg -F \\\"return\\\").\", \"Review the search results to confirm each match is a literal occurrence of \\\"return\\\" and not a false positive from case-insensitive or regex matching.\", \"If the workspace is large or contains binary/generated files, exclude irrelevant directories (e.g., node_modules, .git, build outputs) and re-run the search to ensure complete coverage of source files.\", \"Compile the final list of file paths and line numbers for every literal occurrence of \\\"return\\\".\"]}"
+        },
+        "usage": {
+          "input_tokens": 46,
+          "output_tokens": 132
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_QNYKixoa6n9A0sMIrE4u1161",
+            "name": "search_code",
+            "arguments": {
+              "query": "return",
+              "path": ".",
+              "max_output_bytes": 30000
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 585,
+          "output_tokens": 84
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_wWuB2puaFNeC6xD4zOt16571",
+            "name": "search_code",
+            "arguments": {
+              "max_output_bytes": 30000,
+              "path": ".",
+              "query": "return"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 681,
+          "output_tokens": 71
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_uUjRePMKDcFA594wP4Ql2231",
+            "name": "search_code",
+            "arguments": {
+              "max_output_bytes": 30000,
+              "path": ".",
+              "query": "def "
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 777,
+          "output_tokens": 105
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I searched the workspace for the literal string `return`.\n\n**Result: 1 occurrence**\n\n| File | Line | Column | Matching text |\n|------|------|--------|---------------|\n| `app.py` | 2 | 5 | `    return a - b` |\n\nVerification notes:\n- The search tool performs literal (fixed-string) matching, so no case-insensitive or regex false positives are possible.\n- A follow-up search for `def ` returned only `app.py:1:1: def add(a, b):`, confirming the workspace contains a single small source file (`app.py`) with one function — consistent with exactly one `return` statement and no hidden/generated directories contributing matches.\n- No exclusions were needed since the workspace appears to contain only this source file."
+        },
+        "usage": {
+          "input_tokens": 873,
+          "output_tokens": 162
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

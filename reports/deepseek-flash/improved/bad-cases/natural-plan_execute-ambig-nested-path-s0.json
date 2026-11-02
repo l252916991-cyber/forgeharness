@@ -1,0 +1,128 @@
+{
+  "case_id": "ambig-nested-path",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-ambig-nested-path-s0.jsonl",
+  "trace_hash": "83adf006a4c87f424cf46de331ae006b978c3170a482adc64c375094310c1428",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "read_file"
+  ],
+  "expected_sequence": [
+    "read_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "read_file",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:2>max:1",
+    "sequence:read_file/read_file!=expected:read_file",
+    "arguments:accuracy=0.000"
+  ],
+  "steps": 4,
+  "logical_tool_calls": 2,
+  "tool_attempts": 2,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:read_file:completed",
+    "3:executor/tool:read_file:failed",
+    "4:executor/model:read_file:completed",
+    "5:executor/tool:read_file:failed",
+    "6:executor/model:-:completed",
+    "7:executor/finish:-:completed"
+  ],
+  "model_decisions": 2,
+  "model_requests": 4,
+  "usage_steps": 4,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 2 tool calls against a contract of at most 1; its choices diverged from the stated sequence (tool_calls:2>max:1, sequence:read_file/read_file!=expected:read_file, arguments:accuracy=0.000)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'utils/helpers.py', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Locate the nested utility module by searching the workspace for files matching the utility module name, then confirm its full workspace-relative path.\", \"Open the file at that full workspace-relative path and read its contents.\", \"Verify the file was read successfully by checking that the returned content is non-empty and matches the expected module structure.\"]}"
+        },
+        "usage": {
+          "input_tokens": 49,
+          "output_tokens": 71
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_lFIGppdKj4cRrvTzcjkq9511",
+            "name": "read_file",
+            "arguments": {
+              "path": "utils/helpers.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 522,
+          "output_tokens": 83
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_jbHZufllPxsgShjwyJTK6790",
+            "name": "read_file",
+            "arguments": {
+              "path": "src/utils/helpers.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 627,
+          "output_tokens": 85
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I've hit a blocker: I don't have a search/list tool available (only `read_file`), and my two guesses at the path both returned `path_not_found`.\n\n**Status: incomplete — no verification evidence obtained.**\n\nWhat I tried:\n1. `utils/helpers.py` → `path_not_found`\n2. `src/utils/helpers.py` → `path_not_found`\n\nThe plan's first step requires locating the module by searching the workspace, but the only tool exposed to me is `read_file`, which cannot enumerate directories or search. Guessing further paths would be unproductive.\n\nTo proceed, I need one of:\n- The exact workspace-relative path of the nested utility module, or\n- A directory-listing/search capability so I can locate it.\n\nOnce I have the correct path, I'll read the file and verify the content is non-empty and matches the expected module structure."
+        },
+        "usage": {
+          "input_tokens": 734,
+          "output_tokens": 186
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

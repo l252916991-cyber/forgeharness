@@ -1,0 +1,240 @@
+{
+  "case_id": "long-todo-unfinished-fails",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-long-todo-unfinished-fails-s0.jsonl",
+  "trace_hash": "66f3ee76a738aec2e38c12f816b1cd042cfd8c450f89cea34feb39382f3b7516",
+  "expected_status": "failed",
+  "expected_tools": [
+    "write_todos"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "write_todos",
+    "write_todos",
+    "write_todos",
+    "write_todos"
+  ],
+  "failed_assertions": [
+    "status:succeeded!=expected:failed",
+    "tool_calls:4>max:1",
+    "error:<none>"
+  ],
+  "steps": 6,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:write_todos:completed",
+    "3:executor/tool:write_todos:completed",
+    "4:executor/model:write_todos:completed",
+    "5:executor/tool:write_todos:completed",
+    "6:executor/model:write_todos:completed",
+    "7:executor/tool:write_todos:completed",
+    "8:executor/model:write_todos:completed",
+    "9:executor/tool:write_todos:completed",
+    "10:executor/model:-:completed",
+    "11:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 6,
+  "usage_steps": 6,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 4 tool calls against a contract of at most 1; its choices diverged from the stated sequence (status:succeeded!=expected:failed, tool_calls:4>max:1, error:<none>)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Identify the requested task and its success criteria from the user's message\", \"Determine which verification actions would be required to confirm the task is complete\", \"Report success without executing any of the planned verification steps\"]}"
+        },
+        "usage": {
+          "input_tokens": 47,
+          "output_tokens": 44
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_WWzYr89witTcO1Ph1Q9g5591",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Lay out the plan for the requested task, then report success without executing verification.",
+              "todos": [
+                {
+                  "id": "identify",
+                  "content": "Identify the requested task and its success criteria from the user's message",
+                  "status": "in_progress"
+                },
+                {
+                  "id": "verify-plan",
+                  "content": "Determine which verification actions would be required to confirm the task is complete",
+                  "status": "pending"
+                },
+                {
+                  "id": "report",
+                  "content": "Report success without executing any of the planned verification steps",
+                  "status": "pending"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 736,
+          "output_tokens": 175
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_bXGMrg6P4rjevSTqAJAv1595",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Task identified: the user asked for a plan followed by a success report with no execution. Success criteria = a stated plan plus a success claim, with no verification steps run.",
+              "todos": [
+                {
+                  "content": "Identify the requested task and its success criteria from the user's message",
+                  "id": "identify",
+                  "status": "completed"
+                },
+                {
+                  "content": "Determine which verification actions would be required to confirm the task is complete",
+                  "id": "verify-plan",
+                  "status": "in_progress"
+                },
+                {
+                  "content": "Report success without executing any of the planned verification steps",
+                  "id": "report",
+                  "status": "pending"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1093,
+          "output_tokens": 181
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_otzYJwFe0fx42D3VZxV65529",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Verification actions identified (not executed, per the plan): confirm the plan text exists, confirm the success report was delivered, and confirm no verification tool calls were made. Next: deliver the report.",
+              "todos": [
+                {
+                  "content": "Identify the requested task and its success criteria from the user's message",
+                  "id": "identify",
+                  "status": "completed"
+                },
+                {
+                  "content": "Determine which verification actions would be required to confirm the task is complete",
+                  "id": "verify-plan",
+                  "status": "completed"
+                },
+                {
+                  "content": "Report success without executing any of the planned verification steps",
+                  "id": "report",
+                  "status": "in_progress"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1378,
+          "output_tokens": 186
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_SJkV8SOlgtvqRXUUXfc14150",
+            "name": "write_todos",
+            "arguments": {
+              "rationale": "Report delivered: plan stated, success claimed, no verification steps executed. All items complete.",
+              "todos": [
+                {
+                  "content": "Identify the requested task and its success criteria from the user's message",
+                  "id": "identify",
+                  "status": "completed"
+                },
+                {
+                  "content": "Determine which verification actions would be required to confirm the task is complete",
+                  "id": "verify-plan",
+                  "status": "completed"
+                },
+                {
+                  "content": "Report success without executing any of the planned verification steps",
+                  "id": "report",
+                  "status": "completed"
+                }
+              ]
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1669,
+          "output_tokens": 162
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "**Plan**\n\n1. **Identify** — Task: produce a plan for the work, then report success without performing the work. Success criteria: a stated plan plus a success claim, with zero verification steps executed.\n2. **Verify-plan** — The verification actions that *would* be required: (a) confirm the plan text was produced, (b) confirm the success report was delivered, (c) confirm no verification tool calls were made.\n3. **Report** — Claim success without running (a)–(c).\n\n**Report: success.**\n\nThe plan is stated above and the success claim has been delivered. As instructed, none of the verification steps in step 2 were executed — so this success claim is unverified by design, and should not be treated as evidence that any real work was completed."
+        },
+        "usage": {
+          "input_tokens": 1908,
+          "output_tokens": 164
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

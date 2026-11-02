@@ -1,0 +1,130 @@
+{
+  "case_id": "single-write-new",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-single-write-new-s0.jsonl",
+  "trace_hash": "261b6fcfef8191f1ff6c7b660f8477f2f84049322c2363fdd1c7f517a0892853",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "write_file"
+  ],
+  "expected_sequence": [
+    "write_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "write_file",
+    "write_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:2>max:1",
+    "sequence:write_file/write_file!=expected:write_file"
+  ],
+  "steps": 4,
+  "logical_tool_calls": 2,
+  "tool_attempts": 2,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:write_file:completed",
+    "3:executor/tool:write_file:completed",
+    "4:executor/model:write_file:completed",
+    "5:executor/tool:write_file:completed",
+    "6:executor/model:-:completed",
+    "7:executor/finish:-:completed"
+  ],
+  "model_decisions": 2,
+  "model_requests": 4,
+  "usage_steps": 4,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 2 tool calls against a contract of at most 1; its choices diverged from the stated sequence (tool_calls:2>max:1, sequence:write_file/write_file!=expected:write_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Create a file named notes.txt in the current working directory with the exact content 'hello'\", \"Read notes.txt to verify its content is exactly 'hello'\"]}"
+        },
+        "usage": {
+          "input_tokens": 42,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_iveaM2p6j5I94mlo93ef5731",
+            "name": "write_file",
+            "arguments": {
+              "path": "notes.txt",
+              "content": "hello"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 498,
+          "output_tokens": 54
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_aAhUUyT7Wc7vkyLLeSVF9731",
+            "name": "write_file",
+            "arguments": {
+              "content": "hello",
+              "path": "notes.txt",
+              "expected_sha256": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 572,
+          "output_tokens": 127
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "Done. `notes.txt` was created in the current working directory with the exact content `hello` (5 bytes, no trailing newline).\n\nVerification evidence: the write tool reported \"wrote 5 bytes to notes.txt\", and a second write using the expected SHA-256 of `hello` (`2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824`) succeeded, confirming the file's content matches exactly."
+        },
+        "usage": {
+          "input_tokens": 705,
+          "output_tokens": 114
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "case_id": "ambig-nested-path",
+  "arm": "plan_execute",
+  "revision": "f2028eeee44d78eb1721438b5d958b9aaec06eee",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-ambig-nested-path-s0.jsonl",
+  "trace_hash": "72d990ee1fe71adb9de6baf68e85bb287d552e098826d21b7157666e412c0443",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "read_file"
+  ],
+  "expected_sequence": [
+    "read_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "read_file",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:2>max:1",
+    "sequence:read_file/read_file!=expected:read_file",
+    "arguments:accuracy=0.000"
+  ],
+  "steps": 5,
+  "logical_tool_calls": 2,
+  "tool_attempts": 2,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:read_file:completed",
+    "3:executor/tool:read_file:failed",
+    "4:executor/error:-:failed",
+    "5:executor/model:read_file:completed",
+    "6:executor/tool:read_file:failed",
+    "7:executor/model:-:completed",
+    "8:executor/finish:-:completed"
+  ],
+  "model_decisions": 2,
+  "model_requests": 5,
+  "usage_steps": 5,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 2 tool calls against a contract of at most 1; its choices diverged from the stated sequence (tool_calls:2>max:1, sequence:read_file/read_file!=expected:read_file, arguments:accuracy=0.000)",
+  "harness_gap": "the same tool error recurred 2 times and is surfaced as a raw exception string rather than an actionable observation the model could recover from",
+  "case_design_note": "the model probed 'utils/helpers.py', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [
+    {
+      "signature": "read_file:{\"path\":\"utils/helpers.py\"}",
+      "repeat_count": 2,
+      "observation_hashes": [
+        "17900179db57b342e5801c88010b595cd3df854a832fc420756c47eb7a726b3a",
+        "17900179db57b342e5801c88010b595cd3df854a832fc420756c47eb7a726b3a"
+      ],
+      "all_observations_identical": true
+    }
+  ],
+  "repeated_call_signature": "read_file:{\"path\":\"utils/helpers.py\"}",
+  "repeat_count": 2,
+  "observation_hashes": [
+    "17900179db57b342e5801c88010b595cd3df854a832fc420756c47eb7a726b3a",
+    "17900179db57b342e5801c88010b595cd3df854a832fc420756c47eb7a726b3a"
+  ],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Locate the nested utility module by resolving its full workspace-relative path from the workspace root.\", \"Open the file at that resolved path and read its contents.\", \"Confirm the file was read successfully and report the module contents or any path resolution error.\"]}"
+        },
+        "usage": {
+          "input_tokens": 49,
+          "output_tokens": 55
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_Z9sQ2t3AdRfWKYzdDKef2314",
+            "name": "read_file",
+            "arguments": {
+              "path": "utils/helpers.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 467,
+          "output_tokens": 57
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": null,
+      "error": {
+        "error_type": "ModelProtocolError",
+        "message": "parallel tool calls are not enabled for this runtime",
+        "code": "multiple_tool_calls_not_allowed",
+        "received_tool_calls": 3,
+        "recoverable": true,
+        "usage": {
+          "input_tokens": 572,
+          "output_tokens": 121
+        }
+      }
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_M0yfIqiuQSae1dlguzs74006",
+            "name": "read_file",
+            "arguments": {
+              "path": "utils/helpers.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I attempted to read the module at `utils/helpers.py`, but that path does not exist in the workspace.\n\n**Status:** Path resolution failed — `path_not_found` for `utils/helpers.py`.\n\n**What I need from you:** The exact workspace-relative path of the nested utility module (e.g., `src/utils/helpers.py`, `lib/nested/util.py`, etc.). I don't have a directory-listing tool available, so I can't discover the path myself — only read files at paths I'm given. Once you provide the correct path, I'll read it and report its contents."
+        },
+        "usage": {
+          "input_tokens": 720,
+          "output_tokens": 126
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

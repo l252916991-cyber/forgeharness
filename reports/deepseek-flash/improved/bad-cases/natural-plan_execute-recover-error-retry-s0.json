@@ -1,0 +1,104 @@
+{
+  "case_id": "recover-error-retry",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-recover-error-retry-s0.jsonl",
+  "trace_hash": "3524a08db4f9cf39842947858cbcf2017735d4d49c6e5cee6bdc8f92d3dd487f",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code"
+  ],
+  "expected_sequence": [
+    "search_code",
+    "search_code"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code"
+  ],
+  "failed_assertions": [
+    "sequence:search_code!=expected:search_code/search_code"
+  ],
+  "steps": 3,
+  "logical_tool_calls": 1,
+  "tool_attempts": 1,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:search_code:completed",
+    "3:executor/tool:search_code:failed",
+    "4:executor/model:-:completed",
+    "5:executor/finish:-:completed"
+  ],
+  "model_decisions": 1,
+  "model_requests": 3,
+  "usage_steps": 3,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (sequence:search_code!=expected:search_code/search_code)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Run the search for helper\", \"If the backend reports a transient error, retry the search once\", \"If the retry succeeds, return the search results\", \"If the retry fails or the error is not transient, report the failure\"]}"
+        },
+        "usage": {
+          "input_tokens": 51,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_tmSlFeEHCX3kbxNG0C0l3799",
+            "name": "search_code",
+            "arguments": {
+              "query": "helper"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 47
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "The search failed with a `tool_execution_error` marked `recoverable: false` — that's not a transient error, so per the plan I should not retry.\n\n**Result: failure reported, no retry performed.**\n\n- Step 1 (run search for `helper`): executed.\n- Step 2 (retry only if transient): skipped — the error is explicitly flagged `recoverable: false`, so it is not transient.\n- Steps 3–4: not applicable; reporting the failure instead.\n\nThe backend returned: `The tool failed while running.` (code `tool_execution_error`, query `helper`). If you'd like, I can try a narrower query or a specific path once the backend issue is resolved."
+        },
+        "usage": {
+          "input_tokens": 594,
+          "output_tokens": 155
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

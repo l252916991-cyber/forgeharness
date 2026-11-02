@@ -1,0 +1,179 @@
+{
+  "case_id": "retr-list-then-search",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 1,
+  "trace_path": "traces/natural-plan_execute-retr-list-then-search-s1.jsonl",
+  "trace_hash": "3934b03b084e12b57f15f1d336b1db486c6f865d5b21876f5dfbbb3932c9f897",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "search_code"
+  ],
+  "expected_sequence": [
+    "list_files",
+    "search_code"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "list_files",
+    "search_code",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "tool_calls:4>max:2",
+    "sequence:list_files/list_files/search_code/search_code!=expected:list_files/search_code"
+  ],
+  "steps": 6,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:completed",
+    "4:executor/model:list_files:completed",
+    "5:executor/tool:list_files:completed",
+    "6:executor/model:search_code:completed",
+    "7:executor/tool:search_code:completed",
+    "8:executor/model:search_code:completed",
+    "9:executor/tool:search_code:completed",
+    "10:executor/model:-:completed",
+    "11:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 6,
+  "usage_steps": 6,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 4 tool calls against a contract of at most 2; its choices diverged from the stated sequence (tool_calls:4>max:2, sequence:list_files/list_files/search_code/search_code!=expected:list_files/search_code)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Run `pkg` to list installed packages and capture the output.\", \"Run `pkg search <term>` restricted to the pkg directory (e.g., `pkg search -o <term>` or `pkg search <term>` from within the pkg directory) and capture the output.\", \"Verify the search results are limited to the pkg directory and do not include entries outside it.\"]}"
+        },
+        "usage": {
+          "input_tokens": 49,
+          "output_tokens": 87
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_Xp8tQwX2IfvUiFq10X7q5182",
+            "name": "list_files",
+            "arguments": {
+              "path": ".",
+              "max_results": 200
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 657,
+          "output_tokens": 66
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_UVkBOP8YHTz0vpB8BlR78106",
+            "name": "list_files",
+            "arguments": {
+              "max_results": 200,
+              "path": "pkg"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 726,
+          "output_tokens": 55
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_LbVfSyOxGzEOFOCUhMPu6155",
+            "name": "search_code",
+            "arguments": {
+              "query": "def ",
+              "path": "pkg"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 797,
+          "output_tokens": 54
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_OYaQ0xOP4FaC0RVAOVHa3466",
+            "name": "search_code",
+            "arguments": {
+              "path": ".",
+              "query": "def "
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 875,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "Done. Results:\n\n**1. Listing `pkg`**\n- `pkg/` contains exactly one file: `pkg/util.py`\n\n**2. Search restricted to `pkg`**\n- Query `def ` with path `pkg` → one hit: `pkg/util.py:1:1: def helper():`\n\n**3. Verification that results are confined to `pkg`**\n- A repo-wide search for the same term (path `.`) returned the identical single hit, `pkg/util.py:1:1`. Since the unrestricted search produced no matches outside `pkg`, the `pkg`-restricted search is confirmed to be limited to the `pkg` directory and to omit nothing that exists elsewhere.\n\nNote: the repository contains only `pkg/util.py`, so there is no content outside `pkg` to exclude — the restriction is verified but trivially so."
+        },
+        "usage": {
+          "input_tokens": 951,
+          "output_tokens": 189
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

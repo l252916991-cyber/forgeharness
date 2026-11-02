@@ -1,0 +1,224 @@
+{
+  "case_id": "long-search-read-write-verify",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-long-search-read-write-verify-s0.jsonl",
+  "trace_hash": "fece0a2a24694aa0324a4bb275694ed8764b965ac4b3823dc0c2f0b3efe6fdba",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "search_code",
+    "read_file",
+    "write_file",
+    "search_code",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "tool_calls:6>max:4",
+    "steps:8>max:6"
+  ],
+  "steps": 8,
+  "logical_tool_calls": 6,
+  "tool_attempts": 6,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:search_code:completed",
+    "3:executor/tool:search_code:completed",
+    "4:executor/model:search_code:completed",
+    "5:executor/tool:search_code:completed",
+    "6:executor/model:read_file:completed",
+    "7:executor/tool:read_file:completed",
+    "8:executor/model:write_file:completed",
+    "9:executor/tool:write_file:completed",
+    "10:executor/model:search_code:completed",
+    "11:executor/tool:search_code:completed",
+    "12:executor/model:search_code:completed",
+    "13:executor/tool:search_code:completed",
+    "14:executor/model:-:completed",
+    "15:executor/finish:-:completed"
+  ],
+  "model_decisions": 6,
+  "model_requests": 8,
+  "usage_steps": 8,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 6 tool calls against a contract of at most 4; its choices diverged from the stated sequence (tool_calls:6>max:4, steps:8>max:6)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Run the initial search and capture the query, filters, and result set (IDs/titles) as the baseline.\", \"Read the selected item(s) from the search results and record the key content or fields observed.\", \"Create a log entry documenting the search query, results reviewed, item(s) read, timestamp, and outcome.\", \"Run a closing search using the same query or a log-specific query to confirm the log entry is present and the search results are consistent.\"]}"
+        },
+        "usage": {
+          "input_tokens": 52,
+          "output_tokens": 99
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_yZxzgAyagjUQPgeRKDEj5883",
+            "name": "search_code",
+            "arguments": {
+              "query": "log",
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 892,
+          "output_tokens": 64
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_SOXTRYi7dhBZGHZzV1mq7290",
+            "name": "search_code",
+            "arguments": {
+              "path": ".",
+              "query": "e"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 958,
+          "output_tokens": 78
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_XYrPoZ135JhmdhLvuLHK4596",
+            "name": "read_file",
+            "arguments": {
+              "path": "app.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1048,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_9yGjmr7NUC0jlD8jgo9D1514",
+            "name": "write_file",
+            "arguments": {
+              "path": "search_log.md",
+              "content": "# Search Log\n\n- Timestamp: 2025-01-01T00:00:00Z (session time not available from tools)\n- Query 1: `log` (path `.`) -> 0 matches\n- Query 2: `e` (path `.`) -> 1 match: `app.py:1:2` and `app.py:2:6`\n- Result set reviewed: `app.py` (only file in workspace)\n- Item read: `app.py` lines 1-2\n  - `def add(a, b):`\n  - `    return a - b`\n- Observation: function named `add` performs subtraction (`a - b`) — likely a bug; expected `a + b`.\n- Outcome: baseline captured; no log-related code exists in the workspace. Log entry created at `search_log.md`.\n"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1160,
+          "output_tokens": 233
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_rzTlh1OzNcpSBhyQLOyK5726",
+            "name": "search_code",
+            "arguments": {
+              "path": ".",
+              "query": "search_log"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1414,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_6IzDI64afBdwC5k3Ou658689",
+            "name": "search_code",
+            "arguments": {
+              "path": ".",
+              "query": "Query 2"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1510,
+          "output_tokens": 54
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "All four plan steps are complete, with verification evidence.\n\n**1. Initial search (baseline)**\n- `log` in `.` → 0 matches (no logging code exists).\n- `e` in `.` → 1 file matched: `app.py` (lines 1 and 2).\n\n**2. Read the selected item**\n- `app.py` (sha256 `e1a89402…f7edc8`), 2 lines:\n  - `def add(a, b):`\n  - `    return a - b`\n- Key observation: the function is named `add` but returns `a - b` — a likely defect (expected `a + b`).\n\n**3. Log entry created**\n- Wrote `search_log.md` (546 bytes) recording the queries, filters (path `.`), result set, item read, timestamp note, and outcome.\n\n**4. Closing search (verification)**\n- `search_log` in `.` → hit at `search_log.md:11` (the outcome line referencing the log file).\n- `Query 2` in `.` → hit at `search_log.md:5` (the recorded second query line).\n\nBoth closing searches confirm the log entry is present and its contents are consistent with the searches actually performed. Note: the workspace contains only `app.py` and the new `search_log.md`; the timestamp in the log is a placeholder because the available tools expose no clock."
+        },
+        "usage": {
+          "input_tokens": 1617,
+          "output_tokens": 305
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

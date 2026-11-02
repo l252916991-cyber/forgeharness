@@ -1,0 +1,63 @@
+{
+  "case_id": "long-todo-unfinished-fails",
+  "arm": "react",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-todo-unfinished-fails-s0.jsonl",
+  "trace_hash": "fe985216c804131aeee9ba17bd13028fbfe120d194f7c9448d7222be9a3fa96e",
+  "expected_status": "failed",
+  "expected_tools": [
+    "write_todos"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [],
+  "failed_assertions": [
+    "status:succeeded!=expected:failed",
+    "missing_tools:write_todos",
+    "error:<none>"
+  ],
+  "steps": 1,
+  "logical_tool_calls": 0,
+  "tool_attempts": 0,
+  "projected_steps": [
+    "1:executor/model:-:completed",
+    "2:executor/finish:-:completed"
+  ],
+  "model_decisions": 0,
+  "model_requests": 1,
+  "usage_steps": 1,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (status:succeeded!=expected:failed, missing_tools:write_todos, error:<none>)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I can't do that — reporting success without doing the work would be a false report, and I won't fabricate completion.\n\nWhat I can do is plan the work properly. But I don't yet know what \"the work\" is — you haven't told me the task. Give me the actual goal and I'll lay out a real todo list and then execute it, reporting honestly on what's done, what failed, and what's still open.\n\nIf you'd like, tell me the task and I'll start with the plan."
+        },
+        "usage": {
+          "input_tokens": 667,
+          "output_tokens": 109
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

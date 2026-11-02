@@ -1,0 +1,219 @@
+{
+  "case_id": "long-six-decisions",
+  "arm": "plan_execute",
+  "revision": "c5e523b24facca74c18701ba99d83c5d5c6ba135",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-long-six-decisions-s0.jsonl",
+  "trace_hash": "450c278f6aae05a712a1e6168d257a0826775db2247eee914aa73b61f768be34",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "echo",
+    "list_files",
+    "read_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "list_files",
+    "list_files",
+    "echo",
+    "list_files",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:6>max:5",
+    "steps:8>max:7"
+  ],
+  "steps": 8,
+  "logical_tool_calls": 6,
+  "tool_attempts": 6,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:failed",
+    "4:executor/model:list_files:completed",
+    "5:executor/tool:list_files:failed",
+    "6:executor/model:list_files:completed",
+    "7:executor/tool:list_files:failed",
+    "8:executor/model:echo:completed",
+    "9:executor/tool:echo:completed",
+    "10:executor/model:list_files:completed",
+    "11:executor/tool:list_files:failed",
+    "12:executor/model:read_file:completed",
+    "13:executor/tool:read_file:failed",
+    "14:executor/model:-:completed",
+    "15:executor/finish:-:completed"
+  ],
+  "model_decisions": 6,
+  "model_requests": 8,
+  "usage_steps": 8,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 6 tool calls against a contract of at most 5; its choices diverged from the stated sequence (tool_calls:6>max:5, steps:8>max:7)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'src', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the workspace root to identify files and directories to verify.\", \"Read the top-level configuration files (e.g., package.json, README, or equivalent) to understand project structure and expected behavior.\", \"Search the workspace for marker patterns (e.g., TODO, FIXME, or project-specific markers) and record their locations.\", \"Read each file containing markers to confirm the marker context and whether it indicates an issue or expected annotation.\", \"Cross-check referenced files or modules mentioned in the markers to ensure they exist and are consistent.\", \"Summarize findings: list markers found, files read, and any inconsistencies or missing references.\"]}"
+        },
+        "usage": {
+          "input_tokens": 46,
+          "output_tokens": 131
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_86omP9O5BneL1VFbu7tV7637",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 739,
+          "output_tokens": 49
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_xp2v6dKc6flhqr1EoZUd2007",
+            "name": "list_files",
+            "arguments": {
+              "path": "./"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 839,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_EiRCsdWADeZ3GvyxiLep2571",
+            "name": "list_files",
+            "arguments": {
+              "path": "src"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 941,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_uKwC5E7TDdV3pM85ozW57220",
+            "name": "echo",
+            "arguments": {
+              "text": "probe"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1042,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_NgkRyciOYCF9nIZ9uCWB0368",
+            "name": "list_files",
+            "arguments": {
+              "path": "workspace"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1093,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_vxTuLPK2zUqiQDzHG3QK3766",
+            "name": "read_file",
+            "arguments": {
+              "path": "README.md"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1196,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I have to stop here and report a blocker rather than a verification result.\n\n## What I attempted\n\nFollowing the plan, step 1 was to list the workspace root. Every path I tried was rejected by the tooling:\n\n| Call | Path argument | Result |\n|---|---|---|\n| `list_files` | `.` | `invalid_arguments` — \"not a valid workspace-relative path\" |\n| `list_files` | `./` | `invalid_arguments` |\n| `list_files` | `src` | `invalid_arguments` |\n| `list_files` | `workspace` | `invalid_arguments` |\n| `read_file` | `README.md` | `invalid_arguments` |\n| `echo` | `probe` | succeeded (control check) |\n\nThe `echo` call confirms the tool channel itself is functional, so the failure is specific to path resolution: no path I supply is accepted as workspace-relative, including the canonical root forms `.` and `./`.\n\n## Why I did not continue\n\nThe plan's remaining steps (read config files, search for markers, read marker files, cross-check references, summarize) all depend on first obtaining at least one valid path from the root listing. I cannot search for markers without a directory to search, and I cannot guess filenames — inventing paths like `package.json` or `src/index.ts` and reporting on them would produce fabricated findings, not verification evidence. Since the plan requires finishing only with verification evidence, the honest outcome is to halt.\n\n## Findings summary\n\n- **Markers found:** none — no file was ever readable, so no marker scan occurred.\n- **Files read:** none.\n- **Inconsistencies / missing references:** not assessable.\n- **Blocking issue:** the workspace appears to be empty or unmounted from the tool's perspective, or the path validator is misconfigured so that no relative path resolves.\n\n## What would unblock this\n\nAny one of the following would let me resume at step 1:\n\n1. Confirm the workspace actually has files mounted, and tell me the exact relative path of any one known file (e.g. the real name of the root manifest) so I can test whether a concrete path resolves where `.` does not.\n2. Fix the path validator if `.` and `./` are being rejected incorrectly — those should be valid root references.\n3. If the workspace is genuinely empty, say so explicitly; then the correct result is \"no files, no markers\" rather than a failed verification.\n\nI'd rather hand back a precise blocker than a plausible-looking summary built on paths I never successfully opened."
+        },
+        "usage": {
+          "input_tokens": 1299,
+          "output_tokens": 544
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

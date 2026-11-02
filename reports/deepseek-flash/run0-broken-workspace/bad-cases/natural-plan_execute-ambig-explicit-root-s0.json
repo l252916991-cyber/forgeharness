@@ -1,0 +1,177 @@
+{
+  "case_id": "ambig-explicit-root",
+  "arm": "plan_execute",
+  "revision": "c5e523b24facca74c18701ba99d83c5d5c6ba135",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-ambig-explicit-root-s0.jsonl",
+  "trace_hash": "79ccb19d54db21f49c898bde13ede2b861f16135fd2023b23c3cb0ba1bddcd69",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files"
+  ],
+  "expected_sequence": [
+    "list_files"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "list_files",
+    "list_files",
+    "list_files"
+  ],
+  "failed_assertions": [
+    "tool_calls:4>max:1",
+    "sequence:list_files/list_files/list_files/list_files!=expected:list_files"
+  ],
+  "steps": 6,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:failed",
+    "4:executor/model:list_files:completed",
+    "5:executor/tool:list_files:failed",
+    "6:executor/model:list_files:completed",
+    "7:executor/tool:list_files:failed",
+    "8:executor/model:list_files:completed",
+    "9:executor/tool:list_files:failed",
+    "10:executor/model:-:completed",
+    "11:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 6,
+  "usage_steps": 6,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 4 tool calls against a contract of at most 1; its choices diverged from the stated sequence (tool_calls:4>max:1, sequence:list_files/list_files/list_files/list_files!=expected:list_files)",
+  "harness_gap": null,
+  "case_design_note": "the model probed '/', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the workspace root directory contents to confirm the actual root path and files present.\", \"Compare the listed root contents against the expected project files to verify the workspace root is correct.\", \"If the root is incorrect, identify the correct workspace root path and re-list its contents.\"]}"
+        },
+        "usage": {
+          "input_tokens": 48,
+          "output_tokens": 59
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_RFZopXFt0dyjXbC9Lxoy6837",
+            "name": "list_files",
+            "arguments": {
+              "path": ".",
+              "max_results": 200
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 426,
+          "output_tokens": 60
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_ajjkc6bSwX7sSunK5mhW4932",
+            "name": "list_files",
+            "arguments": {
+              "max_results": 200,
+              "path": "/"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 543,
+          "output_tokens": 54
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_t1TRWp9HvEVkxl4H62Xo9582",
+            "name": "list_files",
+            "arguments": {
+              "max_results": 200,
+              "path": "./"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 661,
+          "output_tokens": 54
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_lMPVAkYIoVEqEvk7idF62524",
+            "name": "list_files",
+            "arguments": {
+              "max_results": 200,
+              "path": ""
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 780,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I attempted to list the workspace root explicitly, but the tool rejects every root representation I tried.\n\n**Observations (in order):**\n\n| Attempt | `path` value | Result |\n|---|---|---|\n| 1 | `.` | `invalid_arguments` — \"The path is not a valid workspace-relative path.\" |\n| 2 | `/` | `invalid_arguments` — same message |\n| 3 | `./` | `invalid_arguments` — same message |\n| 4 | `\"\"` (empty) | `invalid_arguments` — same message |\n\n**Conclusion:** The `list_files` tool only accepts non-empty, workspace-relative paths that resolve to a *subdirectory* — it does not accept any spelling of the root itself (`.`, `./`, `/`, or empty). So the root cannot be listed directly through this tool; the only way to observe root contents is to list a known child path, or to rely on the implicit default (which is exactly what you asked me not to do).\n\n**Verification evidence:** All four calls returned `ok: false` with `code: invalid_arguments` and the suggestion \"Use a relative path inside the workspace,\" confirming the failure is a path-validation constraint, not a transient error or a wrong-root guess.\n\n**To proceed, I need one of the following from you:**\n1. A concrete child directory name to list (e.g. `src`, `app`, `packages`) — I'll list it and infer the root from its contents, or\n2. Confirmation that using the implicit default (`.`) is acceptable after all, or\n3. A different tool/mechanism for root enumeration.\n\nI'm stopping here rather than silently falling back to the default, since that would violate the instruction."
+        },
+        "usage": {
+          "input_tokens": 896,
+          "output_tokens": 368
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

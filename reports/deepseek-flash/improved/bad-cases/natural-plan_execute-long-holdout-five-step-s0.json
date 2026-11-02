@@ -1,0 +1,175 @@
+{
+  "case_id": "long-holdout-five-step",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-long-holdout-five-step-s0.jsonl",
+  "trace_hash": "84cd01aa42101ceeb6880c012b740195b4483724b42260e4af4d51f92cb0a68c",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "search_code",
+    "read_file",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "missing_tools:write_file"
+  ],
+  "steps": 6,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:search_code:completed",
+    "3:executor/tool:search_code:completed",
+    "4:executor/model:search_code:completed",
+    "5:executor/tool:search_code:completed",
+    "6:executor/model:read_file:completed",
+    "7:executor/tool:read_file:completed",
+    "8:executor/model:search_code:completed",
+    "9:executor/tool:search_code:completed",
+    "10:executor/model:-:completed",
+    "11:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 6,
+  "usage_steps": 6,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (missing_tools:write_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Search for the target information using the available search tool and note the query and source.\", \"Read the relevant result content and record the exact finding, including source and timestamp.\", \"Perform a second independent search to confirm the recorded result matches.\", \"Compare the second search result with the recorded finding and report whether it is confirmed or discrepant.\"]}"
+        },
+        "usage": {
+          "input_tokens": 52,
+          "output_tokens": 72
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_dzjSoSQo0fdbmucI7HfC1987",
+            "name": "search_code",
+            "arguments": {
+              "query": "target",
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 865,
+          "output_tokens": 64
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_qJXXpk0Zf9b15VXxrks80428",
+            "name": "search_code",
+            "arguments": {
+              "path": ".",
+              "query": "e"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 931,
+          "output_tokens": 76
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_1FFetIk08JaY9FA7pOHt8556",
+            "name": "read_file",
+            "arguments": {
+              "path": "app.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1021,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_lGjAbufSqctO12WDqk9T7156",
+            "name": "search_code",
+            "arguments": {
+              "path": ".",
+              "query": "return a - b"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1133,
+          "output_tokens": 55
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "**Result: confirmed.**\n\n- **Search 1:** query `target` → no matches. Query `e` → hit `app.py:1-2`.\n- **Read:** `app.py` (2 lines, sha256 `e1a8940…7edc8`) contains:\n  ```python\n  def add(a, b):\n      return a - b\n  ```\n- **Recorded finding:** `app.py` line 2 is `return a - b` — the function named `add` subtracts instead of adding (a bug).\n- **Search 2 (independent):** query `return a - b` → `app.py:2:5: return a - b`.\n\nThe second search matches the recorded finding exactly (same file, same line, same text), so the result is **confirmed, not discrepant**. Note: the workspace contains only this one file, so no other \"target information\" existed to search for."
+        },
+        "usage": {
+          "input_tokens": 1213,
+          "output_tokens": 197
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

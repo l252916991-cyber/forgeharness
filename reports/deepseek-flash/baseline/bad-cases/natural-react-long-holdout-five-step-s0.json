@@ -1,0 +1,235 @@
+{
+  "case_id": "long-holdout-five-step",
+  "arm": "react",
+  "revision": "67d8856862e22716cd9d699cbaa4513b4e9d86f4",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-holdout-five-step-s0.jsonl",
+  "trace_hash": "bdcf08d42813f1267c6330004a31d473a000dc5d3d0d371ba9c6732d22dc6630",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "search_code",
+    "read_file",
+    "write_file",
+    "search_code",
+    "write_file",
+    "read_file",
+    "write_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:7>max:4",
+    "steps:8>max:5"
+  ],
+  "steps": 8,
+  "logical_tool_calls": 7,
+  "tool_attempts": 7,
+  "projected_steps": [
+    "1:executor/model:search_code:completed",
+    "2:executor/tool:search_code:completed",
+    "3:executor/model:read_file:completed",
+    "4:executor/tool:read_file:completed",
+    "5:executor/model:write_file:completed",
+    "6:executor/tool:write_file:completed",
+    "7:executor/model:search_code:completed",
+    "8:executor/tool:search_code:completed",
+    "9:executor/model:write_file:completed",
+    "10:executor/tool:write_file:failed",
+    "11:executor/model:read_file:completed",
+    "12:executor/tool:read_file:completed",
+    "13:executor/model:write_file:completed",
+    "14:executor/tool:write_file:completed",
+    "15:executor/model:-:completed",
+    "16:executor/finish:-:completed"
+  ],
+  "model_decisions": 7,
+  "model_requests": 8,
+  "usage_steps": 8,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 7 tool calls against a contract of at most 4; its choices diverged from the stated sequence (tool_calls:7>max:4, steps:8>max:5)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'findings.md', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_OoX3j6ybqFAcDEVG66Hg1524",
+            "name": "search_code",
+            "arguments": {
+              "query": "def ",
+              "path": ".",
+              "max_output_bytes": 5000
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 730,
+          "output_tokens": 84
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_6LAliSYfePEbyJ51AhHJ8317",
+            "name": "read_file",
+            "arguments": {
+              "path": "app.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 826,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_NDQwBGsgAB7tAe2BqOHz4121",
+            "name": "write_file",
+            "arguments": {
+              "path": "findings.md",
+              "content": "# Findings\n\n## Search 1: `def ` in `.`\n- `app.py:1:1` — `def add(a, b):`\n\n## Read: `app.py`\n```python\ndef add(a, b):\n    return a - b\n```\n- sha256: `e1a894022d1a082987b87adecb623438c9e386d86b2b621cff4a5fe7fdf7edc8`\n- Note: `add` subtracts instead of adding — likely a bug.\n\n## Confirmation search\n(pending)\n"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 938,
+          "output_tokens": 178
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_Go33OPOIWDbdUrcFF8DA5306",
+            "name": "search_code",
+            "arguments": {
+              "max_output_bytes": 5000,
+              "path": ".",
+              "query": "def add(a, b):"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1136,
+          "output_tokens": 76
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_PMwCoBRMBsofRvenYg420825",
+            "name": "write_file",
+            "arguments": {
+              "content": "# Findings\n\n## Search 1: `def ` in `.`\n- `app.py:1:1` — `def add(a, b):`\n\n## Read: `app.py`\n```python\ndef add(a, b):\n    return a - b\n```\n- sha256: `e1a894022d1a082987b87adecb623438c9e386d86b2b621cff4a5fe7fdf7edc8`\n- Note: `add` subtracts instead of adding — likely a bug.\n\n## Confirmation search: `def add(a, b):`\n- `app.py:1:1` — `def add(a, b):` (matches recorded location)\n- `findings.md:4:19` and `findings.md:8:1` — this notes file itself (expected self-matches)\n- Confirmed: the only source-code definition is `app.py:1`.\n",
+              "expected_sha256": "e1a894022d1a082987b87adecb623438c9e386d86b2b621cff4a5fe7fdf7edc8",
+              "path": "findings.md"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1276,
+          "output_tokens": 310
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_FKGSbgGhIzW7VT6Pjk6N9739",
+            "name": "read_file",
+            "arguments": {
+              "path": "findings.md"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1604,
+          "output_tokens": 39
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_tL9fSUUF4Qr0gWWIBfZu9373",
+            "name": "write_file",
+            "arguments": {
+              "content": "# Findings\n\n## Search 1: `def ` in `.`\n- `app.py:1:1` — `def add(a, b):`\n\n## Read: `app.py`\n```python\ndef add(a, b):\n    return a - b\n```\n- sha256: `e1a894022d1a082987b87adecb623438c9e386d86b2b621cff4a5fe7fdf7edc8`\n- Note: `add` subtracts instead of adding — likely a bug.\n\n## Confirmation search: `def add(a, b):`\n- `app.py:1:1` — `def add(a, b):` (matches recorded location)\n- `findings.md:4:19` and `findings.md:8:1` — this notes file itself (expected self-matches)\n- Confirmed: the only source-code definition is `app.py:1`.\n",
+              "expected_sha256": "0ecb2ddbc8674e9858b35947345dd77420e34219357bf1f3dd2ed595d5991c7f",
+              "path": "findings.md"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1869,
+          "output_tokens": 307
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "Done — searched, read, recorded, and confirmed.\n\n**1. Search** (`def ` in `.`) → one hit: `app.py:1:1: def add(a, b):`\n\n**2. Read** `app.py`:\n```python\ndef add(a, b):\n    return a - b\n```\nsha256 `e1a8940…7edc8`. Note: `add` subtracts instead of adding — likely a bug.\n\n**3. Recorded** to `findings.md` (search hit, file contents, hash, and the bug note).\n\n**4. Confirmation search** (`def add(a, b):`) → `app.py:1:1` again, matching the recorded location. The only other hits were inside `findings.md` itself (the notes I just wrote), which is expected.\n\nTwo small hiccups worth flagging: my first attempt to update `findings.md` was rejected with \"file changed since it was read\" — the hash I passed was `app.py`'s, not the notes file's. I re-read `findings.md`, got its real hash, and the write succeeded. Also, the confirmation search now matches my own notes file, so future searches for this string will return self-referential hits."
+        },
+        "usage": {
+          "input_tokens": 2196,
+          "output_tokens": 268
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

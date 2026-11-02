@@ -1,0 +1,89 @@
+{
+  "case_id": "recover-second-attempt-fails",
+  "arm": "react",
+  "revision": "67d8856862e22716cd9d699cbaa4513b4e9d86f4",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-recover-second-attempt-fails-s0.jsonl",
+  "trace_hash": "0dbcfb06f8fe3bf21c81241d9680600fc9b9bedd2f455961be6dda8d08554e0f",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "read_file"
+  ],
+  "expected_sequence": [
+    "read_file",
+    "read_file",
+    "read_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "read_file"
+  ],
+  "failed_assertions": [
+    "sequence:read_file!=expected:read_file/read_file/read_file"
+  ],
+  "steps": 2,
+  "logical_tool_calls": 1,
+  "tool_attempts": 1,
+  "projected_steps": [
+    "1:executor/model:read_file:completed",
+    "2:executor/tool:read_file:completed",
+    "3:executor/model:-:completed",
+    "4:executor/finish:-:completed"
+  ],
+  "model_decisions": 1,
+  "model_requests": 2,
+  "usage_steps": 2,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (sequence:read_file!=expected:read_file/read_file/read_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_yzlCe8gzJqo5c0LO1oy49950",
+            "name": "read_file",
+            "arguments": {
+              "path": "app.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 387,
+          "output_tokens": 47
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I read `app.py` — it's short (2 lines):\n\n```python\ndef add(a, b):\n    return a - b\n```\n\nNote: the function is named `add` but returns `a - b`, which looks like a bug (should probably be `a + b`).\n\nRegarding the \"tolerating one mid-sequence transient failure\" part: the read succeeded on the first attempt, so no retry was needed. If you'd like, I can re-read it or read a specific line range to confirm the content."
+        },
+        "usage": {
+          "input_tokens": 499,
+          "output_tokens": 111
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

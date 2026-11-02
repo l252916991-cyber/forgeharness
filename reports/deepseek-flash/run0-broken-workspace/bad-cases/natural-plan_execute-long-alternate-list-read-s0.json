@@ -1,0 +1,163 @@
+{
+  "case_id": "long-alternate-list-read",
+  "arm": "plan_execute",
+  "revision": "c5e523b24facca74c18701ba99d83c5d5c6ba135",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-long-alternate-list-read-s0.jsonl",
+  "trace_hash": "06c5baa8cd34cfc20bc4eee42b709b44a5d2702b93ae3ee6606926fa5fcb79da",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "read_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "list_files",
+    "list_files"
+  ],
+  "failed_assertions": [
+    "missing_tools:read_file"
+  ],
+  "steps": 6,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/error:-:failed",
+    "3:executor/model:list_files:completed",
+    "4:executor/tool:list_files:failed",
+    "5:executor/model:list_files:completed",
+    "6:executor/tool:list_files:failed",
+    "7:executor/model:list_files:completed",
+    "8:executor/tool:list_files:failed",
+    "9:executor/model:-:completed",
+    "10:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 6,
+  "usage_steps": 6,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (missing_tools:read_file)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'src', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the entries of the first directory and store them as list A.\", \"List the entries of the second directory and store them as list B.\", \"Read the first entry of list A, then the first entry of list B, then the second entry of list A, then the second entry of list B, continuing to alternate until both lists are exhausted.\", \"If one list is longer, read its remaining entries after the other list is exhausted.\", \"Verify the combined output contains every entry from both directories exactly once and in alternating order.\"]}"
+        },
+        "usage": {
+          "input_tokens": 46,
+          "output_tokens": 112
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": null,
+      "error": {
+        "error_type": "ModelProtocolError",
+        "message": "parallel tool calls are not enabled for this runtime",
+        "code": "multiple_tool_calls_not_allowed",
+        "received_tool_calls": 2,
+        "recoverable": true,
+        "usage": {
+          "input_tokens": 635,
+          "output_tokens": 72
+        }
+      }
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_v8Naf9Rs5NIvl4VVIkoN2569",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 678,
+          "output_tokens": 44
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_SApapqv3JzikccaCwX7v0599",
+            "name": "list_files",
+            "arguments": {
+              "path": "./"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 778,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_cxxzj6oeenCACtUUGpvK8446",
+            "name": "list_files",
+            "arguments": {
+              "path": "src"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 880,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I can't proceed: the task requires walking two directories, but I don't know their names, and every `list_files` call I've attempted has failed with \"not a valid workspace-relative path\" (tried `.`, `./`, and `src`). I have no way to discover valid paths without a successful listing.\n\nTo continue, please tell me the two directory paths (e.g. `docs` and `tests`), or confirm the workspace root path format this runtime expects. Once I have valid paths, I'll follow the plan: list directory A, list directory B, then alternate reading entries A1, B1, A2, B2, … appending any leftovers, and finally verify the combined output contains every entry exactly once in alternating order."
+        },
+        "usage": {
+          "input_tokens": 981,
+          "output_tokens": 158
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

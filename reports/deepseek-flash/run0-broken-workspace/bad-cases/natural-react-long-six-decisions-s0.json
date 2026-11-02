@@ -1,0 +1,227 @@
+{
+  "case_id": "long-six-decisions",
+  "arm": "react",
+  "revision": "c5e523b24facca74c18701ba99d83c5d5c6ba135",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-six-decisions-s0.jsonl",
+  "trace_hash": "1f3d82f603ca470bd30ca280a05177e9006f6ee09c0c3c0f632c937da951e770",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "echo",
+    "list_files",
+    "read_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "list_files",
+    "echo",
+    "list_files",
+    "echo",
+    "read_file",
+    "echo"
+  ],
+  "failed_assertions": [
+    "tool_calls:7>max:5",
+    "steps:8>max:6"
+  ],
+  "steps": 8,
+  "logical_tool_calls": 7,
+  "tool_attempts": 7,
+  "projected_steps": [
+    "1:executor/model:list_files:completed",
+    "2:executor/tool:list_files:failed",
+    "3:executor/model:list_files:completed",
+    "4:executor/tool:list_files:failed",
+    "5:executor/model:echo:completed",
+    "6:executor/tool:echo:completed",
+    "7:executor/model:list_files:completed",
+    "8:executor/tool:list_files:failed",
+    "9:executor/model:echo:completed",
+    "10:executor/tool:echo:completed",
+    "11:executor/model:read_file:completed",
+    "12:executor/tool:read_file:failed",
+    "13:executor/model:echo:completed",
+    "14:executor/tool:echo:completed",
+    "15:executor/model:-:completed",
+    "16:executor/finish:-:completed"
+  ],
+  "model_decisions": 7,
+  "model_requests": 8,
+  "usage_steps": 8,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 7 tool calls against a contract of at most 5; its choices diverged from the stated sequence (tool_calls:7>max:5, steps:8>max:6)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'src', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_uQuSpC5JwRKBuWACpk8N2340",
+            "name": "list_files",
+            "arguments": {
+              "path": ".",
+              "max_results": 100
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 584,
+          "output_tokens": 61
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_YZVyPItOO5lpj0iRaay48314",
+            "name": "list_files",
+            "arguments": {
+              "path": "./"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 701,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_jYCDXt9Qxp8RQAohdOZ82077",
+            "name": "echo",
+            "arguments": {
+              "text": "marker 1: starting workspace survey"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 803,
+          "output_tokens": 43
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_dNroh3ikJXhqC8KmoQpw2158",
+            "name": "list_files",
+            "arguments": {
+              "path": "src"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 866,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_xywz0D8UMeNPiWohBcLE2030",
+            "name": "echo",
+            "arguments": {
+              "text": "marker 2: listing attempts failed; trying a known file path"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 967,
+          "output_tokens": 49
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_KTN9J2hdT8KZnhIDC0fu2726",
+            "name": "read_file",
+            "arguments": {
+              "path": "README.md"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1042,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_n9u8drBr3KuGSS0zNEJ86933",
+            "name": "echo",
+            "arguments": {
+              "text": "marker 3: read_file also rejects paths; workspace appears empty or inaccessible"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1145,
+          "output_tokens": 51
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I alternated markers and reads as requested. Here's the outcome:\n\n**Markers (echo):**\n1. `marker 1: starting workspace survey`\n2. `marker 2: listing attempts failed; trying a known file path`\n3. `marker 3: read_file also rejects paths; workspace appears empty or inaccessible`\n\n**Reads (list_files / read_file):** all failed with `invalid_arguments` — \"The path is not a valid workspace-relative path.\"\n\nPaths attempted:\n- `list_files`: `.`, `./`, `src`\n- `read_file`: `README.md`\n\n**Conclusion:** I can't enumerate or read anything in this workspace. Every path form I tried — bare relative (`src`, `README.md`), dot (`.`), and dot-slash (`./`) — was rejected by the same validation error, which suggests the workspace root isn't mounted or the path validator is misconfigured rather than that these specific files are missing.\n\nTo proceed, I'd need either:\n- the actual workspace root path as the tools expect it, or\n- confirmation that the workspace is populated (and a known-good filename to test).\n\nOnce one read succeeds, I can resume the marker/read alternation and actually survey the code."
+        },
+        "usage": {
+          "input_tokens": 1224,
+          "output_tokens": 261
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

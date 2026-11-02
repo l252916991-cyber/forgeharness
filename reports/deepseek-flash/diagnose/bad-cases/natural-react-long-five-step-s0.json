@@ -1,0 +1,179 @@
+{
+  "case_id": "long-five-step",
+  "arm": "react",
+  "revision": "67d8856862e22716cd9d699cbaa4513b4e9d86f4",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-five-step-s0.jsonl",
+  "trace_hash": "fc1f27a1381459a554c5569039e06e12374ac1cc9a53911d9f3df522bf0d4a5f",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": [
+    "list_files",
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "failed_assertions": [
+    "steps:6>max:5"
+  ],
+  "steps": 6,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:executor/error:-:failed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:completed",
+    "4:executor/model:search_code:completed",
+    "5:executor/tool:search_code:completed",
+    "6:executor/model:read_file:completed",
+    "7:executor/tool:read_file:completed",
+    "8:executor/model:write_file:completed",
+    "9:executor/tool:write_file:completed",
+    "10:executor/model:-:completed",
+    "11:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 6,
+  "usage_steps": 6,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (steps:6>max:5)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": null,
+      "error": {
+        "error_type": "ModelProtocolError",
+        "message": "parallel tool calls are not enabled for this runtime",
+        "code": "multiple_tool_calls_not_allowed",
+        "received_tool_calls": 2,
+        "recoverable": true,
+        "usage": {
+          "input_tokens": 846,
+          "output_tokens": 76
+        }
+      }
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_fCQ4kgJ4Iag6MA7I5yXn3119",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 889,
+          "output_tokens": 36
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_ilDGxbhhYZbDiCRMagGL8870",
+            "name": "search_code",
+            "arguments": {
+              "query": "helper",
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 941,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_ixMu5sEwHd93MWSabxAs7588",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1017,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_IrJDcChn82NLbz9IMLa25563",
+            "name": "write_file",
+            "arguments": {
+              "path": "PLAN.md",
+              "content": "# Plan\n\n## Findings\n- Workspace contains a single file: `pkg/util.py`.\n- `helper` is defined at `pkg/util.py:1` and simply returns `1`.\n- No tests, callers, or package metadata (`__init__.py`, `pyproject.toml`) exist yet.\n\n## Plan\n1. **Confirm intent** — clarify what `helper` is meant to do; the current body is a stub.\n2. **Add package scaffolding** — create `pkg/__init__.py` so `pkg.util` is importable as a package.\n3. **Implement `helper`** — replace the stub with the real logic, keeping the signature stable.\n4. **Add tests** — create `tests/test_util.py` covering the expected return value and edge cases.\n5. **Add tooling** — add `pyproject.toml` with test/lint configuration.\n6. **Verify** — run the test suite and a linter before merging.\n"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1123,
+          "output_tokens": 264
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "Done. Summary of what I found and did:\n\n**Inspection**\n- Workspace contains one file: `pkg/util.py`.\n- `search_code` for \"helper\" matched `pkg/util.py:1:5`.\n- Module contents: `def helper(): return 1` — a stub with no callers, tests, or package metadata.\n\n**Output**\n- Wrote `PLAN.md` with findings and a 6-step plan: clarify intent, add `pkg/__init__.py`, implement `helper`, add `tests/test_util.py`, add `pyproject.toml`, then verify with tests and lint."
+        },
+        "usage": {
+          "input_tokens": 1407,
+          "output_tokens": 133
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

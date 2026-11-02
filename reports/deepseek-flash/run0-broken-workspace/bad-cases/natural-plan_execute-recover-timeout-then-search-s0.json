@@ -1,0 +1,630 @@
+{
+  "case_id": "recover-timeout-then-search",
+  "arm": "plan_execute",
+  "revision": "c5e523b24facca74c18701ba99d83c5d5c6ba135",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-recover-timeout-then-search-s0.jsonl",
+  "trace_hash": "69ad33c9585f1c10822eeb0daa9990c93fcb42442e1ddff610f450aa91c92931",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "read_file",
+    "search_code"
+  ],
+  "expected_sequence": null,
+  "actual_status": "exhausted",
+  "actual_sequence": [
+    "read_file",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code",
+    "search_code"
+  ],
+  "failed_assertions": [
+    "status:exhausted!=expected:succeeded",
+    "tool_calls:23>max:2"
+  ],
+  "steps": 25,
+  "logical_tool_calls": 23,
+  "tool_attempts": 23,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:read_file:completed",
+    "3:executor/tool:read_file:failed",
+    "4:executor/error:-:failed",
+    "5:executor/model:search_code:completed",
+    "6:executor/tool:search_code:failed",
+    "7:executor/model:search_code:completed",
+    "8:executor/tool:search_code:failed",
+    "9:executor/model:search_code:completed",
+    "10:executor/tool:search_code:failed",
+    "11:executor/model:search_code:completed",
+    "12:executor/tool:search_code:failed",
+    "13:executor/model:search_code:completed",
+    "14:executor/tool:search_code:failed",
+    "15:executor/model:search_code:completed",
+    "16:executor/tool:search_code:failed",
+    "17:executor/model:search_code:completed",
+    "18:executor/tool:search_code:failed",
+    "19:executor/model:search_code:completed",
+    "20:executor/tool:search_code:failed",
+    "21:executor/model:search_code:completed",
+    "22:executor/tool:search_code:failed",
+    "23:executor/model:search_code:completed",
+    "24:executor/tool:search_code:failed",
+    "25:executor/model:search_code:completed",
+    "26:executor/tool:search_code:failed",
+    "27:executor/model:search_code:completed",
+    "28:executor/tool:search_code:failed",
+    "29:executor/model:search_code:completed",
+    "30:executor/tool:search_code:failed",
+    "31:executor/model:search_code:completed",
+    "32:executor/tool:search_code:failed",
+    "33:executor/model:search_code:completed",
+    "34:executor/tool:search_code:failed",
+    "35:executor/model:search_code:completed",
+    "36:executor/tool:search_code:failed",
+    "37:executor/model:search_code:completed",
+    "38:executor/tool:search_code:failed",
+    "39:executor/model:search_code:completed",
+    "40:executor/tool:search_code:failed",
+    "41:executor/model:search_code:completed",
+    "42:executor/tool:search_code:failed",
+    "43:executor/model:search_code:completed",
+    "44:executor/tool:search_code:failed",
+    "45:executor/model:search_code:completed",
+    "46:executor/tool:search_code:failed",
+    "47:executor/model:search_code:completed",
+    "48:executor/tool:search_code:failed",
+    "49:executor/finish:-:exhausted"
+  ],
+  "model_decisions": 23,
+  "model_requests": 25,
+  "usage_steps": 25,
+  "received_tool_calls": 2,
+  "failure_class": "protocol_violation",
+  "failure_point": "model_adapter",
+  "error_type": "multiple_tool_calls_not_allowed",
+  "diagnosis": "Model returned 2 tool calls despite parallel_tool_calls=False; the adapter escalated this recoverable model-protocol violation into a terminal run failure before Runtime admission or tool dispatch.",
+  "harness_gap": "the harness had no path from a rejected multi-call response back into the loop: it neither admitted nor dispatched any call, and gave the model no chance to correct itself",
+  "case_design_note": "the model probed '/pkg', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"Read pkg/util.py to inspect its contents\", \"If the read of pkg/util.py times out, search the repository for references to pkg/util.py or its contents to locate the relevant code\"]}"
+        },
+        "usage": {
+          "input_tokens": 54,
+          "output_tokens": 45
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_ZK9RPvTW1nUUouLyB6w07384",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 624,
+          "output_tokens": 49
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": null,
+      "error": {
+        "error_type": "ModelProtocolError",
+        "message": "parallel tool calls are not enabled for this runtime",
+        "code": "multiple_tool_calls_not_allowed",
+        "received_tool_calls": 2,
+        "recoverable": true,
+        "usage": {
+          "input_tokens": 720,
+          "output_tokens": 102
+        }
+      }
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_XPpb7vqpP81cNxuPyXrH5265",
+            "name": "search_code",
+            "arguments": {
+              "query": "pkg/util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 763,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_hONLfOOcToTYfy4NwRhR2500",
+            "name": "search_code",
+            "arguments": {
+              "query": "pkg/util.py",
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 870,
+          "output_tokens": 55
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_dkrNliAyPCSfAhE416385728",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg",
+              "query": "util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 996,
+          "output_tokens": 55
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_hClnVh45UU7HnY3GYMiz6523",
+            "name": "search_code",
+            "arguments": {
+              "path": "./pkg",
+              "query": "util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1121,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_Mh6T53DjQm1HoT3Ybei92675",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "def"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1249,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_yDxCM9zIQk0kyrdE35jR1818",
+            "name": "search_code",
+            "arguments": {
+              "path": "/pkg",
+              "query": "def"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1376,
+          "output_tokens": 55
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_qD9jxwG46y7p7HltejCn3434",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/",
+              "query": "def"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1501,
+          "output_tokens": 55
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_r7wiua3nhefxaXuGrQwE9399",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util",
+              "query": "def"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1626,
+          "output_tokens": 55
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_ANN5TXxZsJWP3CtTfkf74685",
+            "name": "search_code",
+            "arguments": {
+              "path": "util.py",
+              "query": "def"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1751,
+          "output_tokens": 54
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_qmaIOezzaMpfMHb3cNoD1916",
+            "name": "search_code",
+            "arguments": {
+              "path": ".",
+              "query": "def"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1874,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_vRtin9rSSP9G2dp7ixj15965",
+            "name": "search_code",
+            "arguments": {
+              "path": "src",
+              "query": "def"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1994,
+          "output_tokens": 53
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_LNIyy2mrXpETL8KSt9fL6125",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "import"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 2115,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_pD9t5ZWtWZMYUEIFqfPQ1419",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "util"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 2242,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_TnMhpMtRFmkZCUlODP008282",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "return"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 2369,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_JDQfQiuQGN98vnh8Vk5C9826",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "class"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 2496,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_fxBBQtKHvogVkciNqxw10245",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "self"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 2623,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_6sJ4xwAutb9tXMPep5rf2897",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "None"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 2750,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_Ike9WUC2aCFhVY9js7bg9743",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "True"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 2877,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_BqD8vCsjhlh4xi0ovlbt7094",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "False"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 3004,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_MLSPaMfQgANFYg8Z11rT8774",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "if"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 3131,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_AsLIyk9MJwMEGQRQCWb90654",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "for"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 3258,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_vcBGpoAfrzbGDdAgj1yn3380",
+            "name": "search_code",
+            "arguments": {
+              "path": "pkg/util.py",
+              "query": "while"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 3385,
+          "output_tokens": 56
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

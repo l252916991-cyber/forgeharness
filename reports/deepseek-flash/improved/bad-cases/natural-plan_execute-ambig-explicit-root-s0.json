@@ -1,0 +1,128 @@
+{
+  "case_id": "ambig-explicit-root",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-ambig-explicit-root-s0.jsonl",
+  "trace_hash": "734f27048b6ebad5a1bcd68e4f437afbf213b11624cd810dee74bcb478ea3dd6",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files"
+  ],
+  "expected_sequence": [
+    "list_files"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "list_files"
+  ],
+  "failed_assertions": [
+    "tool_calls:2>max:1",
+    "sequence:list_files/list_files!=expected:list_files"
+  ],
+  "steps": 4,
+  "logical_tool_calls": 2,
+  "tool_attempts": 2,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:completed",
+    "4:executor/model:list_files:completed",
+    "5:executor/tool:list_files:completed",
+    "6:executor/model:-:completed",
+    "7:executor/finish:-:completed"
+  ],
+  "model_decisions": 2,
+  "model_requests": 4,
+  "usage_steps": 4,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 2 tool calls against a contract of at most 1; its choices diverged from the stated sequence (tool_calls:2>max:1, sequence:list_files/list_files!=expected:list_files)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the workspace root directory contents to confirm the actual project layout and files present.\", \"Identify the project type and key configuration files (e.g., package.json, pyproject.toml, Cargo.toml, go.mod) from the listing.\", \"Verify the expected entry points and source directories exist relative to the workspace root.\", \"Run the project's build or test command from the workspace root to confirm it works without relying on an implicit default directory.\"]}"
+        },
+        "usage": {
+          "input_tokens": 48,
+          "output_tokens": 97
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_qE6IBaHqVfrV31fGIu9R9641",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 503,
+          "output_tokens": 36
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_18qcd18656cCXEseBb3D2700",
+            "name": "list_files",
+            "arguments": {
+              "path": ".",
+              "max_results": 2000
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 553,
+          "output_tokens": 78
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "The workspace root listing is complete and unambiguous.\n\n**Findings**\n\n- Workspace root (`.`) contains exactly one entry: `app.py`.\n- No subdirectories, so there are no source directories, tests, or nested packages to verify.\n- No project/config files present: no `package.json`, `pyproject.toml`, `requirements.txt`, `setup.py`, `Cargo.toml`, `go.mod`, `Makefile`, or CI config. This is a bare single-file Python script, not a structured project.\n\n**Plan step outcomes**\n\n1. ✅ Listed workspace root explicitly (not an implicit default) — result: `app.py` only.\n2. ✅ Project type identified: plain Python script; no configuration/manifest files exist to inspect.\n3. ⚠️ Entry points: `app.py` is the only candidate entry point. No `src/`, `tests/`, or package directory exists, so there is nothing further to confirm.\n4. ❌ Not performed: there is no build or test command defined anywhere in the workspace (no manifest, no test files, no task runner). Running an invented command would not be evidence of a working project.\n\n**Verification evidence**\n\n- Two independent listings of `.` (default and `max_results=2000`) both returned the identical single file `app.py`, confirming the listing is complete rather than truncated.\n\n**Conclusion**\n\nThe plan cannot be fully completed as written: steps 2–4 assume a project with configuration and a build/test command, and this workspace has neither. I stopped rather than fabricating a build command, since that would produce no real verification evidence. If you can confirm the intended project root (e.g., the repo is elsewhere) or provide the expected run/test command, I can continue from step 3."
+        },
+        "usage": {
+          "input_tokens": 621,
+          "output_tokens": 370
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

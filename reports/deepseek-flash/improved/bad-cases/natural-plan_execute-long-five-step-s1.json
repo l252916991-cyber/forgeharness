@@ -1,0 +1,157 @@
+{
+  "case_id": "long-five-step",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 1,
+  "trace_path": "traces/natural-plan_execute-long-five-step-s1.jsonl",
+  "trace_hash": "3626365f8ecb8fc897eeeeb451efbcd01f777fe083e53272c712a27a2c1adced",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": [
+    "list_files",
+    "search_code",
+    "read_file",
+    "write_file"
+  ],
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "search_code",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "missing_tools:write_file",
+    "sequence:list_files/search_code/read_file!=expected:list_files/search_code/read_file/write_file"
+  ],
+  "steps": 5,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:completed",
+    "4:executor/model:search_code:completed",
+    "5:executor/tool:search_code:completed",
+    "6:executor/model:read_file:completed",
+    "7:executor/tool:read_file:completed",
+    "8:executor/model:-:completed",
+    "9:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 5,
+  "usage_steps": 5,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (missing_tools:write_file, sequence:list_files/search_code/read_file!=expected:list_files/search_code/read_file/write_file)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the workspace contents to identify files and directories.\", \"Search the workspace for occurrences of 'helper' to locate relevant files.\", \"Read the module containing the helper to understand its implementation.\", \"Write a plan based on the findings.\"]}"
+        },
+        "usage": {
+          "input_tokens": 54,
+          "output_tokens": 51
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_PD0tkIBrRTkbLcIkpV5p1762",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 960,
+          "output_tokens": 44
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_9HzrcB5Gvo54S0tuiun63087",
+            "name": "search_code",
+            "arguments": {
+              "query": "helper",
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1012,
+          "output_tokens": 52
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_r16jr2fKEo57LGE4j3vW0248",
+            "name": "read_file",
+            "arguments": {
+              "path": "pkg/util.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1088,
+          "output_tokens": 40
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I've completed the inspection steps. Here's what I found and the resulting plan.\n\n## Findings (verification evidence)\n\n1. **Workspace contents** — `list_files` returned exactly one file: `pkg/util.py`.\n2. **Search for \"helper\"** — `search_code` found a single match: `pkg/util.py:1:5: def helper():`.\n3. **Module read** — `read_file` on `pkg/util.py` (sha256 `b6631639…f8a544`) shows the entire module is 2 lines:\n   ```python\n   def helper():\n       return 1\n   ```\n\nSo the \"helper\" is a trivial zero-argument function returning the integer `1`, defined at module scope in `pkg/util.py`, with no imports, no dependencies, no callers visible in the workspace, and no tests or packaging files present.\n\n## Plan\n\n1. **Confirm scope of change** — decide whether the task is to modify `helper`, add callers, or add tests. Since the workspace contains only this one module, any work is confined to `pkg/util.py` plus new files.\n2. **If modifying `helper`** — edit `pkg/util.py` in place, preserving the `def helper():` signature unless a signature change is explicitly required; re-read the file first to obtain the current SHA-256 for the optimistic write.\n3. **If adding tests** — create `tests/test_util.py` (new directory) asserting `helper() == 1`, since no test infrastructure currently exists; note that no `pytest`/`setup.py`/`pyproject.toml` is present, so a test runner would need to be assumed or added.\n4. **If adding callers** — create a new module rather than expanding `util.py`, keeping the utility module dependency-free.\n5. **Verify** — after any write, re-read the changed file(s) and re-run `search_code` for `helper` to confirm the final state matches intent; report the resulting file contents and SHA-256 as evidence.\n\n**Blocking question:** the request only asked for inspection and a plan, so no files were modified. Tell me which of steps 2–4 you want executed and I'll proceed."
+        },
+        "usage": {
+          "input_tokens": 1194,
+          "output_tokens": 478
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

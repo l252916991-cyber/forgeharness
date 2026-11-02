@@ -1,0 +1,174 @@
+{
+  "case_id": "long-holdout-four-step",
+  "arm": "plan_execute",
+  "revision": "df4d035f7bc37ba474d442a6d4b9db0c1e010b5a",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-plan_execute-long-holdout-four-step-s0.jsonl",
+  "trace_hash": "47bf25755db90699d7328fe4d15f4a42fbec1d4be94221f8da3114aabbed1391",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "read_file",
+    "write_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "read_file",
+    "write_file",
+    "read_file"
+  ],
+  "failed_assertions": [
+    "tool_calls:4>max:3",
+    "steps:6>max:5"
+  ],
+  "steps": 6,
+  "logical_tool_calls": 4,
+  "tool_attempts": 4,
+  "projected_steps": [
+    "1:planner/model:-:completed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:completed",
+    "4:executor/model:read_file:completed",
+    "5:executor/tool:read_file:completed",
+    "6:executor/model:write_file:completed",
+    "7:executor/tool:write_file:completed",
+    "8:executor/model:read_file:completed",
+    "9:executor/tool:read_file:completed",
+    "10:executor/model:-:completed",
+    "11:executor/finish:-:completed"
+  ],
+  "model_decisions": 4,
+  "model_requests": 6,
+  "usage_steps": 6,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the model executed 4 tool calls against a contract of at most 3; its choices diverged from the stated sequence (tool_calls:4>max:3, steps:6>max:5)",
+  "harness_gap": null,
+  "case_design_note": null,
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "{\"steps\": [\"List the workspace contents to confirm app.py and any existing output files are present\", \"Read app.py to understand its behavior and determine the expected output file name and contents\", \"Create or write the output file with the required contents\", \"Verify the output file exists and contains the expected data\"]}"
+        },
+        "usage": {
+          "input_tokens": 50,
+          "output_tokens": 60
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ],
+  "executor_script": [
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_dAYf5ROPNfwT9dsCwtmS9514",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 801,
+          "output_tokens": 44
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_pLHolmrs3ifOqgYBRzjc0840",
+            "name": "read_file",
+            "arguments": {
+              "path": "app.py"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 851,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_BVDQl35o3UFKfw5sZPwI5446",
+            "name": "write_file",
+            "arguments": {
+              "path": "output.txt",
+              "content": "app.py defines a single function:\n\n    def add(a, b):\n        return a - b\n\nNote: the function is named `add` but returns `a - b` (subtraction), which is\nlikely a bug — it should probably return `a + b`.\n\nNo output file was produced by app.py itself (it has no side effects and no\n`__main__` block), so this file records the analysis of its behavior.\n"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 963,
+          "output_tokens": 144
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_zhDUsjruMOnahX6VqMKX7786",
+            "name": "read_file",
+            "arguments": {
+              "path": "output.txt"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1127,
+          "output_tokens": 38
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "Done. Verification evidence:\n\n1. **Workspace listing** — contained only `app.py`.\n2. **Read `app.py`** — it defines `add(a, b)` returning `a - b` (a subtraction despite the name `add`), with no `__main__` block or side effects, so it produces no output file on its own.\n3. **Wrote `output.txt`** — 353 bytes recording the function's behavior and the likely naming bug.\n4. **Verified** — re-read `output.txt`; contents match what was written (sha256 `8d4a4beb…76c9bf`).\n\nOne caveat worth flagging: since `app.py` has no output-producing code, there was no \"expected output file name/contents\" to derive from it — I created `output.txt` as an analysis record. If you intended a specific file (e.g., running the script to generate data), let me know the expected name and I'll adjust."
+        },
+        "usage": {
+          "input_tokens": 1346,
+          "output_tokens": 209
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}

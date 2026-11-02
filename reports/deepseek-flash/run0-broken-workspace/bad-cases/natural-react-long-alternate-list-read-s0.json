@@ -1,0 +1,147 @@
+{
+  "case_id": "long-alternate-list-read",
+  "arm": "react",
+  "revision": "c5e523b24facca74c18701ba99d83c5d5c6ba135",
+  "profile": "natural",
+  "model": "deepseek-flash",
+  "sample_id": 0,
+  "trace_path": "traces/natural-react-long-alternate-list-read-s0.jsonl",
+  "trace_hash": "c4c298024642999eb17e205eebb929f6a8b4bb92938c8d64e167bbfd2c5ba2d7",
+  "expected_status": "succeeded",
+  "expected_tools": [
+    "list_files",
+    "read_file"
+  ],
+  "expected_sequence": null,
+  "actual_status": "succeeded",
+  "actual_sequence": [
+    "list_files",
+    "list_files",
+    "list_files"
+  ],
+  "failed_assertions": [
+    "missing_tools:read_file"
+  ],
+  "steps": 5,
+  "logical_tool_calls": 3,
+  "tool_attempts": 3,
+  "projected_steps": [
+    "1:executor/error:-:failed",
+    "2:executor/model:list_files:completed",
+    "3:executor/tool:list_files:failed",
+    "4:executor/model:list_files:completed",
+    "5:executor/tool:list_files:failed",
+    "6:executor/model:list_files:completed",
+    "7:executor/tool:list_files:failed",
+    "8:executor/model:-:completed",
+    "9:executor/finish:-:completed"
+  ],
+  "model_decisions": 3,
+  "model_requests": 5,
+  "usage_steps": 5,
+  "received_tool_calls": null,
+  "failure_class": "model_quality",
+  "failure_point": "grading",
+  "error_type": null,
+  "diagnosis": "the run completed but did not satisfy its contract (missing_tools:read_file)",
+  "harness_gap": null,
+  "case_design_note": "the model probed 'src', which the fixture does not provide, so the case's own content invited exploration the contract does not allow for",
+  "repeated_calls": [],
+  "repeated_call_signature": null,
+  "repeat_count": null,
+  "observation_hashes": [],
+  "replay_eligibility": "deterministic",
+  "replay_mode": "recorded_model_candidate",
+  "replay_note": "Recorded replay is a candidate for this case and is not implemented yet. It will reproduce harness behaviour with the model's choices held constant; it cannot show that a model or prompt change helped, which requires a live re-evaluation.",
+  "planner_script": null,
+  "executor_script": [
+    {
+      "result": null,
+      "error": {
+        "error_type": "ModelProtocolError",
+        "message": "parallel tool calls are not enabled for this runtime",
+        "code": "multiple_tool_calls_not_allowed",
+        "received_tool_calls": 2,
+        "recoverable": true,
+        "usage": {
+          "input_tokens": 499,
+          "output_tokens": 102
+        }
+      }
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_6KWY0sV06XCmY7m1mZu36886",
+            "name": "list_files",
+            "arguments": {
+              "path": "."
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 542,
+          "output_tokens": 36
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_Ri2n7uPi7kU5XHAxB4ht9040",
+            "name": "list_files",
+            "arguments": {
+              "path": "./"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 642,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "tool",
+          "call": {
+            "id": "call_00_sJuRmcXL5BXX8RZql1Cg7298",
+            "name": "list_files",
+            "arguments": {
+              "path": "src"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 744,
+          "output_tokens": 37
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    },
+    {
+      "result": {
+        "action": {
+          "kind": "final",
+          "content": "I'm unable to proceed: the task requires walking two directories, but no directory paths were specified, and my attempts to discover the workspace layout failed (the listing tool rejects `.`, `./`, and `src` as invalid workspace-relative paths).\n\nTo continue, please provide:\n1. The two directory paths to walk (e.g., `dir_a` and `dir_b`), and\n2. Confirmation of the workspace root name, since relative paths like `.` are being rejected.\n\nOnce I have valid paths, I'll alternate `list_files` and `read_file` calls — one tool call per step — to traverse both directories."
+        },
+        "usage": {
+          "input_tokens": 845,
+          "output_tokens": 131
+        },
+        "model_name": "deepseek-flash"
+      },
+      "error": null
+    }
+  ]
+}
