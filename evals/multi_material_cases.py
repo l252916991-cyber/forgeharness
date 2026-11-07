@@ -85,7 +85,10 @@ def _endpoints(rng: random.Random, retry_violation: bool) -> list[str]:
         ("POST", rng.choice((1, 2, 3)), "[x-request-id, idempotency-key]"),
         ("POST", 0, "[x-request-id]"),
     )
-    entries = [("GET", rng.choice((0, 2, 3)), None), ("PUT", rng.choice((0, 1, 2)), None)]
+    entries: list[tuple[str, int, str | None]] = [
+        ("GET", rng.choice((0, 2, 3)), None),
+        ("PUT", rng.choice((0, 1, 2)), None),
+    ]
     if retry_violation:
         entries.append(("POST", rng.choice((1, 2, 3)), "[x-request-id]"))
     else:

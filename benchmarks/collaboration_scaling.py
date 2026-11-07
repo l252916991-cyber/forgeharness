@@ -111,7 +111,19 @@ DECISION_RULE = {
         "team success - best single success >= 0.25",
     ],
     "scope": "exploratory: 4 tasks x 2 samples per arm and N; no multiplicity correction",
+    "infrastructure": (
+        "an attempt that saw HTTP 429/5xx or a request without a response is rerun from "
+        "fresh state, at most 3 attempts per run; only the last attempt is graded; every "
+        "attempt is kept"
+    ),
+    "secondary": (
+        "per-call provider latency, and calls slower than 30 s, are reported descriptively; "
+        "they are not part of the decision"
+    ),
 }
+INFRA_ATTEMPTS = 3
+INFRA_BACKOFF_SECONDS = (10.0, 30.0)
+STALL_SECONDS = 30.0
 
 
 def digest(value: object) -> str:
@@ -410,14 +422,25 @@ class Meter:
     def __init__(self) -> None:
         self.requests = 0
         self.responses: list[dict[str, Any]] = []
+        self._started: dict[int, float] = {}
 
     async def on_request(self, request: httpx.Request) -> None:
-        del request
         self.requests += 1
+        self._started[id(request)] = time.monotonic()
 
     async def on_response(self, response: httpx.Response) -> None:
+        started = self._started.pop(id(response.request), None)
+        headers = time.monotonic()
         await response.aread()
-        entry: dict[str, Any] = {"status": response.status_code, "complete": False}
+        done = time.monotonic()
+        entry: dict[str, Any] = {
+            "status": response.status_code,
+            "complete": False,
+            # Headers versus body separates a slow provider answer from a queue that
+            # returns headers at once and holds the body.
+            "headers_seconds": None if started is None else round(headers - started, 3),
+            "seconds": None if started is None else round(done - started, 3),
+        }
         try:
             usage = response.json().get("usage") or {}
             details = usage.get("prompt_tokens_details") or {}
@@ -445,7 +468,9 @@ def context_for(application_id: str, version: str, policy: str, run_id: str) -> 
     )
 
 
-async def run_one(case: Case, arm: str, sample: int, args: Any, destination: Path) -> dict:
+async def run_one(
+    case: Case, arm: str, sample: int, args: Any, destination: Path
+) -> dict[str, Any]:
     meter = Meter()
     fences = [0]
     client = httpx.AsyncClient(
@@ -531,6 +556,9 @@ async def run_one(case: Case, arm: str, sample: int, args: Any, destination: Pat
     prompt = sum(r["prompt"] for r in measured)
     cached = sum(r["cached"] for r in measured)
     completion = sum(r["completion"] for r in measured)
+    statuses = [r["status"] for r in meter.responses]
+    missing = meter.requests - len(meter.responses)
+    calls = [r["seconds"] for r in meter.responses if r["seconds"] is not None]
     row = {
         "case": case.id,
         "size": case.size,
@@ -557,13 +585,48 @@ async def run_one(case: Case, arm: str, sample: int, args: Any, destination: Pat
         "fences_stripped": fences[0],
         "material_reads": len(tool.calls),
         "usage_known": args.mode == "live" and len(measured) == meter.requests > 0,
+        "http_statuses": statuses,
+        "missing_responses": missing,
+        "call_seconds": calls,
+        "max_call_seconds": max(calls, default=None),
+        "stalled_calls": sum(seconds > STALL_SECONDS for seconds in calls),
         "infrastructure_error": args.mode == "live"
-        and (
-            len(meter.responses) < meter.requests
-            or any(r["status"] >= 400 for r in meter.responses)
-        ),
+        and (missing > 0 or any(status >= 400 for status in statuses)),
+        # Only provider-side trouble is rerun; a client error would recur every time.
+        "infrastructure_retryable": args.mode == "live"
+        and (missing > 0 or any(status == 429 or status >= 500 for status in statuses))
+        and not any(400 <= status < 500 and status != 429 for status in statuses),
     }
     row["success"] = bool(row["success"] and trace_valid)
+    write(destination / "result.json", row)
+    return row
+
+
+async def run_measured(
+    case: Case, arm: str, sample: int, args: Any, destination: Path
+) -> dict[str, Any]:
+    """Run one graded run, rerunning provider-side failures from fresh state.
+
+    Each attempt keeps its own directory, state and result. The returned row is the
+    last attempt, written as the run's ``result.json`` with the earlier attempts listed.
+    """
+    discarded: list[dict[str, Any]] = []
+    for attempt in range(INFRA_ATTEMPTS):
+        row = await run_one(case, arm, sample, args, destination / f"attempt-{attempt}")
+        if not row["infrastructure_retryable"] or attempt == INFRA_ATTEMPTS - 1:
+            break
+        discarded.append(
+            {
+                "attempt": attempt,
+                "error": row["error"],
+                "http_statuses": row["http_statuses"],
+                "missing_responses": row["missing_responses"],
+                "seconds": row["seconds"],
+                "cost_usd_peak": row["cost_usd_peak"],
+            }
+        )
+        await asyncio.sleep(INFRA_BACKOFF_SECONDS[min(attempt, len(INFRA_BACKOFF_SECONDS) - 1)])
+    row = {**row, "attempt": attempt, "discarded_attempts": discarded}
     write(destination / "result.json", row)
     return row
 
@@ -578,7 +641,7 @@ def percentile(values: list[float], p: float) -> float | None:
     return ordered[max(0, math.ceil(len(ordered) * p) - 1)]
 
 
-def summarize(rows: list[dict], expected_runs: int, mode: str) -> dict[str, Any]:
+def summarize(rows: list[dict[str, Any]], expected_runs: int, mode: str) -> dict[str, Any]:
     by_size: dict[str, Any] = {}
     for size in SIZES:
         arms = {}
@@ -602,9 +665,16 @@ def summarize(rows: list[dict], expected_runs: int, mode: str) -> dict[str, Any]
                 "cost_usd_peak_per_success": cost / successes if successes else None,
                 "fences_stripped": sum(r["fences_stripped"] for r in selected),
                 "malformed_or_failed_runs": sum(r["claimed"] is None for r in selected),
+                # Descriptive only (DECISION_RULE "secondary").
+                "max_call_seconds": max(
+                    (r["max_call_seconds"] or 0.0 for r in selected), default=0.0
+                ),
+                "stalled_calls": sum(r["stalled_calls"] for r in selected),
+                "infrastructure_retries": sum(len(r["discarded_attempts"]) for r in selected),
             }
         by_size[str(size)] = {"arms": arms, "decision": decide(arms)}
     infra = sum(r["infrastructure_error"] for r in rows)
+    calls = sorted(seconds for r in rows for seconds in r["call_seconds"])
     complete = (
         len(rows) == expected_runs
         and len({(r["case"], r["arm"], r["sample"]) for r in rows}) == expected_runs
@@ -616,6 +686,15 @@ def summarize(rows: list[dict], expected_runs: int, mode: str) -> dict[str, Any]
         "actual_runs": len(rows),
         "complete": complete,
         "infrastructure_failures": infra,
+        "infrastructure_retries": sum(len(r["discarded_attempts"]) for r in rows),
+        "provider_calls": {
+            "count": len(calls),
+            "p50_seconds": percentile(calls, 0.5),
+            "p95_seconds": percentile(calls, 0.95),
+            "max_seconds": calls[-1] if calls else None,
+            "stalled": sum(seconds > STALL_SECONDS for seconds in calls),
+        },
+        "malformed_or_failed_runs": sum(r["claimed"] is None for r in rows),
         "measurement": mode == "live"
         and complete
         and infra == 0
@@ -693,13 +772,13 @@ async def execute(args: Any) -> dict[str, Any]:
         "cases": [c.id for c in selected],
     }
     write(args.output / "manifest.json", manifest)
-    rows = []
+    rows: list[dict[str, Any]] = []
     for index, case in enumerate(selected):
         for sample in range(args.samples):
             # Rotate arm order so no arm always runs first against a warm cache.
             offset = (index + sample) % len(ARMS)
             for arm in (*ARMS[offset:], *ARMS[:offset]):
-                row = await run_one(
+                row = await run_measured(
                     case, arm, sample, args, args.output / case.id / f"{arm}-{sample}"
                 )
                 rows.append(row)
@@ -727,6 +806,13 @@ def seal(args: Any) -> None:
         raise ValueError("need a complete live dev run")
     if manifest["identity"] != identity():
         raise ValueError("the dev run used a different runner or corpus")
+    # A health gate on the pipeline, not on results: dev success rates do not matter,
+    # but every arm must have reached the provider cleanly and produced a parseable
+    # answer before the evaluation budget is spent.
+    if not summary["measurement"]:
+        raise ValueError("the dev run is not a clean measurement; inspect it before sealing")
+    if summary["malformed_or_failed_runs"]:
+        raise ValueError("a dev run produced no parseable answer; inspect it before sealing")
     if args.protocol is None or args.protocol.exists():
         raise ValueError("choose a new protocol path; protocols are immutable")
     write(
@@ -760,11 +846,19 @@ def main() -> None:
     if args.seal:
         if args.dev_report is None:
             parser.error("--seal requires --dev-report")
-        seal(args)
+        try:
+            seal(args)
+        except ValueError as exc:
+            # A refusal stops a chained `dev && seal && evaluation` command line.
+            parser.exit(2, f"seal refused: {exc}\n")
+        print(f"sealed {args.protocol}", flush=True)
         return
     if args.output is None:
         parser.error("--output is required")
-    asyncio.run(execute(args))
+    try:
+        asyncio.run(execute(args))
+    except ValueError as exc:
+        parser.exit(2, f"run refused: {exc}\n")
 
 
 if __name__ == "__main__":
