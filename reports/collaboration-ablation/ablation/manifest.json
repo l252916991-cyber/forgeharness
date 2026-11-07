@@ -1,0 +1,43 @@
+{
+  "identity": {
+    "runner_sha256": "a23c937c97c4bad3c281ab3c0348d64f2b98c196a6fac3ee2b2a2ccab95e1844",
+    "shared_runner_sha256": "805f623d15a9e7ce0df1edec3c0bc63054c0e42e93eb43f78f7e079109b77006",
+    "cases_sha256": "b6b33de1e9d69207688079b13ba98cdf31b113597f09ef403835aa5af4f08611",
+    "ablation_cases_sha256": "4cb149e467a7649526c70f762fca377276d4d8011a27c23d8776d12afefa46e5",
+    "output_tokens": 1024
+  },
+  "source_identity": "93702f2efac57b529eadecf96915d0511d1b0d9963a31b106684d0bb9d3226f1",
+  "mode": "live",
+  "model": "deepseek-flash",
+  "model_parameters": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "timeout_seconds": 120.0,
+    "require_usage": false,
+    "max_response_bytes": 8388608,
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "enable_thinking": false,
+    "thinking_control": "thinking_object",
+    "context_window_tokens": null,
+    "provider_overhead_tokens": null,
+    "cache_mode": "off"
+  },
+  "split": "ablation",
+  "samples": 1,
+  "protocol_sha256": "31b90e4a7bc19ea84b7a9a24fbf607ea0237031a325f2ea44ae25190c1d80333",
+  "cases": [
+    "ablation-n32-1",
+    "ablation-n32-2",
+    "ablation-n32-3",
+    "ablation-n32-4",
+    "ablation-n32-5",
+    "ablation-n32-6",
+    "ablation-n32-7",
+    "ablation-n32-8",
+    "ablation-n32-9",
+    "ablation-n32-10",
+    "ablation-n32-11",
+    "ablation-n32-12"
+  ]
+}

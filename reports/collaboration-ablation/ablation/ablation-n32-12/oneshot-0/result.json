@@ -1,0 +1,61 @@
+{
+  "case": "ablation-n32-12",
+  "size": 32,
+  "arm": "oneshot",
+  "sample": 0,
+  "status": "succeeded",
+  "error": null,
+  "expected": [
+    "svc-01",
+    "svc-03",
+    "svc-10",
+    "svc-16",
+    "svc-22",
+    "svc-23",
+    "svc-24",
+    "svc-32"
+  ],
+  "claimed": [
+    "svc-01",
+    "svc-03",
+    "svc-10",
+    "svc-16",
+    "svc-22",
+    "svc-23",
+    "svc-24",
+    "svc-32"
+  ],
+  "success": true,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "misses": [],
+  "false_alarms": [],
+  "team_breakdown": null,
+  "reordered_requests": null,
+  "requests_seen_by_reorder": null,
+  "trace_valid": true,
+  "seconds": 1.7474999999685679,
+  "model_calls": 1,
+  "prompt_tokens": 13245,
+  "cached_prompt_tokens": 128,
+  "completion_tokens": 53,
+  "max_prompt_tokens": 13245,
+  "cost_usd_peak": 0.003999468,
+  "fences_stripped": 0,
+  "material_reads": 32,
+  "usage_known": true,
+  "http_statuses": [
+    200
+  ],
+  "missing_responses": 0,
+  "call_seconds": [
+    1.689
+  ],
+  "max_call_seconds": 1.689,
+  "stalled_calls": 0,
+  "infrastructure_error": false,
+  "infrastructure_retryable": false,
+  "attempt": 0,
+  "discarded_attempts": []
+}

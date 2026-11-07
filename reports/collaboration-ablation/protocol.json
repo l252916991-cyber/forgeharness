@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "identity": {
+    "runner_sha256": "a23c937c97c4bad3c281ab3c0348d64f2b98c196a6fac3ee2b2a2ccab95e1844",
+    "shared_runner_sha256": "805f623d15a9e7ce0df1edec3c0bc63054c0e42e93eb43f78f7e079109b77006",
+    "cases_sha256": "b6b33de1e9d69207688079b13ba98cdf31b113597f09ef403835aa5af4f08611",
+    "ablation_cases_sha256": "4cb149e467a7649526c70f762fca377276d4d8011a27c23d8776d12afefa46e5",
+    "output_tokens": 1024
+  },
+  "model": "deepseek-flash",
+  "samples": 1,
+  "ablation_cases": [
+    "ablation-n32-1",
+    "ablation-n32-2",
+    "ablation-n32-3",
+    "ablation-n32-4",
+    "ablation-n32-5",
+    "ablation-n32-6",
+    "ablation-n32-7",
+    "ablation-n32-8",
+    "ablation-n32-9",
+    "ablation-n32-10",
+    "ablation-n32-11",
+    "ablation-n32-12"
+  ],
+  "planned_runs": 72,
+  "dev_summary_sha256": "a7d9a7cfed9dbd6e5101a29be96e886c27f0e50018dedaa57f2656ba820e2d6f",
+  "rule": {
+    "tasks": "12 fresh N = 32 tasks (seed 3303), one sample each, every arm on every task",
+    "primary": "exact-set success per arm; service-level errors (misses + false alarms) second",
+    "replication_gate": "attribution is attempted only if oneshot succeeds on >= 11/12 and team fails on >= 4/12; otherwise the scaling study's failure did not replicate",
+    "manipulation_checks": "team-system-first: the wrapper reorders every request it sees; team-findings-first: >= 90% of specialist reports put findings before summary; an arm whose check fails is not interpreted",
+    "effect": "a variant removes the failure if its successes exceed team's by >= 4 and its service-level errors are at most half of team's; it has no effect if its successes are within 2 of team's; anything else is inconclusive",
+    "infrastructure": "an attempt that saw HTTP 429/5xx or a request without a response is rerun from fresh state, at most 3 attempts per run; only the last attempt is graded; every attempt is kept",
+    "scope": "exploratory: one model, temperature 0, 12 tasks; no multiplicity correction"
+  }
+}

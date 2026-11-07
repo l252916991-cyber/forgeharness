@@ -1,0 +1,63 @@
+{
+  "case": "ablation-n32-2",
+  "size": 32,
+  "arm": "oneshot",
+  "sample": 0,
+  "status": "succeeded",
+  "error": null,
+  "expected": [
+    "svc-03",
+    "svc-07",
+    "svc-16",
+    "svc-20",
+    "svc-21",
+    "svc-23",
+    "svc-27",
+    "svc-28",
+    "svc-31"
+  ],
+  "claimed": [
+    "svc-03",
+    "svc-07",
+    "svc-16",
+    "svc-20",
+    "svc-21",
+    "svc-23",
+    "svc-27",
+    "svc-28",
+    "svc-31"
+  ],
+  "success": true,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "misses": [],
+  "false_alarms": [],
+  "team_breakdown": null,
+  "reordered_requests": null,
+  "requests_seen_by_reorder": null,
+  "trace_valid": true,
+  "seconds": 0.9088122920074966,
+  "model_calls": 1,
+  "prompt_tokens": 13284,
+  "cached_prompt_tokens": 128,
+  "completion_tokens": 59,
+  "max_prompt_tokens": 13284,
+  "cost_usd_peak": 0.004018368,
+  "fences_stripped": 0,
+  "material_reads": 32,
+  "usage_known": true,
+  "http_statuses": [
+    200
+  ],
+  "missing_responses": 0,
+  "call_seconds": [
+    0.851
+  ],
+  "max_call_seconds": 0.851,
+  "stalled_calls": 0,
+  "infrastructure_error": false,
+  "infrastructure_retryable": false,
+  "attempt": 0,
+  "discarded_attempts": []
+}
