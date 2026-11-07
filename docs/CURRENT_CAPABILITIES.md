@@ -11,12 +11,13 @@
 - **托管执行**：PostgreSQL 状态层、托管串行执行，以及邀请制内部 Alpha 控制面（[报告](../reports/saas/20261101-control-plane/REPORT.md)）。
   生产 IdP/MFA、人民币额度、多 worker 容量、公网部署、备份/SLO 与真实业务仍未验收。
 - **真实模型评测**：DeepSeek `deepseek-flash` 的基线、失败分析与改进前后对比见 [实测报告](../reports/deepseek-flash/REPORT.md)；
+  固定专家协作与单 Agent 的规模对照见 [规模实验](../reports/collaboration-scaling/REPORT.md)，协作在各规模都没有达到事先封存的判定条件。
   评测数据是合成的，不代表真实业务质量。
 
 | 能力 | 当前实现 | 已有验证定位 | 未证明的范围 |
 |---|---|---|---|
 | PG 托管串行执行 | 现有 AgentRuntime、完整输入/结果/证据、精确审批、预算与epoch恢复 | `cloud/runtime.py`、真实PG/HTTP/独立账本故障矩阵；工程资格见[本次报告](../reports/saas/20261030-hosted/REPORT.md) | 内部可信宿主API；通用身份/UI、集群调度、PG R2/并行/会话、账单与真实云上线未完成 |
-| 固定专家协作 | 已实现：独立材料分配、结构化结果、持久 delegation 节点和协调者；显式支持并发 2 | `sdk/collaboration.py`、`test_collaboration.py`、`test_parallel_execution.py`；新候选工程资格见独立报告 | 一次决策；自主循环、写隔离和真实质量另验 |
+| 固定专家协作 | 已实现：独立材料分配、结构化结果、持久 delegation 节点和协调者；显式支持并发 2 | `sdk/collaboration.py`、`test_collaboration.py`、`test_parallel_execution.py`；新候选工程资格见独立报告；真实模型对照见[规模实验](../reports/collaboration-scaling/REPORT.md) | 一次决策；自主循环、写隔离未验证；规模实验中各规模都不优于「读完后一次调用」，32 份材料时专家层漏报，原因未定位 |
 | 有界模型并行 | 单 owner/writer；run 上限 1/2、共享 provider 容量、有界轮转队列、工具屏障、持久发送与取消/对账 | `sdk/parallel.py`、`sdk/parallel_runner.py`、`test_parallel_recovery.py`；[本轮报告](../reports/parallel-execution-20261027/REPORT.md) | 单进程/容量域；后端实际提速按同拓扑实验判定；无并行工具/分布式保证 |
 | R2 模型输出 schema | 本地 schema、普通结算和对账共用校验；错误结果保留用量 | `runtime/structured.py`、`test_reconciliation_cannot_bypass_result_schema` | 引用身份不等于语义支持 |
 | ReAct 状态、审批、恢复 | 已实现 | `sdk/harness.py`、`state/approval.py`、`state/invocation_journal.py`；历史候选全量测试 | 外部 exactly-once、跨主机 failover |

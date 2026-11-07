@@ -36,6 +36,12 @@ All notable changes to ForgeHarness are documented here. The format follows
   `BENCHMARK_VERSION` is 2 and `OBSERVATION_CONTRACT_VERSION` is 3.
 - QUICKSTART, SDK_GUIDE and CURRENT_CAPABILITIES describe 0.13.0; QUICKSTART no longer uses
   the non-existent `forge --version`.
+- Collaboration scaling study (`benchmarks/collaboration_scaling.py`, `evals/multi_material_cases.py`):
+  ReAct, a read-everything-then-one-call orchestrator and fixed-specialist `Collaboration` on
+  4–32 independent materials with `deepseek-flash`, under a protocol sealed from a dev run.
+  The team arm met the pre-registered rule at no size; at N = 32 it fell to 1/8, every error
+  at the specialist layer (`reports/collaboration-scaling/REPORT.md`). The runner reruns
+  provider-side failures from fresh state and meters per-call latency.
 
 ## 0.13.0 engineering candidate (qualification recorded separately; not published)
 
