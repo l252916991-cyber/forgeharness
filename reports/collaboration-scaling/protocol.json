@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "identity": {
+    "runner_sha256": "805f623d15a9e7ce0df1edec3c0bc63054c0e42e93eb43f78f7e079109b77006",
+    "cases_sha256": "b6b33de1e9d69207688079b13ba98cdf31b113597f09ef403835aa5af4f08611",
+    "output_tokens": 1024,
+    "max_specialists": 8
+  },
+  "model": "deepseek-flash",
+  "samples": 2,
+  "evaluation_cases": [
+    "evaluation-n04-1",
+    "evaluation-n04-2",
+    "evaluation-n04-3",
+    "evaluation-n04-4",
+    "evaluation-n08-1",
+    "evaluation-n08-2",
+    "evaluation-n08-3",
+    "evaluation-n08-4",
+    "evaluation-n16-1",
+    "evaluation-n16-2",
+    "evaluation-n16-3",
+    "evaluation-n16-4",
+    "evaluation-n32-1",
+    "evaluation-n32-2",
+    "evaluation-n32-3",
+    "evaluation-n32-4"
+  ],
+  "planned_runs": 96,
+  "dev_summary_sha256": "b3107f16082edd5d1f0fd44de66d67fc3ecd907a40eaa89be5156104a98cea60",
+  "decision_rule": {
+    "metric": "exact-set success rate per material count N",
+    "best_single": "the higher of react and oneshot success rates; ties go to lower cost",
+    "team_worth_it_if": [
+      "team success >= best single AND (team p50 latency <= 0.8x OR cost per run <= 0.8x)",
+      "team success - best single success >= 0.25"
+    ],
+    "scope": "exploratory: 4 tasks x 2 samples per arm and N; no multiplicity correction",
+    "infrastructure": "an attempt that saw HTTP 429/5xx or a request without a response is rerun from fresh state, at most 3 attempts per run; only the last attempt is graded; every attempt is kept",
+    "secondary": "per-call provider latency, and calls slower than 30 s, are reported descriptively; they are not part of the decision"
+  }
+}

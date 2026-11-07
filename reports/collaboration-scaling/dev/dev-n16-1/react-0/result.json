@@ -1,0 +1,36 @@
+{
+  "case": "dev-n16-1",
+  "size": 16,
+  "arm": "react",
+  "sample": 0,
+  "status": "succeeded",
+  "error": null,
+  "expected": [
+    "svc-09",
+    "svc-10",
+    "svc-11",
+    "svc-12"
+  ],
+  "claimed": [
+    "svc-09",
+    "svc-10",
+    "svc-11",
+    "svc-12"
+  ],
+  "success": true,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "trace_valid": true,
+  "seconds": 21.264376666978933,
+  "model_calls": 17,
+  "prompt_tokens": 76186,
+  "cached_prompt_tokens": 68096,
+  "completion_tokens": 697,
+  "max_prompt_tokens": 7953,
+  "cost_usd_peak": 0.003671976,
+  "fences_stripped": 0,
+  "material_reads": 16,
+  "usage_known": true,
+  "infrastructure_error": false
+}

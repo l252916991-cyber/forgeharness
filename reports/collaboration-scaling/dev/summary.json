@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "mode": "live",
+  "expected_runs": 12,
+  "actual_runs": 12,
+  "complete": true,
+  "infrastructure_failures": 1,
+  "measurement": false,
+  "decision_rule": {
+    "metric": "exact-set success rate per material count N",
+    "best_single": "the higher of react and oneshot success rates; ties go to lower cost",
+    "team_worth_it_if": [
+      "team success >= best single AND (team p50 latency <= 0.8x OR cost per run <= 0.8x)",
+      "team success - best single success >= 0.25"
+    ],
+    "scope": "exploratory: 4 tasks x 2 samples per arm and N; no multiplicity correction"
+  },
+  "by_size": {
+    "4": {
+      "arms": {
+        "react": {
+          "runs": 1,
+          "successes": 0,
+          "success_rate": 0.0,
+          "mean_f1": 0.0,
+          "latency_p50_seconds": 0.23257029196247458,
+          "latency_p95_seconds": 0.23257029196247458,
+          "mean_model_calls": 1,
+          "mean_prompt_tokens": 0,
+          "mean_max_prompt_tokens": 0,
+          "cost_usd_peak_per_run": 0.0,
+          "cost_usd_peak_per_success": null,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 1
+        },
+        "oneshot": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 1.0105698329862207,
+          "latency_p95_seconds": 1.0105698329862207,
+          "mean_model_calls": 1,
+          "mean_prompt_tokens": 1889,
+          "mean_max_prompt_tokens": 1889,
+          "cost_usd_peak_per_run": 0.0005799,
+          "cost_usd_peak_per_success": 0.0005799,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        },
+        "team": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 81.83571691601537,
+          "latency_p95_seconds": 81.83571691601537,
+          "mean_model_calls": 5,
+          "mean_prompt_tokens": 6033,
+          "mean_max_prompt_tokens": 1401,
+          "cost_usd_peak_per_run": 0.0024426359999999998,
+          "cost_usd_peak_per_success": 0.0024426359999999998,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        }
+      },
+      "decision": "team_not_worth_it"
+    },
+    "8": {
+      "arms": {
+        "react": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 27.390724625030998,
+          "latency_p95_seconds": 27.390724625030998,
+          "mean_model_calls": 9,
+          "mean_prompt_tokens": 23939,
+          "mean_max_prompt_tokens": 4403,
+          "cost_usd_peak_per_run": 0.001931268,
+          "cost_usd_peak_per_success": 0.001931268,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        },
+        "oneshot": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 1.0889305419987068,
+          "latency_p95_seconds": 1.0889305419987068,
+          "mean_model_calls": 1,
+          "mean_prompt_tokens": 3418,
+          "mean_max_prompt_tokens": 3418,
+          "cost_usd_peak_per_run": 0.0010529999999999997,
+          "cost_usd_peak_per_success": 0.0010529999999999997,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        },
+        "team": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 8.74235116696218,
+          "latency_p95_seconds": 8.74235116696218,
+          "mean_model_calls": 9,
+          "mean_prompt_tokens": 11335,
+          "mean_max_prompt_tokens": 2218,
+          "cost_usd_peak_per_run": 0.004109028000000001,
+          "cost_usd_peak_per_success": 0.004109028000000001,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        }
+      },
+      "decision": "team_not_worth_it"
+    },
+    "16": {
+      "arms": {
+        "react": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 21.264376666978933,
+          "latency_p95_seconds": 21.264376666978933,
+          "mean_model_calls": 17,
+          "mean_prompt_tokens": 76186,
+          "mean_max_prompt_tokens": 7953,
+          "cost_usd_peak_per_run": 0.003671976,
+          "cost_usd_peak_per_success": 0.003671976,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        },
+        "oneshot": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 1.4967624170240015,
+          "latency_p95_seconds": 1.4967624170240015,
+          "mean_model_calls": 1,
+          "mean_prompt_tokens": 6696,
+          "mean_max_prompt_tokens": 6696,
+          "cost_usd_peak_per_run": 0.0020436,
+          "cost_usd_peak_per_success": 0.0020436,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        },
+        "team": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 103.08624824997969,
+          "latency_p95_seconds": 103.08624824997969,
+          "mean_model_calls": 9,
+          "mean_prompt_tokens": 15287,
+          "mean_max_prompt_tokens": 2307,
+          "cost_usd_peak_per_run": 0.005736612,
+          "cost_usd_peak_per_success": 0.005736612,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        }
+      },
+      "decision": "team_not_worth_it"
+    },
+    "32": {
+      "arms": {
+        "react": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 41.740143041999545,
+          "latency_p95_seconds": 41.740143041999545,
+          "mean_model_calls": 33,
+          "mean_prompt_tokens": 262203,
+          "mean_max_prompt_tokens": 14884,
+          "cost_usd_peak_per_run": 0.007625075999999999,
+          "cost_usd_peak_per_success": 0.007625075999999999,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        },
+        "oneshot": {
+          "runs": 1,
+          "successes": 1,
+          "success_rate": 1.0,
+          "mean_f1": 1.0,
+          "latency_p50_seconds": 1.6886657500290312,
+          "latency_p95_seconds": 1.6886657500290312,
+          "mean_model_calls": 1,
+          "mean_prompt_tokens": 13083,
+          "mean_max_prompt_tokens": 13083,
+          "cost_usd_peak_per_run": 0.003960468,
+          "cost_usd_peak_per_success": 0.003960468,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        },
+        "team": {
+          "runs": 1,
+          "successes": 0,
+          "success_rate": 0.0,
+          "mean_f1": 0.9,
+          "latency_p50_seconds": 10.389743292005733,
+          "latency_p95_seconds": 10.389743292005733,
+          "mean_model_calls": 9,
+          "mean_prompt_tokens": 23451,
+          "mean_max_prompt_tokens": 2882,
+          "cost_usd_peak_per_run": 0.00910218,
+          "cost_usd_peak_per_success": null,
+          "fences_stripped": 0,
+          "malformed_or_failed_runs": 0
+        }
+      },
+      "decision": "team_not_worth_it"
+    }
+  },
+  "price_basis": {
+    "usd_per_million_tokens_peak": {
+      "input_miss": 0.3,
+      "input_hit": 0.006,
+      "output": 1.2
+    }
+  },
+  "limits": [
+    "synthetic author-generated audit tasks; not business data",
+    "one model; at most two concurrent model calls in the team arm",
+    "4 tasks x 2 samples per arm and size; exploratory"
+  ],
+  "source_unchanged": true,
+  "manifest_sha256": "ca5277177fcfd9a3d71bb93d170b78fcf2701cdbe038efe39833e2540bae8da5"
+}

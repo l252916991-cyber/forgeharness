@@ -1,0 +1,46 @@
+{
+  "case": "dev-n08-1",
+  "size": 8,
+  "arm": "oneshot",
+  "sample": 0,
+  "status": "succeeded",
+  "error": null,
+  "expected": [
+    "svc-01",
+    "svc-02",
+    "svc-04"
+  ],
+  "claimed": [
+    "svc-01",
+    "svc-02",
+    "svc-04"
+  ],
+  "success": true,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "trace_valid": true,
+  "seconds": 0.647811874980107,
+  "model_calls": 1,
+  "prompt_tokens": 3418,
+  "cached_prompt_tokens": 3200,
+  "completion_tokens": 23,
+  "max_prompt_tokens": 3418,
+  "cost_usd_peak": 0.00011219999999999999,
+  "fences_stripped": 0,
+  "material_reads": 8,
+  "usage_known": true,
+  "http_statuses": [
+    200
+  ],
+  "missing_responses": 0,
+  "call_seconds": [
+    0.62
+  ],
+  "max_call_seconds": 0.62,
+  "stalled_calls": 0,
+  "infrastructure_error": false,
+  "infrastructure_retryable": false,
+  "attempt": 0,
+  "discarded_attempts": []
+}

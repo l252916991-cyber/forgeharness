@@ -1,0 +1,62 @@
+{
+  "case": "evaluation-n32-3",
+  "size": 32,
+  "arm": "oneshot",
+  "sample": 0,
+  "status": "succeeded",
+  "error": null,
+  "expected": [
+    "svc-01",
+    "svc-03",
+    "svc-06",
+    "svc-11",
+    "svc-12",
+    "svc-15",
+    "svc-16",
+    "svc-21",
+    "svc-25",
+    "svc-26",
+    "svc-31"
+  ],
+  "claimed": [
+    "svc-01",
+    "svc-03",
+    "svc-06",
+    "svc-11",
+    "svc-12",
+    "svc-15",
+    "svc-16",
+    "svc-21",
+    "svc-25",
+    "svc-26",
+    "svc-31"
+  ],
+  "success": true,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "trace_valid": true,
+  "seconds": 1.4694121250067838,
+  "model_calls": 1,
+  "prompt_tokens": 12987,
+  "cached_prompt_tokens": 128,
+  "completion_tokens": 61,
+  "max_prompt_tokens": 12987,
+  "cost_usd_peak": 0.003931667999999999,
+  "fences_stripped": 0,
+  "material_reads": 32,
+  "usage_known": true,
+  "http_statuses": [
+    200
+  ],
+  "missing_responses": 0,
+  "call_seconds": [
+    1.43
+  ],
+  "max_call_seconds": 1.43,
+  "stalled_calls": 0,
+  "infrastructure_error": false,
+  "infrastructure_retryable": false,
+  "attempt": 0,
+  "discarded_attempts": []
+}

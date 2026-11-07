@@ -1,0 +1,34 @@
+{
+  "identity": {
+    "runner_sha256": "805f623d15a9e7ce0df1edec3c0bc63054c0e42e93eb43f78f7e079109b77006",
+    "cases_sha256": "b6b33de1e9d69207688079b13ba98cdf31b113597f09ef403835aa5af4f08611",
+    "output_tokens": 1024,
+    "max_specialists": 8
+  },
+  "source_identity": "0c1b4e8aa7b5d6b21bf6949a0d5e8af4e00e23b00c899418eb0b6db019ff3d96",
+  "mode": "live",
+  "model": "deepseek-flash",
+  "model_parameters": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "timeout_seconds": 120.0,
+    "require_usage": false,
+    "max_response_bytes": 8388608,
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "enable_thinking": false,
+    "thinking_control": "thinking_object",
+    "context_window_tokens": null,
+    "provider_overhead_tokens": null,
+    "cache_mode": "off"
+  },
+  "split": "dev",
+  "samples": 1,
+  "protocol_sha256": null,
+  "cases": [
+    "dev-n04-1",
+    "dev-n08-1",
+    "dev-n16-1",
+    "dev-n32-1"
+  ]
+}

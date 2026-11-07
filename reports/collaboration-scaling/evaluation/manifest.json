@@ -1,0 +1,46 @@
+{
+  "identity": {
+    "runner_sha256": "805f623d15a9e7ce0df1edec3c0bc63054c0e42e93eb43f78f7e079109b77006",
+    "cases_sha256": "b6b33de1e9d69207688079b13ba98cdf31b113597f09ef403835aa5af4f08611",
+    "output_tokens": 1024,
+    "max_specialists": 8
+  },
+  "source_identity": "0c1b4e8aa7b5d6b21bf6949a0d5e8af4e00e23b00c899418eb0b6db019ff3d96",
+  "mode": "live",
+  "model": "deepseek-flash",
+  "model_parameters": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "timeout_seconds": 120.0,
+    "require_usage": false,
+    "max_response_bytes": 8388608,
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "enable_thinking": false,
+    "thinking_control": "thinking_object",
+    "context_window_tokens": null,
+    "provider_overhead_tokens": null,
+    "cache_mode": "off"
+  },
+  "split": "evaluation",
+  "samples": 2,
+  "protocol_sha256": "9b35f75a876b895359ecb903f4c7720e84df9a3688859d5afafd48af4a36646e",
+  "cases": [
+    "evaluation-n04-1",
+    "evaluation-n04-2",
+    "evaluation-n04-3",
+    "evaluation-n04-4",
+    "evaluation-n08-1",
+    "evaluation-n08-2",
+    "evaluation-n08-3",
+    "evaluation-n08-4",
+    "evaluation-n16-1",
+    "evaluation-n16-2",
+    "evaluation-n16-3",
+    "evaluation-n16-4",
+    "evaluation-n32-1",
+    "evaluation-n32-2",
+    "evaluation-n32-3",
+    "evaluation-n32-4"
+  ]
+}

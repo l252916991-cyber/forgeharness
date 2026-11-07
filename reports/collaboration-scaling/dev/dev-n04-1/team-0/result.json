@@ -1,0 +1,30 @@
+{
+  "case": "dev-n04-1",
+  "size": 4,
+  "arm": "team",
+  "sample": 0,
+  "status": "succeeded",
+  "error": null,
+  "expected": [
+    "svc-02"
+  ],
+  "claimed": [
+    "svc-02"
+  ],
+  "success": true,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "trace_valid": true,
+  "seconds": 81.83571691601537,
+  "model_calls": 5,
+  "prompt_tokens": 6033,
+  "cached_prompt_tokens": 256,
+  "completion_tokens": 590,
+  "max_prompt_tokens": 1401,
+  "cost_usd_peak": 0.0024426359999999998,
+  "fences_stripped": 0,
+  "material_reads": 0,
+  "usage_known": true,
+  "infrastructure_error": false
+}

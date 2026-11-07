@@ -1,0 +1,62 @@
+{
+  "case": "evaluation-n08-3",
+  "size": 8,
+  "arm": "react",
+  "sample": 0,
+  "status": "succeeded",
+  "error": null,
+  "expected": [
+    "svc-03",
+    "svc-04",
+    "svc-06"
+  ],
+  "claimed": [
+    "svc-03",
+    "svc-04",
+    "svc-06"
+  ],
+  "success": true,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "trace_valid": true,
+  "seconds": 7.423924292001175,
+  "model_calls": 9,
+  "prompt_tokens": 24670,
+  "cached_prompt_tokens": 20736,
+  "completion_tokens": 360,
+  "max_prompt_tokens": 4521,
+  "cost_usd_peak": 0.001736616,
+  "fences_stripped": 0,
+  "material_reads": 8,
+  "usage_known": true,
+  "http_statuses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "missing_responses": 0,
+  "call_seconds": [
+    0.752,
+    0.987,
+    0.878,
+    0.874,
+    1.094,
+    0.772,
+    0.431,
+    0.712,
+    0.817
+  ],
+  "max_call_seconds": 1.094,
+  "stalled_calls": 0,
+  "infrastructure_error": false,
+  "infrastructure_retryable": false,
+  "attempt": 0,
+  "discarded_attempts": []
+}
