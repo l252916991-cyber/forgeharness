@@ -42,6 +42,11 @@ All notable changes to ForgeHarness are documented here. The format follows
   The team arm met the pre-registered rule at no size; at N = 32 it fell to 1/8, every error
   at the specialist layer (`reports/collaboration-scaling/REPORT.md`). The runner reruns
   provider-side failures from fresh state and meters per-call latency.
+- Collaboration ablation (`benchmarks/collaboration_ablation.py`) on twelve fresh N = 32
+  tasks: the team failure replicated (team 8/12, oneshot 12/12), but no variant met the
+  pre-registered bar. System-first message order was worse (4/12); findings before summary
+  removed every omission (11/12) by moving reasoning into the claim text; two services per
+  specialist reached 11/12 at twice the calls (`reports/collaboration-ablation/REPORT.md`).
 
 ## 0.13.0 engineering candidate (qualification recorded separately; not published)
 
