@@ -1,0 +1,365 @@
+{
+  "schema_version": 1,
+  "mode": "live",
+  "expected_runs": 48,
+  "actual_runs": 48,
+  "complete": true,
+  "infrastructure_failures": 0,
+  "infrastructure_retries": 0,
+  "failed_units": 0,
+  "measurement": true,
+  "rule": {
+    "primary": "service-level error rate: (misses + false alarms) / (N x tasks), per arm and N",
+    "secondary": "exact-set success per run; cost and latency are descriptive only",
+    "failed_units": "a unit (the single call, a group or a plan) without a parseable answer claims nothing: its violators count as misses, and failed units are reported",
+    "oneshot_degrades": "at N > 32: oneshot errors >= 10 and error rate >= 0.5%",
+    "fanout_worth_it": "at N: oneshot errors >= 10 and the fan-out arm's errors are at most half of oneshot's",
+    "framework_vs_program": "at N: framework_better if split-32 errors >= 10 and team-16 errors are at most half of split-32's; program_better if team-16 errors >= 10 and split-32 errors are at most half of team-16's; otherwise no_clear_difference",
+    "infrastructure": "a unit attempt that saw HTTP 429/5xx or a request without a response is rerun from fresh state, at most 3 attempts per unit; only the last attempt is graded; every attempt is kept",
+    "scope": "exploratory: one model, temperature 0, 4 tasks per N, one sample each"
+  },
+  "by_size": {
+    "32": {
+      "arms": {
+        "oneshot": {
+          "runs": 4,
+          "successes": 4,
+          "judgements": 128,
+          "misses": 0,
+          "false_alarms": 0,
+          "errors": 0,
+          "error_rate": 0.0,
+          "errors_by_case": {
+            "evaluation-n0032-1": 0,
+            "evaluation-n0032-2": 0,
+            "evaluation-n0032-3": 0,
+            "evaluation-n0032-4": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 0.9141485419822857,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 13198,
+          "cost_usd_peak_per_run": 0.000215052,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "split-32": {
+          "runs": 4,
+          "successes": 4,
+          "judgements": 128,
+          "misses": 0,
+          "false_alarms": 0,
+          "errors": 0,
+          "error_rate": 0.0,
+          "errors_by_case": {
+            "evaluation-n0032-1": 0,
+            "evaluation-n0032-2": 0,
+            "evaluation-n0032-3": 0,
+            "evaluation-n0032-4": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 0.8490601250086911,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 13198,
+          "cost_usd_peak_per_run": 0.000221352,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "team-16": {
+          "runs": 4,
+          "successes": 4,
+          "judgements": 128,
+          "misses": 0,
+          "false_alarms": 0,
+          "errors": 0,
+          "error_rate": 0.0,
+          "errors_by_case": {
+            "evaluation-n0032-1": 0,
+            "evaluation-n0032-2": 0,
+            "evaluation-n0032-3": 0,
+            "evaluation-n0032-4": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 8.14716116595082,
+          "mean_model_calls": 18,
+          "mean_max_prompt_tokens": 2546.5,
+          "cost_usd_peak_per_run": 0.00588909,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        }
+      },
+      "judgement": {
+        "oneshot_degrades": false,
+        "fanout": {
+          "split-32": "no_quality_case",
+          "team-16": "no_quality_case"
+        },
+        "framework_vs_program": "no_clear_difference"
+      }
+    },
+    "128": {
+      "arms": {
+        "oneshot": {
+          "runs": 4,
+          "successes": 1,
+          "judgements": 512,
+          "misses": 3,
+          "false_alarms": 0,
+          "errors": 3,
+          "error_rate": 0.005859375,
+          "errors_by_case": {
+            "evaluation-n0128-1": 0,
+            "evaluation-n0128-2": 1,
+            "evaluation-n0128-3": 1,
+            "evaluation-n0128-4": 1
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 1.5510601660353132,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 52870,
+          "cost_usd_peak_per_run": 0.000594132,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "split-32": {
+          "runs": 4,
+          "successes": 2,
+          "judgements": 512,
+          "misses": 2,
+          "false_alarms": 0,
+          "errors": 2,
+          "error_rate": 0.00390625,
+          "errors_by_case": {
+            "evaluation-n0128-1": 0,
+            "evaluation-n0128-2": 0,
+            "evaluation-n0128-3": 1,
+            "evaluation-n0128-4": 1
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 1.3325480830390006,
+          "mean_model_calls": 4,
+          "mean_max_prompt_tokens": 13472.75,
+          "cost_usd_peak_per_run": 0.0008178524999999999,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "team-16": {
+          "runs": 4,
+          "successes": 2,
+          "judgements": 512,
+          "misses": 2,
+          "false_alarms": 0,
+          "errors": 2,
+          "error_rate": 0.00390625,
+          "errors_by_case": {
+            "evaluation-n0128-1": 0,
+            "evaluation-n0128-2": 1,
+            "evaluation-n0128-3": 1,
+            "evaluation-n0128-4": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 21.778726208023727,
+          "mean_model_calls": 72,
+          "mean_max_prompt_tokens": 2646,
+          "cost_usd_peak_per_run": 0.022221358499999996,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        }
+      },
+      "judgement": {
+        "oneshot_degrades": false,
+        "fanout": {
+          "split-32": "no_quality_case",
+          "team-16": "no_quality_case"
+        },
+        "framework_vs_program": "no_clear_difference"
+      }
+    },
+    "512": {
+      "arms": {
+        "oneshot": {
+          "runs": 4,
+          "successes": 0,
+          "judgements": 2048,
+          "misses": 69,
+          "false_alarms": 1,
+          "errors": 70,
+          "error_rate": 0.0341796875,
+          "errors_by_case": {
+            "evaluation-n0512-1": 23,
+            "evaluation-n0512-2": 13,
+            "evaluation-n0512-3": 24,
+            "evaluation-n0512-4": 10
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 4.13014274998568,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 211084,
+          "cost_usd_peak_per_run": 0.032822904,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "split-32": {
+          "runs": 4,
+          "successes": 0,
+          "judgements": 2048,
+          "misses": 5,
+          "false_alarms": 1,
+          "errors": 6,
+          "error_rate": 0.0029296875,
+          "errors_by_case": {
+            "evaluation-n0512-1": 3,
+            "evaluation-n0512-2": 1,
+            "evaluation-n0512-3": 1,
+            "evaluation-n0512-4": 1
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 2.6817204169929028,
+          "mean_model_calls": 16,
+          "mean_max_prompt_tokens": 13607,
+          "cost_usd_peak_per_run": 0.018771781499999998,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "team-16": {
+          "runs": 4,
+          "successes": 1,
+          "judgements": 2048,
+          "misses": 6,
+          "false_alarms": 1,
+          "errors": 7,
+          "error_rate": 0.00341796875,
+          "errors_by_case": {
+            "evaluation-n0512-1": 1,
+            "evaluation-n0512-2": 3,
+            "evaluation-n0512-3": 3,
+            "evaluation-n0512-4": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 80.56950120901456,
+          "mean_model_calls": 288,
+          "mean_max_prompt_tokens": 2668.5,
+          "cost_usd_peak_per_run": 0.108902682,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        }
+      },
+      "judgement": {
+        "oneshot_degrades": true,
+        "fanout": {
+          "split-32": "worth_it",
+          "team-16": "worth_it"
+        },
+        "framework_vs_program": "no_clear_difference"
+      }
+    },
+    "1024": {
+      "arms": {
+        "oneshot": {
+          "runs": 4,
+          "successes": 0,
+          "judgements": 4096,
+          "misses": 150,
+          "false_alarms": 51,
+          "errors": 201,
+          "error_rate": 0.049072265625,
+          "errors_by_case": {
+            "evaluation-n1024-1": 26,
+            "evaluation-n1024-2": 48,
+            "evaluation-n1024-3": 56,
+            "evaluation-n1024-4": 71
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 13.16417437500786,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 422567.25,
+          "cost_usd_peak_per_run": 0.12713929499999999,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "split-32": {
+          "runs": 4,
+          "successes": 1,
+          "judgements": 4096,
+          "misses": 8,
+          "false_alarms": 2,
+          "errors": 10,
+          "error_rate": 0.00244140625,
+          "errors_by_case": {
+            "evaluation-n1024-1": 0,
+            "evaluation-n1024-2": 7,
+            "evaluation-n1024-3": 2,
+            "evaluation-n1024-4": 1
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 5.739789959043264,
+          "mean_model_calls": 32,
+          "mean_max_prompt_tokens": 13609.75,
+          "cost_usd_peak_per_run": 0.129879219,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "team-16": {
+          "runs": 4,
+          "successes": 0,
+          "judgements": 4096,
+          "misses": 9,
+          "false_alarms": 4,
+          "errors": 13,
+          "error_rate": 0.003173828125,
+          "errors_by_case": {
+            "evaluation-n1024-1": 1,
+            "evaluation-n1024-2": 4,
+            "evaluation-n1024-3": 3,
+            "evaluation-n1024-4": 5
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 161.22663604200352,
+          "mean_model_calls": 576,
+          "mean_max_prompt_tokens": 2728,
+          "cost_usd_peak_per_run": 0.31488465,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        }
+      },
+      "judgement": {
+        "oneshot_degrades": true,
+        "fanout": {
+          "split-32": "worth_it",
+          "team-16": "worth_it"
+        },
+        "framework_vs_program": "no_clear_difference"
+      }
+    }
+  },
+  "degrades_at": [
+    512,
+    1024
+  ],
+  "price_basis": {
+    "usd_per_million_tokens_peak": {
+      "input_miss": 0.3,
+      "input_hit": 0.006,
+      "output": 1.2
+    }
+  },
+  "limits": [
+    "synthetic author-generated audit tasks; independent materials; not business data",
+    "one model at temperature 0; 4 tasks per N, one sample each",
+    "ReAct and inputs beyond the provider context window are out of scope"
+  ],
+  "source_unchanged": true,
+  "manifest_sha256": "17b51603b541684f9586a8ec73dbbf2767e2d8f367fbb3181d793dd3fd2f448f"
+}

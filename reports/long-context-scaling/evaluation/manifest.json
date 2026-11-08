@@ -1,0 +1,54 @@
+{
+  "identity": {
+    "runner_sha256": "502f167a43ce1a80622cd1beee4d4d9af137639f0b98d1648418446e580f1885",
+    "shared_runner_sha256": "805f623d15a9e7ce0df1edec3c0bc63054c0e42e93eb43f78f7e079109b77006",
+    "cases_sha256": "b6b33de1e9d69207688079b13ba98cdf31b113597f09ef403835aa5af4f08611",
+    "long_cases_sha256": "59c072f85be5af57d34ab371417b5f0693e73869488af9cf3e125c4cba049eac",
+    "output_tokens": 4096,
+    "groups": {
+      "split": 32,
+      "team": 16
+    },
+    "in_flight": {
+      "split": 8,
+      "team_plans": 4
+    }
+  },
+  "source_identity": "363074f8c604691caef5673b2602824ff3db7209ec5a57ee1f8dfd1c80cf23d4",
+  "mode": "live",
+  "model": "deepseek-flash",
+  "model_parameters": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "timeout_seconds": 120.0,
+    "require_usage": false,
+    "max_response_bytes": 8388608,
+    "temperature": 0.0,
+    "max_tokens": 4096,
+    "enable_thinking": false,
+    "thinking_control": "thinking_object",
+    "context_window_tokens": null,
+    "provider_overhead_tokens": null,
+    "cache_mode": "off"
+  },
+  "split": "evaluation",
+  "protocol_sha256": "a2d0a30282afd4dc7ba254eac251bb77266c1c007923c83bd70c44368039195d",
+  "cases": [
+    "evaluation-n0032-1",
+    "evaluation-n0032-2",
+    "evaluation-n0032-3",
+    "evaluation-n0032-4",
+    "evaluation-n0128-1",
+    "evaluation-n0128-2",
+    "evaluation-n0128-3",
+    "evaluation-n0128-4",
+    "evaluation-n0512-1",
+    "evaluation-n0512-2",
+    "evaluation-n0512-3",
+    "evaluation-n0512-4",
+    "evaluation-n1024-1",
+    "evaluation-n1024-2",
+    "evaluation-n1024-3",
+    "evaluation-n1024-4"
+  ]
+}

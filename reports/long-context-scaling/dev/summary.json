@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "mode": "live",
+  "expected_runs": 12,
+  "actual_runs": 12,
+  "complete": true,
+  "infrastructure_failures": 0,
+  "infrastructure_retries": 0,
+  "failed_units": 0,
+  "measurement": true,
+  "rule": {
+    "primary": "service-level error rate: (misses + false alarms) / (N x tasks), per arm and N",
+    "secondary": "exact-set success per run; cost and latency are descriptive only",
+    "failed_units": "a unit (the single call, a group or a plan) without a parseable answer claims nothing: its violators count as misses, and failed units are reported",
+    "oneshot_degrades": "at N > 32: oneshot errors >= 10 and error rate >= 0.5%",
+    "fanout_worth_it": "at N: oneshot errors >= 10 and the fan-out arm's errors are at most half of oneshot's",
+    "framework_vs_program": "at N: framework_better if split-32 errors >= 10 and team-16 errors are at most half of split-32's; program_better if team-16 errors >= 10 and split-32 errors are at most half of team-16's; otherwise no_clear_difference",
+    "infrastructure": "a unit attempt that saw HTTP 429/5xx or a request without a response is rerun from fresh state, at most 3 attempts per unit; only the last attempt is graded; every attempt is kept",
+    "scope": "exploratory: one model, temperature 0, 4 tasks per N, one sample each"
+  },
+  "by_size": {
+    "32": {
+      "arms": {
+        "oneshot": {
+          "runs": 1,
+          "successes": 1,
+          "judgements": 32,
+          "misses": 0,
+          "false_alarms": 0,
+          "errors": 0,
+          "error_rate": 0.0,
+          "errors_by_case": {
+            "dev-n0032-1": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 1.1186832080129534,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 12998,
+          "cost_usd_peak_per_run": 0.003928968,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "split-32": {
+          "runs": 1,
+          "successes": 1,
+          "judgements": 32,
+          "misses": 0,
+          "false_alarms": 0,
+          "errors": 0,
+          "error_rate": 0.0,
+          "errors_by_case": {
+            "dev-n0032-1": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 1.1058979160152376,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 12998,
+          "cost_usd_peak_per_run": 0.00021419999999999998,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "team-16": {
+          "runs": 1,
+          "successes": 1,
+          "judgements": 32,
+          "misses": 0,
+          "false_alarms": 0,
+          "errors": 0,
+          "error_rate": 0.0,
+          "errors_by_case": {
+            "dev-n0032-1": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 8.775189541978762,
+          "mean_model_calls": 18,
+          "mean_max_prompt_tokens": 2437,
+          "cost_usd_peak_per_run": 0.009681432,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        }
+      },
+      "judgement": {
+        "oneshot_degrades": false,
+        "fanout": {
+          "split-32": "no_quality_case",
+          "team-16": "no_quality_case"
+        },
+        "framework_vs_program": "no_clear_difference"
+      }
+    },
+    "128": {
+      "arms": {
+        "oneshot": {
+          "runs": 1,
+          "successes": 1,
+          "judgements": 128,
+          "misses": 0,
+          "false_alarms": 0,
+          "errors": 0,
+          "error_rate": 0.0,
+          "errors_by_case": {
+            "dev-n0128-1": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 2.0832566670142114,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 52574,
+          "cost_usd_peak_per_run": 0.016035768,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "split-32": {
+          "runs": 1,
+          "successes": 0,
+          "judgements": 128,
+          "misses": 3,
+          "false_alarms": 0,
+          "errors": 3,
+          "error_rate": 0.0234375,
+          "errors_by_case": {
+            "dev-n0128-1": 3
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 1.5979369590058923,
+          "mean_model_calls": 4,
+          "mean_max_prompt_tokens": 13430,
+          "cost_usd_peak_per_run": 0.016248468,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "team-16": {
+          "runs": 1,
+          "successes": 0,
+          "judgements": 128,
+          "misses": 1,
+          "false_alarms": 0,
+          "errors": 1,
+          "error_rate": 0.0078125,
+          "errors_by_case": {
+            "dev-n0128-1": 1
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 21.335527874995023,
+          "mean_model_calls": 72,
+          "mean_max_prompt_tokens": 2699,
+          "cost_usd_peak_per_run": 0.046818504000000004,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        }
+      },
+      "judgement": {
+        "oneshot_degrades": false,
+        "fanout": {
+          "split-32": "no_quality_case",
+          "team-16": "no_quality_case"
+        },
+        "framework_vs_program": "no_clear_difference"
+      }
+    },
+    "512": {
+      "arms": {
+        "oneshot": {
+          "runs": 1,
+          "successes": 0,
+          "judgements": 512,
+          "misses": 19,
+          "false_alarms": 0,
+          "errors": 19,
+          "error_rate": 0.037109375,
+          "errors_by_case": {
+            "dev-n0512-1": 19
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 6.650043583009392,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 211246,
+          "cost_usd_peak_per_run": 0.06427883999999999,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "split-32": {
+          "runs": 1,
+          "successes": 1,
+          "judgements": 512,
+          "misses": 0,
+          "false_alarms": 0,
+          "errors": 0,
+          "error_rate": 0.0,
+          "errors_by_case": {
+            "dev-n0512-1": 0
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 2.825096125015989,
+          "mean_model_calls": 16,
+          "mean_max_prompt_tokens": 13595,
+          "cost_usd_peak_per_run": 0.06560437200000001,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "team-16": {
+          "runs": 1,
+          "successes": 0,
+          "judgements": 512,
+          "misses": 1,
+          "false_alarms": 1,
+          "errors": 2,
+          "error_rate": 0.00390625,
+          "errors_by_case": {
+            "dev-n0512-1": 2
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 88.44944579200819,
+          "mean_model_calls": 288,
+          "mean_max_prompt_tokens": 2720,
+          "cost_usd_peak_per_run": 0.189779244,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        }
+      },
+      "judgement": {
+        "oneshot_degrades": true,
+        "fanout": {
+          "split-32": "worth_it",
+          "team-16": "worth_it"
+        },
+        "framework_vs_program": "no_clear_difference"
+      }
+    },
+    "1024": {
+      "arms": {
+        "oneshot": {
+          "runs": 1,
+          "successes": 0,
+          "judgements": 1024,
+          "misses": 46,
+          "false_alarms": 1,
+          "errors": 47,
+          "error_rate": 0.0458984375,
+          "errors_by_case": {
+            "dev-n1024-1": 47
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 10.72404220799217,
+          "mean_model_calls": 1,
+          "mean_max_prompt_tokens": 423141,
+          "cost_usd_peak_per_run": 0.12748205999999998,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "split-32": {
+          "runs": 1,
+          "successes": 0,
+          "judgements": 1024,
+          "misses": 1,
+          "false_alarms": 0,
+          "errors": 1,
+          "error_rate": 0.0009765625,
+          "errors_by_case": {
+            "dev-n1024-1": 1
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 5.193105040991213,
+          "mean_model_calls": 32,
+          "mean_max_prompt_tokens": 13669,
+          "cost_usd_peak_per_run": 0.130136088,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        },
+        "team-16": {
+          "runs": 1,
+          "successes": 0,
+          "judgements": 1024,
+          "misses": 3,
+          "false_alarms": 0,
+          "errors": 3,
+          "error_rate": 0.0029296875,
+          "errors_by_case": {
+            "dev-n1024-1": 3
+          },
+          "failed_units": 0,
+          "latency_p50_seconds": 163.20018745801644,
+          "mean_model_calls": 576,
+          "mean_max_prompt_tokens": 2664,
+          "cost_usd_peak_per_run": 0.343015848,
+          "stalled_calls": 0,
+          "infrastructure_retries": 0,
+          "fences_stripped": 0
+        }
+      },
+      "judgement": {
+        "oneshot_degrades": true,
+        "fanout": {
+          "split-32": "worth_it",
+          "team-16": "worth_it"
+        },
+        "framework_vs_program": "no_clear_difference"
+      }
+    }
+  },
+  "degrades_at": [
+    512,
+    1024
+  ],
+  "price_basis": {
+    "usd_per_million_tokens_peak": {
+      "input_miss": 0.3,
+      "input_hit": 0.006,
+      "output": 1.2
+    }
+  },
+  "limits": [
+    "synthetic author-generated audit tasks; independent materials; not business data",
+    "one model at temperature 0; 4 tasks per N, one sample each",
+    "ReAct and inputs beyond the provider context window are out of scope"
+  ],
+  "source_unchanged": true,
+  "manifest_sha256": "a1e31181734596ff6333b42b2f31f9d2188ac50e804fc189bcf85a0941447629"
+}

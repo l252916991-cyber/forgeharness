@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "identity": {
+    "runner_sha256": "502f167a43ce1a80622cd1beee4d4d9af137639f0b98d1648418446e580f1885",
+    "shared_runner_sha256": "805f623d15a9e7ce0df1edec3c0bc63054c0e42e93eb43f78f7e079109b77006",
+    "cases_sha256": "b6b33de1e9d69207688079b13ba98cdf31b113597f09ef403835aa5af4f08611",
+    "long_cases_sha256": "59c072f85be5af57d34ab371417b5f0693e73869488af9cf3e125c4cba049eac",
+    "output_tokens": 4096,
+    "groups": {
+      "split": 32,
+      "team": 16
+    },
+    "in_flight": {
+      "split": 8,
+      "team_plans": 4
+    }
+  },
+  "model": "deepseek-flash",
+  "evaluation_cases": [
+    "evaluation-n0032-1",
+    "evaluation-n0032-2",
+    "evaluation-n0032-3",
+    "evaluation-n0032-4",
+    "evaluation-n0128-1",
+    "evaluation-n0128-2",
+    "evaluation-n0128-3",
+    "evaluation-n0128-4",
+    "evaluation-n0512-1",
+    "evaluation-n0512-2",
+    "evaluation-n0512-3",
+    "evaluation-n0512-4",
+    "evaluation-n1024-1",
+    "evaluation-n1024-2",
+    "evaluation-n1024-3",
+    "evaluation-n1024-4"
+  ],
+  "planned_runs": 48,
+  "dev_summary_sha256": "fd34580a937aca4c3d17346cbe07a1fa3ffdabbea9d0706bdadf8cf9bf40f6af",
+  "rule": {
+    "primary": "service-level error rate: (misses + false alarms) / (N x tasks), per arm and N",
+    "secondary": "exact-set success per run; cost and latency are descriptive only",
+    "failed_units": "a unit (the single call, a group or a plan) without a parseable answer claims nothing: its violators count as misses, and failed units are reported",
+    "oneshot_degrades": "at N > 32: oneshot errors >= 10 and error rate >= 0.5%",
+    "fanout_worth_it": "at N: oneshot errors >= 10 and the fan-out arm's errors are at most half of oneshot's",
+    "framework_vs_program": "at N: framework_better if split-32 errors >= 10 and team-16 errors are at most half of split-32's; program_better if team-16 errors >= 10 and split-32 errors are at most half of team-16's; otherwise no_clear_difference",
+    "infrastructure": "a unit attempt that saw HTTP 429/5xx or a request without a response is rerun from fresh state, at most 3 attempts per unit; only the last attempt is graded; every attempt is kept",
+    "scope": "exploratory: one model, temperature 0, 4 tasks per N, one sample each"
+  }
+}
