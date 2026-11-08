@@ -12,7 +12,7 @@ The full release remains **on hold** for the scope/evidence gaps in `AUDIT.md`.
 ### FH-009 — High: browser access to the unauthenticated local API
 
 - Rules: FASTAPI-HOST-001, FASTAPI-HEADERS-001, JS-CSP-002, JS-XSS-001, FS-DOMC-001.
-- Location: `src/forgeharness/api.py:173`, `api.py:179`, `api.py:195` and `_UI_SCRIPT`.
+- Location: `src/forgeharness/server/api.py:173` (原路径 `src/forgeharness/api.py`), `api.py:179`, `api.py:195` and `_UI_SCRIPT`.
 - Evidence: loopback binding alone does not reject a DNS-rebinding Host, and browser-origin mutations require a separate guard. Model/file output is untrusted browser content.
 - Impact: a hostile browser page could target local state if these boundaries were absent.
 - Fix: explicit localhost Host allowlist; same-origin mutation check when Origin is present; hash-based script CSP; textContent rendering; explicit element lookup and event listeners. Nginx preserves the original Host port.

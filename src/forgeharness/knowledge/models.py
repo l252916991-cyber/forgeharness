@@ -158,22 +158,3 @@ class IngestJob(FrozenModel):
     error: str | None = Field(default=None, max_length=2_000)
     created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
-
-
-class EvaluationCase(FrozenModel):
-    """One immutable labeled retrieval example."""
-
-    id: str
-    query: str
-    relevant_document_ids: tuple[str, ...]
-    answerable: bool = True
-
-
-class EvaluationResult(FrozenModel):
-    """Aggregate retrieval evidence tied to a fixed case set."""
-
-    total: int = Field(ge=0)
-    recall_at_5: float = Field(ge=0, le=1)
-    mrr_at_10: float = Field(ge=0, le=1)
-    citation_precision: float = Field(ge=0, le=1)
-    unsupported_answer_rate: float = Field(ge=0, le=1)

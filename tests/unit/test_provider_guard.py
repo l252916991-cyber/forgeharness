@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 import pytest
 
-from benchmarks.provider_guard import AccountRefused, ProviderGuard
+from benchmarks.experiments.provider_guard import AccountRefused, ProviderGuard
 
 
 async def _send(guard: ProviderGuard, statuses: list[int]) -> list[int]:

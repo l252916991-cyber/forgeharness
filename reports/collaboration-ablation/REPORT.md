@@ -1,9 +1,11 @@
 # 专家为什么会漏报：消融实验
 
 日期：2026-11-07（Asia/Shanghai）。模型：`deepseek-flash`（温度 0，关闭思考，单次输出上限 1024 token）。
-脚本：`benchmarks/collaboration_ablation.py`；题目：`evals/multi_material_ablation_cases.py`。
+脚本：`benchmarks/experiments/ablation.py`；题目：`evals/audit_tasks.py`。
 起因见 [规模实验](../collaboration-scaling/REPORT.md)：32 份材料时，固定专家协作只做对 1/8，
 而且所有错误都是专家把违规的服务漏报了。
+
+> 0.14.0 起，实验脚本整理进 `benchmarks/experiments/`，三套题目生成器合并为 `evals/audit_tasks.py`（生成的题目逐字节不变）。封存协议记录的脚本哈希对应提交 `971e5a5`；要按封存校验复现，请先 `git checkout 971e5a5`。
 
 **结论**：按事先封存的规则，失败复现了，但四个变体**没有一个**被判为「消除了失败」。
 三个是 inconclusive（无法下结论），一个是 no_effect（无效果）。下面的描述性观察都不是预注册的，样本小，
@@ -161,9 +163,9 @@ team 刚好是 8/12 时，只有做到 12/12 的变体才可能被判为消除�
 **复现**（需要自己的 DeepSeek key，放在 `FORGE_API_KEY` 环境变量里；协议文件不可覆盖，复现时要换新路径）：
 
 ```bash
-uv run --no-sync python -m benchmarks.collaboration_ablation --split dev --mode live --output reports/collaboration-ablation/<新目录>
-uv run --no-sync python -m benchmarks.collaboration_ablation --seal --dev-report reports/collaboration-ablation/<新目录> --protocol <新协议路径>
-uv run --no-sync python -m benchmarks.collaboration_ablation --split ablation --mode live --protocol <新协议路径> --output reports/collaboration-ablation/<另一个新目录>
+uv run --no-sync python -m benchmarks.experiments.ablation --split dev --mode live --output reports/collaboration-ablation/<新目录>
+uv run --no-sync python -m benchmarks.experiments.ablation --seal --dev-report reports/collaboration-ablation/<新目录> --protocol <新协议路径>
+uv run --no-sync python -m benchmarks.experiments.ablation --split ablation --mode live --protocol <新协议路径> --output reports/collaboration-ablation/<另一个新目录>
 ```
 
 ## 局限

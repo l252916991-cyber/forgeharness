@@ -10,11 +10,11 @@ import httpx
 import pytest
 from PIL import Image
 
-from forgeharness.api import create_app
 from forgeharness.knowledge.application import build_knowledge_application
 from forgeharness.knowledge.indexes import SQLiteLexicalIndex
 from forgeharness.knowledge.runs import KnowledgeRunStore
 from forgeharness.observability.hash_chain import verify_trace
+from forgeharness.server.api import create_app
 
 
 async def test_api_attachments_are_resolved_and_knowledge_runs_survive_restart(

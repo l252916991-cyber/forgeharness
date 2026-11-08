@@ -11,12 +11,12 @@ from pathlib import Path
 import httpx
 import pytest
 
-from forgeharness.api import create_app
 from forgeharness.knowledge.application import build_knowledge_application
 from forgeharness.knowledge.conversation import ModelIntentRouter, RuleIntentRouter
 from forgeharness.knowledge.models import Chunk, Intent, JobStatus
 from forgeharness.knowledge.testing import DeterministicChatModel
 from forgeharness.models.omlx import OMLXProtocolError
+from forgeharness.server.api import create_app
 
 
 @pytest.mark.parametrize(

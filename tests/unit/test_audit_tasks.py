@@ -6,7 +6,7 @@ import re
 
 import pytest
 
-from evals.multi_material_cases import RULES, SIZES, Case, Service, cases
+from evals.audit_tasks import RULES, SIZES, Case, Service, cases
 
 
 def _current_config(text: str) -> str:

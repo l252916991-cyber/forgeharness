@@ -10,7 +10,7 @@ default = true
 
 [project]
 name = "forgeharness"
-version = "0.13.0"
+version = "0.14.0"
 description = "An evaluation-first, application-neutral Agent Harness SDK: governed runtime, capability composition, custom orchestrators and reference applications"
 readme = "README.md"
 requires-python = ">=3.12,<3.14"

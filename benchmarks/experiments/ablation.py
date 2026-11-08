@@ -1,10 +1,10 @@
 """Why did fixed specialists miss violations at N = 32? An ablation on fresh tasks.
 
-In the scaling study (``benchmarks/collaboration_scaling.py``) the team arm fell to
+In the scaling study (``benchmarks.experiments.scaling``) the team arm fell to
 1/8 at N = 32 while one plain call over all 32 materials was 8/8. Every miss was a
 specialist that had already declared the service compliant in its summary; the
 coordinator merged faithfully. This study tests the candidate explanations on
-twelve fresh N = 32 tasks (``evals.multi_material_ablation_cases``), one sample
+twelve fresh N = 32 tasks (``evals.audit_tasks.ablation_cases``), one sample
 each, with the same model, rules and grader:
 
 - ``oneshot``: control, unchanged from the scaling study;
@@ -27,80 +27,66 @@ each, with the same model, rules and grader:
 Run ``--split dev`` (the scaling study's dev N = 32 task), ``--seal`` a protocol from
 it, then ``--split ablation`` once with that protocol. ``--mode contract`` swaps in
 the scaling study's oracle model for wiring tests and never counts as a measurement.
+Report: ``reports/collaboration-ablation``.
 """
 
 from __future__ import annotations
 
-import argparse
-import asyncio
-import hashlib
 import json
-import math
-import os
 import statistics
-import time
+from functools import partial
 from pathlib import Path
 from typing import Any
 
-import httpx
-
-import benchmarks.collaboration_scaling as scaling
-from benchmarks.collaboration_scaling import (
+from benchmarks.experiments.common import (
     ANSWER_FORMAT,
-    COORDINATOR,
-    INFRA_ATTEMPTS,
-    INFRA_BACKOFF_SECONDS,
-    OUTPUT_TOKENS,
+    INFRASTRUCTURE_RULE,
     PRICE_PER_MILLION,
     SPECIALIST,
-    STALL_SECONDS,
     AcceptAll,
-    ContractModel,
     Materials,
-    Meter,
     OneShot,
+    Provider,
     ReadOnly,
+    Study,
     Unfenced,
+    cli,
     context_for,
-    digest,
+    file_sha256,
+    finish,
     grade,
+    measured,
     oneshot_budget,
     percentile,
     predicted,
-    team_budget,
+    run_team,
+    start,
+    team_plan,
+    timed,
     unfence,
     write,
 )
-from benchmarks.framework_snapshot import snapshot
-from evals.multi_material_ablation_cases import ablation_cases
-from evals.multi_material_cases import RULES, Case, cases
-from forgeharness.evaluation.agent import live_eval_config, public_model_parameters
-from forgeharness.models.openai_compatible import OpenAICompatibleModel
+from benchmarks.experiments.common import (
+    seal as seal_study,
+)
+from benchmarks.experiments.provider_guard import AccountRefused, ProviderGuard
+from evals.audit_tasks import RULES, Case, ablation_cases, cases
 from forgeharness.sdk import (
     ApplicationSpec,
-    Collaboration,
-    CollaborationAgent,
-    CollaborationEvidence,
-    CollaborationPlan,
-    CollaborationTask,
     FinalAction,
     Harness,
     Message,
     MessageRole,
-    ModelDispatcher,
     ModelRequest,
     ModelResult,
-    ParallelExecution,
     RunBudget,
     RunKernel,
     RunStatus,
     ToolCall,
-    Usage,
     verify_trace,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
-REPORTS = ROOT / "reports"
+OUTPUT_TOKENS = 1024
 ARMS = (
     "oneshot",
     "team",
@@ -130,26 +116,25 @@ ABLATION_RULE = {
         "service-level errors are at most half of team's; it has no effect if its "
         "successes are within 2 of team's; anything else is inconclusive"
     ),
-    "infrastructure": scaling.DECISION_RULE["infrastructure"],
+    "infrastructure": INFRASTRUCTURE_RULE,
     "scope": "exploratory: one model, temperature 0, 12 tasks; no multiplicity correction",
 }
 SAMPLES = 1
 
 
 def identity() -> dict[str, Any]:
-    def sha(path: str) -> str:
-        return hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
-
     return {
-        "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-        "shared_runner_sha256": sha("benchmarks/collaboration_scaling.py"),
-        "cases_sha256": sha("evals/multi_material_cases.py"),
-        "ablation_cases_sha256": sha("evals/multi_material_ablation_cases.py"),
+        "files": file_sha256(
+            "benchmarks/experiments/ablation.py",
+            "benchmarks/experiments/common.py",
+            "evals/audit_tasks.py",
+        ),
         "output_tokens": OUTPUT_TOKENS,
     }
 
 
 def selected_cases(split: str) -> tuple[Case, ...]:
+    """Dev is the scaling study's dev N = 32 task; ``ablation`` the twelve fresh tasks."""
     if split == "dev":
         return tuple(c for c in cases("dev") if c.size == 32)
     if split == "ablation":
@@ -157,54 +142,16 @@ def selected_cases(split: str) -> tuple[Case, ...]:
     raise ValueError("split must be 'dev' or 'ablation'")
 
 
+STUDY = Study(
+    name="ablation",
+    identity=identity,
+    cases=selected_cases,
+    evaluation_split="ablation",
+    output_tokens=OUTPUT_TOKENS,
+)
+
+
 # ---------------------------------------------------------------------- arms
-
-
-def ablation_plan(
-    case: Case, model_identity: str, groups: int, specialist: str
-) -> CollaborationPlan:
-    """The scaling study's team plan with the group count and specialist text exposed.
-
-    ``ablation_plan(case, identity, 8, SPECIALIST)`` equals ``team_plan(case, identity)``
-    for N = 32; a test holds the two in step.
-    """
-    allowance = Usage(steps=1, input_tokens=16_000, output_tokens=OUTPUT_TOKENS)
-    groups = min(groups, case.size)
-    ids = [service.id for service in case.services]
-    share = math.ceil(len(ids) / groups)
-    return CollaborationPlan(
-        version=f"scaling-{case.id}",
-        model_identity=model_identity,
-        goal=RULES,
-        agents=(
-            CollaborationAgent(
-                id="auditor", version="1", instructions=specialist, max_usage=allowance
-            ),
-            CollaborationAgent(
-                id="coordinator", version="1", instructions=COORDINATOR, max_usage=allowance
-            ),
-        ),
-        evidence=tuple(
-            CollaborationEvidence(
-                id=service.id,
-                resource_id=f"{case.id}/{service.id}",
-                revision="1",
-                text=service.text,
-            )
-            for service in case.services
-        ),
-        tasks=tuple(
-            CollaborationTask(
-                id=f"group-{number + 1}",
-                agent_id="auditor",
-                objective="Audit the assigned services against the rules.",
-                evidence_ids=tuple(ids[number * share : (number + 1) * share]),
-            )
-            for number in range(groups)
-            if ids[number * share : (number + 1) * share]
-        ),
-        coordinator_id="coordinator",
-    )
 
 
 def halves(case: Case) -> tuple[Case, Case]:
@@ -221,10 +168,15 @@ def halves(case: Case) -> tuple[Case, Case]:
     )
 
 
-def arm_plan(case: Case, arm: str, model_identity: str) -> CollaborationPlan:
-    if arm == "team-findings-first":
-        return ablation_plan(case, model_identity, 8, SPECIALIST_FINDINGS_FIRST)
-    return ablation_plan(case, model_identity, 8, SPECIALIST)
+def arm_plan(case: Case, arm: str, model_identity: str) -> Any:
+    """The scaling study's team plan, with the variant's specialist text."""
+    return team_plan(
+        case,
+        model_identity,
+        specialists=8,
+        output_tokens=OUTPUT_TOKENS,
+        instructions=SPECIALIST_FINDINGS_FIRST if arm == "team-findings-first" else SPECIALIST,
+    )
 
 
 def system_first(request: ModelRequest) -> ModelRequest:
@@ -355,34 +307,6 @@ def team_breakdown(trace: Path) -> dict[str, Any]:
     }
 
 
-# ---------------------------------------------------------------------- one run
-
-
-async def run_team(
-    plan: CollaborationPlan, factory: Any, destination: Path, run_id: str
-) -> tuple[str, str | None, str | None, Path]:
-    """One Collaboration run exactly as the scaling study's team arm runs it."""
-    state = destination / "state"
-    state.mkdir(parents=True, mode=0o700)
-    context = context_for("collaboration", plan.version, "collaboration-readonly-v1", run_id)
-    # Parallel R2 needs a provider capacity domain shared by all its nodes.
-    with ModelDispatcher(
-        state_dir=destination / "capacity", provider_id="study", capacity=2
-    ) as dispatcher:
-        team = Collaboration(
-            plan=plan,
-            model_factory=factory,
-            budget=team_budget(plan),
-            state_dir=state,
-            authorize_run=lambda ctx: True,
-            validate_resources=lambda ctx, revisions: True,
-            execution=ParallelExecution(max_in_flight=2, model_concurrency_safe=True),
-            dispatcher=dispatcher,
-        )
-        result = await team.harness.run(context=context, task=plan.goal)
-    return result.status.value, result.error, result.final_output, team.harness.trace_path(context)
-
-
 def merge_breakdowns(parts: list[dict[str, Any]]) -> dict[str, Any]:
     merged: dict[str, Any] = {}
     for part in parts:
@@ -395,40 +319,24 @@ def merge_breakdowns(parts: list[dict[str, Any]]) -> dict[str, Any]:
     return merged
 
 
-async def run_one(case: Case, arm: str, args: Any, destination: Path) -> dict[str, Any]:
-    meter = Meter()
-    fences = [0]
-    client = httpx.AsyncClient(
-        timeout=120, event_hooks={"request": [meter.on_request], "response": [meter.on_response]}
-    )
-    config = live_eval_config(
-        base_url=args.base_url,
-        api_key=os.environ.get("FORGE_API_KEY", "contract-no-key"),
-        model=args.model,
-        max_tokens=OUTPUT_TOKENS,
-    )
+# ---------------------------------------------------------------------- one run
+
+
+async def run_one(
+    case: Case, arm: str, args: Any, destination: Path, *, guard: ProviderGuard
+) -> dict[str, Any]:
+    provider = Provider(args, guard, OUTPUT_TOKENS, timeout=120)
     reorder = [0, 0]
 
     def model_for(task_case: Case) -> Any:
-        # The oracle answers for the case it is given, so each half gets its own.
-        inner = (
-            ContractModel(task_case)
-            if args.mode == "contract"
-            else OpenAICompatibleModel(config, client=client)
-        )
         if arm == "team-system-first":
-            return SystemFirst(inner, fences, reorder)
-        return Unfenced(inner, fences)
-
-    def factory() -> Any:
-        return model_for(case)
+            return SystemFirst(provider.inner(task_case), provider.fences, reorder)
+        return Unfenced(provider.inner(task_case), provider.fences)
 
     tool = Materials(case)
     run_id = f"{case.id}-{arm}-0"
-    task = "Service IDs: " + ", ".join(tool.values)
     model_identity = f"{args.model}:t0:max{OUTPUT_TOKENS}"
-    started = time.monotonic()
-    final: str | None = None
+    elapsed = timed()
     status, error, trace_valid = "error", None, False
     breakdown: dict[str, Any] | None = None
     claimed: list[str] | None = None
@@ -440,25 +348,24 @@ async def run_one(case: Case, arm: str, args: Any, destination: Path) -> dict[st
                 if arm == "team-load2"
                 else [(case, destination)]
             )
-            outcomes = []
-            for part, folder in parts:
-                plan = arm_plan(part, arm, model_identity)
-                outcomes.append(
-                    await run_team(
-                        plan, lambda part=part: model_for(part), folder, f"{run_id}-{part.id}"
-                    )
+            outcomes = [
+                await run_team(
+                    arm_plan(part, arm, model_identity),
+                    partial(model_for, part),
+                    folder,
+                    f"{run_id}-{part.id}",
+                    OUTPUT_TOKENS,
                 )
-            run_statuses = {outcome[0] for outcome in outcomes}
+                for part, folder in parts
+            ]
+            statuses = {outcome[0] for outcome in outcomes}
             status = (
-                "succeeded"
-                if run_statuses == {"succeeded"}
-                else sorted(run_statuses - {"succeeded"})[0]
+                "succeeded" if statuses == {"succeeded"} else sorted(statuses - {"succeeded"})[0]
             )
             error = next((outcome[1] for outcome in outcomes if outcome[1]), None)
             answers = [predicted("team", outcome[2]) for outcome in outcomes]
             if status == "succeeded" and all(answer is not None for answer in answers):
                 claimed = sorted({key for answer in answers for key in answer or []})
-            final = outcomes[-1][2] if len(outcomes) == 1 else None
             trace_valid = all(verify_trace(outcome[3]).valid for outcome in outcomes)
             breakdown = merge_breakdowns([team_breakdown(outcome[3]) for outcome in outcomes])
         else:
@@ -469,12 +376,12 @@ async def run_one(case: Case, arm: str, args: Any, destination: Path) -> dict[st
                 id="scaling-study",
                 version="1",
                 policy_version="1",
-                model_factory=factory,
+                model_factory=partial(model_for, case),
                 tools=(tool,),
                 policy=ReadOnly(),
                 verifier=AcceptAll(),
                 budget=(
-                    oneshot_budget(case.size)
+                    oneshot_budget(case.size, OUTPUT_TOKENS)
                     if arm == "oneshot"
                     else split_budget(case.size, len(groups))
                 ),
@@ -487,26 +394,18 @@ async def run_one(case: Case, arm: str, args: Any, destination: Path) -> dict[st
             )
             harness = Harness(spec, state_dir=state, orchestrator=orchestrator)
             context = context_for(spec.id, "1", "1", run_id)
+            task = "Service IDs: " + ", ".join(tool.values)
             result = await harness.run(
                 context=context, task=task + "\nRead each service with read_material."
             )
-            status, error, final = result.status.value, result.error, result.final_output
+            status, error = result.status.value, result.error
             trace_valid = verify_trace(harness.trace_path(context)).valid
-            claimed = predicted("oneshot", final) if status == "succeeded" else None
+            claimed = predicted("oneshot", result.final_output) if status == "succeeded" else None
     except Exception as exc:
         # A bounded exception class only: provider bodies and credentials stay out.
-        error = type(exc).__name__
-        claimed = None
+        error, claimed = type(exc).__name__, None
     finally:
-        await client.aclose()
-    seconds = time.monotonic() - started
-    measured = [r for r in meter.responses if r["complete"]]
-    prompt = sum(r["prompt"] for r in measured)
-    cached = sum(r["cached"] for r in measured)
-    completion = sum(r["completion"] for r in measured)
-    statuses = [r["status"] for r in meter.responses]
-    missing = meter.requests - len(meter.responses)
-    calls = [r["seconds"] for r in meter.responses if r["seconds"] is not None]
+        await provider.close()
     expected = set(case.violations)
     row = {
         "case": case.id,
@@ -524,56 +423,11 @@ async def run_one(case: Case, arm: str, args: Any, destination: Path) -> dict[st
         "reordered_requests": reorder[1] if arm == "team-system-first" else None,
         "requests_seen_by_reorder": reorder[0] if arm == "team-system-first" else None,
         "trace_valid": trace_valid,
-        "seconds": seconds,
-        "model_calls": meter.requests,
-        "prompt_tokens": prompt,
-        "cached_prompt_tokens": cached,
-        "completion_tokens": completion,
-        "max_prompt_tokens": max((r["prompt"] for r in measured), default=0),
-        "cost_usd_peak": (
-            (prompt - cached) * PRICE_PER_MILLION["input_miss"]
-            + cached * PRICE_PER_MILLION["input_hit"]
-            + completion * PRICE_PER_MILLION["output"]
-        )
-        / 1_000_000,
-        "fences_stripped": fences[0],
+        "seconds": elapsed(),
         "material_reads": len(tool.calls),
-        "usage_known": args.mode == "live" and len(measured) == meter.requests > 0,
-        "http_statuses": statuses,
-        "missing_responses": missing,
-        "call_seconds": calls,
-        "max_call_seconds": max(calls, default=None),
-        "stalled_calls": sum(seconds > STALL_SECONDS for seconds in calls),
-        "infrastructure_error": args.mode == "live"
-        and (missing > 0 or any(status >= 400 for status in statuses)),
-        "infrastructure_retryable": args.mode == "live"
-        and (missing > 0 or any(status == 429 or status >= 500 for status in statuses))
-        and not any(400 <= status < 500 and status != 429 for status in statuses),
+        **provider.metrics(),
     }
     row["success"] = bool(row["success"] and trace_valid)
-    write(destination / "result.json", row)
-    return row
-
-
-async def run_measured(case: Case, arm: str, args: Any, destination: Path) -> dict[str, Any]:
-    """The scaling study's rerun rule: provider-side failures only, fresh state, all kept."""
-    discarded: list[dict[str, Any]] = []
-    for attempt in range(INFRA_ATTEMPTS):
-        row = await run_one(case, arm, args, destination / f"attempt-{attempt}")
-        if not row["infrastructure_retryable"] or attempt == INFRA_ATTEMPTS - 1:
-            break
-        discarded.append(
-            {
-                "attempt": attempt,
-                "error": row["error"],
-                "http_statuses": row["http_statuses"],
-                "missing_responses": row["missing_responses"],
-                "seconds": row["seconds"],
-                "cost_usd_peak": row["cost_usd_peak"],
-            }
-        )
-        await asyncio.sleep(INFRA_BACKOFF_SECONDS[min(attempt, len(INFRA_BACKOFF_SECONDS) - 1)])
-    row = {**row, "attempt": attempt, "discarded_attempts": discarded}
     write(destination / "result.json", row)
     return row
 
@@ -695,63 +549,36 @@ def summarize(rows: list[dict[str, Any]], expected_runs: int, mode: str) -> dict
     }
 
 
-# ---------------------------------------------------------------------- driver
-
-
 async def execute(args: Any) -> dict[str, Any]:
-    if not args.output.resolve().is_relative_to(REPORTS.resolve()):
-        raise ValueError("output must be inside workspace reports")
-    if args.output.exists():
-        raise ValueError("output already exists; keep attempts and choose a new directory")
-    if args.mode == "live" and not os.environ.get("FORGE_API_KEY"):
-        raise ValueError("live mode needs FORGE_API_KEY in the environment")
-    protocol = None
-    if args.split == "ablation" and args.mode == "live":
-        if args.protocol is None:
-            raise ValueError("the ablation split needs a sealed protocol")
-        protocol = json.loads(args.protocol.read_text())
-        if protocol["identity"] != identity() or protocol["model"] != args.model:
-            raise ValueError("protocol runner, corpus or model mismatch")
+    manifest, _ = start(STUDY, args)
     selected = selected_cases(args.split)
     expected_runs = len(selected) * len(ARMS) * SAMPLES
-    args.output.mkdir(parents=True)
-    manifest = {
-        "identity": identity(),
-        "source_identity": snapshot(ROOT)["tree_digest"],
-        "mode": args.mode,
-        "model": args.model,
-        "model_parameters": public_model_parameters(
-            live_eval_config(
-                base_url=args.base_url,
-                api_key="omitted",
-                model=args.model,
-                max_tokens=OUTPUT_TOKENS,
-            )
-        ),
-        "split": args.split,
-        "samples": SAMPLES,
-        "protocol_sha256": digest(protocol) if protocol else None,
-        "cases": [c.id for c in selected],
-    }
+    manifest |= {"samples": SAMPLES, "cases": [c.id for c in selected]}
     write(args.output / "manifest.json", manifest)
+    guard = ProviderGuard()
     rows: list[dict[str, Any]] = []
-    for index, case in enumerate(selected):
-        # Rotate arm order so no arm always runs first against a warm cache.
-        offset = index % len(ARMS)
-        for arm in (*ARMS[offset:], *ARMS[:offset]):
-            row = await run_measured(case, arm, args, args.output / case.id / f"{arm}-0")
-            rows.append(row)
-            print(
-                f"{len(rows)}/{expected_runs} {case.id} {arm:<19} "
-                f"{'pass' if row['success'] else 'fail'} f1={row['f1']:.2f} "
-                f"{row['seconds']:.1f}s calls={row['model_calls']}",
-                flush=True,
-            )
-    summary = summarize(rows, expected_runs, args.mode)
-    summary["source_unchanged"] = snapshot(ROOT)["tree_digest"] == manifest["source_identity"]
-    summary["measurement"] = summary["measurement"] and summary["source_unchanged"]
-    summary["manifest_sha256"] = digest(manifest)
-    write(args.output / "summary.json", summary)
+    try:
+        for index, case in enumerate(selected):
+            # Rotate arm order so no arm always runs first against a warm cache.
+            offset = index % len(ARMS)
+            for arm in (*ARMS[offset:], *ARMS[:offset]):
+                guard.check()
+                row = await measured(
+                    partial(run_one, case, arm, args, guard=guard),
+                    args.output / case.id / f"{arm}-0",
+                )
+                rows.append(row)
+                print(
+                    f"{len(rows)}/{expected_runs} {case.id} {arm:<19} "
+                    f"{'pass' if row['success'] else 'fail'} f1={row['f1']:.2f} "
+                    f"{row['seconds']:.1f}s calls={row['model_calls']}",
+                    flush=True,
+                )
+    except AccountRefused as exc:
+        print(f"stopped: {exc}", flush=True)
+    summary: dict[str, Any] = finish(
+        args, manifest, summarize(rows, expected_runs, args.mode), guard
+    )
     for arm, data in summary["arms"].items():
         print(
             f"{arm:<19} {data['successes']}/{data['runs']} service_errors={data['service_errors']}",
@@ -762,65 +589,28 @@ async def execute(args: Any) -> dict[str, Any]:
 
 
 def seal(args: Any) -> None:
-    summary = json.loads((args.dev_report / "summary.json").read_text())
-    manifest = json.loads((args.dev_report / "manifest.json").read_text())
-    if not summary["complete"] or manifest["mode"] != "live" or manifest["split"] != "dev":
-        raise ValueError("need a complete live dev run")
-    if manifest["identity"] != identity():
-        raise ValueError("the dev run used a different runner or corpus")
-    # Pipeline health, not results: the arms must reach the provider cleanly, answer
-    # parseably and carry their manipulation, whatever their dev success.
-    if not summary["measurement"]:
-        raise ValueError("the dev run is not a clean measurement; inspect it before sealing")
-    if summary["malformed_or_failed_runs"]:
-        raise ValueError("a dev run produced no parseable answer; inspect it before sealing")
-    failed = [arm for arm, d in summary["arms"].items() if d.get("manipulation_ok") is False]
-    if failed:
-        raise ValueError(f"manipulation check failed in dev for {failed}; inspect it")
-    if args.protocol is None or args.protocol.exists():
-        raise ValueError("choose a new protocol path; protocols are immutable")
-    write(
-        args.protocol,
+    def checks(summary: dict[str, Any]) -> None:
+        if summary["malformed_or_failed_runs"]:
+            raise ValueError("a dev run produced no parseable answer; inspect it before sealing")
+        failed = [arm for arm, d in summary["arms"].items() if d.get("manipulation_ok") is False]
+        if failed:
+            raise ValueError(f"manipulation check failed in dev for {failed}; inspect it")
+
+    seal_study(
+        STUDY,
+        args,
         {
-            "schema_version": 1,
-            "identity": identity(),
-            "model": manifest["model"],
             "samples": SAMPLES,
             "ablation_cases": [c.id for c in ablation_cases()],
             "planned_runs": len(ablation_cases()) * len(ARMS) * SAMPLES,
-            "dev_summary_sha256": digest(summary),
             "rule": ABLATION_RULE,
         },
+        checks,
     )
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--split", choices=("dev", "ablation"), default="dev")
-    parser.add_argument("--mode", choices=("contract", "live"), default="contract")
-    parser.add_argument("--model", default="deepseek-flash")
-    parser.add_argument("--base-url", default="https://api.deepseek.com")
-    parser.add_argument("--output", type=Path)
-    parser.add_argument("--protocol", type=Path)
-    parser.add_argument("--seal", action="store_true")
-    parser.add_argument("--dev-report", type=Path)
-    args = parser.parse_args()
-    if args.seal:
-        if args.dev_report is None:
-            parser.error("--seal requires --dev-report")
-        try:
-            seal(args)
-        except ValueError as exc:
-            # A refusal stops a chained `dev && seal && ablation` command line.
-            parser.exit(2, f"seal refused: {exc}\n")
-        print(f"sealed {args.protocol}", flush=True)
-        return
-    if args.output is None:
-        parser.error("--output is required")
-    try:
-        asyncio.run(execute(args))
-    except ValueError as exc:
-        parser.exit(2, f"run refused: {exc}\n")
+    cli(STUDY, __doc__ or "", execute, seal)
 
 
 if __name__ == "__main__":

@@ -1,17 +1,20 @@
-"""Optional full CLI with a dependency-free minimal launcher."""
+"""The ``forge`` command.
 
-import sys
-from importlib import import_module
+With the ``cli`` extra installed, ``app`` is the full Typer application in
+``forgeharness.cli.commands``. A core install gets a dependency-free launcher that
+prints SDK help and names the extra each command needs.
+"""
+
 from importlib.util import find_spec
 
 _CLI_MODULES = ("fastapi", "pypdf", "PIL", "typer", "pydantic_settings", "httpx", "yaml", "uvicorn")
+FULL_CLI = all(find_spec(name) is not None for name in _CLI_MODULES)
 
-if all(find_spec(name) is not None for name in _CLI_MODULES):
-    # Exact module alias preserves Typer registration and historical monkeypatches.
-    sys.modules[__name__] = import_module("forgeharness.legacy_cli")
+if FULL_CLI:
+    from forgeharness.cli.commands import app
 else:
 
-    def app() -> None:
+    def app() -> None:  # type: ignore[misc]  # the core-install launcher
         """Print minimal SDK help or an actionable optional-extra error."""
         import argparse
 

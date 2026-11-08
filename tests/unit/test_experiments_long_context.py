@@ -8,12 +8,13 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from test_multi_material_cases import _rule_check
+from test_audit_tasks import _rule_check
 
-import benchmarks.long_context_scaling as study
-from evals.long_context_cases import SIZES, long_cases
-from evals.multi_material_ablation_cases import ablation_cases
-from evals.multi_material_cases import cases
+import benchmarks.experiments.common as common
+import benchmarks.experiments.long_context as study
+from benchmarks.experiments.provider_guard import ProviderGuard
+from evals.audit_tasks import LONG_SIZES as SIZES
+from evals.audit_tasks import ablation_cases, cases, long_cases
 from forgeharness.sdk import CredentialMask
 
 
@@ -49,10 +50,12 @@ def test_groups_are_contiguous_and_keep_service_ids() -> None:
 
 def test_the_team_unit_is_eight_specialists_of_two_within_the_framework_caps() -> None:
     unit = study.groups(long_cases("dev")[0], study.TEAM_GROUP)[0]
-    plan = study.team_plan(unit, "m")
+    plan = common.team_plan(
+        unit, "m", specialists=study.TEAM_SPECIALISTS, output_tokens=study.OUTPUT_TOKENS
+    )
     assert len(plan.tasks) == 8 and {len(t.evidence_ids) for t in plan.tasks} == {2}
     assert all(agent.max_usage.output_tokens == study.OUTPUT_TOKENS for agent in plan.agents)
-    assert study.team_budget(plan).max_steps == 9
+    assert common.team_budget(plan, study.OUTPUT_TOKENS).max_steps == 9
 
 
 def _arm(errors: int, judgements: int) -> dict[str, Any]:
@@ -100,7 +103,7 @@ def _args(output: Path, **overrides: object) -> argparse.Namespace:
 async def test_contract_run_wires_every_arm_and_is_never_a_measurement(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(study, "REPORTS", tmp_path)
+    monkeypatch.setattr(common, "REPORTS", tmp_path)
     summary = await study.execute(_args(tmp_path / "dev"))
     arms = summary["by_size"]["32"]["arms"]
     assert summary["complete"] is True and summary["measurement"] is False
@@ -150,17 +153,15 @@ async def test_a_failed_unit_claims_nothing_and_its_violators_count_as_misses(
     case = long_cases("dev")[1]
     parts = study.groups(case, study.SPLIT_GROUP)
 
-    async def fake(unit, kind, args, destination):  # type: ignore[no-untyped-def]
-        if unit.id == parts[0].id:
-            return {**_unit(None, unit=unit.id), "attempt": 0, "discarded_attempts": []}
-        return {
-            **_unit(list(unit.violations), unit=unit.id),
-            "attempt": 0,
-            "discarded_attempts": [],
-        }
+    async def fake(attempt, destination):  # type: ignore[no-untyped-def]
+        unit = attempt.args[0]
+        claimed = None if unit.id == parts[0].id else list(unit.violations)
+        return {**_unit(claimed, unit=unit.id), "attempt": 0, "discarded_attempts": []}
 
-    monkeypatch.setattr(study, "run_unit_measured", fake)
-    row = await study.run_arm(case, "split-32", _args(tmp_path), tmp_path / "run")
+    monkeypatch.setattr(study, "measured", fake)
+    row = await study.run_arm(
+        case, "split-32", _args(tmp_path), tmp_path / "run", guard=ProviderGuard()
+    )
     assert row["failed_units"] == [parts[0].id]
     assert row["misses"] == sorted(parts[0].violations) and row["false_alarms"] == []
     assert row["errors"] == len(parts[0].violations) and row["success"] is False
@@ -175,23 +176,26 @@ async def test_only_the_unit_with_provider_trouble_is_rerun(
     ]
     seen: list[Path] = []
 
-    async def fake(unit, kind, args, destination):  # type: ignore[no-untyped-def]
+    async def fake(unit, kind, args, destination, *, guard):  # type: ignore[no-untyped-def]
         seen.append(destination)
         return dict(script.pop(0))
 
     monkeypatch.setattr(study, "run_unit", fake)
-    monkeypatch.setattr(study, "INFRA_BACKOFF_SECONDS", (0.0,))
-    unit = long_cases("dev")[0]
-    row = await study.run_unit_measured(unit, "oneshot", None, tmp_path / "u")
-    assert row["attempt"] == 1 and row["claimed"] == ["svc-01"]
-    assert [d["http_statuses"] for d in row["discarded_attempts"]] == [[503]]
-    assert seen == [tmp_path / "u" / "attempt-0", tmp_path / "u" / "attempt-1"]
+    monkeypatch.setattr(common, "INFRA_BACKOFF_SECONDS", (0.0,))
+    case = long_cases("dev")[0]
+    row = await study.run_arm(
+        case, "oneshot", _args(tmp_path), tmp_path / "r", guard=ProviderGuard()
+    )
+    unit = row["unit_rows"][0]
+    assert unit["attempt"] == 1 and unit["claimed"] == ["svc-01"]
+    assert [d["http_statuses"] for d in unit["discarded_attempts"]] == [[503]]
+    assert seen == [tmp_path / "r" / "units" / case.id / f"attempt-{n}" for n in (0, 1)]
 
 
 async def test_the_evaluation_split_needs_a_sealed_protocol_in_live_mode(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(study, "REPORTS", tmp_path)
+    monkeypatch.setattr(common, "REPORTS", tmp_path)
     monkeypatch.setenv("FORGE_API_KEY", "not-used")
     with pytest.raises(ValueError, match="sealed protocol"):
         await study.execute(_args(tmp_path / "run", mode="live", split="evaluation"))
@@ -200,11 +204,11 @@ async def test_the_evaluation_split_needs_a_sealed_protocol_in_live_mode(
 def test_sealing_needs_a_clean_dev_run_where_every_unit_answered(tmp_path: Path) -> None:
     def dev(name: str, **summary: object) -> Path:
         folder = tmp_path / name
-        study.write(
+        common.write(
             folder / "manifest.json",
             {"mode": "live", "split": "dev", "identity": study.identity(), "model": "m"},
         )
-        study.write(
+        common.write(
             folder / "summary.json",
             {"complete": True, "measurement": True, "failed_units": 0, **summary},
         )

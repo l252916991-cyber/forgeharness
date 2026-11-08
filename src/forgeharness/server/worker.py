@@ -50,7 +50,7 @@ async def ingest_document(ctx: dict[str, Any], job_id: str) -> None:
 
 
 class WorkerSettings:
-    """Configuration discovered by ``arq forgeharness.worker.WorkerSettings``."""
+    """Configuration discovered by ``arq forgeharness.server.worker.WorkerSettings``."""
 
     functions: ClassVar[list[Any]] = [ingest_document]
     on_startup = startup

@@ -5,8 +5,8 @@ from pathlib import Path
 import httpx
 import pytest
 
-from forgeharness.api import create_app
 from forgeharness.knowledge.application import KnowledgeSettings
+from forgeharness.server.api import create_app
 
 
 async def test_api_runs_and_inspects_keyless_demo(tmp_path: Path) -> None:

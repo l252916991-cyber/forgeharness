@@ -7,7 +7,7 @@ from typing import Any
 import pytest
 from typer.testing import CliRunner
 
-from forgeharness import cli
+from forgeharness.cli import commands as cli
 from forgeharness.domain.models import (
     FinalAction,
     ModelResult,

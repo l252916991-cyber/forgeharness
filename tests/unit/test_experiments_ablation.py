@@ -8,12 +8,12 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from test_multi_material_cases import _rule_check
+from test_audit_tasks import _rule_check
 
-import benchmarks.collaboration_ablation as ablation
-import benchmarks.collaboration_scaling as scaling
-from evals.multi_material_ablation_cases import ABLATION_CASES, ablation_cases, generate
-from evals.multi_material_cases import cases
+import benchmarks.experiments.ablation as ablation
+import benchmarks.experiments.common as common
+import benchmarks.experiments.scaling as scaling
+from evals.audit_tasks import ABLATION_CASES, ablation_cases, cases, generate
 from forgeharness.models.prepared import canonical_json
 from forgeharness.sdk import (
     CredentialMask,
@@ -50,12 +50,15 @@ def test_ablation_tasks_are_fresh_labelled_and_mask_safe() -> None:
 
 def test_the_team_arm_is_the_scaling_studys_team_arm() -> None:
     for case in (ablation_cases()[0], next(c for c in cases("dev") if c.size == 32)):
-        assert ablation.arm_plan(case, "team", "m") == scaling.team_plan(case, "m")
+        assert ablation.arm_plan(case, "team", "m") == common.team_plan(
+            case, "m", specialists=scaling.MAX_SPECIALISTS, output_tokens=scaling.OUTPUT_TOKENS
+        )
+        assert ablation.arm_plan(case, "team", "m").tasks == scaling.plan_for(case, "m").tasks
         first = ablation.arm_plan(case, "team-findings-first", "m")
-        assert first.agents[0].instructions == scaling.SPECIALIST + (
+        assert first.agents[0].instructions == common.SPECIALIST + (
             " Write the findings field before the summary field; write the summary last."
         )
-        assert first.tasks == scaling.team_plan(case, "m").tasks
+        assert first.tasks == scaling.plan_for(case, "m").tasks
 
 
 def test_halves_keep_service_ids_and_give_two_services_per_specialist() -> None:
@@ -173,7 +176,7 @@ def _args(output: Path, **overrides: object) -> argparse.Namespace:
 async def test_contract_run_wires_every_arm_and_both_manipulations(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(ablation, "REPORTS", tmp_path)
+    monkeypatch.setattr(common, "REPORTS", tmp_path)
     summary = await ablation.execute(_args(tmp_path / "dev"))
     arms = summary["arms"]
     assert summary["complete"] is True and summary["measurement"] is False
@@ -201,7 +204,7 @@ async def test_contract_run_wires_every_arm_and_both_manipulations(
 async def test_the_ablation_split_needs_a_sealed_protocol_in_live_mode(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(ablation, "REPORTS", tmp_path)
+    monkeypatch.setattr(common, "REPORTS", tmp_path)
     monkeypatch.setenv("FORGE_API_KEY", "not-used")
     with pytest.raises(ValueError, match="sealed protocol"):
         await ablation.execute(_args(tmp_path / "run", mode="live", split="ablation"))
@@ -212,11 +215,11 @@ async def test_the_ablation_split_needs_a_sealed_protocol_in_live_mode(
 def test_sealing_needs_clean_parseable_dev_with_working_manipulations(tmp_path: Path) -> None:
     def dev(name: str, arms: dict[str, Any] | None = None, **summary: object) -> Path:
         folder = tmp_path / name
-        scaling.write(
+        common.write(
             folder / "manifest.json",
             {"mode": "live", "split": "dev", "identity": ablation.identity(), "model": "m"},
         )
-        scaling.write(
+        common.write(
             folder / "summary.json",
             {
                 "complete": True,

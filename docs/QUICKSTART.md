@@ -1,7 +1,7 @@
 # Quickstart
 
 Ten lines to a governed run, no API key, no Docker, no config file. This page
-describes ForgeHarness 0.13.0 (SDK API v1) on Python 3.12.
+describes ForgeHarness 0.14.0 (SDK API v1) on Python 3.12.
 
 ## 1. Install
 
@@ -17,15 +17,15 @@ uv sync --extra dev --extra cli --frozen
 To use it from another project, build a wheel and install that file:
 
 ```bash
-uv build                                       # writes dist/forgeharness-0.13.0-*.whl
-pip install "dist/forgeharness-0.13.0-py3-none-any.whl[cli]"
+uv build                                       # writes dist/forgeharness-0.14.0-*.whl
+pip install "dist/forgeharness-0.14.0-py3-none-any.whl[cli]"
 ```
 
 Verify:
 
 ```bash
 uv run --no-sync forge --help
-uv run --no-sync python -c "import forgeharness; print(forgeharness.__version__)"  # 0.13.0
+uv run --no-sync python -c "import forgeharness; print(forgeharness.__version__)"  # 0.14.0
 ```
 
 ## 2. A run in ten lines

@@ -10,4 +10,4 @@ export FORGE_QDRANT_URL=http://127.0.0.1:6333
 echo "Start these in separate terminals:"
 echo "uv run forge serve --port 8001"
 echo "uv run forge serve --port 8002"
-echo "uv run arq forgeharness.worker.WorkerSettings"
+echo "uv run arq forgeharness.server.worker.WorkerSettings"

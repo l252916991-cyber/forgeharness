@@ -47,4 +47,4 @@ gate: check
 	uv run --no-sync --with pip-audit pip-audit -r /tmp/forgeharness-audit-all-requirements.txt --no-deps --disable-pip --ignore-vuln PYSEC-2026-3740
 
 review: check
-	uv run --no-sync python -m forgeharness.review
+	uv run --no-sync python -m forgeharness.evaluation.review

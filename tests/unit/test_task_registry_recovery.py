@@ -374,8 +374,8 @@ async def test_api_startup_recovery_refuses_and_does_not_fail_startup(tmp_path: 
     """
     import httpx
 
-    from forgeharness.api import create_app
     from forgeharness.knowledge.application import KnowledgeSettings
+    from forgeharness.server.api import create_app
 
     root = tmp_path / "root"
     workspace = root / "repo-x"
@@ -411,8 +411,8 @@ async def test_api_startup_recovery_is_off_by_default(tmp_path: Path) -> None:
     """A read-only or test instance must not resume runs unless asked."""
     import httpx
 
-    from forgeharness.api import create_app
     from forgeharness.knowledge.application import KnowledgeSettings
+    from forgeharness.server.api import create_app
 
     root = tmp_path / "root"
     workspace = root / "repo-y"
@@ -441,7 +441,7 @@ async def test_api_startup_recovery_is_off_by_default(tmp_path: Path) -> None:
 
 async def test_startup_recovery_without_a_workspace_root_does_nothing(tmp_path: Path) -> None:
     """With coding disabled there is no root to validate bindings against."""
-    from forgeharness.api import _recover_leftover_tasks
+    from forgeharness.server.api import _recover_leftover_tasks
 
     registry = SQLiteTaskRegistry(tmp_path / "registry.sqlite")
     registry.bind(task_id="task-z", workspace="repo-z")
@@ -458,7 +458,7 @@ async def test_startup_recovery_without_a_workspace_root_does_nothing(tmp_path: 
 
 async def test_startup_recovery_skips_a_binding_that_escapes_the_root(tmp_path: Path) -> None:
     """A tampered binding is reported and skipped; valid tasks still recover."""
-    from forgeharness.api import _recover_leftover_tasks
+    from forgeharness.server.api import _recover_leftover_tasks
 
     root = tmp_path / "root"
     (root / "repo-ok").mkdir(parents=True)

@@ -78,7 +78,7 @@ async def test_arq_worker_retries_failed_jobs_and_allows_later_recovery(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     arq = pytest.importorskip("arq")
-    from forgeharness.worker import WorkerSettings, ingest_document, shutdown, startup
+    from forgeharness.server.worker import WorkerSettings, ingest_document, shutdown, startup
 
     monkeypatch.setenv("FORGE_DATA_DIR", str(tmp_path))
     monkeypatch.setenv("FORGE_ENABLE_OMLX", "false")

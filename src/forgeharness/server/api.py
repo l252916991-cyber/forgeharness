@@ -58,6 +58,7 @@ from forgeharness.observability.hash_chain import (
 )
 from forgeharness.observability.logging import configure_logging, get_logger
 from forgeharness.runtime.loop import AgentRuntime
+from forgeharness.server.web import UI, UI_SCRIPT
 from forgeharness.state.approval import InMemoryApprovalLedger
 from forgeharness.state.checkpoint import SQLiteCheckpointStore
 from forgeharness.state.invocation_journal import SQLiteInvocationJournal
@@ -77,7 +78,6 @@ from forgeharness.tools.dispatcher import ToolDispatcher
 from forgeharness.tools.paths import WorkspacePathError, resolve_workspace_path
 from forgeharness.tools.policy import RiskBasedPolicy
 from forgeharness.tools.registry import ToolRegistry
-from forgeharness.web import UI, UI_SCRIPT
 
 ResourceId = Annotated[str, ApiPath(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$")]
 IdempotencyKey = Annotated[str, Header(alias="Idempotency-Key", min_length=1, max_length=200)]

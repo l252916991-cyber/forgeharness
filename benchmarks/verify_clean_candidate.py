@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ET
 from datetime import UTC, datetime
 from pathlib import Path
 
-from forgeharness.review import CandidateManifest, snapshot_file, snapshot_tree_hash
+from forgeharness.evaluation.review import CandidateManifest, snapshot_file, snapshot_tree_hash
 
 ROOT = Path(__file__).resolve().parents[1]
 

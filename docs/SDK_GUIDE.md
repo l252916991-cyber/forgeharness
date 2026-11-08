@@ -1,6 +1,6 @@
 # ForgeHarness SDK v1 使用说明
 
-适用版本：0.13.0，SDK API v1；Python 3.12。SDK 的本地持久状态是单机 POSIX + SQLite；
+适用版本：0.14.0，SDK API v1；Python 3.12。SDK 的本地持久状态是单机 POSIX + SQLite；
 PostgreSQL 托管执行见 [托管串行执行](guides/CLOUD_HOSTED_EXECUTION.md) 和 [控制面](guides/CLOUD_CONTROL_PLANE.md)。
 
 相关专题：工作流、资料版本、人工业务审核和引用模块见 [BUSINESS_MODULES](guides/BUSINESS_MODULES.md)；

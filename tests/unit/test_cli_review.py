@@ -10,7 +10,12 @@ import pytest
 from typer.testing import CliRunner
 
 from forgeharness.cli import app
-from forgeharness.review import REQUIRED_DOCUMENTS, REQUIRED_EVIDENCE, main, snapshot_tree_hash
+from forgeharness.evaluation.review import (
+    REQUIRED_DOCUMENTS,
+    REQUIRED_EVIDENCE,
+    main,
+    snapshot_tree_hash,
+)
 
 _ANSI = re.compile(r"\x1b\[[0-9;]*m")
 
@@ -340,7 +345,7 @@ def test_review_rejects_false_completion(
 def test_snapshot_detects_inventory_content_and_hash_tampering(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from forgeharness import review
+    from forgeharness.evaluation import review
 
     source = tmp_path / "source.py"
     source.write_text("value = 1\n")

@@ -21,7 +21,7 @@ from benchmarks.comparison.host import CONTENT, CRASH_EXIT, Ledger, digest
 from benchmarks.framework_snapshot import snapshot
 
 ROOT = Path(__file__).resolve().parents[2]
-PROTOCOL = ROOT / "evals/comparison/protocol-sdk0130-r1.json"
+PROTOCOL = ROOT / "evals/comparison/protocol-sdk0140-r1.json"
 
 
 def load_protocol(path: Path = PROTOCOL) -> dict[str, Any]:

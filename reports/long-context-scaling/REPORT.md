@@ -1,8 +1,10 @@
 # 协作在什么时候「赢」：长上下文规模实验
 
 日期：2026-11-08（Asia/Shanghai）。模型：`deepseek-flash`（温度 0，关闭思考，单次输出上限 4096 token）。
-计划书与预注册规则：[PLAN.md](PLAN.md)；脚本：`benchmarks/long_context_scaling.py`；
-题目：`evals/long_context_cases.py`。
+计划书与预注册规则：[PLAN.md](PLAN.md)；脚本：`benchmarks/experiments/long_context.py`；
+题目：`evals/audit_tasks.py`。
+
+> 0.14.0 起，实验脚本整理进 `benchmarks/experiments/`，三套题目生成器合并为 `evals/audit_tasks.py`（生成的题目逐字节不变）。封存协议记录的脚本哈希对应提交 `7f32d0d`；要按封存校验复现，请先 `git checkout 7f32d0d`。
 
 ## 结论
 

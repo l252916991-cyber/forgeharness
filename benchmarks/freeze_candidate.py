@@ -8,7 +8,7 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
-from forgeharness.review import candidate_paths, snapshot_file, snapshot_tree_hash
+from forgeharness.evaluation.review import candidate_paths, snapshot_file, snapshot_tree_hash
 
 
 def main() -> None:

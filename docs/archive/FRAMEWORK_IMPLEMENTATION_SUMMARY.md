@@ -408,7 +408,7 @@ Add section:
 ## Framework Comparison
 
 ForgeHarness includes both native and LangChain/LangGraph implementations.
-See [docs/guides/LANGCHAIN_COMPARISON.md](docs/LANGCHAIN_COMPARISON.md) for details.
+See [docs/guides/LANGCHAIN_COMPARISON.md](../guides/LANGCHAIN_COMPARISON.md) for details.
 
 Quick demos:
 - `uv run forge langchain-rag "Your question"`

@@ -57,14 +57,6 @@ class Reranker(Protocol):
     ) -> tuple[tuple[int, float], ...]: ...
 
 
-class DocumentParser(Protocol):
-    """Validate and split an immutable upload."""
-
-    def parse(
-        self, *, filename: str, data: bytes, mime_type: str | None = None
-    ) -> tuple[Document, tuple[Chunk, ...]]: ...
-
-
 class VectorStore(Protocol):
     """Persist and query one embedding space."""
 

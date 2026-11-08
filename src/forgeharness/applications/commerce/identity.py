@@ -377,15 +377,6 @@ class IdentityStore:
             )
         return workspace_id
 
-    def workspace_status(self, workspace_id: str) -> str:
-        with self._connect() as connection:
-            row = connection.execute(
-                "SELECT status FROM workspaces WHERE id=?", (workspace_id,)
-            ).fetchone()
-        if row is None:
-            raise RegistrationError("unknown workspace")
-        return str(row["status"])
-
     def add_user(
         self,
         *,
@@ -1019,17 +1010,6 @@ class IdentityStore:
             raise ScopeError("session binding is unavailable")
         return str(row["owner_user_id"])
 
-    def close_session(self, *, principal: Principal, session_id: str) -> None:
-        with self._connect() as connection:
-            connection.execute("BEGIN IMMEDIATE")
-            cursor = connection.execute(
-                "UPDATE consultation_sessions SET closed_at=? "
-                "WHERE workspace_id=? AND session_id=? AND owner_user_id=? AND closed_at IS NULL",
-                (_iso(self._now()), principal.workspace_id, session_id, principal.user_id),
-            )
-            if cursor.rowcount != 1:
-                raise ScopeError("session binding is unavailable")
-
     # -- object-level authorization ----------------------------------------------
 
     def require_ticket_read(self, *, principal: Principal, ticket: Mapping[str, object]) -> None:
@@ -1043,9 +1023,6 @@ class IdentityStore:
         if principal.has("ticket:read_scope"):
             return
         raise ScopeError("ticket is unavailable")
-
-    def permissions_of(self, principal: Principal) -> tuple[str, ...]:
-        return tuple(sorted(principal.permissions))
 
     # -- execution binding -------------------------------------------------------
 

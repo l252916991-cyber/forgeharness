@@ -185,7 +185,7 @@ class ComparisonVerification(business.BusinessVerification):
             valid = valid_comparison(
                 result,
                 self.frozen["tree_digest"],
-                digest(work / "evals/comparison/protocol-sdk0130-r1.json"),
+                digest(work / "evals/comparison/protocol-sdk0140-r1.json"),
             )
             self.assert_check(profile + "/comparison-evidence", valid)
             metrics["framework_comparison"] = {

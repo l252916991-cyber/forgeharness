@@ -2,6 +2,8 @@
 
 日期：2026-11-07（Asia/Shanghai）。状态：本计划已按原样封存并执行，结果见同目录 [REPORT.md](REPORT.md)。
 
+> 0.14.0 起，实验脚本整理进 `benchmarks/experiments/`，三套题目生成器合并为 `evals/audit_tasks.py`（生成的题目逐字节不变）。封存协议记录的脚本哈希对应提交 `7f32d0d`；要按封存校验复现，请先 `git checkout 7f32d0d`。
+
 ## 1. 背景
 
 前两轮实验在同一类审计任务上得出：
@@ -32,7 +34,7 @@
 ## 4. 任务与数据
 
 - 同一个审计任务、同一套三条规则、同一个材料生成器。生成器原来只有 40 个服务名，最多生成 40 份；
-  新模块 `evals/long_context_cases.py` 在名字后面加编号来扩充，其余生成逻辑完全复用。
+  新模块 `evals/audit_tasks.py` 在名字后面加编号来扩充，其余生成逻辑完全复用。
 - 规模：N = 32、128、512、1024，约 13k、53k、211k、422k token。
 - 种子：dev 4401（每个规模 1 道题），正式集 5502（每个规模 4 道题）；每道题每个方案只跑一次
   （温度 0，前两轮已经看到两次采样高度相关）。
@@ -116,7 +118,7 @@ coordinator 报告最多 30 条结论。超过 32 份就必须由程序把多个
 
 ## 10. 交付物
 
-- `evals/long_context_cases.py` 与测试；
-- `benchmarks/long_context_scaling.py` 与测试；
+- `evals/audit_tasks.py` 与测试；
+- `benchmarks/experiments/long_context.py` 与测试；
 - 本计划书、封存的 `protocol.json`、dev 和正式集的结果与必要的 trace；
 - `REPORT.md`，以及 README、能力矩阵、协作说明和 CHANGELOG 的更新。

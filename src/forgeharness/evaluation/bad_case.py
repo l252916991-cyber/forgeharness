@@ -578,8 +578,3 @@ def write_bad_case(bad_case: BadCase, path: Path) -> None:
     """Persist one Bad Case as deterministic JSON."""
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(bad_case.model_dump_json(indent=2) + "\n", encoding="utf-8")
-
-
-def load_bad_case(path: Path) -> BadCase:
-    """Read one Bad Case record."""
-    return BadCase.model_validate_json(path.read_text(encoding="utf-8"))

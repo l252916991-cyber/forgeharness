@@ -148,7 +148,7 @@ def _start(
     command = (
         [
             str(executable),
-            "forgeharness.api:create_app",
+            "forgeharness.server.api:create_app",
             "--factory",
             "--host",
             "127.0.0.1",
@@ -156,7 +156,7 @@ def _start(
             port or "",
         ]
         if kind == "uvicorn"
-        else [str(executable), "forgeharness.worker.WorkerSettings"]
+        else [str(executable), "forgeharness.server.worker.WorkerSettings"]
     )
     suffix = f"-{port}" if port else ""
     log_path = cwd / f"{kind}{suffix}.log"

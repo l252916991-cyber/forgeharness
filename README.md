@@ -16,7 +16,7 @@
 
 业务应用建立在这个治理内核之上，由「能力（Capability）」组合而成。同一套内核目前承载了三个参考应用：电商咨询与人工转接、法律资料只读问答、代码修复。
 
-> 当前版本 0.13.0，未发布到 PyPI。业务数据全部是合成数据，没有真实用户或生产部署，详见[边界](#边界)。
+> 当前版本 0.14.0，未发布到 PyPI。业务数据全部是合成数据，没有真实用户或生产部署，详见[边界](#边界)。
 
 ## 解决什么问题
 
@@ -110,9 +110,17 @@ uv sync --extra dev --extra cli --frozen
 | `src/forgeharness/observability` | 哈希链 trace、脱敏、步骤投影 |
 | `src/forgeharness/sdk` | 公开契约：ApplicationSpec、Capability、Harness、Orchestrator、协作、会话、工作流 |
 | `src/forgeharness/cloud` | PostgreSQL 托管执行、租约与 epoch、身份与控制面 API、worker |
+| `src/forgeharness/models` | 模型适配：OpenAI 兼容接口、本地模型、确定性脚本模型；预备请求与缓存计划 |
+| `src/forgeharness/evaluation` | Agent Benchmark、控制评测、Bad Case 记录、发布审查门禁 |
+| `src/forgeharness/knowledge` | 文档解析、检索与资料问答 |
+| `src/forgeharness/server` | 本地 HTTP API、浏览器界面、文档摄取 worker |
+| `src/forgeharness/cli` | `forge` 命令；只装核心依赖时退化为最小启动器 |
 | `src/forgeharness/applications` | 电商、法律参考应用 |
 | `src/forgeharness/coding` | 代码修复参考应用 |
-| `tests/` `evals/` `benchmarks/` | 单元与集成测试、评测集、验证与故障演练脚本 |
+| `tests/` | 单元、集成与浏览器测试 |
+| `evals/` | 评测集与题目生成器（如 `evals/audit_tasks.py`） |
+| `benchmarks/` | 候选冻结与复验、故障演练、框架比较；`benchmarks/experiments/` 是预注册的协作实验 |
+| `reports/` | 实验与候选验证的原始记录，索引见 [reports/README.md](reports/README.md) |
 
 ## 边界
 
@@ -136,6 +144,8 @@ uv sync --extra dev --extra cli --frozen
 | [专题说明](docs/guides/) | 调用日志、持久编排、专家协作、并行、会话、托管执行、控制面等 |
 | [架构决策记录](docs/adr/) | 40 多份 ADR，记录每个关键设计的取舍 |
 | [文档导航](docs/README.md) | 全部文档的分类索引，包括已归档的阶段计划 |
+| [报告索引](reports/README.md) | 实验与候选验证记录，区分当前证据和历史记录 |
+| [参与开发](CONTRIBUTING.md) · [安全策略](SECURITY.md) | 开发环境、命令、约定，以及漏洞报告方式 |
 
 ## License
 

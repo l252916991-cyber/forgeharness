@@ -14,7 +14,6 @@ import httpx
 import typer
 import uvicorn
 
-from forgeharness.api import create_app
 from forgeharness.coding.agent import CodingAgent
 from forgeharness.domain.models import (
     FinalAction,
@@ -37,6 +36,7 @@ from forgeharness.evaluation.control import run_control_evaluation
 from forgeharness.evaluation.omlx import run_omlx_qualification
 from forgeharness.evaluation.performance import run_retrieval_benchmark
 from forgeharness.evaluation.rag import run_rag_evaluation
+from forgeharness.evaluation.review import main as audit_repository
 from forgeharness.evaluation.reviewer import run_reviewer_experiment
 from forgeharness.langchain_impl.cli_commands import (
     register as register_framework_commands,
@@ -50,8 +50,8 @@ from forgeharness.models.scripted import ScriptedModel
 from forgeharness.observability.hash_chain import HashChainedJSONLTrace, verify_trace
 from forgeharness.observability.steps import StepRecord, TraceProjectionError, project_trace_path
 from forgeharness.observability.trace import InMemoryTrace
-from forgeharness.review import main as audit_repository
 from forgeharness.runtime.loop import AgentRuntime
+from forgeharness.server.api import create_app
 from forgeharness.state.approval import InMemoryApprovalLedger
 from forgeharness.state.checkpoint import SQLiteCheckpointStore
 from forgeharness.state.invocation_journal import SQLiteInvocationJournal

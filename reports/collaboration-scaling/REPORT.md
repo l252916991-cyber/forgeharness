@@ -1,7 +1,9 @@
 # 多 Agent 协作值不值得：按材料规模的对照实验
 
 日期：2026-11-07（Asia/Shanghai）。模型：`deepseek-flash`（温度 0，关闭思考，单次输出上限 1024 token）。
-脚本：`benchmarks/collaboration_scaling.py`；题目：`evals/multi_material_cases.py`。
+脚本：`benchmarks/experiments/scaling.py`；题目：`evals/audit_tasks.py`。
+
+> 0.14.0 起，实验脚本整理进 `benchmarks/experiments/`，三套题目生成器合并为 `evals/audit_tasks.py`（生成的题目逐字节不变）。封存协议记录的脚本哈希对应提交 `ef54942`；要按封存校验复现，请先 `git checkout ef54942`。
 
 **结论**：在这个任务上，固定专家协作（team）在任何规模都不值得。按事先封存的判定规则，
 N = 4、8、16、32 全部判为 `team_not_worth_it`。
@@ -134,9 +136,9 @@ ReAct 在 N = 32 失败的 2 次是同一道题（n32-3）：两次采样都漏�
 **复现**（需要自己的 DeepSeek key，放在 `FORGE_API_KEY` 环境变量里；协议文件不可覆盖，复现时要换一个新的协议路径）：
 
 ```bash
-uv run --no-sync python -m benchmarks.collaboration_scaling --split dev --mode live --samples 1 --output reports/collaboration-scaling/<新目录>
-uv run --no-sync python -m benchmarks.collaboration_scaling --seal --dev-report reports/collaboration-scaling/<新目录> --protocol <新协议路径>
-uv run --no-sync python -m benchmarks.collaboration_scaling --split evaluation --mode live --samples 2 --protocol <新协议路径> --output reports/collaboration-scaling/<另一个新目录>
+uv run --no-sync python -m benchmarks.experiments.scaling --split dev --mode live --samples 1 --output reports/collaboration-scaling/<新目录>
+uv run --no-sync python -m benchmarks.experiments.scaling --seal --dev-report reports/collaboration-scaling/<新目录> --protocol <新协议路径>
+uv run --no-sync python -m benchmarks.experiments.scaling --split evaluation --mode live --samples 2 --protocol <新协议路径> --output reports/collaboration-scaling/<另一个新目录>
 ```
 
 不需要 key 的接线检查可以用 `--mode contract`。这个模式用一个总会答对的模型代替真实模型，结果永远不算测量。

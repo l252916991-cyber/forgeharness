@@ -7,6 +7,54 @@ All notable changes to ForgeHarness are documented here. The format follows
 
 ## Unreleased
 
+## 0.14.0 (2026-11-08)
+
+Restructuring release. Breaking import paths are listed first; behaviour of the
+public SDK (`forgeharness.sdk`) and of the `forge` command is unchanged except where
+noted.
+
+### Breaking changes and migration
+
+| Before | Now |
+| --- | --- |
+| `forgeharness.api` | `forgeharness.server.api` |
+| `forgeharness.web` | `forgeharness.server.web` |
+| `forgeharness.worker` (`arq forgeharness.worker.WorkerSettings`) | `forgeharness.server.worker` (`arq forgeharness.server.worker.WorkerSettings`) |
+| `forgeharness.review` (`python -m forgeharness.review`) | `forgeharness.evaluation.review` (`python -m forgeharness.evaluation.review`) |
+| `forgeharness.legacy_cli`; `forgeharness.cli` aliased to it | `forgeharness.cli.commands`; `forgeharness.cli` is a package exporting `app` (entry point unchanged) |
+| `benchmarks.collaboration_scaling`, `benchmarks.collaboration_ablation`, `benchmarks.long_context_scaling`, `benchmarks.provider_guard` | `benchmarks.experiments.{scaling,ablation,long_context,provider_guard}` with shared machinery in `benchmarks.experiments.common` |
+| `evals.multi_material_cases`, `evals.multi_material_ablation_cases`, `evals.long_context_cases` | `evals.audit_tasks` (`cases`, `ablation_cases`, `long_cases`); generated tasks are byte-identical |
+
+Sealed experiment protocols pin their runners by hash; each report names the commit to
+check out for a sealed reproduction.
+
+### Changed
+
+- The three experiment runners share one driver: metering, the provider-side rerun rule,
+  sealing and the command line live in `benchmarks/experiments/common.py`, and every
+  study now stops after HTTP 401/402 through `ProviderGuard`. Grading compares claimed
+  and expected IDs as sets.
+- The comparison protocol is redeclared for 0.14.0 as `protocol-sdk0140-r1.json`;
+  earlier declarations stay immutable.
+
+### Removed
+
+- Unused code: `CommerceIdentityStore.workspace_status`, `close_session` and
+  `permissions_of`; `knowledge.models.EvaluationCase` and `EvaluationResult`;
+  `knowledge.protocols.DocumentParser`; `evaluation.bad_case.load_bad_case`.
+- Legacy large-scale scripts that no gate, test or document used
+  (`run_complete_eval`, `run_real_llm_eval`, `large_scale_evaluation_real`,
+  `llm_code_generator`, `generate_comprehensive_report`) and their third-party sample
+  data under `data/large-scale-tests/`. They remain in git history.
+
+### Added
+
+- `CONTRIBUTING.md`, `SECURITY.md`, `.pre-commit-config.yaml`, `.editorconfig`,
+  Dependabot, a pull-request template, `CODEOWNERS`, and `reports/README.md`, an index
+  separating current evidence from historical records.
+
+### Earlier in this release
+
 - Security: live Agent Benchmark reports and freeze manifests no longer serialize the
   provider API key into `model_parameters`. Earlier reports only ever contained the
   local placeholder `omlx-local`, but a hosted key passed on the command line would

@@ -1,26 +1,38 @@
-"""Deterministic multi-material audit tasks for the collaboration scaling study.
-
-Materials deliberately contain no credential-shaped text: the harness masks such
-text before any model sees it (``CredentialMask``) and refuses kernel requests it
-would change, so a secrets rule could not be audited by any arm.
+"""Deterministic service-configuration audit tasks for the collaboration experiments.
 
 Each task is a set of N independent service configurations audited against three
-rules. Every service violates at most one rule, and every service carries
-near-miss distractors: compliant values at the boundary and a changelog that
-mentions old, violating values. The expected answer lives only in ``Case`` and is
-read by the external grader, never by a prompt.
+rules. Every service violates at most one rule and carries near-miss distractors:
+compliant values at the boundary and a changelog that mentions old, violating values.
+The expected answer lives only in ``Case`` and is read by the external grader, never
+by a prompt.
 
-Synthetic and author-generated: a scaling probe, not a business benchmark.
+Materials deliberately contain no credential-shaped text: the harness masks such text
+before any model sees it (``CredentialMask``) and refuses kernel requests it would
+change, so a secrets rule could not be audited by any arm.
+
+Three task families share one generator, each under its own seeds:
+
+- ``cases(split)``: the scaling study, N = 4..32 (``SIZES``);
+- ``ablation_cases()``: twelve fresh N = 32 tasks for the ablation;
+- ``long_cases(split)``: N = 32..1024 (``LONG_SIZES``) for the long-context study,
+  with the name pool widened by numbered variants.
+
+Synthetic and author-generated: a probe, not a business benchmark.
 """
 
 from __future__ import annotations
 
+import math
 import random
 from dataclasses import dataclass
 
 SIZES = (4, 8, 16, 32)
 _SEEDS = {"dev": 1101, "evaluation": 2202}
 _CASES_PER_SIZE = {"dev": 1, "evaluation": 4}
+ABLATION_SEED, ABLATION_SIZE, ABLATION_CASES = 3303, 32, 12
+LONG_SIZES = (32, 128, 512, 1024)
+_LONG_SEEDS = {"dev": 4401, "evaluation": 5502}
+_LONG_CASES_PER_SIZE = {"dev": 1, "evaluation": 4}
 
 RULES = (
     "You are auditing service configurations against three rules.\n"
@@ -173,11 +185,28 @@ def _service(rng: random.Random, index: int, name: str, violation: str | None) -
     return Service(id=service_id, text="\n".join(lines), violation=violation)
 
 
-def _case(split: str, size: int, number: int) -> Case:
-    rng = random.Random(_SEEDS[split] * 1000 + size * 10 + number)
+def _names(size: int) -> list[str]:
+    """Base names first, then numbered variants (``audit-log-2``), as many as needed."""
+    rounds = math.ceil(size / len(_NAMES))
+    return [name if k == 0 else f"{name}-{k + 1}" for k in range(rounds) for name in _NAMES]
+
+
+def generate(
+    seed: int,
+    split: str,
+    size: int,
+    number: int,
+    *,
+    seed_scale: int = 1000,
+    id_width: int = 2,
+    wide_names: bool = False,
+) -> Case:
+    """One task. The keyword defaults are the scaling study's; the long-context family
+    passes ``seed_scale=10_000, id_width=4, wide_names=True`` (tests pin every family)."""
+    rng = random.Random(seed * seed_scale + size * 10 + number)
     violators = max(1, min(size - 1, round(size * rng.uniform(0.2, 0.4))))
     flagged = set(rng.sample(range(1, size + 1), k=violators))
-    names = rng.sample(_NAMES, k=size)
+    names = rng.sample(_names(size) if wide_names else _NAMES, k=size)
     services = tuple(
         _service(
             rng,
@@ -187,15 +216,39 @@ def _case(split: str, size: int, number: int) -> Case:
         )
         for index in range(1, size + 1)
     )
-    return Case(id=f"{split}-n{size:02d}-{number}", split=split, size=size, services=services)
+    return Case(
+        id=f"{split}-n{size:0{id_width}d}-{number}", split=split, size=size, services=services
+    )
 
 
 def cases(split: str) -> tuple[Case, ...]:
-    """All cases of one split, ordered by size then number."""
+    """The scaling study's split, ordered by size then number."""
     if split not in _SEEDS:
         raise ValueError("split must be 'dev' or 'evaluation'")
     return tuple(
-        _case(split, size, number)
+        generate(_SEEDS[split], split, size, number)
         for size in SIZES
         for number in range(1, _CASES_PER_SIZE[split] + 1)
+    )
+
+
+def ablation_cases() -> tuple[Case, ...]:
+    """Twelve fresh N = 32 tasks; the scaling study's evaluation split suggested the
+    ablation's hypotheses, so it cannot grade them."""
+    return tuple(
+        generate(ABLATION_SEED, "ablation", ABLATION_SIZE, number)
+        for number in range(1, ABLATION_CASES + 1)
+    )
+
+
+def long_cases(split: str) -> tuple[Case, ...]:
+    """The long-context study's split, ordered by size then number."""
+    if split not in _LONG_SEEDS:
+        raise ValueError("split must be 'dev' or 'evaluation'")
+    return tuple(
+        generate(
+            _LONG_SEEDS[split], split, size, number, seed_scale=10_000, id_width=4, wide_names=True
+        )
+        for size in LONG_SIZES
+        for number in range(1, _LONG_CASES_PER_SIZE[split] + 1)
     )
