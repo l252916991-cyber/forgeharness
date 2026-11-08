@@ -47,6 +47,11 @@ All notable changes to ForgeHarness are documented here. The format follows
   pre-registered bar. System-first message order was worse (4/12); findings before summary
   removed every omission (11/12) by moving reasoning into the claim text; two services per
   specialist reached 11/12 at twice the calls (`reports/collaboration-ablation/REPORT.md`).
+- Long-context scaling study (`benchmarks/long_context_scaling.py`, plan and report in
+  `reports/long-context-scaling/`): one call degrades at 512 and 1024 materials (3.4% and
+  4.9% service-level errors at about 211k and 423k tokens); fanning out restores 0.2-0.3%,
+  and plain program fan-out matches fixed-specialist collaboration at a third of the cost.
+  The first evaluation attempt hit HTTP 402 (balance exhausted) and is kept as a record.
 
 ## 0.13.0 engineering candidate (qualification recorded separately; not published)
 
