@@ -81,6 +81,7 @@ uv sync --extra dev --extra cli --frozen
 | `uv run --no-sync python examples/durable_demo.py` | 三个独立进程接力：第一个进程在写操作处挂起等待审批，第二个签发只对这个节点有效的审批，第三个恢复执行写入和测试；再次恢复时直接返回原结果，不重复执行 |
 | `uv run --no-sync python examples/collaboration_demo.py` | 固定专家协作：一个专家的模型响应丢失后进入 `needs_reconciliation`，新进程凭回执对账后继续，不重发请求 |
 | `uv run --no-sync python examples/parallel_demo.py` | 两个专家并发调用模型，其中一个响应丢失，由新进程凭回执恢复 |
+| `uv run --no-sync python examples/fanout_demo.py` | 100 份材料拆成 4 组受治理的运行，程序合并答案；一组被服务商以 402 拒绝，作为失败组连同未检查的材料一起报告 |
 | `uv run --no-sync python examples/sdk_demo.py` | 电商和代码两个应用跑在同一个 Harness 上 |
 | `uv run --no-sync python examples/business_modules_demo.py` | 法律与电商共用的资料版本、独立审核和工作流模块 |
 | `uv run --no-sync forge eval-control` | 无密钥控制评测（7 项） |

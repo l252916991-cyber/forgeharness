@@ -144,6 +144,7 @@ def test_sdist_has_explicit_public_input_allowlist() -> None:
         "examples/durable_demo.py",
         "examples/collaboration_demo.py",
         "examples/parallel_demo.py",
+        "examples/fanout_demo.py",
         "examples/cloud_state_demo.py",
         "examples/cloud_hosted_demo.py",
         "data/synthetic",

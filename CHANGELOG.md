@@ -47,6 +47,15 @@ All notable changes to ForgeHarness are documented here. The format follows
   pre-registered bar. System-first message order was worse (4/12); findings before summary
   removed every omission (11/12) by moving reasoning into the claim text; two services per
   specialist reached 11/12 at twice the calls (`reports/collaboration-ablation/REPORT.md`).
+- A definitive provider refusal (HTTP 4xx except 408 and 429) raises
+  `ModelRequestRejected` (exported from the SDK). R2 collaboration nodes, sequential and
+  parallel, settle it as failed with zero usage, a released reservation and a confirmed
+  capacity slot, instead of `needs_reconciliation`; timeouts, 408, 429 and 5xx are
+  unchanged (ADR 050). The provider's response body is never kept.
+- `benchmarks/provider_guard.py`: new experiment runners stop after HTTP 401/402 instead
+  of sending requests that cannot succeed; finished studies' runners are unchanged.
+- `examples/fanout_demo.py`: the fan-out-and-merge pattern the long-context study
+  recommends, with a refused group reported alongside the materials it left unchecked.
 - Long-context scaling study (`benchmarks/long_context_scaling.py`, plan and report in
   `reports/long-context-scaling/`): one call degrades at 512 and 1024 materials (3.4% and
   4.9% service-level errors at about 211k and 423k tokens); fanning out restores 0.2-0.3%,

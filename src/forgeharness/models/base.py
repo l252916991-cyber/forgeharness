@@ -54,6 +54,37 @@ class ModelProtocolError(RuntimeError):
         )
 
 
+# HTTP 4xx answers that do not prove the request went unprocessed: 408 means the
+# server gave up waiting and 429 is throttling a later attempt may pass. Every
+# other 4xx is a refusal issued before any inference.
+_NON_DEFINITIVE_CLIENT_STATUSES = frozenset({408, 429})
+
+
+def is_definitive_rejection(status_code: int) -> bool:
+    """Whether an HTTP status proves the provider refused the request unprocessed."""
+    return 400 <= status_code < 500 and status_code not in _NON_DEFINITIVE_CLIENT_STATUSES
+
+
+class ModelRequestRejected(RuntimeError):
+    """The provider definitively refused a request before any inference (ADR 050).
+
+    Only raised for statuses ``is_definitive_rejection`` accepts, such as 400,
+    401, 402 or 404: the response itself proves nothing was processed, so nothing
+    was billed and nothing about the call is unknown. Server errors, timeouts,
+    408 and 429 are not this exception; a durable caller treats those as unknown.
+    The provider's response body is never kept: it is untrusted and may echo input.
+    """
+
+    code = "provider_rejected"
+    recoverable = False
+
+    def __init__(self, status_code: int) -> None:
+        if not is_definitive_rejection(status_code):
+            raise ValueError("not a definitive provider rejection status")
+        super().__init__(f"provider rejected the request with HTTP {status_code}")
+        self.status_code = status_code
+
+
 class Model(Protocol):
     """Interface implemented by real providers and deterministic doubles."""
 

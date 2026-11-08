@@ -107,7 +107,7 @@ dev = [
 forge = "forgeharness.cli:app"
 
 [tool.hatch.build.targets.sdist]
-include = ["src/forgeharness", "pyproject.toml", "README.md", "LICENSE", "docs", "examples/sdk_demo.py", "examples/business_modules_demo.py", "examples/session_demo.py", "examples/import_tasks_demo.py", "examples/legal_pilot_demo.py", "examples/commerce_demo.py", "examples/commerce_state.py", "examples/commerce_workbench.py", "examples/workbench_smoke.py", "examples/commerce_readonly_demo.py", "examples/durable_demo.py", "examples/collaboration_demo.py", "examples/parallel_demo.py", "examples/cloud_state_demo.py", "examples/cloud_hosted_demo.py", "data/synthetic"]
+include = ["src/forgeharness", "pyproject.toml", "README.md", "LICENSE", "docs", "examples/sdk_demo.py", "examples/business_modules_demo.py", "examples/session_demo.py", "examples/import_tasks_demo.py", "examples/legal_pilot_demo.py", "examples/commerce_demo.py", "examples/commerce_state.py", "examples/commerce_workbench.py", "examples/workbench_smoke.py", "examples/commerce_readonly_demo.py", "examples/durable_demo.py", "examples/collaboration_demo.py", "examples/parallel_demo.py", "examples/fanout_demo.py", "examples/cloud_state_demo.py", "examples/cloud_hosted_demo.py", "data/synthetic"]
 # Anchor development-only directories: a basename include such as pyproject.toml
 # otherwise also matches the nested, independent comparison project configs.
 exclude = ["/evals", "/benchmarks", "/tests", "/reports", "/.github", "/deploy", "/data/sealed"]

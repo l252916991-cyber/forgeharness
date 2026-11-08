@@ -25,7 +25,7 @@ from forgeharness.context.assembly import ContextAssembler
 from forgeharness.context.compiler import ContextBudgetError
 from forgeharness.context.request_budget import prepare_request
 from forgeharness.domain.models import ModelResult, Usage
-from forgeharness.models.base import Model, ModelProtocolError, ModelRequest
+from forgeharness.models.base import Model, ModelProtocolError, ModelRequest, ModelRequestRejected
 from forgeharness.models.caching import cache_report
 from forgeharness.models.prepared import PreparedModelCall, decide_prepared_model
 from forgeharness.observability.trace import TraceRecorder
@@ -52,7 +52,10 @@ class ModelCallOutcome:
     ``usage`` is the caller's cumulative usage after applying this call's
     accounting, so both orchestration styles charge identical amounts.
     ``violation`` preserves the original exception for callers that feed
-    recoverable violations back to the model.
+    recoverable violations back to the model. ``rejected`` marks a definitive
+    provider refusal (``ModelRequestRejected``): a response arrived and proves the
+    request was never processed, so a durable caller may settle it as a failure
+    with zero usage instead of holding it for reconciliation (ADR 050).
     """
 
     kind: ModelCallKind
@@ -63,6 +66,7 @@ class ModelCallOutcome:
     violation: Exception | None = None
     response_received: bool = False
     not_sent: bool = False
+    rejected: bool = False
 
 
 def usage_payload(usage: object) -> dict[str, int] | None:
@@ -198,12 +202,16 @@ async def dispatch_model_once(
         # recording it keeps the reason machine-readable instead of leaving only
         # a class name and a prose message.
         recoverable = getattr(exc, "recoverable", False) is True
+        rejection = exc if isinstance(exc, ModelRequestRejected) else None
+        rejected = rejection is not None
         trace.append(
             "model.failed",
             {
                 "phase": phase,
                 "error_type": type(exc).__name__,
                 "error_code": getattr(exc, "code", None),
+                # Only a definitive refusal names its status; others keep their shape.
+                **({"status_code": rejection.status_code} if rejection else {}),
                 "received_tool_calls": getattr(exc, "received_tool_calls", None),
                 "recoverable": getattr(exc, "recoverable", None),
                 # A rejected request still consumed tokens; recording them keeps
@@ -220,7 +228,8 @@ async def dispatch_model_once(
                 error=f"model failed: {type(exc).__name__}: {exc}",
                 error_type=type(exc).__name__,
                 violation=exc,
-                response_received=isinstance(exc, ModelProtocolError),
+                response_received=rejected or isinstance(exc, ModelProtocolError),
+                rejected=rejected,
             )
         # The response arrived intact but broke the single-action protocol, so a
         # caller may plausibly let the model fix it. The inference really

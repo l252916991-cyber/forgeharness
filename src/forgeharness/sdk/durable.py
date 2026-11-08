@@ -30,7 +30,7 @@ from forgeharness.domain.models import (
 )
 from forgeharness.models.base import ModelRequest
 from forgeharness.runtime.budget import RunBudget
-from forgeharness.runtime.model_call import ModelCallKind, invoke_model_once
+from forgeharness.runtime.model_call import ModelCallKind, ModelCallOutcome, invoke_model_once
 from forgeharness.runtime.structured import parse_structured_output, validate_output_schema
 from forgeharness.runtime.tool_executor import ToolExecutor
 from forgeharness.runtime.verification import VerificationRequest
@@ -124,6 +124,15 @@ class DurableGraph(FrozenModel):
                 raise ValueError("cyclic graph cannot be rebuilt")
             done.update(ready)
         return self
+
+
+def rejected_output(outcome: ModelCallOutcome) -> tuple[dict[str, Any], str]:
+    """The settled output and reason for a definitive provider refusal (ADR 050)."""
+    status = getattr(outcome.violation, "status_code", None)
+    return (
+        {"error": "provider_rejected", "status_code": status},
+        f"provider rejected the request (HTTP {status})",
+    )
 
 
 def _invalid_structured_output(node: DurableNode, output: dict[str, Any]) -> bool:
@@ -695,7 +704,11 @@ class DurableRunner:
         if outcome.kind in {ModelCallKind.PREPARATION_FAILED, ModelCallKind.CONTEXT_OVERFLOW}:
             self._complete(node, {"error": outcome.kind.value}, Usage(), failed=True)
         elif outcome.kind is ModelCallKind.MODEL_FAILED:
-            raise _Unknown("model response or usage is unknown")
+            if not outcome.rejected:
+                raise _Unknown("model response or usage is unknown")
+            # The provider's answer proves nothing ran and nothing was billed (ADR 050).
+            output, reason = rejected_output(outcome)
+            self._complete(node, output, Usage(), failed=True, reason=reason)
         elif outcome.kind is ModelCallKind.PROTOCOL_VIOLATION:
             if getattr(outcome.violation, "usage", None) is None:
                 raise _Unknown("rejected model usage is unknown")
@@ -718,6 +731,7 @@ class DurableRunner:
         *,
         failed: bool = False,
         accounting: bool = False,
+        reason: str | None = None,
     ) -> None:
         if accounting:
             self._guard_accounting()
@@ -738,7 +752,9 @@ class DurableRunner:
                     "used": usage,
                     "reservation": Usage(),
                     "error": (
-                        "invalid structured model output"
+                        reason
+                        if reason is not None
+                        else "invalid structured model output"
                         if schema_error
                         else "node failed or exceeded declared usage"
                         if failed

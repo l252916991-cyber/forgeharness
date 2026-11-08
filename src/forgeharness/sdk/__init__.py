@@ -59,7 +59,7 @@ from forgeharness.domain.models import (
     ToolEvidence,
     Usage,
 )
-from forgeharness.models.base import Model, ModelRequest
+from forgeharness.models.base import Model, ModelRequest, ModelRequestRejected
 from forgeharness.models.caching import CacheMode, CachePlan, plan_cache, planner_for
 from forgeharness.models.capabilities import ModelCapability
 from forgeharness.models.prepared import PreparedModelCall, PreparingModel
@@ -357,6 +357,7 @@ __all__ = [
     "ModelCapability",
     "ModelDispatcher",
     "ModelRequest",
+    "ModelRequestRejected",
     "ModelResult",
     "ModelUsage",
     "NoopVerifier",

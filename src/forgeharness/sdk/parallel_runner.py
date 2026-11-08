@@ -20,7 +20,7 @@ from forgeharness.runtime.model_call import (
     dispatch_model_once,
     prepare_model_once,
 )
-from forgeharness.sdk.durable import DurableNode, _StopAdmission, _Unknown
+from forgeharness.sdk.durable import DurableNode, _StopAdmission, _Unknown, rejected_output
 from forgeharness.sdk.parallel import CapacityError, CapacityTicket
 from forgeharness.sdk.spec import ScopeError
 from forgeharness.state.checkpoint import CheckpointConflict
@@ -148,7 +148,9 @@ def _settle(
             },
         )
     if known is not None:
-        runner._complete(node, known[0], known[1], failed=known[2], accounting=True)
+        runner._complete(
+            node, known[0], known[1], failed=known[2], accounting=True, reason=known[3]
+        )
     else:
         runner._mark_unknown(
             node, "model response or usage requires reconciliation", accounting=True
@@ -157,14 +159,21 @@ def _settle(
     return runner._progress(node.id).status != "completed"
 
 
-def _known_result(outcome: ModelCallOutcome) -> tuple[dict[str, Any], Usage, bool] | None:
+def _known_result(
+    outcome: ModelCallOutcome,
+) -> tuple[dict[str, Any], Usage, bool, str | None] | None:
     if outcome.not_sent:
-        return {"error": "dispatch_refused"}, Usage(), True
+        return {"error": "dispatch_refused"}, Usage(), True, None
+    if outcome.rejected:
+        # A definitive refusal arrived as a response: nothing ran, nothing billed.
+        output, reason = rejected_output(outcome)
+        return output, Usage(), True, reason
     if outcome.kind is ModelCallKind.SUCCESS and outcome.result is not None:
         return (
             outcome.result.model_dump(mode="json"),
             outcome.usage,
             not isinstance(outcome.result.action, FinalAction),
+            None,
         )
     reported = getattr(outcome.violation, "usage", None)
     if outcome.response_received and isinstance(reported, ModelUsage):
@@ -173,6 +182,7 @@ def _known_result(outcome: ModelCallOutcome) -> tuple[dict[str, Any], Usage, boo
             {"error": "protocol_violation"},
             Usage(steps=1, input_tokens=usage.input_tokens, output_tokens=usage.output_tokens),
             True,
+            None,
         )
     return None
 

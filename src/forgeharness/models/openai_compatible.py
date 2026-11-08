@@ -20,7 +20,7 @@ from forgeharness.domain.models import (
     ToolCall,
 )
 from forgeharness.models.base import ModelProtocolError as SharedModelProtocolError
-from forgeharness.models.base import ModelRequest
+from forgeharness.models.base import ModelRequest, ModelRequestRejected, is_definitive_rejection
 from forgeharness.models.caching import CacheMode, CachePlan, apply_cache_plan, plan_cache
 from forgeharness.models.prepared import (
     PreparedModelCall,
@@ -211,6 +211,8 @@ class OpenAICompatibleModel:
                 # intermediate unbounded body before this response guard runs.
                 follow_redirects=False,
             ) as response:
+                if is_definitive_rejection(response.status_code):
+                    raise ModelRequestRejected(response.status_code)
                 response.raise_for_status()
                 body = await self._read_response(response)
         try:
