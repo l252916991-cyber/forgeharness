@@ -7,6 +7,9 @@ All notable changes to ForgeHarness are documented here. The format follows
 
 ## Unreleased
 
+- Dependabot groups updates into one monthly pull request for Python dependencies and one
+  for GitHub Actions, instead of one pull request per package.
+
 ## 0.14.0 (2026-11-08)
 
 Restructuring release. Breaking import paths are listed first; behaviour of the
