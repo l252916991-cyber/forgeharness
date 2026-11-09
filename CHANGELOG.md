@@ -9,6 +9,18 @@ All notable changes to ForgeHarness are documented here. The format follows
 
 - Dependabot groups updates into one monthly pull request for Python dependencies and one
   for GitHub Actions, instead of one pull request per package.
+- CI runs on pushes to `main` and on pull requests, so a pull request branch is checked once
+  instead of twice.
+- Fixed two timing-dependent tests that failed on a loaded machine:
+  - `tests/browser/workbench_races.cjs` waited a fixed 100 event-loop turns for the page's
+    SHA-256 (which runs on libuv's thread pool); it now waits for the request itself, with a
+    10-second bound. Under 50 parallel copies the old version failed 197/200, the new 0/200.
+  - `test_bound_reads_checkpoint_after_acquiring_run_lock` polled `pg_stat_activity` inside
+    an open transaction, where PostgreSQL returns the first snapshot for the rest of the
+    transaction, so it only passed when the reader was already waiting at the first poll.
+    It now uses the suite's `database_condition` helper, which calls
+    `pg_stat_clear_snapshot()` before each poll. Under CPU load the old version failed 5 of 6
+    runs, the new 0 of 6.
 
 ## 0.14.0 (2026-11-08)
 

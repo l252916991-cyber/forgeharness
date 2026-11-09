@@ -20,7 +20,8 @@ uvx pre-commit install   # 可选：提交前自动格式化和检查
 | `make gate` | 发布前门禁：以上全部 + 无密钥评测、CLI 冒烟、锁文件和依赖漏洞审计 |
 | `make framework-check` | 可选的 LangChain / LangGraph 对照实现 |
 
-CI 在每次推送时运行 `make gate`，并冻结当前源码、在干净副本上完整复验一遍。
+CI 在推送到 `main` 和每个 pull request 上运行 `make gate`，并冻结当前源码、在干净副本上完整复验一遍。
+如果某个 job 在安装工具或依赖的步骤就失败（例如 `Unexpected HTTP response: 504`），那是下载源的临时故障，测试还没有运行，重跑失败的 job 即可。
 
 ## 约定
 

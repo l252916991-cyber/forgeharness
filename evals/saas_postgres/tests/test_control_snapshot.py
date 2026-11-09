@@ -8,24 +8,22 @@ import pytest
 
 from forgeharness.cloud.models import CloudConflict
 
+from .test_call_store import database_condition
 from .test_control_runtime import accepted, controlcase, execution
 
 __all__ = ["controlcase"]
 
 
 async def _wait_for_bound_lock(writer):
-    async with asyncio.timeout(5):
-        for _ in range(500):
-            waiting = await writer.fetchval(
-                "SELECT EXISTS(SELECT 1 FROM pg_stat_activity "
-                "WHERE datname=current_database() AND pid<>pg_backend_pid() "
-                "AND wait_event_type='Lock' AND query LIKE '%FROM fh_cloud.runs r%' "
-                "AND (query LIKE '%FOR SHARE OF r%' OR query LIKE '%FOR UPDATE OF r%'))"
-            )
-            if waiting:
-                return
-            await asyncio.sleep(0.01)
-    raise AssertionError("reader did not wait for the run row lock")
+    # The writer polls inside its open transaction, where pg_stat_activity is a
+    # snapshot; database_condition refreshes it before every observation.
+    await database_condition(
+        writer,
+        "SELECT EXISTS(SELECT 1 FROM pg_stat_activity "
+        "WHERE datname=current_database() AND pid<>pg_backend_pid() "
+        "AND wait_event_type='Lock' AND query LIKE '%FROM fh_cloud.runs r%' "
+        "AND (query LIKE '%FOR SHARE OF r%' OR query LIKE '%FOR UPDATE OF r%'))",
+    )
 
 
 @pytest.mark.parametrize("operation", ["detail", "decide"])

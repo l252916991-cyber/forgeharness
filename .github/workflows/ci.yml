@@ -1,7 +1,9 @@
 name: CI
 
 on:
+  # Branches reach CI through their pull request; pushing to main re-checks the merged result.
   push:
+    branches: [main]
   pull_request:
 
 jobs:

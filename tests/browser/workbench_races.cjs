@@ -7,6 +7,8 @@ const {webcrypto, randomUUID} = require('node:crypto');
 const html = readFileSync(join(__dirname, '../../src/forgeharness/applications/commerce/workbench.html'), 'utf8');
 const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const tick = () => new Promise(resolve => setImmediate(resolve));
+// Poll on the event loop until the page reaches a state; the deadline only bounds a broken page.
+async function until(condition, ms=10000){const end=Date.now()+ms;while(!condition()&&Date.now()<end)await tick();}
 const reply = (data, status=200) => ({status, ok:status<400, json:async()=>data});
 
 function harness({deferInitial=false, deferDigest=false}={}) {
@@ -71,8 +73,8 @@ async function main(){
   {
     const h=harness();await tick();const pending=h.defer('/commerce/consult');
     h.element('query').value='PRIVATE-A';const old=h.submit('consult');
-    // Wait for the real SHA256 operation, without sleeping on wall-clock time.
-    for(let i=0;i<100&&!h.calls.some(c=>c.path==='/commerce/consult');i++)await tick();
+    // The real SHA256 runs on libuv's thread pool, so a fixed tick count races a loaded machine.
+    await until(()=>h.calls.some(c=>c.path==='/commerce/consult'));
     assert(h.calls.some(c=>c.path==='/commerce/consult'));await loginB(h);
     pending.resolve({id:'PRIVATE-A',output:'PRIVATE-A'});await old;
     assert.equal(h.element('turn').value,'');noOldData(h);count++;
