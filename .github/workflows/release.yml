@@ -62,12 +62,12 @@ jobs:
       - name: Stage only the qualified artifacts
         run: uv run --no-sync python -m benchmarks.release_artifacts --candidate-dir reports/release/ci-candidate --output dist
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
           if-no-files-found: error
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: release-qualification
