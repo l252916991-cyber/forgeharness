@@ -39,7 +39,12 @@ from forgeharness.domain.models import (
 )
 from forgeharness.runtime.budget import RunBudget
 from forgeharness.sdk.privacy import CredentialMask, EvidenceTransform
-from forgeharness.tools.base import ToolErrorCode, ToolFailure
+from forgeharness.tools.base import (
+    ToolErrorCode,
+    ToolFailure,
+    bounded_violations,
+    invalid_arguments_failure,
+)
 
 _TERMINAL = {RunStatus.SUCCEEDED, RunStatus.FAILED, RunStatus.CANCELLED, RunStatus.EXHAUSTED}
 _LOGICAL_USAGE = Usage(tool_calls=1)
@@ -84,15 +89,17 @@ def _rejection_matches(call: ToolCall, observation: Message, event: dict[str, An
         and observation.content == unknown.as_observation()
     ):
         return "unknown_tool"
-    invalid = ToolFailure(
-        code=ToolErrorCode.INVALID_ARGUMENTS,
-        message="The arguments do not match the tool's required schema.",
-        recoverable=True,
-        suggestion="Send arguments that satisfy the tool's input schema.",
-    )
+    if event["type"] != "tool.invalid_arguments":
+        return None
+    # Events written before field-level details (ADR 047 addendum, 2026-11-19) carry no
+    # "details" key and rebuild the fixed sentence; an explicit key must be non-empty
+    # and in the bounded shape the runtime emits, so one refusal has one encoding.
+    violations = bounded_violations(payload.get("details", {}))
+    if violations is None or ("details" in payload and not violations):
+        return None
+    invalid = invalid_arguments_failure(violations)
     if (
-        event["type"] == "tool.invalid_arguments"
-        and payload.get("error_code") == invalid.code.value
+        payload.get("error_code") == invalid.code.value
         and payload.get("recoverable") is True
         and observation.content == invalid.as_observation()
     ):

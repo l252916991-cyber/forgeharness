@@ -86,6 +86,7 @@ from forgeharness.sdk.capability import Capability, compose_application
 from forgeharness.sdk.collaboration import (
     AgentFinding,
     AgentReport,
+    AssessedAgentReport,
     Collaboration,
     CollaborationAgent,
     CollaborationEvidence,
@@ -94,6 +95,7 @@ from forgeharness.sdk.collaboration import (
     CollaborationTask,
     CollaborationVerifier,
     DelegationSnapshot,
+    EvidenceAssessment,
     collaboration_graph,
 )
 from forgeharness.sdk.durable import DurableGraph, DurableNode, DurableOrchestrator, ReconciledNode
@@ -284,6 +286,7 @@ __all__ = [
     "ApprovalError",
     "ApprovalGrant",
     "ApprovalLedger",
+    "AssessedAgentReport",
     "AuthorizationRequest",
     "AuthorizedIndex",
     "BackendError",
@@ -322,6 +325,7 @@ __all__ = [
     "DurableGraph",
     "DurableNode",
     "DurableOrchestrator",
+    "EvidenceAssessment",
     "EvidenceTransform",
     "FileBackend",
     "FileConflict",

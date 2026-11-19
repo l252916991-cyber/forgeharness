@@ -7,6 +7,47 @@ All notable changes to ForgeHarness are documented here. The format follows
 
 ## Unreleased
 
+### Added
+
+- Collaboration report schema 2 (ADR 051): `CollaborationPlan.assessment_verdicts` opts a
+  plan into `AssessedAgentReport`, which requires one `{verdict, reason}` per assigned
+  material before findings and the summary. The node schema lists every assigned ID as
+  required and rejects others, so a specialist can no longer drop a material silently.
+  Without the field the compiled graph is byte-identical to 0.14.0 (the hash is pinned in
+  a test). `AssessedAgentReport` and `EvidenceAssessment` are exported from the SDK.
+- Cross-material synthesis study, implemented and not yet run
+  (`reports/cross-material-synthesis/PLAN.md`): `evals/synthesis_tasks.py` adds R4,
+  dependency risk across materials, to the audit task; `benchmarks/experiments/synthesis.py`
+  compares one call, a naive split, model extraction with a program join, and the team with
+  schema 1 and schema 2. The contract run checks the wiring: the naive split loses exactly
+  the 39 at-risk services whose violating upstream sits in another group.
+- `benchmarks/experiments/rules.py`: `relative_effect`, a pre-registered effect rule that
+  scales with the baseline's own errors and reports `insufficient_errors` below a floor, the
+  lesson recorded in the collaboration ablation report.
+
+### Security
+
+- NLTK 3.10.3 (a transitive dependency of the optional `frameworks` extra) gained eleven
+  published advisories after 0.14.0, which failed the all-extras audit in `make gate`.
+  The lockfile moves it to 3.10.4, which fixes them and PYSEC-2026-3740, so the audit now
+  runs without the `--ignore-vuln` exception and FH-019 is closed.
+- The two comparison environments (`evals/comparison/environments/{deepagents,pydantic}`)
+  move `opentelemetry-api` from 1.45.1 to 1.45.2 for CVE-2026-126360; the declared engine
+  versions (deepagents 0.7.25, pydantic-ai-harness 0.59.0) are unchanged.
+
+### Changed
+
+- The hosted PostgreSQL path reports invalid tool arguments with the same field-level
+  details as the local dispatcher (ADR 047 addendum). The details are recorded on the
+  `tool.invalid_arguments` trace event and hosted recovery rebuilds the observation from
+  them, accepting only the bounded shape the runtime emits. Events from 0.14 have no
+  details and still rebuild the fixed sentence. One constructor,
+  `tools.base.invalid_arguments_failure`, now builds the observation on every path.
+- Local knowledge application: general chat, memory proposals and the "no workspace"
+  coding reply now persist a run and a hash-chained trace, as knowledge answers already
+  did, so every response ID resolves through `/v1/runs/{id}` and
+  `/v1/traces/{id}/verify` (part of FH-015).
+
 - Dependabot groups updates into one monthly pull request for Python dependencies and one
   for GitHub Actions, instead of one pull request per package.
 - CI runs on pushes to `main` and on pull requests, so a pull request branch is checked once

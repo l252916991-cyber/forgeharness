@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 import sys
@@ -14,11 +15,14 @@ from examples.collaboration_demo import assignment, demo_plan, demo_report
 from forgeharness.runtime.structured import parse_structured_output, validate_output_schema
 from forgeharness.sdk import (
     Actor,
+    AgentReport,
+    AssessedAgentReport,
     Collaboration,
     CollaborationAgent,
     CollaborationPlan,
     CollaborationVerifier,
     DurableNode,
+    EvidenceAssessment,
     FinalAction,
     ModelRequest,
     ModelResult,
@@ -33,9 +37,10 @@ from forgeharness.sdk import (
     ToolCall,
     Usage,
     VerificationRequest,
+    collaboration_graph,
     verify_trace,
 )
-from forgeharness.sdk.collaboration import _NoToolsPolicy
+from forgeharness.sdk.collaboration import _NoToolsPolicy, report_model
 
 DEMO = Path(__file__).resolve().parents[2] / "examples/collaboration_demo.py"
 
@@ -509,3 +514,133 @@ async def test_credentials_in_definition_rejected_before_model(tmp_path: Path) -
     with pytest.raises(ScopeError, match="credentials"):
         await group.harness.run(context=context(), task=group.plan.goal)
     assert model.requests == []
+
+
+# --- Schema 2: one assessment per assigned material (ADR 051) -----------------
+
+SCHEMA1_DEMO_GRAPH_SHA256 = "9ce998f64f53ddff08482602760ab8a7693e273634c770e359eab9d4fde756e8"
+ASSIGNED = {
+    "logic": ("implementation",),
+    "tests": ("test-contract",),
+    "synthesis": ("implementation", "test-contract"),
+}
+
+
+def assessed_plan(**changes) -> CollaborationPlan:
+    return demo_plan().model_copy(
+        update={"assessment_verdicts": ("violation", "compliant", "insufficient"), **changes}
+    )
+
+
+def assessed_report(task_id: str, **changes) -> dict:
+    report = AssessedAgentReport(
+        task_id=task_id,
+        assessments={
+            key: EvidenceAssessment(verdict="compliant", reason="contract stated")
+            for key in ASSIGNED[task_id]
+        },
+        findings=(),
+        summary="Every assigned material assessed.",
+        unresolved=(),
+    ).model_dump(mode="json")
+    report.update(changes)
+    return report
+
+
+class AssessingModel:
+    def __init__(self, *, broken: dict[str, dict] | None = None) -> None:
+        self.requests: list[ModelRequest] = []
+        self.broken = broken or {}
+
+    async def decide(self, request: ModelRequest) -> ModelResult:
+        self.requests.append(request)
+        task_id = assignment(request)
+        report = assessed_report(task_id, **self.broken.get(task_id, {}))
+        return ModelResult(
+            action=FinalAction(content=json.dumps(report)),
+            usage=ModelUsage(input_tokens=20, output_tokens=10),
+        )
+
+
+def test_schema1_graph_is_unchanged_without_verdicts() -> None:
+    graph = collaboration_graph(demo_plan())
+    assert hashlib.sha256(graph.model_dump_json().encode()).hexdigest() == (
+        SCHEMA1_DEMO_GRAPH_SHA256
+    )
+    assert report_model(demo_plan()) is AgentReport
+    assert "assessments" not in json.dumps(graph.model_dump())
+
+
+def test_schema2_requires_exactly_one_assessment_per_assigned_material() -> None:
+    graph = collaboration_graph(assessed_plan())
+    by_id = {node.id: node for node in graph.nodes}
+    specialist = by_id["specialist.logic"].output_schema
+    coordinator = by_id["coordinator"].output_schema
+    assert specialist["properties"]["assessments"]["required"] == ["implementation"]
+    assert coordinator["properties"]["assessments"]["required"] == [
+        "implementation",
+        "test-contract",
+    ]
+    # The model writes assessments before findings and the summary.
+    order = list(specialist["properties"])
+    assert order.index("assessments") < order.index("findings") < order.index("summary")
+    system = by_id["specialist.logic"].messages[0].content
+    assert "Assess every assigned evidence ID" in system
+    valid = json.dumps(assessed_report("logic"))
+    assert parse_structured_output(valid, specialist)["schema_version"] == 2
+    for change in (
+        {"assessments": {}},
+        {"assessments": {"test-contract": {"verdict": "compliant", "reason": "x"}}},
+        {
+            "assessments": {
+                "implementation": {"verdict": "compliant", "reason": "x"},
+                "test-contract": {"verdict": "compliant", "reason": "x"},
+            }
+        },
+        {"assessments": {"implementation": {"verdict": "maybe", "reason": "x"}}},
+        {"assessments": {"implementation": {"verdict": "compliant", "reason": ""}}},
+        {"assessments": {"implementation": {"verdict": "compliant", "reason": "x", "e": 1}}},
+        {"schema_version": 1},
+    ):
+        with pytest.raises(ValueError):
+            parse_structured_output(json.dumps(assessed_report("logic", **change)), specialist)
+
+
+async def test_schema2_team_runs_and_snapshots_typed_assessments(tmp_path: Path) -> None:
+    model = AssessingModel()
+    group = team(tmp_path, model, plan=assessed_plan())
+    result = await group.harness.run(context=context(), task=group.plan.goal)
+    assert result.status is RunStatus.SUCCEEDED
+    snapshot = group.inspect(context())
+    reports = [node.report for node in snapshot.delegations]
+    assert all(isinstance(report, AssessedAgentReport) for report in reports)
+    assert set(reports[-1].assessments) == {"implementation", "test-contract"}
+    # Assessed materials count as cited evidence for the final verifier.
+    verification = await CollaborationVerifier(assessed_plan()).verify(
+        VerificationRequest(
+            task_id="x",
+            workspace=None,
+            final=FinalAction(content=json.dumps(assessed_report("synthesis"))),
+        )
+    )
+    assert verification.passed
+    assert len(verification.evidence) == 2
+
+
+async def test_schema2_omitted_material_blocks_coordinator(tmp_path: Path) -> None:
+    model = AssessingModel(broken={"tests": {"assessments": {}}})
+    group = team(tmp_path, model, plan=assessed_plan())
+    result = await group.harness.run(context=context(), task=group.plan.goal)
+    assert result.status is RunStatus.FAILED
+    assert "synthesis" not in [assignment(request) for request in model.requests]
+
+
+@pytest.mark.parametrize(
+    "verdicts",
+    [("violation",), ("violation", "violation"), ("Violation", "ok"), ("a b", "c")],
+)
+def test_schema2_verdict_labels_validated(verdicts: tuple[str, ...]) -> None:
+    with pytest.raises(ValidationError):
+        assessed_plan(assessment_verdicts=verdicts).model_validate(
+            assessed_plan(assessment_verdicts=verdicts).model_dump()
+        )

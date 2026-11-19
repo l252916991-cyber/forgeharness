@@ -12,6 +12,9 @@ from pydantic import ValidationError
 
 from forgeharness.domain.models import FrozenModel, ToolCall
 from forgeharness.tools.base import (
+    MAX_SCHEMA_VIOLATIONS,
+    MAX_VIOLATION_DETAIL_CHARS,
+    MAX_VIOLATION_LOCATION_CHARS,
     SchemaSource,
     Tool,
     ToolContext,
@@ -20,6 +23,7 @@ from forgeharness.tools.base import (
     ToolFailure,
     ToolOutput,
     TransientToolError,
+    invalid_arguments_failure,
 )
 from forgeharness.tools.paths import WorkspacePathError
 from forgeharness.tools.registry import ToolRegistry
@@ -157,17 +161,7 @@ class ToolDispatcher:
         """
         return self._failure(
             started,
-            ToolFailure(
-                code=ToolErrorCode.INVALID_ARGUMENTS,
-                message="The arguments do not match the tool's required schema.",
-                recoverable=True,
-                details=violations or {},
-                suggestion=(
-                    "Fix the fields listed in details and send the call again."
-                    if violations
-                    else "Send arguments that satisfy the tool's input schema."
-                ),
-            ),
+            invalid_arguments_failure(violations),
             exception_class=exception_class,
             extra_metadata={"tool": call.name},
         )
@@ -326,8 +320,8 @@ _CONSTRAINT_ONLY_ERRORS = frozenset(
         "too_short",
     }
 )
-_MAX_VIOLATIONS = 5
-_MAX_DETAIL_CHARS = 200
+_MAX_VIOLATIONS = MAX_SCHEMA_VIOLATIONS
+_MAX_DETAIL_CHARS = MAX_VIOLATION_DETAIL_CHARS
 _GENERIC_VIOLATION = "does not satisfy the input schema"
 
 
@@ -355,7 +349,7 @@ def _location(parts: tuple[Any, ...]) -> str:
         rendered += (
             f"[{part}]" if isinstance(part, int) else (f".{part}" if rendered else str(part))
         )
-    return (rendered or "arguments")[:100]
+    return (rendered or "arguments")[:MAX_VIOLATION_LOCATION_CHARS]
 
 
 def _bounded(message: str | None) -> str:

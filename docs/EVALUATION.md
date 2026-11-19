@@ -28,6 +28,17 @@ Every result report includes the visible Git revision and per-case or workload c
 - Full OMLX tool-call and intent pass rate >= 0.90, vision >= 0.85, embedding >= 0.90 and reranker >= 0.80.
 - Reviewer may default on only if answer quality improves by at least 0.05 and median latency is no more than 2x the single-agent path.
 
+## Pre-registered experiment rules
+
+The collaboration studies under `benchmarks/experiments/` seal their decision rule from a
+dev run before the evaluation split is spent. New studies state effects with
+`benchmarks/experiments/rules.relative_effect`: a candidate is better only if the baseline
+has at least a floor of errors (5 by default) and the candidate removes at least a fixed
+share of them (half by default); below the floor on both arms the result is
+`insufficient_errors`, not "no difference". This replaces bars fixed in task counts, which
+the collaboration ablation showed can make an effect impossible to register when the
+baseline happens to fail rarely. Sealed studies keep the rule they were sealed with.
+
 ## Current measured results
 
 - RAG control set: 60 cases, Recall@5 1.000, MRR@10 1.000, citation precision 1.000, unsupported-answer rate 0.000.

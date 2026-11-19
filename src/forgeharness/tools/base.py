@@ -133,6 +133,45 @@ class ToolFailure(FrozenModel):
         return json.dumps({"ok": False, "error": error}, sort_keys=True, separators=(",", ":"))
 
 
+MAX_SCHEMA_VIOLATIONS = 5
+MAX_VIOLATION_LOCATION_CHARS = 100
+MAX_VIOLATION_DETAIL_CHARS = 200
+
+
+def invalid_arguments_failure(violations: dict[str, str] | None = None) -> ToolFailure:
+    """The one invalid-arguments observation shared by every execution path (ADR 047).
+
+    The local dispatcher, the hosted pre-admission check and hosted recovery all
+    build it here, so the bytes a model saw can be rebuilt exactly from the trace.
+    """
+    return ToolFailure(
+        code=ToolErrorCode.INVALID_ARGUMENTS,
+        message="The arguments do not match the tool's required schema.",
+        recoverable=True,
+        details=violations or {},
+        suggestion=(
+            "Fix the fields listed in details and send the call again."
+            if violations
+            else "Send arguments that satisfy the tool's input schema."
+        ),
+    )
+
+
+def bounded_violations(value: object) -> dict[str, str] | None:
+    """Accept recorded violation details only in the shape the harness emits."""
+    if not isinstance(value, dict) or len(value) > MAX_SCHEMA_VIOLATIONS:
+        return None
+    for key, detail in value.items():
+        if not (
+            isinstance(key, str)
+            and isinstance(detail, str)
+            and 0 < len(key) <= MAX_VIOLATION_LOCATION_CHARS
+            and 0 < len(detail) <= MAX_VIOLATION_DETAIL_CHARS
+        ):
+            return None
+    return dict(value)
+
+
 class ExecutionAllowance(FrozenModel):
     """Parent-owned resources a nested tool may consume during this dispatch."""
 

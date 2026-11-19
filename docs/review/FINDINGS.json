@@ -150,10 +150,10 @@
     {
       "id": "FH-019",
       "severity": "medium",
-      "status": "accepted",
+      "status": "closed",
       "title": "Optional framework extra carries an NLTK advisory absent from normal runtime",
       "evidence": "reports/dependency-audit-all-extras.json; reports/dependency-audit-runtime.json",
-      "resolution": "Exclude frameworks from normal setup and CI, avoid affected model-artifact APIs, retain advisory evidence, and re-audit before publishing comparison work."
+      "resolution": "Closed 2026-11-19: uv.lock moves NLTK to 3.10.4, which fixes PYSEC-2026-3740 and eleven later advisories against 3.10.3; the all-extras pip-audit in make gate now runs without an ignore flag. Earlier reports keep the accepted-advisory wording of their time."
     }
   ],
   "candidate_snapshot_sha256": "9572f5ed6deac053fb50291b294d516b3e5523e86ab2a139a4adbe7d73f8ad12"

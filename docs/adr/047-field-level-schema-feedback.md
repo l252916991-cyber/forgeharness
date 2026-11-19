@@ -39,3 +39,20 @@ The model can correct a malformed call in one step instead of guessing. The host
 PostgreSQL path still reports the fixed sentence, because its deterministic refusal
 is reconstructed byte-for-byte during recovery; extending field-level details to it
 needs the same reconstruction and is left for a later change.
+
+## Addendum (2026-11-19): the hosted path
+
+The hosted pre-admission check now reports the same details. All three places that
+build the observation — the local dispatcher, the hosted check in `AgentRuntime` and
+the PostgreSQL logical-rejection reconstruction — call
+`tools.base.invalid_arguments_failure`, so the bytes cannot drift apart.
+
+- The `tool.invalid_arguments` trace event carries `details` when there are any.
+  Details are locations and declared constraints, never values, so the trace stays
+  free of submitted arguments.
+- Reconstruction rebuilds the observation from the recorded details and accepts them
+  only in the shape the runtime emits (at most five entries, non-empty strings within
+  the location and detail bounds). An explicit empty `details` key is refused so one
+  refusal has exactly one encoding.
+- Events written before this change have no `details` key and still rebuild the fixed
+  sentence, so runs started on 0.14 recover unchanged.

@@ -10,6 +10,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError as JSONSchemaValidationError
+from pydantic import ValidationError
 
 from forgeharness.context.assembly import ContextAssembler
 from forgeharness.context.compression import ObservationCompressor, observation_spill_dir
@@ -62,8 +63,9 @@ from forgeharness.tools.base import (
     ToolEffectClass,
     ToolErrorCode,
     ToolFailure,
+    invalid_arguments_failure,
 )
-from forgeharness.tools.dispatcher import DispatchResult, ToolDispatcher
+from forgeharness.tools.dispatcher import DispatchResult, ToolDispatcher, schema_violations
 from forgeharness.tools.policy import PolicyDecisionType, ToolPolicy
 from forgeharness.tools.registry import ToolRegistry
 
@@ -796,6 +798,7 @@ class AgentRuntime:
 
             tool = self._registry.get(action.call.name)
             invalid_arguments = False
+            argument_violations: dict[str, str] = {}
             if self._execution_backend is not None and tool is not None:
                 try:
                     if tool.spec.schema_source is SchemaSource.EXTERNAL_JSON_SCHEMA:
@@ -804,10 +807,12 @@ class AgentRuntime:
                         mode="json"
                     )
                     changed = canonical_json(normalized) != canonical_json(action.call.arguments)
-                except (TypeError, ValueError, JSONSchemaValidationError):
+                except (TypeError, ValueError, JSONSchemaValidationError) as exc:
                     # Evaluate policy before reporting this deterministic refusal,
                     # but never admit malformed input as a physical hosted call.
                     invalid_arguments = True
+                    if isinstance(exc, ValidationError | JSONSchemaValidationError):
+                        argument_violations = schema_violations(exc)
                 else:
                     action = ToolAction(
                         call=ToolCall(
@@ -856,22 +861,20 @@ class AgentRuntime:
                 decision.type is not PolicyDecisionType.DENY
                 or decision.rule == "harness.invalid_arguments"
             ):
-                invalid = ToolFailure(
-                    code=ToolErrorCode.INVALID_ARGUMENTS,
-                    message="The arguments do not match the tool's required schema.",
-                    recoverable=True,
-                    suggestion="Send arguments that satisfy the tool's input schema.",
-                )
+                # Same field-level contract as the local dispatcher (ADR 047). The
+                # details carry locations and declared constraints, never values,
+                # and are recorded so hosted recovery rebuilds the exact bytes.
+                invalid = invalid_arguments_failure(argument_violations)
                 messages.append(self._tool_message(action, invalid.as_observation()))
-                self._trace.append(
-                    "tool.invalid_arguments",
-                    {
-                        "call_id": action.call.id,
-                        "tool": action.call.name,
-                        "error_code": invalid.code.value,
-                        "recoverable": invalid.recoverable,
-                    },
-                )
+                refusal: dict[str, Any] = {
+                    "call_id": action.call.id,
+                    "tool": action.call.name,
+                    "error_code": invalid.code.value,
+                    "recoverable": invalid.recoverable,
+                }
+                if argument_violations:
+                    refusal["details"] = argument_violations
+                self._trace.append("tool.invalid_arguments", refusal)
                 usage = usage.model_copy(update={"tool_calls": usage.tool_calls + 1})
                 checkpoint_revision = await self._save_running(
                     task_id, messages, usage, checkpoint_revision

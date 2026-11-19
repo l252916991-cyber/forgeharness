@@ -83,3 +83,20 @@ or production HA is claimed. Public reports use synthetic/public fixtures.
 
 Only after the required items are resolved should the final audit become
 `passed`. Machine-readable decisions: [FINDINGS.json](FINDINGS.json).
+
+## Re-triage against the current source — 2026-11-19
+
+This section does not re-run the 2026-09-04 audit and does not change
+`FINDINGS.json`, which stays bound to candidate `9617025` until a new frozen audit
+candidate is reviewed. It records where each open finding stands in the source after
+0.14.0, so the open list is not read as current without context.
+
+| Finding | Status in current source | Recommendation |
+| --- | --- | --- |
+| FH-015 | Partly resolved. General chat, memory proposals and the "no workspace" coding reply now persist a run and a hash-chained trace, so every response ID resolves through `/v1/runs/{id}` and `/v1/traces/{id}/verify` (`test_conversation_routes_all_workflows`). Still open: token-budgeted history/knowledge/memory context and durable summaries (chat history is bounded by message count only), and persisted session citation/task state. | Keep open, narrowed to the context and session-state items. |
+| FH-016 | Unchanged. Every evaluation since, including the DeepSeek studies, uses synthetic tasks; the OMLX vision, TTFT and RAG claim-support items were never run. The README boundary already states that no real business quality is claimed. | Owner decision: keep open, or accept with the README boundary as the residual statement, since the enhanced-release plan it came from is archived. |
+| FH-017 | Unchanged for its scope. Hosted execution is PostgreSQL-authoritative since 0.12 with its own frozen candidates (`reports/saas/`), but the local knowledge application still keeps metadata in SQLite and the native full-fault framework comparison is incomplete (`native_full_fault_comparison_complete=false`). | Owner decision, as for FH-016. |
+| FH-018 | Out of the repository's scope: interview materials were moved out of the project in `9617025` and are not a source deliverable. | Owner decision: accept as out of scope for the source audit. |
+
+`forge review` keeps failing on purpose until these decisions are made and a new
+candidate is frozen; that is the completion rule in `AGENTS.md`, not a defect.

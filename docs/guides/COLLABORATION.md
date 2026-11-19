@@ -24,7 +24,8 @@ uv run --no-sync python examples/collaboration_demo.py
   `text_sha256` 由原文计算。摘要证明字节身份，真实性与授权仍由宿主保证。
 - `CollaborationTask`：稳定任务 ID、专家 ID、目标、允许读取和引用的证据 ID。
 - `CollaborationPlan`：版本、模型配置身份、公共目标、专家/证据/任务、协调者。
-- `AgentReport` / `AgentFinding`：任务 ID、摘要、带证据 ID 的发现、未解决问题。
+- `AgentReport` / `AgentFinding`：任务 ID、摘要、带证据 ID 的发现、未解决问题（schema 1，默认）。
+- `AssessedAgentReport` / `EvidenceAssessment`：schema 2，见下文「逐份判定」。
 - `CollaborationSnapshot` / `DelegationSnapshot`：经过授权检查的持久任务树视图。
 
 ```python
@@ -54,6 +55,20 @@ resume 和对账；不能仅比较传入 map 自身，也不能根据模型输�
 专家任务；每个任务对应一个 R2 `specialist.<task_id>` 节点，协调者依赖全部专家。
 所有专家共用注册模型工厂；model_identity 必须绑定真实 provider/config 的受控版本。
 若需要不同模型或自主工具循环，需要后续扩展协议，不能通过角色字符串取得能力。
+
+### 逐份判定（schema 2）
+
+在 `CollaborationPlan` 里设置 `assessment_verdicts`（2–8 个小写标签，例如
+`("violation", "compliant", "insufficient")`），专家和协调者的报告就改用 `AssessedAgentReport`：
+
+- `assessments` 必须对**每一份分配到的材料**给出一个判定（`verdict` 取自上面的标签）和一句理由；
+  漏掉、多出或编造材料 ID 都会在节点边界被 schema 拒绝，节点失败，下游不会读到不完整的报告；
+- 字段顺序是先 `assessments`，再 `findings`、`summary`，系统消息也要求先逐份判定、再下结论；
+- 协调者要对全部材料给出判定；`Collaboration.inspect` 返回带类型的逐份判定。
+
+不设置时行为和 0.14.0 完全一致，编译出的图逐字节不变（测试固定了它的哈希），已有运行可以继续恢复。
+设计与取舍见 [ADR 051](../adr/051-per-material-assessments.md)。它是否提高准确率还没有测过，
+由[跨材料综合实验](../../reports/cross-material-synthesis/PLAN.md)中的 team-s1 / team-s2 对照回答。
 
 ## 治理与失败行为
 
@@ -114,7 +129,8 @@ resume 和对账；不能仅比较传入 map 自身，也不能根据模型输�
 - **一个方案最多 32 份材料。** 材料更多时，必须由程序把多个方案拼起来。
 
 所以对互相独立的大量材料，推荐「程序拆分 + 合并」，可运行的例子见 `examples/fanout_demo.py`；
-协作模块留给需要模型做综合的任务（这一点尚未验证）。
+协作模块留给需要模型做综合的任务（这一点尚未验证）。验证它的实验已经写好计划、题目和脚本，
+等待真实模型运行：[跨材料综合实验计划](../../reports/cross-material-synthesis/PLAN.md)。
 
 服务商明确拒绝的请求（4xx，408 和 429 除外，例如余额不足的 402）会让对应节点直接失败、用量记 0、
 释放预留，不再停在 `needs_reconciliation`；超时、限流和服务端错误仍按结果未知处理，等待核对
