@@ -6,7 +6,8 @@
 当前版本概况：
 
 - **执行内核**：ReAct 与 Plan-Execute 运行时、精确审批、预算、调用日志与对账、checkpoint 恢复、哈希链 trace；
-  每个带工具的请求都会写明「一步一个工具调用」（[ADR 048](adr/048-pinned-protocol-notice.md)），参数格式错误会指出字段和约束（[ADR 047](adr/047-field-level-schema-feedback.md)）。
+  每个带工具的请求都会写明「一步一个工具调用」（[ADR 048](adr/048-pinned-protocol-notice.md)），参数格式错误会指出字段和约束
+  （[ADR 047](adr/047-field-level-schema-feedback.md)；本地调度和 PostgreSQL 托管路径一致，托管恢复按 trace 逐字节重建）。
 - **编排与多 Agent**：R2 持久图、固定专家协作、有界模型并行（见下表）。服务商明确拒绝的请求按失败结算、
   用量记 0，超时和服务端错误仍等待核对（[ADR 050](adr/050-definitive-provider-rejections.md)）；
   大量独立材料推荐「拆分 + 合并」，见 `examples/fanout_demo.py`。
@@ -15,12 +16,13 @@
 - **真实模型评测**：DeepSeek `deepseek-flash` 的基线、失败分析与改进前后对比见 [实测报告](../reports/deepseek-flash/REPORT.md)；
   固定专家协作与单 Agent 的规模对照见 [规模实验](../reports/collaboration-scaling/REPORT.md)，协作在各规模都没有达到事先封存的判定条件；
   材料加到 42 万 token 时，一次调用开始漏报，拆分能恢复准确率，但程序拆分就够了，见 [长上下文实验](../reports/long-context-scaling/REPORT.md)。
+  需要跨材料综合的任务已有预注册计划、题目和脚本，**尚未用真实模型运行**，见 [跨材料综合实验计划](../reports/cross-material-synthesis/PLAN.md)。
   评测数据是合成的，不代表真实业务质量。
 
 | 能力 | 当前实现 | 已有验证定位 | 未证明的范围 |
 |---|---|---|---|
 | PG 托管串行执行 | 现有 AgentRuntime、完整输入/结果/证据、精确审批、预算与epoch恢复 | `cloud/runtime.py`、真实PG/HTTP/独立账本故障矩阵；工程资格见[本次报告](../reports/saas/20261030-hosted/REPORT.md) | 内部可信宿主API；通用身份/UI、集群调度、PG R2/并行/会话、账单与真实云上线未完成 |
-| 固定专家协作 | 已实现：独立材料分配、结构化结果、持久 delegation 节点和协调者；显式支持并发 2 | `sdk/collaboration.py`、`test_collaboration.py`、`test_parallel_execution.py`；新候选工程资格见独立报告；真实模型对照见[规模实验](../reports/collaboration-scaling/REPORT.md)、[消融实验](../reports/collaboration-ablation/REPORT.md)和[长上下文实验](../reports/long-context-scaling/REPORT.md) | 一次决策；一个方案最多 32 份材料；自主循环、写隔离未验证；材料互相独立的审计任务中，32 份以内不如一次调用，512 份以上和程序拆分准确率相当，但成本 3 倍、延迟数十倍；需要跨材料综合的任务未测 |
+| 固定专家协作 | 已实现：独立材料分配、结构化结果、持久 delegation 节点和协调者；显式支持并发 2；可选逐份判定 schema 2（[ADR 051](adr/051-per-material-assessments.md)） | `sdk/collaboration.py`、`test_collaboration.py`、`test_parallel_execution.py`；新候选工程资格见独立报告；真实模型对照见[规模实验](../reports/collaboration-scaling/REPORT.md)、[消融实验](../reports/collaboration-ablation/REPORT.md)和[长上下文实验](../reports/long-context-scaling/REPORT.md) | 一次决策；一个方案最多 32 份材料；自主循环、写隔离未验证；材料互相独立的审计任务中，32 份以内不如一次调用，512 份以上和程序拆分准确率相当，但成本 3 倍、延迟数十倍；需要跨材料综合的任务和 schema 2 的效果尚未用真实模型测量（实验已就绪） |
 | 有界模型并行 | 单 owner/writer；run 上限 1/2、共享 provider 容量、有界轮转队列、工具屏障、持久发送与取消/对账 | `sdk/parallel.py`、`sdk/parallel_runner.py`、`test_parallel_recovery.py`；[本轮报告](../reports/parallel-execution-20261027/REPORT.md) | 单进程/容量域；后端实际提速按同拓扑实验判定；无并行工具/分布式保证 |
 | R2 模型输出 schema | 本地 schema、普通结算和对账共用校验；错误结果保留用量 | `runtime/structured.py`、`test_reconciliation_cannot_bypass_result_schema` | 引用身份不等于语义支持 |
 | ReAct 状态、审批、恢复 | 已实现 | `sdk/harness.py`、`state/approval.py`、`state/invocation_journal.py`；历史候选全量测试 | 外部 exactly-once、跨主机 failover |

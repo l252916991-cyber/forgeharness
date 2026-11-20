@@ -31,9 +31,8 @@ check: lint typecheck test
 # a dependency vulnerability audit. The holdout split is deliberately NOT run
 # here: it is reserved for live-model comparison, because running it on every
 # commit would let its per-case results guide tuning and destroy its purpose.
-# The NLTK advisory (PYSEC-2026-3740) is an accepted residual risk reachable only
-# through the optional LlamaIndex comparison extra; see
-# docs/review/FINDINGS.json FH-019.
+# Both audits run without exceptions: NLTK 3.10.4 fixes PYSEC-2026-3740, the
+# advisory FH-019 used to accept (docs/review/FINDINGS.json).
 gate: check
 	node tests/browser/workbench_races.cjs
 	uv run --no-sync forge eval-control
@@ -44,7 +43,7 @@ gate: check
 	uv export --frozen --no-emit-project --format requirements-txt -o /tmp/forgeharness-audit-requirements.txt
 	uv run --no-sync --with pip-audit pip-audit -r /tmp/forgeharness-audit-requirements.txt --no-deps --disable-pip
 	uv export --frozen --all-extras --no-emit-project --format requirements-txt -o /tmp/forgeharness-audit-all-requirements.txt
-	uv run --no-sync --with pip-audit pip-audit -r /tmp/forgeharness-audit-all-requirements.txt --no-deps --disable-pip --ignore-vuln PYSEC-2026-3740
+	uv run --no-sync --with pip-audit pip-audit -r /tmp/forgeharness-audit-all-requirements.txt --no-deps --disable-pip
 
 review: check
 	uv run --no-sync python -m forgeharness.evaluation.review

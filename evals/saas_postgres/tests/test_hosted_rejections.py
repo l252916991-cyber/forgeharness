@@ -22,7 +22,7 @@ from forgeharness.domain.models import (
 )
 from forgeharness.models.base import ModelRequest
 from forgeharness.runtime.verification import VerificationRequest, VerificationResult
-from forgeharness.tools.base import ToolErrorCode, ToolFailure
+from forgeharness.tools.base import ToolErrorCode, ToolFailure, invalid_arguments_failure
 
 from .execution_fixtures import (
     SyntheticBusinessLedger,
@@ -52,19 +52,21 @@ class RejectedRequest:
     def observation(self) -> Message:
         if self.cause == "policy_denied":
             content = "policy denied tool: synthetic owner revoked"
-        else:
-            unknown = self.cause == "unknown_tool"
+        elif self.cause == "unknown_tool":
             content = ToolFailure(
                 code=ToolErrorCode.INVALID_ARGUMENTS,
-                message="No such tool is registered."
-                if unknown
-                else "The arguments do not match the tool's required schema.",
+                message="No such tool is registered.",
                 recoverable=True,
-                details={"tool": self.tool} if unknown else {},
-                suggestion="Choose one of the available tools."
-                if unknown
-                else "Send arguments that satisfy the tool's input schema.",
+                details={"tool": self.tool},
+                suggestion="Choose one of the available tools.",
             ).as_observation()
+        else:
+            # Field-level details on the hosted path (ADR 047): the location and the
+            # declared constraint, never the submitted value 7.
+            violations = {"record_key": "Input should be a valid string"}
+            if self.tool == "oracle.write":
+                violations["value"] = "Field required"
+            content = invalid_arguments_failure(violations).as_observation()
         return Message(
             role=MessageRole.TOOL,
             tool_call_id=self.call.id,

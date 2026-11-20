@@ -1,5 +1,6 @@
 """The async backend is the sole hosted execution authority, including recovery."""
 
+import json
 from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import Any
@@ -427,13 +428,23 @@ async def test_invalid_hosted_arguments_are_logical_refusals_without_physical_ad
     assert not backend.tools and not backend.approvals and not tool.received
     refused = [event for event in trace.events if event.type == "tool.invalid_arguments"]
     assert len(refused) == 1
+    details = {
+        "text": "Field required",
+        "repetitions": "Input should be a valid integer, unable to parse string as an integer",
+    }
     assert refused[0].payload == {
         "call_id": "call",
         "tool": "echo",
         "error_code": "invalid_arguments",
         "recoverable": True,
+        "details": details,
     }
-    assert "required schema" in (result.messages[2].content or "")
+    # The hosted path names the field and constraint like the local dispatcher
+    # (ADR 047) and never echoes the submitted value.
+    observation = json.loads(result.messages[2].content or "")
+    assert observation["error"]["details"] == details
+    assert "required schema" in observation["error"]["message"]
+    assert "invalid" not in json.dumps(observation["error"]["details"])
 
 
 class StrictExternalEcho(DefaultingEcho):
@@ -467,7 +478,11 @@ async def test_hosted_external_schema_is_checked_before_normalization_or_admissi
     assert result.messages[1].tool_calls == (invalid,)
     assert result.pending_approval is None
     assert not backend.tools and not tool.received
-    assert any(event.type == "tool.invalid_arguments" for event in trace.events)
+    refused = next(event for event in trace.events if event.type == "tool.invalid_arguments")
+    # External JSON Schema failures are described from the keyword, not from the
+    # validator's message, which would quote the rejected text.
+    assert refused.payload["details"] == {"text": "must match pattern ^allowed$"}
+    assert "rejected" not in (result.messages[2].content or "")
     assert not any(event.type == "tool.arguments.normalized" for event in trace.events)
 
 

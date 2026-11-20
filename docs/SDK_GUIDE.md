@@ -144,7 +144,9 @@ trace/checkpoint。
 材料约 21 万 token 以上时，一次调用的错误率升到 3.4%–4.9%，按每组约 1.3 万 token 拆分后降到 0.2%–0.3%；
 程序拆分和固定专家协作准确率相当，但协作的成本是 3.1 倍、延迟是 28 倍
 （[长上下文实验](../reports/long-context-scaling/REPORT.md)）。
-固定专家协作留给需要模型做跨材料综合的任务，这一点尚未经过实验验证。
+固定专家协作留给需要模型做跨材料综合的任务，这一点尚未经过实验验证；对应实验的计划、题目和脚本已就绪，
+见 [跨材料综合实验计划](../reports/cross-material-synthesis/PLAN.md)。需要专家对每份材料都给出判定时，
+在 `CollaborationPlan` 里设置 `assessment_verdicts`（[ADR 051](adr/051-per-material-assessments.md)）。
 
 服务商明确拒绝的请求（例如余额不足的 HTTP 402）会抛出 `ModelRequestRejected`，
 按失败结算、用量记 0；超时、限流和服务端错误仍按结果未知处理（[ADR 050](adr/050-definitive-provider-rejections.md)）。

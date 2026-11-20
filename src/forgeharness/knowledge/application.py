@@ -237,6 +237,7 @@ def build_knowledge_application(
         chat=chat,
         memories=memories,
         coding=coding,
+        runs=runs,
     )
     return KnowledgeApplication(
         store=store,

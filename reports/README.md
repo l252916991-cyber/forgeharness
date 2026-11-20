@@ -16,7 +16,13 @@
 | [long-context-scaling/REPORT.md](long-context-scaling/REPORT.md) | 材料加到 42 万 token：一次调用变差，程序拆分就够（计划书见同目录 `PLAN.md`） |
 | [saas/20261101-control-plane/REPORT.md](saas/20261101-control-plane/REPORT.md) | 0.13.0 控制面候选的工程资格、测试与覆盖率 |
 
-实验脚本在 `benchmarks/experiments/`，题目生成器在 `evals/audit_tasks.py`。每份实验报告都写明了封存协议对应的提交；
+## 已就绪、待运行
+
+| 计划 | 内容 |
+| --- | --- |
+| [cross-material-synthesis/PLAN.md](cross-material-synthesis/PLAN.md) | 需要跨材料综合的任务上，一次调用、程序拆分和专家协作（schema 1 / 2）的对照；脚本和判定规则已写定，等待真实模型运行 |
+
+实验脚本在 `benchmarks/experiments/`，题目生成器在 `evals/audit_tasks.py` 和 `evals/synthesis_tasks.py`。每份实验报告都写明了封存协议对应的提交；
 按封存校验复现时先检出那个提交。
 
 ## 历史记录

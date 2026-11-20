@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import json
 import re
 from collections.abc import Sequence
 from pathlib import Path
@@ -16,6 +17,7 @@ from forgeharness.knowledge.conversation import ModelIntentRouter, RuleIntentRou
 from forgeharness.knowledge.models import Chunk, Intent, JobStatus
 from forgeharness.knowledge.testing import DeterministicChatModel
 from forgeharness.models.omlx import OMLXProtocolError
+from forgeharness.observability.hash_chain import verify_trace
 from forgeharness.server.api import create_app
 
 
@@ -117,6 +119,30 @@ async def test_conversation_routes_all_workflows(tmp_path: Path) -> None:
     assert chat.intent == Intent.GENERAL_CHAT
     assert chat.model == "deterministic-chat"
     assert len(await application.sessions.messages(session.id)) == 8
+    # Every workflow's response ID names a persisted run and a verifiable trace
+    # (FH-015): no response may carry an ID that resolves to nothing.
+    for response, first_event in (
+        (knowledge, "knowledge.request"),
+        (coding, "coding.unavailable"),
+        (memory, "memory.proposed"),
+        (chat, "model.request"),
+    ):
+        assert application.runs.get(response.run_id) == response
+        trace_path = tmp_path / "traces" / f"{response.trace_id}.jsonl"
+        assert verify_trace(trace_path).valid
+        events = [json.loads(line)["event"] for line in trace_path.read_text().splitlines()]
+        assert events[0]["type"] == first_event
+    chat_events = [
+        json.loads(line)["event"]
+        for line in (tmp_path / "traces" / f"{chat.trace_id}.jsonl").read_text().splitlines()
+    ]
+    assert [event["type"] for event in chat_events] == [
+        "model.request",
+        "model.response",
+        "conversation.completed",
+    ]
+    assert "CURRENT:\n你好" in chat_events[0]["payload"]["user"]
+    assert chat_events[1]["payload"]["answer"] == chat.answer
     with pytest.raises(ValueError, match="unknown session"):
         await application.conversations.send(session_id="missing", text="hello")
     with pytest.raises(ValueError, match="must not be empty"):

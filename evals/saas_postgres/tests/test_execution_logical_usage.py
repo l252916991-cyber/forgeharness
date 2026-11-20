@@ -11,7 +11,7 @@ import pytest
 from forgeharness.cloud import execution_state
 from forgeharness.cloud.models import CloudBudgetExceeded, CloudConflict, CloudDenied, StaleLease
 from forgeharness.domain.models import Message, MessageRole, RunStatus, ToolCall, Usage
-from forgeharness.tools.base import ToolErrorCode, ToolFailure
+from forgeharness.tools.base import ToolErrorCode, ToolFailure, invalid_arguments_failure
 
 from .test_execution_calls import active, envelope, physical, request
 from .test_execution_state import prepared
@@ -49,22 +49,20 @@ def rejected(previous, evidence, cause="policy_denied", *, logical_id="denied-1"
             },
         )
     else:
-        failure = ToolFailure(
-            code=ToolErrorCode.INVALID_ARGUMENTS,
-            message="The arguments do not match the tool's required schema.",
-            recoverable=True,
-            suggestion="Send arguments that satisfy the tool's input schema.",
-        )
+        # "invalid_arguments" is the 0.14 encoding (no details key, fixed
+        # sentence); "invalid_arguments_details" is the field-level one (ADR 047).
+        violations = {"text": "must match pattern ^allowed$"} if cause.endswith("details") else {}
+        failure = invalid_arguments_failure(violations)
         content = failure.as_observation()
-        evidence.append(
-            "tool.invalid_arguments",
-            {
-                "call_id": call.id,
-                "tool": call.name,
-                "error_code": failure.code.value,
-                "recoverable": True,
-            },
-        )
+        payload = {
+            "call_id": call.id,
+            "tool": call.name,
+            "error_code": failure.code.value,
+            "recoverable": True,
+        }
+        if violations:
+            payload["details"] = violations
+        evidence.append("tool.invalid_arguments", payload)
     return previous.model_copy(
         update={
             "status": RunStatus.RUNNING,
@@ -85,7 +83,9 @@ def rejected(previous, evidence, cause="policy_denied", *, logical_id="denied-1"
     )
 
 
-@pytest.mark.parametrize("cause", ["policy_denied", "unknown_tool", "invalid_arguments"])
+@pytest.mark.parametrize(
+    "cause", ["policy_denied", "unknown_tool", "invalid_arguments", "invalid_arguments_details"]
+)
 async def test_logical_rejection_consumes_budget_once_without_physical_call_or_receipt(
     pgcase, cause
 ):
@@ -94,7 +94,8 @@ async def test_logical_rejection_consumes_budget_once_without_physical_call_or_r
     saved = await state.save(worker, ticket, candidate, evidence)
     assert saved.usage == Usage(tool_calls=1) and not evidence.pending()
     fact = await pgcase.admin.fetchrow("SELECT * FROM fh_cloud.execution_logical_usage")
-    assert fact["logical_id"] == "denied-1" and fact["cause"] == cause
+    assert fact["logical_id"] == "denied-1"
+    assert fact["cause"] == cause.removesuffix("_details")
     assert fact["checkpoint_revision"] == saved.checkpoint_revision
     assert json.loads(fact["usage"]) == Usage(tool_calls=1).model_dump(mode="json")
     assert await pgcase.admin.fetchval("SELECT COUNT(*) FROM fh_cloud.invocations") == 0
@@ -338,3 +339,48 @@ async def test_lease_expiring_during_settled_result_validation_cannot_commit(pgc
     assert await pgcase.store.events(owner, run.run_id) == before_events
     assert evidence.pending()
     assert await pgcase.admin.fetchval("SELECT COUNT(*) FROM fh_cloud.execution_evidence") == 0
+
+
+@pytest.mark.parametrize(
+    "details",
+    [
+        {},
+        {"text": "must match pattern ^other$"},
+        {"text": ""},
+        {"text": "x" * 201},
+        {f"field{i}": "too many" for i in range(6)},
+        {"text": 7},
+    ],
+)
+async def test_field_level_refusal_must_match_its_recorded_details_exactly(pgcase, details):
+    """A recorded refusal rebuilds only from details in the shape the runtime emits."""
+    state, owner, worker, run, ticket, initial, evidence = await prepared(pgcase)
+    call = ToolCall(id="denied-1", name="synthetic", arguments={"text": "original"})
+    shown = invalid_arguments_failure({"text": "must match pattern ^allowed$"}).as_observation()
+    evidence.append(
+        "tool.invalid_arguments",
+        {
+            "call_id": call.id,
+            "tool": call.name,
+            "error_code": "invalid_arguments",
+            "recoverable": True,
+            "details": details,
+        },
+    )
+    candidate = initial.model_copy(
+        update={
+            "status": RunStatus.RUNNING,
+            "messages": (
+                *initial.messages,
+                Message(role=MessageRole.ASSISTANT, tool_calls=(call,)),
+                Message(
+                    role=MessageRole.TOOL, tool_call_id=call.id, tool_name=call.name, content=shown
+                ),
+            ),
+            "usage": initial.usage.model_copy(update={"tool_calls": initial.usage.tool_calls + 1}),
+        }
+    )
+    with pytest.raises(CloudConflict, match="usage differs"):
+        await state.save(worker, ticket, candidate, evidence)
+    assert await state.load(owner, run.run_id) == initial
+    assert await pgcase.admin.fetchval("SELECT COUNT(*) FROM fh_cloud.execution_logical_usage") == 0

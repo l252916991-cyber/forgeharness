@@ -28,6 +28,6 @@
 ## 其他目录
 
 - [adr/](adr/)：架构决策记录，每个关键设计的背景、取舍和后果。
-- [review/](review/)：审计发现与安全审查记录，`FINDINGS.json` 可被机器检查。
+- [review/](review/)：审计发现与安全审查记录，`FINDINGS.json` 可被机器检查。其中 `AUDIT.md` 和 `FINDINGS.json` 是 2026-09-04 增强候选的审计（结论为暂缓）；四项未关闭发现在 2026-11-19 按当前源码重新评估过，见 `AUDIT.md` 末尾。0.13 以后的工程资格以 [reports/](../reports/README.md) 中的候选报告为准。
 - [migrations/](migrations/)：知识应用的 PostgreSQL 会话表结构。
 - [archive/](archive/)：已完成的阶段计划、执行计划和历史状态记录。它们保留开发过程的原始上下文，内容不一定反映当前实现；当前状态以 [CURRENT_CAPABILITIES.md](CURRENT_CAPABILITIES.md) 为准。
